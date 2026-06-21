@@ -1,0 +1,423 @@
+{
+  "info": {
+    "_postman_id": "a3f1c7e2-9d4b-4f6a-bf21-7c0e8d2a51b9",
+    "name": "DoseSpot API",
+    "description": "DoseSpot API v2 - electronic prescribing (eRx) platform. Patients, prescriptions, medications, pharmacies, prescribers/clinicians, and notifications. Authenticated with an OAuth2 Bearer access token plus a Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths are modeled from DoseSpot's publicly described API v2 surface.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://my.dosespot.com/webapi/v2",
+      "type": "string"
+    },
+    {
+      "key": "bearerToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "subscriptionKey",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Patients",
+      "item": [
+        {
+          "name": "Search patients",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/patients?firstName=&lastName=&dateOfBirth=&pageNumber=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients"],
+              "query": [
+                { "key": "firstName", "value": "" },
+                { "key": "lastName", "value": "" },
+                { "key": "dateOfBirth", "value": "" },
+                { "key": "pageNumber", "value": "1" }
+              ]
+            },
+            "description": "Search for patients within the clinic by name, date of birth, or other demographics."
+          },
+          "response": []
+        },
+        {
+          "name": "Create a patient",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"FirstName\": \"\",\n  \"LastName\": \"\",\n  \"DateOfBirth\": \"\",\n  \"Gender\": \"\",\n  \"Address1\": \"\",\n  \"City\": \"\",\n  \"State\": \"\",\n  \"ZipCode\": \"\",\n  \"PrimaryPhone\": \"\",\n  \"PrimaryPhoneType\": \"\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patients",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients"]
+            },
+            "description": "Create a new patient record with demographics required for prescribing."
+          },
+          "response": []
+        },
+        {
+          "name": "Get a patient",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/patients/:patientId",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients", ":patientId"],
+              "variable": [
+                { "key": "patientId", "value": "", "description": "The ID of the patient to retrieve." }
+              ]
+            },
+            "description": "Retrieve a single patient record by ID."
+          },
+          "response": []
+        },
+        {
+          "name": "Update a patient",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patients/:patientId",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients", ":patientId"],
+              "variable": [
+                { "key": "patientId", "value": "", "description": "The ID of the patient to update." }
+              ]
+            },
+            "description": "Update demographics for an existing patient."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Prescriptions",
+      "item": [
+        {
+          "name": "List a patient's prescriptions",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/patients/:patientId/prescriptions",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients", ":patientId", "prescriptions"],
+              "variable": [
+                { "key": "patientId", "value": "", "description": "The ID of the patient." }
+              ]
+            },
+            "description": "Retrieve prescriptions and their statuses for a patient."
+          },
+          "response": []
+        },
+        {
+          "name": "Create a prescription",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Directions\": \"\",\n  \"Quantity\": \"\",\n  \"DispenseUnitId\": 0,\n  \"Refills\": \"\",\n  \"DaysSupply\": 0,\n  \"PharmacyId\": 0,\n  \"NoSubstitutions\": false,\n  \"Medication\": {\n    \"NDC\": \"\",\n    \"Name\": \"\",\n    \"Strength\": \"\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patients/:patientId/prescriptions",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients", ":patientId", "prescriptions"],
+              "variable": [
+                { "key": "patientId", "value": "", "description": "The ID of the patient." }
+              ]
+            },
+            "description": "Create a new prescription for a patient, ready to be sent to a pharmacy."
+          },
+          "response": []
+        },
+        {
+          "name": "Get a prescription",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/patients/:patientId/prescriptions/:prescriptionId",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients", ":patientId", "prescriptions", ":prescriptionId"],
+              "variable": [
+                { "key": "patientId", "value": "", "description": "The ID of the patient." },
+                { "key": "prescriptionId", "value": "", "description": "The ID of the prescription." }
+              ]
+            },
+            "description": "Retrieve a single prescription and its current status."
+          },
+          "response": []
+        },
+        {
+          "name": "Get aggregated medication history",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/patients/:patientId/medicationHistory",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients", ":patientId", "medicationHistory"],
+              "variable": [
+                { "key": "patientId", "value": "", "description": "The ID of the patient." }
+              ]
+            },
+            "description": "Retrieve aggregated medication history data for a patient from pharmacy and payer sources."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Medications",
+      "item": [
+        {
+          "name": "Search the drug database",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/medications/search?name=&pageNumber=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["medications", "search"],
+              "query": [
+                { "key": "name", "value": "" },
+                { "key": "pageNumber", "value": "1" }
+              ]
+            },
+            "description": "Search the Medi-Span drug database for medications and supplies by name."
+          },
+          "response": []
+        },
+        {
+          "name": "Check drug interactions",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PatientId\": 0,\n  \"MedicationIds\": []\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/medications/interactions",
+              "host": ["{{baseUrl}}"],
+              "path": ["medications", "interactions"]
+            },
+            "description": "Run drug-drug and drug-allergy interaction checks for a set of medications."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pharmacies",
+      "item": [
+        {
+          "name": "Search pharmacies",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/pharmacies/search?name=&city=&state=&zip=&specialty=",
+              "host": ["{{baseUrl}}"],
+              "path": ["pharmacies", "search"],
+              "query": [
+                { "key": "name", "value": "" },
+                { "key": "city", "value": "" },
+                { "key": "state", "value": "" },
+                { "key": "zip", "value": "" },
+                { "key": "specialty", "value": "" }
+              ]
+            },
+            "description": "Search the Surescripts pharmacy directory by name, city, state, ZIP, or specialty."
+          },
+          "response": []
+        },
+        {
+          "name": "List a patient's pharmacies",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/patients/:patientId/pharmacies",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients", ":patientId", "pharmacies"],
+              "variable": [
+                { "key": "patientId", "value": "", "description": "The ID of the patient." }
+              ]
+            },
+            "description": "Retrieve the pharmacies saved to a patient for prescription routing."
+          },
+          "response": []
+        },
+        {
+          "name": "Add a pharmacy to a patient",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PharmacyId\": 0,\n  \"SetAsPrimary\": true\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patients/:patientId/pharmacies",
+              "host": ["{{baseUrl}}"],
+              "path": ["patients", ":patientId", "pharmacies"],
+              "variable": [
+                { "key": "patientId", "value": "", "description": "The ID of the patient." }
+              ]
+            },
+            "description": "Save a pharmacy to a patient's preferred pharmacy list."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Prescribers",
+      "item": [
+        {
+          "name": "Search clinicians",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/clinicians?pageNumber=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["clinicians"],
+              "query": [
+                { "key": "pageNumber", "value": "1" }
+              ]
+            },
+            "description": "Retrieve clinicians (prescribers) and supporting staff in the clinic."
+          },
+          "response": []
+        },
+        {
+          "name": "Create a clinician",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"FirstName\": \"\",\n  \"LastName\": \"\",\n  \"NPINumber\": \"\",\n  \"DEANumber\": \"\",\n  \"Address1\": \"\",\n  \"City\": \"\",\n  \"State\": \"\",\n  \"ZipCode\": \"\",\n  \"PrimaryPhone\": \"\",\n  \"Roles\": []\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/clinicians",
+              "host": ["{{baseUrl}}"],
+              "path": ["clinicians"]
+            },
+            "description": "Create a new clinician (prescriber) within the clinic."
+          },
+          "response": []
+        },
+        {
+          "name": "Get a clinician",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/clinicians/:clinicianId",
+              "host": ["{{baseUrl}}"],
+              "path": ["clinicians", ":clinicianId"],
+              "variable": [
+                { "key": "clinicianId", "value": "", "description": "The ID of the clinician to retrieve." }
+              ]
+            },
+            "description": "Retrieve a single clinician (prescriber) record by ID."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get notification counts",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Subscription-Key", "value": "{{subscriptionKey}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/counts",
+              "host": ["{{baseUrl}}"],
+              "path": ["notifications", "counts"]
+            },
+            "description": "Retrieve the count of pending notifications and actionable items (transmission errors, refill requests, pharmacy responses) for the authenticated clinician."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+aid: dosespot
+name: DoseSpot
+review:
+  question: Does DoseSpot expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. DoseSpot's event delivery is a
+    server-to-client HTTP Push Notification (callback/webhook) mechanism, not a
+    WebSocket or Server-Sent Events stream that the integrator subscribes to as
+    a client. The notification surface is also modeled as a polling REST
+    endpoint (GET /notifications/counts) in the OpenAPI. No documented
+    WebSocket (ws:// or wss://) or client-subscribable SSE channel exists to
+    model, so no AsyncAPI was created.
+findings:
+  summary: |
+    DoseSpot does not publish a documented public WebSocket API. The DoseSpot
+    API v2 is a REST (HTTPS) interface served from
+    https://my.dosespot.com/webapi/v2 (production) and
+    https://my.staging.dosespot.com/webapi/v2 (staging). Real-time updates are
+    delivered via DoseSpot Push Notifications, which the documentation
+    describes as a server-initiated push to reduce the need to poll the API -
+    an HTTP callback/webhook pattern, not a WebSocket transport. No realtime,
+    bidirectional ws:// or wss:// endpoint is documented for patients,
+    prescriptions, pharmacies, clinicians, or notifications.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://my.dosespot.com/webapi/v2
+      documented: true
+    - protocol: Push Notification (HTTP callback / webhook)
+      scheme: https
+      note: Server-initiated push to a customer-provided endpoint to avoid polling. HTTP callback pattern, not WebSocket.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in DoseSpot's public integration material as of the review date.
+  authentication:
+    - scheme: OAuth2 Bearer access token
+      tokenEndpoint: https://my.dosespot.com/webapi/v2/connect/token
+      note: Token obtained using clinic and clinician credentials; sent as Authorization Bearer.
+    - scheme: Subscription-Key header
+      note: Per-application subscription key issued by DoseSpot, sent alongside the bearer token.
+  endpointsModeledRest:
+    - GET  https://my.dosespot.com/webapi/v2/patients
+    - POST https://my.dosespot.com/webapi/v2/patients
+    - GET  https://my.dosespot.com/webapi/v2/patients/{patientId}
+    - POST https://my.dosespot.com/webapi/v2/patients/{patientId}
+    - GET  https://my.dosespot.com/webapi/v2/patients/{patientId}/prescriptions
+    - POST https://my.dosespot.com/webapi/v2/patients/{patientId}/prescriptions
+    - GET  https://my.dosespot.com/webapi/v2/patients/{patientId}/prescriptions/{prescriptionId}
+    - GET  https://my.dosespot.com/webapi/v2/patients/{patientId}/medicationHistory
+    - GET  https://my.dosespot.com/webapi/v2/medications/search
+    - POST https://my.dosespot.com/webapi/v2/medications/interactions
+    - GET  https://my.dosespot.com/webapi/v2/pharmacies/search
+    - GET  https://my.dosespot.com/webapi/v2/patients/{patientId}/pharmacies
+    - POST https://my.dosespot.com/webapi/v2/patients/{patientId}/pharmacies
+    - GET  https://my.dosespot.com/webapi/v2/clinicians
+    - POST https://my.dosespot.com/webapi/v2/clinicians
+    - GET  https://my.dosespot.com/webapi/v2/clinicians/{clinicianId}
+    - GET  https://my.dosespot.com/webapi/v2/notifications/counts
+  reconciliationNotes: |
+    DoseSpot's complete, authoritative endpoint reference, request/response
+    schemas, and pricing are held behind a partner/developer portal and are
+    not publicly published. The endpoint paths and schemas in the OpenAPI are
+    modeled from DoseSpot's publicly described API v2 surface (250+ Full
+    Integration calls, 70+ JumpStart calls), the official v2 transition notes,
+    and third-party integration guides (Medplum, Healthie). Field names and
+    paths should be reconciled against DoseSpot's partner documentation.
+sources:
+  - url: https://dosespot.com/full-integration/
+    type: Documentation
+    note: Full Integration with 250+ API calls; demographics, medications, allergies, prescriptions, refill requests, push notifications.
+  - url: https://dosespot.com/jumpstart/
+    type: Documentation
+    note: JumpStart iFrame/SSO integration with 70+ API calls.
+  - url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+    type: Documentation
+    note: API v2 token endpoint security update, Medi-Span drug database, rate limits returning HTTP 429.
+  - url: https://www.medplum.com/docs/integration/dosespot/getting-started
+    type: Integration
+    note: Confirms v2 base hosts my.dosespot.com/webapi/v2 and my.staging.dosespot.com/webapi/v2 and clinician-id scoping.
+  - url: https://docs.gethealthie.com/reference/2024-10-20/objects/dosespot
+    type: Integration
+    note: Mirrors DoseSpot data model - clinicians, patients, medications, pharmacies, eligibility, notification_count.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists, and the event surface (Push
+    Notifications) is a server-to-client HTTP callback rather than a
+    client-subscribable streaming channel, so no AsyncAPI document was
+    authored. The REST surface is captured in openapi/dosespot-openapi.yml and
+    referenced from apis.yml.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

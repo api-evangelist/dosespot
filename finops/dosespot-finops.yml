@@ -1,0 +1,98 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: DoseSpot
+providerId: dosespot
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- e-Prescribing
+- eRx
+- Healthcare
+- EHR
+- Pharmacy
+- EPCS
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of DoseSpot e-prescribing spend. DoseSpot pricing is sales-led and
+  not publicly listed; commercial terms are negotiated per customer and are
+  commonly structured around the integration model (JumpStart vs. Full
+  Integration), the number of active prescribers/providers, prescription
+  transaction volume, and EPCS (controlled substance) enablement. Because no
+  public rate card exists, the meters below describe the dimensions a customer
+  should expect to track rather than reconciled unit prices.
+notes: >-
+  Confirm the actual billing model, meters, and unit prices with DoseSpot during
+  contracting and reconciliation. Values are structural and not reconciled.
+sources:
+- https://dosespot.com/full-integration/
+- https://dosespot.com/jumpstart/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: DoseSpot
+serviceCategory: Healthcare
+billingModel:
+  pricingCategory: Contract
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: DoseSpot e-Prescribing
+  ServiceCategory: Healthcare
+  ProviderName: DoseSpot
+  PublisherName: DoseSpot
+  InvoiceIssuerName: DoseSpot
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Contract
+meters:
+- name: active_prescribers
+  description: Active clinicians/prescribers enabled in the account; a common contract dimension.
+  unit: providers
+  aggregation: max
+  dimensions:
+  - account
+  - clinic
+- name: prescription_transactions
+  description: Prescriptions created and transmitted (eRx / fax), a common per-transaction dimension.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - clinic
+  - clinician
+- name: epcs_transactions
+  description: Controlled-substance (EPCS) prescriptions, which may carry separate enablement or per-transaction terms.
+  unit: transactions
+  aggregation: sum
+  dimensions:
+  - account
+  - clinician
+- name: platform_fee
+  description: Recurring platform / integration fee per the negotiated agreement.
+  unit: fee
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track active prescribers and prescription transaction volume per clinic against the contract terms.
+- name: Allocation
+  description: Attribute prescriber seats and transaction volume to internal teams, clinics, or product lines.
+- name: Optimization
+  description: Choose JumpStart vs. Full Integration to match build cost and ongoing fees to actual prescribing volume; use Push Notifications to cut wasted API calls.
+- name: Accountability
+  description: Assign an owner for the DoseSpot contract; review prescriber seats and transaction spend monthly against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,85 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: DoseSpot
+providerId: dosespot
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- e-Prescribing
+- eRx
+- Healthcare
+- EHR
+- Pharmacy
+- EPCS
+- Plans
+description: >-
+  DoseSpot pricing is sales-led and not publicly listed. Packaging is organized
+  around integration models - JumpStart (a pre-built iFrame/SSO prescribing UI
+  with access to 70+ API calls) and Full Integration (a fully API-driven build
+  with access to 250+ API calls) - typically combined with per-provider and/or
+  per-transaction commercial terms plus EPCS (controlled substance) enablement.
+  Exact prices, minimums, and metering are negotiated per customer; no published
+  rate card exists, so plan entries below are not reconciled.
+notes: >-
+  Prices are not published. Contact DoseSpot sales for a quote and to confirm
+  the metering model (per provider, per prescription, and/or platform fee) and
+  EPCS pricing. Values here are structural placeholders pending reconciliation.
+sources:
+- https://dosespot.com/full-integration/
+- https://dosespot.com/jumpstart/
+- https://www.dosespot.com
+plans:
+- id: dosespot-jumpstart
+  name: JumpStart Integration
+  type: contract
+  description: >-
+    Pre-built iFrame / SSO prescribing experience embedded into your
+    application, with access to 70+ DoseSpot API calls. Faster time to launch.
+  entries:
+  - label: JumpStart Package
+    name: jumpstart
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: us
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: iFrame / SSO Prescribing UI
+  - name: 70+ API Calls
+  - name: Push Notifications
+  - name: EPCS Certified
+- id: dosespot-full-integration
+  name: Full Integration
+  type: contract
+  description: >-
+    Fully API-driven, white-label e-prescribing build with access to 250+
+    DoseSpot API calls across patients, prescriptions, medications, pharmacies,
+    clinicians, eligibility, and notifications.
+  entries:
+  - label: Full Integration Package
+    name: full_integration
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: month
+    geo: us
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: 250+ API Calls
+  - name: Patients
+  - name: Prescriptions
+  - name: Medications / Drug Search
+  - name: Pharmacies
+  - name: Clinicians / Prescribers
+  - name: Notifications / Webhooks
+  - name: EPCS Certified
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

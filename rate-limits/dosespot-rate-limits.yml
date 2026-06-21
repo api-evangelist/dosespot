@@ -1,0 +1,46 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: DoseSpot
+providerId: dosespot
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- e-Prescribing
+- eRx
+- Healthcare
+- EHR
+- Pharmacy
+- EPCS
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  DoseSpot's API v2 enforces rate limits on its endpoints to safeguard against
+  bursts of incoming traffic and maximize platform stability. When a limit is
+  reached the API returns an HTTP 429 status code. DoseSpot also recommends
+  using Push Notifications instead of polling to reduce request volume. Specific
+  numeric limits are not published and are not reconciled in this artifact.
+notes: >-
+  Confirm specific per-endpoint and per-account limits, windows, and any
+  Retry-After behavior with DoseSpot during integration and reconciliation.
+sources:
+- https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+- https://dosespot.com/full-integration/
+responseCodes:
+  throttled: 429
+limits:
+- name: Endpoint Rate Limit
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: API v2 endpoints enforce reasonable rate limits to protect against traffic bursts; exceeding returns HTTP 429.
+policies:
+- name: Push Notifications Over Polling
+  description: Use DoseSpot Push Notifications to receive events rather than polling endpoints, reducing request volume and the chance of hitting limits.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter on HTTP 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
