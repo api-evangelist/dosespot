@@ -147,6 +147,10 @@ apis:
     (transmission errors, refill requests, pharmacy responses), and subscribe to
     push notifications to avoid polling the API for new events.
 common:
+- type: DomainSecurity
+  url: security/dosespot-domain-security.yml
+- type: Authentication
+  url: authentication/dosespot-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/dosespot
 - type: Website
@@ -159,6 +163,8 @@ common:
   url: rate-limits/dosespot-rate-limits.yml
 - type: FinOps
   url: finops/dosespot-finops.yml
+- type: Blog
+  url: https://dosespot.com/feed/
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
