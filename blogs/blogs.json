@@ -1,0 +1,13 @@
+{
+  "repo": "dosespot",
+  "feeds": [
+    {
+      "source": "https://dosespot.com/feed/",
+      "feed_url": "https://dosespot.com/feed/",
+      "title": "DoseSpot",
+      "saved": 9
+    }
+  ],
+  "fetched": "2026-07-11T11:43:46Z",
+  "post_count": 19
+}
