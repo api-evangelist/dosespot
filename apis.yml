@@ -147,6 +147,8 @@ apis:
     (transmission errors, refill requests, pharmacy responses), and subscribe to
     push notifications to avoid polling the API for new events.
 common:
+- type: AgenticAccess
+  url: agentic-access/dosespot-agentic-access.yml
 - type: DomainSecurity
   url: security/dosespot-domain-security.yml
 - type: Authentication
