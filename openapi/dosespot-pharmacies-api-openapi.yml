@@ -1,0 +1,183 @@
+openapi: 3.0.1
+info:
+  title: DoseSpot Medications Pharmacies API
+  description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.
+  termsOfService: https://dosespot.com/
+  contact:
+    name: DoseSpot Support
+    url: https://dosespot.com/full-integration/
+  version: '2.0'
+servers:
+- url: https://my.dosespot.com/webapi/v2
+  description: Production
+- url: https://my.staging.dosespot.com/webapi/v2
+  description: Staging
+security:
+- bearerAuth: []
+  subscriptionKey: []
+tags:
+- name: Pharmacies
+  description: Surescripts pharmacy search and patient pharmacy management.
+paths:
+  /pharmacies/search:
+    get:
+      operationId: searchPharmacies
+      tags:
+      - Pharmacies
+      summary: Search pharmacies
+      description: Search the Surescripts pharmacy directory by name, city, state, ZIP, or specialty.
+      parameters:
+      - name: name
+        in: query
+        schema:
+          type: string
+      - name: city
+        in: query
+        schema:
+          type: string
+      - name: state
+        in: query
+        schema:
+          type: string
+      - name: zip
+        in: query
+        schema:
+          type: string
+      - name: specialty
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Matching pharmacies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PharmacySearchResult'
+  /patients/{patientId}/pharmacies:
+    get:
+      operationId: getPatientPharmacies
+      tags:
+      - Pharmacies
+      summary: List a patient's pharmacies
+      description: Retrieve the pharmacies saved to a patient for prescription routing.
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The patient's pharmacies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PharmacySearchResult'
+    post:
+      operationId: addPatientPharmacy
+      tags:
+      - Pharmacies
+      summary: Add a pharmacy to a patient
+      description: Save a pharmacy to a patient's preferred pharmacy list.
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPharmacyRequest'
+      responses:
+        '200':
+          description: The result of adding the pharmacy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResult'
+components:
+  schemas:
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    AddPharmacyRequest:
+      type: object
+      properties:
+        PharmacyId:
+          type: integer
+        SetAsPrimary:
+          type: boolean
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+    Pharmacy:
+      type: object
+      properties:
+        PharmacyId:
+          type: integer
+        StoreName:
+          type: string
+        Address1:
+          type: string
+        Address2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryFax:
+          type: string
+        PharmacySpecialties:
+          type: array
+          items:
+            type: string
+    PharmacySearchResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Pharmacy'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'OAuth2 access token obtained from the DoseSpot token endpoint (POST /webapi/v2/connect/token) using your clinic and clinician credentials, sent as an Authorization: Bearer header.'
+    subscriptionKey:
+      type: apiKey
+      in: header
+      name: Subscription-Key
+      description: Per-application subscription key issued by DoseSpot.

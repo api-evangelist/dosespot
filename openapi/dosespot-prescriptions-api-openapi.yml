@@ -1,0 +1,228 @@
+openapi: 3.0.1
+info:
+  title: DoseSpot Medications Prescriptions API
+  description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.
+  termsOfService: https://dosespot.com/
+  contact:
+    name: DoseSpot Support
+    url: https://dosespot.com/full-integration/
+  version: '2.0'
+servers:
+- url: https://my.dosespot.com/webapi/v2
+  description: Production
+- url: https://my.staging.dosespot.com/webapi/v2
+  description: Staging
+security:
+- bearerAuth: []
+  subscriptionKey: []
+tags:
+- name: Prescriptions
+  description: Prescription creation, transmission, status, and medication history.
+paths:
+  /patients/{patientId}/prescriptions:
+    get:
+      operationId: getPatientPrescriptions
+      tags:
+      - Prescriptions
+      summary: List a patient's prescriptions
+      description: Retrieve prescriptions and their statuses for a patient.
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of prescriptions for the patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionListResult'
+    post:
+      operationId: createPatientPrescription
+      tags:
+      - Prescriptions
+      summary: Create a prescription
+      description: Create a new prescription for a patient, ready to be sent to a pharmacy.
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Prescription'
+      responses:
+        '200':
+          description: The created prescription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionResult'
+  /patients/{patientId}/prescriptions/{prescriptionId}:
+    get:
+      operationId: getPatientPrescription
+      tags:
+      - Prescriptions
+      summary: Get a prescription
+      description: Retrieve a single prescription and its current status.
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: prescriptionId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The requested prescription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionResult'
+  /patients/{patientId}/medicationHistory:
+    get:
+      operationId: getMedicationHistory
+      tags:
+      - Prescriptions
+      summary: Get aggregated medication history
+      description: Retrieve aggregated medication history data for a patient from pharmacy and payer sources.
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The patient's medication history.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicationHistoryResult'
+components:
+  schemas:
+    PrescriptionListResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Prescription'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+    Prescription:
+      type: object
+      properties:
+        PrescriptionId:
+          type: integer
+        Status:
+          type: string
+          description: e.g. Entered, Printed, Sending, eRxSent, FaxSent, Error, Deleted, Requested, Edited, EpcsSigned.
+        WrittenDate:
+          type: string
+          format: date-time
+        Directions:
+          type: string
+        Quantity:
+          type: string
+        DispenseUnitId:
+          type: integer
+        Refills:
+          type: string
+        DaysSupply:
+          type: integer
+        PharmacyId:
+          type: integer
+        PharmacyNotes:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        Medication:
+          $ref: '#/components/schemas/Medication'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    PrescriptionResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Item:
+            $ref: '#/components/schemas/Prescription'
+    MedicationHistoryResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Medication'
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+    Medication:
+      type: object
+      properties:
+        NDC:
+          type: string
+        LexiGenProductId:
+          type: integer
+        LexiDrugSynId:
+          type: integer
+        LexiSynonymTypeId:
+          type: integer
+        Name:
+          type: string
+        Strength:
+          type: string
+        GenericProductName:
+          type: string
+        DrugClassification:
+          type: string
+        Schedule:
+          type: string
+          description: DEA schedule for controlled substances.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'OAuth2 access token obtained from the DoseSpot token endpoint (POST /webapi/v2/connect/token) using your clinic and clinician credentials, sent as an Authorization: Bearer header.'
+    subscriptionKey:
+      type: apiKey
+      in: header
+      name: Subscription-Key
+      description: Per-application subscription key issued by DoseSpot.

@@ -1,0 +1,176 @@
+openapi: 3.0.1
+info:
+  title: DoseSpot Medications Prescribers API
+  description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.
+  termsOfService: https://dosespot.com/
+  contact:
+    name: DoseSpot Support
+    url: https://dosespot.com/full-integration/
+  version: '2.0'
+servers:
+- url: https://my.dosespot.com/webapi/v2
+  description: Production
+- url: https://my.staging.dosespot.com/webapi/v2
+  description: Staging
+security:
+- bearerAuth: []
+  subscriptionKey: []
+tags:
+- name: Prescribers
+  description: Clinician (prescriber) and clinic staff management.
+paths:
+  /clinicians:
+    get:
+      operationId: searchClinicians
+      tags:
+      - Prescribers
+      summary: Search clinicians
+      description: Retrieve clinicians (prescribers) and supporting staff in the clinic.
+      parameters:
+      - name: pageNumber
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of clinicians.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianListResult'
+    post:
+      operationId: createClinician
+      tags:
+      - Prescribers
+      summary: Create a clinician
+      description: Create a new clinician (prescriber) within the clinic.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Clinician'
+      responses:
+        '200':
+          description: The created clinician.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianResult'
+  /clinicians/{clinicianId}:
+    get:
+      operationId: getClinician
+      tags:
+      - Prescribers
+      summary: Get a clinician
+      description: Retrieve a single clinician (prescriber) record by ID.
+      parameters:
+      - name: clinicianId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The requested clinician.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianResult'
+components:
+  schemas:
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    Clinician:
+      type: object
+      properties:
+        ClinicianId:
+          type: integer
+        Prefix:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        LastName:
+          type: string
+        Suffix:
+          type: string
+        DateOfBirth:
+          type: string
+          format: date
+        Email:
+          type: string
+        NPINumber:
+          type: string
+        DEANumber:
+          type: string
+        Address1:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryFax:
+          type: string
+        Roles:
+          type: array
+          items:
+            type: string
+    ClinicianResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Item:
+            $ref: '#/components/schemas/Clinician'
+    ClinicianListResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Clinician'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'OAuth2 access token obtained from the DoseSpot token endpoint (POST /webapi/v2/connect/token) using your clinic and clinician credentials, sent as an Authorization: Bearer header.'
+    subscriptionKey:
+      type: apiKey
+      in: header
+      name: Subscription-Key
+      description: Per-application subscription key issued by DoseSpot.

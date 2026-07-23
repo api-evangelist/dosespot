@@ -1,0 +1,215 @@
+openapi: 3.0.1
+info:
+  title: DoseSpot Medications Patients API
+  description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.
+  termsOfService: https://dosespot.com/
+  contact:
+    name: DoseSpot Support
+    url: https://dosespot.com/full-integration/
+  version: '2.0'
+servers:
+- url: https://my.dosespot.com/webapi/v2
+  description: Production
+- url: https://my.staging.dosespot.com/webapi/v2
+  description: Staging
+security:
+- bearerAuth: []
+  subscriptionKey: []
+tags:
+- name: Patients
+  description: Patient demographics, allergies, and self-reported medications.
+paths:
+  /patients:
+    get:
+      operationId: searchPatients
+      tags:
+      - Patients
+      summary: Search patients
+      description: Search for patients within the clinic by name, date of birth, or other demographics.
+      parameters:
+      - name: firstName
+        in: query
+        schema:
+          type: string
+      - name: lastName
+        in: query
+        schema:
+          type: string
+      - name: dateOfBirth
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: pageNumber
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A paged list of patients.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientListResult'
+    post:
+      operationId: createPatient
+      tags:
+      - Patients
+      summary: Create a patient
+      description: Create a new patient record with demographics required for prescribing.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '200':
+          description: The created patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientResult'
+  /patients/{patientId}:
+    get:
+      operationId: getPatient
+      tags:
+      - Patients
+      summary: Get a patient
+      description: Retrieve a single patient record by ID.
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The requested patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientResult'
+    post:
+      operationId: updatePatient
+      tags:
+      - Patients
+      summary: Update a patient
+      description: Update demographics for an existing patient.
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '200':
+          description: The updated patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientResult'
+components:
+  schemas:
+    Patient:
+      type: object
+      properties:
+        PatientId:
+          type: integer
+        Prefix:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        LastName:
+          type: string
+        Suffix:
+          type: string
+        DateOfBirth:
+          type: string
+          format: date
+        Gender:
+          type: string
+          description: Male, Female, or Unknown.
+        Email:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryPhoneType:
+          type: string
+        Address1:
+          type: string
+        Address2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        Active:
+          type: boolean
+        NonDoseSpotMedicalRecordNumber:
+          type: string
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    PatientResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Item:
+            $ref: '#/components/schemas/Patient'
+    PatientListResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Patient'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'OAuth2 access token obtained from the DoseSpot token endpoint (POST /webapi/v2/connect/token) using your clinic and clinician credentials, sent as an Authorization: Bearer header.'
+    subscriptionKey:
+      type: apiKey
+      in: header
+      name: Subscription-Key
+      description: Per-application subscription key issued by DoseSpot.

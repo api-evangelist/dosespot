@@ -1,0 +1,76 @@
+openapi: 3.0.1
+info:
+  title: DoseSpot Medications Notifications API
+  description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.
+  termsOfService: https://dosespot.com/
+  contact:
+    name: DoseSpot Support
+    url: https://dosespot.com/full-integration/
+  version: '2.0'
+servers:
+- url: https://my.dosespot.com/webapi/v2
+  description: Production
+- url: https://my.staging.dosespot.com/webapi/v2
+  description: Staging
+security:
+- bearerAuth: []
+  subscriptionKey: []
+tags:
+- name: Notifications
+  description: Clinician notification counts and actionable items.
+paths:
+  /notifications/counts:
+    get:
+      operationId: getNotificationCounts
+      tags:
+      - Notifications
+      summary: Get notification counts
+      description: Retrieve the count of pending notifications and actionable items (transmission errors, refill requests, pharmacy responses) for the authenticated clinician.
+      responses:
+        '200':
+          description: Notification counts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationCountResult'
+components:
+  schemas:
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    NotificationCountResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          PendingPrescriptionsCount:
+            type: integer
+          TransmissionErrorsCount:
+            type: integer
+          RefillRequestsCount:
+            type: integer
+          PharmacyResponsesCount:
+            type: integer
+          TotalNotificationCount:
+            type: integer
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'OAuth2 access token obtained from the DoseSpot token endpoint (POST /webapi/v2/connect/token) using your clinic and clinician credentials, sent as an Authorization: Bearer header.'
+    subscriptionKey:
+      type: apiKey
+      in: header
+      name: Subscription-Key
+      description: Per-application subscription key issued by DoseSpot.
