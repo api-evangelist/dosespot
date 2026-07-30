@@ -8,7 +8,20 @@ description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribin
   drug search, pharmacy selection, e-prescribing, medication history, eligibility,
   and push notifications - using OAuth2 Bearer tokens scoped by clinic and clinician
   keys.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/dosespot.png
 tags:
 - e-Prescribing
 - eRx
@@ -20,132 +33,114 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.19'
 apis:
-- aid: dosespot:dosespot-patients-api
-  name: DoseSpot Patients API
-  tags:
-  - Patients
-  - Demographics
-  - Healthcare
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://dosespot.com/full-integration/
-  baseURL: https://my.dosespot.com/webapi/v2
-  properties:
-  - url: https://dosespot.com/full-integration/
-    type: Documentation
-  - url: openapi/dosespot-openapi.yml
-    type: OpenAPI
-  - url: collections/dosespot.postman_collection.json
-    type: PostmanCollection
-  - url: collections/dosespot.opencollection.json
-    type: OpenCollection
-  description: Create, retrieve, update, and search patients, including demographics,
-    self-reported allergies, and self-reported medications used as the subject of
-    a prescription.
-- aid: dosespot:dosespot-prescriptions-api
-  name: DoseSpot Prescriptions API
-  tags:
-  - Prescriptions
-  - eRx
-  - EPCS
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://dosespot.com/full-integration/
-  baseURL: https://my.dosespot.com/webapi/v2
-  properties:
-  - url: https://dosespot.com/full-integration/
-    type: Documentation
-  - url: openapi/dosespot-openapi.yml
-    type: OpenAPI
-  - url: collections/dosespot.postman_collection.json
-    type: PostmanCollection
-  - url: collections/dosespot.opencollection.json
-    type: OpenCollection
-  description: Create, send, and track prescriptions for a patient across the
-    prescription lifecycle, retrieve prescription status, and access aggregated
-    medication history and pending renewal/refill requests.
 - aid: dosespot:dosespot-medications-api
   name: DoseSpot Medications API
+  description: Medi-Span drug search and interaction checks.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
   tags:
   - Medications
-  - Drug Search
-  - Allergies
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
-  baseURL: https://my.dosespot.com/webapi/v2
   properties:
-  - url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
-    type: Documentation
-  - url: openapi/dosespot-openapi.yml
-    type: OpenAPI
-  - url: collections/dosespot.postman_collection.json
-    type: PostmanCollection
-  - url: collections/dosespot.opencollection.json
-    type: OpenCollection
-  description: Search the Medi-Span drug database for medications and supplies,
-    retrieve drug details and strengths, and run drug-drug and drug-allergy
-    interaction checks.
-- aid: dosespot:dosespot-pharmacies-api
-  name: DoseSpot Pharmacies API
-  tags:
-  - Pharmacies
-  - Surescripts
-  - Routing
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://dosespot.com/full-integration/
-  baseURL: https://my.dosespot.com/webapi/v2
-  properties:
-  - url: https://dosespot.com/full-integration/
-    type: Documentation
-  - url: openapi/dosespot-openapi.yml
-    type: OpenAPI
-  - url: collections/dosespot.postman_collection.json
-    type: PostmanCollection
-  - url: collections/dosespot.opencollection.json
-    type: OpenCollection
-  description: Search the Surescripts pharmacy directory by name, location, and
-    specialty, and manage a patient's preferred pharmacies for prescription
-    routing.
-- aid: dosespot:dosespot-prescribers-api
-  name: DoseSpot Prescribers API
-  tags:
-  - Prescribers
-  - Clinicians
-  - Providers
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://dosespot.com/full-integration/
-  baseURL: https://my.dosespot.com/webapi/v2
-  properties:
-  - url: https://dosespot.com/full-integration/
-    type: Documentation
-  - url: openapi/dosespot-openapi.yml
-    type: OpenAPI
-  - url: collections/dosespot.postman_collection.json
-    type: PostmanCollection
-  - url: collections/dosespot.opencollection.json
-    type: OpenCollection
-  description: Create and manage clinicians (prescribers) and supporting staff
-    within a clinic, retrieve clinician records, and configure the prescribing
-    identities used to send eRx and EPCS transactions.
+  - type: OpenAPI
+    url: openapi/dosespot-medications-api-openapi.yml
+  - type: Documentation
+    url: https://dosespot.com/full-integration/
+  - type: PostmanCollection
+    url: collections/dosespot.postman_collection.json
+  - type: OpenCollection
+    url: collections/dosespot.opencollection.json
+  - type: Documentation
+    url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
 - aid: dosespot:dosespot-notifications-api
   name: DoseSpot Notifications API
-  tags:
-  - Notifications
-  - Webhooks
-  - Push
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  description: Clinician notification counts and actionable items.
   humanURL: https://dosespot.com/full-integration/
   baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Notifications
   properties:
-  - url: https://dosespot.com/full-integration/
-    type: Documentation
-  - url: openapi/dosespot-openapi.yml
-    type: OpenAPI
-  - url: collections/dosespot.postman_collection.json
-    type: PostmanCollection
-  - url: collections/dosespot.opencollection.json
-    type: OpenCollection
-  description: Retrieve clinician notification counts and actionable items
-    (transmission errors, refill requests, pharmacy responses), and subscribe to
-    push notifications to avoid polling the API for new events.
+  - type: OpenAPI
+    url: openapi/dosespot-notifications-api-openapi.yml
+  - type: Documentation
+    url: https://dosespot.com/full-integration/
+  - type: PostmanCollection
+    url: collections/dosespot.postman_collection.json
+  - type: OpenCollection
+    url: collections/dosespot.opencollection.json
+  - type: Documentation
+    url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+- aid: dosespot:dosespot-patients-api
+  name: DoseSpot Patients API
+  description: Patient demographics, allergies, and self-reported medications.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Patients
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-patients-api-openapi.yml
+  - type: Documentation
+    url: https://dosespot.com/full-integration/
+  - type: PostmanCollection
+    url: collections/dosespot.postman_collection.json
+  - type: OpenCollection
+    url: collections/dosespot.opencollection.json
+  - type: Documentation
+    url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+- aid: dosespot:dosespot-pharmacies-api
+  name: DoseSpot Pharmacies API
+  description: Surescripts pharmacy search and patient pharmacy management.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Pharmacies
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-pharmacies-api-openapi.yml
+  - type: Documentation
+    url: https://dosespot.com/full-integration/
+  - type: PostmanCollection
+    url: collections/dosespot.postman_collection.json
+  - type: OpenCollection
+    url: collections/dosespot.opencollection.json
+  - type: Documentation
+    url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+- aid: dosespot:dosespot-prescribers-api
+  name: DoseSpot Prescribers API
+  description: Clinician (prescriber) and clinic staff management.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Prescribers
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-prescribers-api-openapi.yml
+  - type: Documentation
+    url: https://dosespot.com/full-integration/
+  - type: PostmanCollection
+    url: collections/dosespot.postman_collection.json
+  - type: OpenCollection
+    url: collections/dosespot.opencollection.json
+  - type: Documentation
+    url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+- aid: dosespot:dosespot-prescriptions-api
+  name: DoseSpot Prescriptions API
+  description: Prescription creation, transmission, status, and medication history.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Prescriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-prescriptions-api-openapi.yml
+  - type: Documentation
+    url: https://dosespot.com/full-integration/
+  - type: PostmanCollection
+    url: collections/dosespot.postman_collection.json
+  - type: OpenCollection
+    url: collections/dosespot.opencollection.json
+  - type: Documentation
+    url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
 common:
 - type: AgenticAccess
   url: agentic-access/dosespot-agentic-access.yml
