@@ -1,0 +1,24 @@
+{
+  "provider": "dosespot",
+  "sources": [
+    "dosespot-medications-api-openapi.yml",
+    "dosespot-notifications-api-openapi.yml",
+    "dosespot-patients-api-openapi.yml",
+    "dosespot-pharmacies-api-openapi.yml",
+    "dosespot-prescribers-api-openapi.yml",
+    "dosespot-prescriptions-api-openapi.yml"
+  ],
+  "outputs": [
+    "dosespot-medications-api-openapi.yml",
+    "dosespot-notifications-api-openapi.yml",
+    "dosespot-patients-api-openapi.yml",
+    "dosespot-pharmacies-api-openapi.yml",
+    "dosespot-prescribers-api-openapi.yml",
+    "dosespot-prescriptions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,755 @@
+openapi: 3.0.1
+info:
+  title: DoseSpot API
+  description: >-
+    DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx)
+    platform. The REST API (v2) lets healthcare and EHR/EMR applications embed
+    the full prescription lifecycle - patients, prescriptions, medications and
+    drug search, pharmacies, clinicians/prescribers, eligibility, and
+    notifications. Requests are authenticated with an OAuth2 Bearer access token
+    obtained from the token endpoint and a per-application Subscription-Key
+    header; access is scoped by clinic and clinician keys. Endpoint paths,
+    request/response schemas, and field names below are modeled from DoseSpot's
+    publicly described API v2 surface and integration guides; consult DoseSpot's
+    partner documentation for the authoritative, complete contract.
+  termsOfService: https://dosespot.com/
+  contact:
+    name: DoseSpot Support
+    url: https://dosespot.com/full-integration/
+  version: '2.0'
+servers:
+  - url: https://my.dosespot.com/webapi/v2
+    description: Production
+  - url: https://my.staging.dosespot.com/webapi/v2
+    description: Staging
+security:
+  - bearerAuth: []
+    subscriptionKey: []
+tags:
+  - name: Patients
+    description: Patient demographics, allergies, and self-reported medications.
+  - name: Prescriptions
+    description: Prescription creation, transmission, status, and medication history.
+  - name: Medications
+    description: Medi-Span drug search and interaction checks.
+  - name: Pharmacies
+    description: Surescripts pharmacy search and patient pharmacy management.
+  - name: Prescribers
+    description: Clinician (prescriber) and clinic staff management.
+  - name: Notifications
+    description: Clinician notification counts and actionable items.
+paths:
+  /patients:
+    get:
+      operationId: searchPatients
+      tags:
+        - Patients
+      summary: Search patients
+      description: Search for patients within the clinic by name, date of birth, or other demographics.
+      parameters:
+        - name: firstName
+          in: query
+          schema:
+            type: string
+        - name: lastName
+          in: query
+          schema:
+            type: string
+        - name: dateOfBirth
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: pageNumber
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paged list of patients.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientListResult'
+    post:
+      operationId: createPatient
+      tags:
+        - Patients
+      summary: Create a patient
+      description: Create a new patient record with demographics required for prescribing.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '200':
+          description: The created patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientResult'
+  /patients/{patientId}:
+    get:
+      operationId: getPatient
+      tags:
+        - Patients
+      summary: Get a patient
+      description: Retrieve a single patient record by ID.
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The requested patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientResult'
+    post:
+      operationId: updatePatient
+      tags:
+        - Patients
+      summary: Update a patient
+      description: Update demographics for an existing patient.
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Patient'
+      responses:
+        '200':
+          description: The updated patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatientResult'
+  /patients/{patientId}/prescriptions:
+    get:
+      operationId: getPatientPrescriptions
+      tags:
+        - Prescriptions
+      summary: List a patient's prescriptions
+      description: Retrieve prescriptions and their statuses for a patient.
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of prescriptions for the patient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionListResult'
+    post:
+      operationId: createPatientPrescription
+      tags:
+        - Prescriptions
+      summary: Create a prescription
+      description: Create a new prescription for a patient, ready to be sent to a pharmacy.
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Prescription'
+      responses:
+        '200':
+          description: The created prescription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionResult'
+  /patients/{patientId}/prescriptions/{prescriptionId}:
+    get:
+      operationId: getPatientPrescription
+      tags:
+        - Prescriptions
+      summary: Get a prescription
+      description: Retrieve a single prescription and its current status.
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: prescriptionId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The requested prescription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionResult'
+  /patients/{patientId}/medicationHistory:
+    get:
+      operationId: getMedicationHistory
+      tags:
+        - Prescriptions
+      summary: Get aggregated medication history
+      description: Retrieve aggregated medication history data for a patient from pharmacy and payer sources.
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The patient's medication history.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicationHistoryResult'
+  /medications/search:
+    get:
+      operationId: searchMedications
+      tags:
+        - Medications
+      summary: Search the drug database
+      description: Search the Medi-Span drug database for medications and supplies by name.
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: pageNumber
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Matching medications.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicationSearchResult'
+  /medications/interactions:
+    post:
+      operationId: checkMedicationInteractions
+      tags:
+        - Medications
+      summary: Check drug interactions
+      description: Run drug-drug and drug-allergy interaction checks for a set of medications.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InteractionCheckRequest'
+      responses:
+        '200':
+          description: Detected interactions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InteractionCheckResult'
+  /pharmacies/search:
+    get:
+      operationId: searchPharmacies
+      tags:
+        - Pharmacies
+      summary: Search pharmacies
+      description: Search the Surescripts pharmacy directory by name, city, state, ZIP, or specialty.
+      parameters:
+        - name: name
+          in: query
+          schema:
+            type: string
+        - name: city
+          in: query
+          schema:
+            type: string
+        - name: state
+          in: query
+          schema:
+            type: string
+        - name: zip
+          in: query
+          schema:
+            type: string
+        - name: specialty
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Matching pharmacies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PharmacySearchResult'
+  /patients/{patientId}/pharmacies:
+    get:
+      operationId: getPatientPharmacies
+      tags:
+        - Pharmacies
+      summary: List a patient's pharmacies
+      description: Retrieve the pharmacies saved to a patient for prescription routing.
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The patient's pharmacies.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PharmacySearchResult'
+    post:
+      operationId: addPatientPharmacy
+      tags:
+        - Pharmacies
+      summary: Add a pharmacy to a patient
+      description: Save a pharmacy to a patient's preferred pharmacy list.
+      parameters:
+        - name: patientId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddPharmacyRequest'
+      responses:
+        '200':
+          description: The result of adding the pharmacy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResult'
+  /clinicians:
+    get:
+      operationId: searchClinicians
+      tags:
+        - Prescribers
+      summary: Search clinicians
+      description: Retrieve clinicians (prescribers) and supporting staff in the clinic.
+      parameters:
+        - name: pageNumber
+          in: query
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of clinicians.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianListResult'
+    post:
+      operationId: createClinician
+      tags:
+        - Prescribers
+      summary: Create a clinician
+      description: Create a new clinician (prescriber) within the clinic.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Clinician'
+      responses:
+        '200':
+          description: The created clinician.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianResult'
+  /clinicians/{clinicianId}:
+    get:
+      operationId: getClinician
+      tags:
+        - Prescribers
+      summary: Get a clinician
+      description: Retrieve a single clinician (prescriber) record by ID.
+      parameters:
+        - name: clinicianId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The requested clinician.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianResult'
+  /notifications/counts:
+    get:
+      operationId: getNotificationCounts
+      tags:
+        - Notifications
+      summary: Get notification counts
+      description: >-
+        Retrieve the count of pending notifications and actionable items
+        (transmission errors, refill requests, pharmacy responses) for the
+        authenticated clinician.
+      responses:
+        '200':
+          description: Notification counts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationCountResult'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        OAuth2 access token obtained from the DoseSpot token endpoint
+        (POST /webapi/v2/connect/token) using your clinic and clinician
+        credentials, sent as an Authorization: Bearer header.
+    subscriptionKey:
+      type: apiKey
+      in: header
+      name: Subscription-Key
+      description: Per-application subscription key issued by DoseSpot.
+  schemas:
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+    Patient:
+      type: object
+      properties:
+        PatientId:
+          type: integer
+        Prefix:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        LastName:
+          type: string
+        Suffix:
+          type: string
+        DateOfBirth:
+          type: string
+          format: date
+        Gender:
+          type: string
+          description: Male, Female, or Unknown.
+        Email:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryPhoneType:
+          type: string
+        Address1:
+          type: string
+        Address2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        Active:
+          type: boolean
+        NonDoseSpotMedicalRecordNumber:
+          type: string
+    PatientResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            Item:
+              $ref: '#/components/schemas/Patient'
+    PatientListResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            Items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Patient'
+            PageResult:
+              $ref: '#/components/schemas/PageResult'
+    Prescription:
+      type: object
+      properties:
+        PrescriptionId:
+          type: integer
+        Status:
+          type: string
+          description: e.g. Entered, Printed, Sending, eRxSent, FaxSent, Error, Deleted, Requested, Edited, EpcsSigned.
+        WrittenDate:
+          type: string
+          format: date-time
+        Directions:
+          type: string
+        Quantity:
+          type: string
+        DispenseUnitId:
+          type: integer
+        Refills:
+          type: string
+        DaysSupply:
+          type: integer
+        PharmacyId:
+          type: integer
+        PharmacyNotes:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        Medication:
+          $ref: '#/components/schemas/Medication'
+    PrescriptionResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            Item:
+              $ref: '#/components/schemas/Prescription'
+    PrescriptionListResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            Items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Prescription'
+            PageResult:
+              $ref: '#/components/schemas/PageResult'
+    Medication:
+      type: object
+      properties:
+        NDC:
+          type: string
+        LexiGenProductId:
+          type: integer
+        LexiDrugSynId:
+          type: integer
+        LexiSynonymTypeId:
+          type: integer
+        Name:
+          type: string
+        Strength:
+          type: string
+        GenericProductName:
+          type: string
+        DrugClassification:
+          type: string
+        Schedule:
+          type: string
+          description: DEA schedule for controlled substances.
+    MedicationSearchResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            Items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Medication'
+            PageResult:
+              $ref: '#/components/schemas/PageResult'
+    MedicationHistoryResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            Items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Medication'
+    InteractionCheckRequest:
+      type: object
+      properties:
+        PatientId:
+          type: integer
+        MedicationIds:
+          type: array
+          items:
+            type: integer
+    InteractionCheckResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            Interactions:
+              type: array
+              items:
+                type: object
+                properties:
+                  Severity:
+                    type: string
+                  Description:
+                    type: string
+    Pharmacy:
+      type: object
+      properties:
+        PharmacyId:
+          type: integer
+        StoreName:
+          type: string
+        Address1:
+          type: string
+        Address2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryFax:
+          type: string
+        PharmacySpecialties:
+          type: array
+          items:
+            type: string
+    PharmacySearchResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            Items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Pharmacy'
+            PageResult:
+              $ref: '#/components/schemas/PageResult'
+    AddPharmacyRequest:
+      type: object
+      properties:
+        PharmacyId:
+          type: integer
+        SetAsPrimary:
+          type: boolean
+    Clinician:
+      type: object
+      properties:
+        ClinicianId:
+          type: integer
+        Prefix:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        LastName:
+          type: string
+        Suffix:
+          type: string
+        DateOfBirth:
+          type: string
+          format: date
+        Email:
+          type: string
+        NPINumber:
+          type: string
+        DEANumber:
+          type: string
+        Address1:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryFax:
+          type: string
+        Roles:
+          type: array
+          items:
+            type: string
+    ClinicianResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            Item:
+              $ref: '#/components/schemas/Clinician'
+    ClinicianListResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            Items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Clinician'
+            PageResult:
+              $ref: '#/components/schemas/PageResult'
+    NotificationCountResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResult'
+        - type: object
+          properties:
+            PendingPrescriptionsCount:
+              type: integer
+            TransmissionErrorsCount:
+              type: integer
+            RefillRequestsCount:
+              type: integer
+            PharmacyResponsesCount:
+              type: integer
+            TotalNotificationCount:
+              type: integer
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
