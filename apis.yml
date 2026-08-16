@@ -2,12 +2,17 @@ aid: dosespot
 url: https://raw.githubusercontent.com/api-evangelist/dosespot/refs/heads/main/apis.yml
 name: DoseSpot
 kind: company
-description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing
-  (eRx) platform. Its REST API (v2) lets healthcare and EHR/EMR software embed the
-  full prescription lifecycle - patient and clinician management, medication and
-  drug search, pharmacy selection, e-prescribing, medication history, eligibility,
-  and push notifications - using OAuth2 Bearer tokens scoped by clinic and clinician
-  keys.
+description: 'DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform that
+  EHR, EMR, telehealth and digital-health vendors embed to add the full prescription lifecycle to their
+  own software. The REST API v2 covers patients and demographics, allergies and allergen search, Medi-Span
+  medication and supply search, drug-drug and drug-allergy interaction screening, the Surescripts pharmacy
+  directory, prescription creation, signing and transmission including DEA-regulated EPCS for controlled
+  substances, refill and RxChange queues, medication history, eligibility and real-time prescription benefit,
+  electronic prior authorization, PDMP/Narx reports, and clinician, clinic and DEA-number administration.
+  DoseSpot publishes two Swagger 2.0 contracts from its own SwaggerHub organization - Full + EPCS (171
+  operations) and JumpStart + EPCS (139 operations) - rendered at docs.dosespot.com, which DoseSpot calls
+  the official source for its technical documentation. Access is sales-gated: credentials are issued by
+  an assigned Integration Specialist. DoseSpot is part of Interra Health, alongside its subsidiary pVerify.'
 accessModel:
   pricing: unknown
   onboarding: self-serve
@@ -29,10 +34,69 @@ tags:
 - EHR
 - Pharmacy
 - EPCS
+- Prescriptions
+- Clinical
+- Medications
+- Prior Authorization
+- Surescripts
+- Medi-Span
+- Telehealth
+- PDMP
+- Digital Health
 created: '2026-06-21'
-modified: '2026-06-21'
+modified: '2026-08-15'
 specificationVersion: '0.19'
 apis:
+- aid: dosespot:dosespot-rest-api-jumpstart-epcs-v2
+  name: DoseSpot REST API - JumpStart + EPCS - V2
+  description: The DoseSpot REST API v2 contract for JumpStart customers - 139 operations, the subset
+    available alongside DoseSpot's pre-built iFrame/SSO prescribing experience. Harvested verbatim from
+    DoseSpot's own developer portal.
+  humanURL: https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-jumpstart_epcsv2
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Prescriptions
+  - EPCS
+  - JumpStart
+  - Patients
+  - Pharmacies
+  properties:
+  - type: OpenAPI
+    url: openapi/_original/dosespot-rest-api-jumpstart-epcs-v2-swagger.json
+  - type: Overlay
+    url: overlays/dosespot-jumpstart-epcs-v2-overlay.yaml
+  - type: Documentation
+    url: https://docs.dosespot.com/
+  - type: APIReference
+    url: https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-jumpstart_epcsv2
+  - type: GettingStarted
+    url: https://docs.dosespot.com/staging/docs/getting-started
+- aid: dosespot:dosespot-rest-api-full-epcs-v2
+  name: DoseSpot REST API - Full + EPCS - V2
+  description: The complete DoseSpot REST API v2 contract for Full Integration customers - 171 operations
+    across 28 resource groups covering patients, allergies, medications, interactions, pharmacies, prescriptions,
+    EPCS signing and transmission, refills, RxChange, prior authorization, eligibility, medication history,
+    PDMP/Narx and clinician administration. Harvested verbatim from DoseSpot's own developer portal.
+  humanURL: https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-full_epcsv2
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Prescriptions
+  - EPCS
+  - Patients
+  - Pharmacies
+  - Medications
+  - Prior Authorization
+  properties:
+  - type: OpenAPI
+    url: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+  - type: Overlay
+    url: overlays/dosespot-full-epcs-v2-overlay.yaml
+  - type: Documentation
+    url: https://docs.dosespot.com/
+  - type: APIReference
+    url: https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-full_epcsv2
+  - type: GettingStarted
+    url: https://docs.dosespot.com/staging/docs/getting-started
 - aid: dosespot:dosespot-medications-api
   name: DoseSpot Medications API
   description: Medi-Span drug search and interaction checks.
@@ -162,6 +226,61 @@ common:
   url: finops/dosespot-finops.yml
 - type: Blog
   url: https://dosespot.com/feed/
+- type: Conventions
+  url: conventions/dosespot-conventions.yml
+- type: ErrorCatalog
+  url: errors/dosespot-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/dosespot-lifecycle.yml
+- type: StatusPage
+  url: https://status.dosespot.com/
+- type: Conformance
+  url: conformance/dosespot-conformance.yml
+- type: Compliance
+  url: https://dosespot.com/security/
+- type: TrustCenter
+  url: security/dosespot-trust-center.yml
+- type: DataModel
+  url: data-model/dosespot-data-model.yml
+- type: Vocabulary
+  url: vocabulary/dosespot-vocabulary.yml
+- type: Sandbox
+  url: sandbox/dosespot-sandbox.yml
+- type: Webhooks
+  url: asyncapi/dosespot-webhooks.yml
+- type: MCPServer
+  url: mcp/dosespot-mcp.yml
+- type: Packages
+  url: packages/dosespot-packages.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/dosespot-full-epcs-v2-overlay.yaml
+- type: DeveloperPortal
+  url: https://docs.dosespot.com/
+- type: APIReference
+  url: https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-full_epcsv2
+- type: GettingStarted
+  url: https://docs.dosespot.com/staging/docs/getting-started
+- type: Support
+  url: https://dosespot.com/request-support/
+- type: HelpCenter
+  url: https://dosespot.com/contact-support/
+- type: SignUp
+  url: https://dosespot.com/request-a-demo/
+- type: PrivacyPolicy
+  url: https://dosespot.com/privacy-policy/
+- type: TermsOfService
+  url: https://dosespot.com/dosespot-legal-documentation/
+- type: SLA
+  url: https://dosespot.com/exhibit-d-dosespot-service-level-agreement/
+- type: GitHubOrganization
+  url: https://github.com/DoseSpot
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-15'
+  status: enriched
+  artifacts_added: 24
+  pass: local-v1
