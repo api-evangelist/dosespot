@@ -1,0 +1,52 @@
+generated: '2026-08-15'
+method: searched
+source:
+  - https://docs.dosespot.com/staging/docs/getting-started
+  - https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+name: DoseSpot staging environment
+description: >-
+  DoseSpot runs a named staging environment separate from production, and the entire published developer portal
+  is built against it - the portal product is literally named "staging" and both Swagger documents come from the
+  SwaggerHub API `dosespot-staging-rest-api-v2`. Access is not self-serve.
+
+environments:
+  - name: staging
+    base_url: https://staging.dosespot.com/webapi/v2
+    source: https://docs.dosespot.com/staging/docs/getting-started
+    self_serve: false
+    note: >-
+      "Use the appropriate base URL: Staging: https://staging.dosespot.com/webapi/v2". A staging environment
+      with a new client is provisioned as part of the v1-to-v2 migration by the assigned Integration Specialist.
+  - name: production
+    base_url: https://my.dosespot.com/webapi/v2
+    source: >-
+      The Getting Started guide says only "Production: Contact DoseSpot to obtain". my.dosespot.com is the
+      production host DoseSpot's own status page monitors as "DoseSpot Prod Endpoint - my.dosespot.com", and it
+      is the base recorded in apis.yml.
+    self_serve: false
+
+credentials:
+  self_serve: false
+  how_obtained: >-
+    "Contact your DoseSpot client integration specialist or account manager to obtain: Subscription Key (for
+    Ocp-Apim-Subscription-Key header)". There is no developer signup, no key-generation console and no test key.
+  test_vs_live_separation: separate hosts (staging.dosespot.com vs my.dosespot.com), not key prefixes
+  key_prefix_convention: none published
+
+test_data:
+  published_test_values: none
+  note: >-
+    DoseSpot publishes NO magic test identifiers, test patients, test pharmacies, test DEA numbers or fixture
+    triggers. Nothing of that shape appears in the developer portal. Test data is provisioned inside the
+    customer's own staging clinic by the Integration Specialist. No values are invented here.
+
+client_requirements:
+  - HTTPS client capable of sending custom headers
+  - Secure storage for API credentials
+
+interactive_console:
+  url: https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-full_epcsv2
+  type: SwaggerHub portal API guide
+  note: >-
+    The portal renders a browsable, request-shaped API guide for both plans (Full and JumpStart) with live code
+    snippets. It is readable without credentials; executing a call is not, since credentials are sales-gated.

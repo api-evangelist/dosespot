@@ -1,0 +1,62 @@
+generated: '2026-08-15'
+method: searched
+source: >-
+  Registry searches on 2026-08-15 across npm (registry.npmjs.org), PyPI, NuGet (azuresearch-usnc),
+  RubyGems, Packagist and crates.io; plus github.com/DoseSpot and the DoseSpot developer portal at
+  docs.dosespot.com.
+result: no-first-party-packages
+note: >-
+  DoseSpot publishes NO first-party client libraries. The GitHub organization github.com/DoseSpot exists but
+  states "This organization has no public repositories". No package named dosespot exists on PyPI, NuGet,
+  RubyGems, Packagist or Maven Central. The developer portal (docs.dosespot.com) ships an interactive
+  SwaggerHub API guide and, per the v1-to-v2 migration notice, DoseSpot shares Postman collections and Swagger
+  specifications with each customer through an assigned Integration Specialist - but no SDK. The three packages
+  below are THIRD PARTY (Medplum's DoseSpot integration and an independent auto-generated Rust client) and are
+  recorded as official: false. Because there is no official SDK, no `SDKs` pointer is wired into apis.yml.
+official_package_count: 0
+packages:
+  - language: javascript
+    registry: npm
+    name: '@medplum/dosespot-core'
+    url: https://www.npmjs.com/package/@medplum/dosespot-core
+    install: npm install @medplum/dosespot-core
+    version: 5.1.30
+    published: '2026-08-13'
+    official: false
+    publisher: Medplum
+    repository: https://github.com/medplum/medplum
+    note: >-
+      Medplum's DoseSpot SDK, published by Medplum (a DoseSpot integrator), not by DoseSpot. Actively
+      maintained - released the same week it was surveyed.
+  - language: javascript
+    registry: npm
+    name: '@medplum/dosespot-react'
+    url: https://www.npmjs.com/package/@medplum/dosespot-react
+    install: npm install @medplum/dosespot-react
+    version: 5.1.30
+    published: '2026-08-13'
+    official: false
+    publisher: Medplum
+    repository: https://github.com/medplum/medplum
+    note: React bindings for the Medplum DoseSpot integration. Third party.
+  - language: rust
+    registry: crates.io
+    name: autogen-dosespot
+    url: https://crates.io/crates/autogen-dosespot
+    install: cargo add autogen-dosespot
+    version: 0.1.0
+    published: '2026-08-07'
+    official: false
+    publisher: steventhanna (independent)
+    repository: https://github.com/steventhanna/autogen-dosespot
+    note: >-
+      Independent, auto-generated strongly-typed Rust client for the DoseSpot v2 REST API. One version, no
+      DoseSpot affiliation stated.
+registries_checked:
+  - {registry: npm, query: dosespot, first_party_hits: 0}
+  - {registry: pypi, query: 'dosespot / dosespot-api / pydosespot', first_party_hits: 0, status: 404}
+  - {registry: nuget, query: dosespot, first_party_hits: 0, total_hits: 0}
+  - {registry: rubygems, query: dosespot, first_party_hits: 0}
+  - {registry: packagist, query: dosespot, first_party_hits: 0}
+  - {registry: crates.io, query: dosespot, first_party_hits: 0}
+  - {registry: github, org: 'https://github.com/DoseSpot', first_party_hits: 0, note: 'organization has no public repositories'}

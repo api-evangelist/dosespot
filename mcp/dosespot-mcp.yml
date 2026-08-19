@@ -1,0 +1,532 @@
+generated: '2026-08-15'
+method: derived
+status: candidate
+source: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+note: No DoseSpot MCP server exists. Searched the DoseSpot site, docs.dosespot.com (SwaggerHub portal),
+  the DoseSpot GitHub organization (no public repositories), npm, PyPI, NuGet, RubyGems, Packagist and
+  crates.io on 2026-08-15; nothing first-party was published. The tools below are a CANDIDATE surface
+  derived one-to-one from the operations in DoseSpot's own Swagger document - they are not offered by
+  DoseSpot.
+deployment:
+  mode: none
+  auth: unknown
+  verified: searched
+server:
+  name: dosespot
+  transport: null
+  url: null
+tool_count: 171
+tools:
+- name: allergens_get_allergen_by_i_d_v2
+  description: Search allergen by ID
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Allergens_GetAllergenByIDV2
+- name: allergens_search_by_rx_c_u_i
+  description: Search allergens by RxCUI
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Allergens_SearchByRxCUI
+- name: allergens_allergen_search_v2
+  description: Search allergens by name
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Allergens_AllergenSearchV2
+- name: allergies_get_patient_allergies_v2
+  description: Get patient's allergies
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Allergies_GetPatientAllergiesV2
+- name: allergies_edit_patient_allergy_v2
+  description: Edit drug allergy
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Allergies_EditPatientAllergyV2
+- name: allergies_add_coded_patient_allergy_v2
+  description: Add coded patient allergy
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Allergies_AddCodedPatientAllergyV2
+- name: allergies_add_freetext_patient_allergy_v2
+  description: Add freetext patient allergy
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Allergies_AddFreetextPatientAllergyV2
+- name: allergies_add_no_known_patient_allergy_v2
+  description: Add no known patient allergy record
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Allergies_AddNoKnownPatientAllergyV2
+- name: clinic_favorites_get_clinic_prescription_favorites_v2
+  description: Search for clinic prescription favorites
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicFavorites_GetClinicPrescriptionFavoritesV2
+- name: clinic_favorites_edit_clinic_coded_medication_favorite_v2
+  description: Edit Clinic Coded Medication Favorite Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicFavorites_EditClinicCodedMedicationFavoriteV2
+- name: clinic_favorites_edit_clinic_supply_favorite_v2
+  description: Edit Clinic Supply Favorite Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicFavorites_EditClinicSupplyFavoriteV2
+- name: clinic_favorites_edit_clinic_compiled_compound_favorite_v2
+  description: Edit Clinic Favorite Compiled Compound Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicFavorites_EditClinicCompiledCompoundFavoriteV2
+- name: clinic_favorites_add_clinic_coded_medication_favorite_v2
+  description: Add Clinic Coded Medication Favorite Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicFavorites_AddClinicCodedMedicationFavoriteV2
+- name: clinic_favorites_add_clinic_supply_favorite_v2
+  description: Add Clinic Supply Favorite Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicFavorites_AddClinicSupplyFavoriteV2
+- name: clinic_favorites_add_clinic_compiled_compound_favorite_v2
+  description: Add Clinic Compiled Compound Favorite Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicFavorites_AddClinicCompiledCompoundFavoriteV2
+- name: clinic_groups_add_edit_clinic_group_v2
+  description: Manages clinic groups
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicGroups_AddEditClinicGroupV2
+- name: clinician_favorites_get_clinician_prescription_favorites_v2
+  description: Get clinician's favorite prescriptions
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianFavorites_GetClinicianPrescriptionFavoritesV2
+- name: clinician_favorites_edit_clinician_coded_prescription_favori
+  description: Edit Clinician's Coded Favorite Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianFavorites_EditClinicianCodedPrescriptionFavoriteV2
+- name: clinician_favorites_edit_clinician_supply_favorite_v2
+  description: Edit Clinician's Supply Favorite Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianFavorites_EditClinicianSupplyFavoriteV2
+- name: clinician_favorites_edit_clinician_compiled_compound_favorit
+  description: Edit Clinician's Favorite Compiled Compound Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianFavorites_EditClinicianCompiledCompoundFavoriteV2
+- name: clinician_favorites_add_clinician_prescription_favorite_v2
+  description: Add clinician favorite coded Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianFavorites_AddClinicianPrescriptionFavoriteV2
+- name: clinician_favorites_add_clinician_supply_favorite_v2
+  description: Add Clinician Supply Favorite Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianFavorites_AddClinicianSupplyFavoriteV2
+- name: clinician_favorites_add_clinician_compiled_compound_favorite
+  description: Add Clinician Compiled Compound Favorite Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianFavorites_AddClinicianCompiledCompoundFavoriteV2
+- name: clinician_favorites_delete_clinician_favorite_v2
+  description: Delete Clinician Favorites
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianFavorites_DeleteClinicianFavoriteV2
+- name: clinician_order_sets_get_clinician_order_set_details_v2
+  description: Get an order set details
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianOrderSets_GetClinicianOrderSetDetailsV2
+- name: clinician_order_sets_get_clinician_order_sets_v2
+  description: Get clinician Order Sets
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianOrderSets_GetClinicianOrderSetsV2
+- name: clinician_order_sets_add_clinician_order_set_v2
+  description: Add an Order Set
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianOrderSets_AddClinicianOrderSetV2
+- name: clinician_order_sets_update_clinician_order_set_v2
+  description: Update an Order Set
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianOrderSets_UpdateClinicianOrderSetV2
+- name: clinician_order_sets_delete_clinician_order_set_v2
+  description: Delete an order set
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicianOrderSets_DeleteClinicianOrderSetV2
+- name: clinicians_get_clinician_p_d_m_p_v2
+  description: Get Prescription Drug Monitoring Program data
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_GetClinicianPDMPV2
+- name: clinicians_get_identity_proofing_disclaimer_v2
+  description: Get identity proofing disclaimer
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_GetIdentityProofingDisclaimerV2
+- name: clinicians_accept_identity_proofing_disclaimer_v2
+  description: Accept identity proofing disclaimer
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_AcceptIdentityProofingDisclaimerV2
+- name: clinicians_get_clinician_details_by_id_v2
+  description: Get clinician information
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_GetClinicianDetailsByIdV2
+- name: clinicians_put_clinician_edit_v2
+  description: Edit clinician information
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_PutClinicianEditV2
+- name: clinicians_get_clinician_by_npi_or_dea_v2
+  description: Get Clinician By Npi Or Dea
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_GetClinicianByNpiOrDeaV2
+- name: clinicians_get_patient_clinicians_v2
+  description: Get patient's clinicians
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_GetPatientCliniciansV2
+- name: clinicians_get_clinician_legal_agreements_v2
+  description: Retrieves a list of clinician's legal agreements
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_GetClinicianLegalAgreementsV2
+- name: clinicians_clinician_check_registration_status_v2
+  description: Get clinician specific registration status
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_ClinicianCheckRegistrationStatusV2
+- name: clinicians_get_prescription_prescriber_info_a_p_i_v2
+  description: Get a Prescription's prescriber Information
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_GetPrescriptionPrescriberInfoAPIV2
+- name: clinicians_set_pin_v2
+  description: Sets a clinician's PIN
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_SetPinV2
+- name: clinicians_change_pin_v2
+  description: Change a clinician's PIN
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_ChangePinV2
+- name: clinicians_add_supervisor_to_clinician_v2
+  description: Add a supervisor to a clinician
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_AddSupervisorToClinicianV2
+- name: clinicians_delete_supervisor_to_clinician_v2
+  description: Remove a supervisor from a clinician
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_DeleteSupervisorToClinicianV2
+- name: clinicians_clinician_add_v2
+  description: Add new clinician
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_ClinicianAddV2
+- name: clinicians_clinician_identity_proofing_v2
+  description: Clinician identity proofing
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_ClinicianIdentityProofingV2
+- name: clinicians_clinician_identity_proofing_one_time_code_v2
+  description: Submit IDP one time code
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_ClinicianIdentityProofingOneTimeCodeV2
+- name: clinicians_reset_my_pin_v2
+  description: Reset My Pin
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_ResetMyPinV2
+- name: clinicians_clinician_identity_proofing_answers_v2
+  description: Submit clinician identity proofing answers
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_ClinicianIdentityProofingAnswersV2
+- name: clinicians_resync_token_v2
+  description: Resync clinician's token
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_ResyncTokenV2
+- name: clinicians_tfa_activate_v2
+  description: Two factor authentication activation
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_TfaActivateV2
+- name: clinicians_send_mobile_tfa_v2
+  description: Send mobile activation message
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_SendMobileTfaV2
+- name: clinicians_tfa_deactivate_v2
+  description: Two factor authentication de-activation
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_TfaDeactivateV2
+- name: clinicians_accept_agreement_v2
+  description: Accepts a legal agreement
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_AcceptAgreementV2
+- name: clinicians_initialize_i_d_p_v2
+  description: Initialize identity proofing
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_InitializeIDPV2
+- name: clinicians_reset_clinician_pin_v2
+  description: Reset Clinician's PIN
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_ResetClinicianPinV2
+- name: clinicians_initialize_tfa_activation_v2
+  description: Initialize two factor authentication
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_InitializeTfaActivationV2
+- name: clinicians_initialize_tfa_deactivation_v2
+  description: Initialize two factor authentication deactivation
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinicians_InitializeTfaDeactivationV2
+- name: clinic_order_sets_get_clinic_order_sets
+  description: Get clinic Order Sets
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#ClinicOrderSets_GetClinicOrderSets
+- name: clinics_get_clinic_details_v2
+  description: Gets clinic information
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinics_GetClinicDetailsV2
+- name: clinics_clinic_edit_v2
+  description: Edit Clinic information
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinics_ClinicEditV2
+- name: clinics_get_patient_clinics_v2
+  description: Get patient's clinics
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinics_GetPatientClinicsV2
+- name: clinics_get_clinician_clinics_v2
+  description: Gets a clinician's clinic identifiers
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinics_GetClinicianClinicsV2
+- name: clinics_clinic_add_v2
+  description: Add clinic
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinics_ClinicAddV2
+- name: clinics_patient_clinic_transfer_v2
+  description: Transfer patient clinic
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinics_PatientClinicTransferV2
+- name: clinics_clinician_add_multiple_clinics_v2
+  description: Add clinician clinics
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinics_ClinicianAddMultipleClinicsV2
+- name: clinics_clinic_remove_multiple_clinicians_v2
+  description: Removes clinician(s) from a specified clinic
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Clinics_ClinicRemoveMultipleCliniciansV2
+- name: d_e_a_numbers_get_d_e_a_numbers
+  description: Get clinician's DEA numbers
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#DEANumbers_GetDEANumbers
+- name: d_e_a_numbers_add_d_e_a_number
+  description: Add a DEA number to a clinician
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#DEANumbers_AddDEANumber
+- name: d_e_a_numbers_get_d_e_a_number
+  description: Get a clinician's DEA number
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#DEANumbers_GetDEANumber
+- name: d_e_a_numbers_edit_d_e_a_number
+  description: Edit a DEA number to a clinician
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#DEANumbers_EditDEANumber
+- name: d_e_a_numbers_delete_d_e_a_number
+  description: Delete a clinician's DEA number
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#DEANumbers_DeleteDEANumber
+- name: diagnoses_diagnosis_search_v2
+  description: Search Diagnoses
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Diagnoses_DiagnosisSearchV2
+- name: eligibilities_get_payer_information_v2
+  description: Get patient's insurance information
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Eligibilities_GetPayerInformationV2
+- name: eligibilities_get_medication_coverage_v2
+  description: Get patient's medication coverage
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Eligibilities_GetMedicationCoverageV2
+- name: eligibilities_get_prescription_benefits_v2
+  description: Get prescription benefits
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Eligibilities_GetPrescriptionBenefitsV2
+- name: eligibilities_custom_insurance_info_v2
+  description: Add custom insurance info
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Eligibilities_CustomInsuranceInfoV2
+- name: health_check_check_health_v2
+  description: Check API health
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#HealthCheck_CheckHealthV2
+- name: interactions_get_drug_interactions_v2
+  description: Check drug-drug interactions
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Interactions_GetDrugInteractionsV2
+- name: interactions_get_allergy_interactions_v2
+  description: Get allergies interactions
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Interactions_GetAllergyInteractionsV2
+- name: interactions_get_pre_check_interactions_v2
+  description: Check pre-check interactions
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Interactions_GetPreCheckInteractionsV2
+- name: medication_history_get_medication_history_v2
+  description: Get patient's medication history
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#MedicationHistory_GetMedicationHistoryV2
+- name: medication_history_log_patient_medication_history_consent_v2
+  description: Log patient's medication history consent
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#MedicationHistory_LogPatientMedicationHistoryConsentV2
+- name: medications_get_standard_dispense_units_v2
+  description: Get Dispense Units
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Medications_GetStandardDispenseUnitsV2
+- name: medications_get_standard_dispense_unit_by_i_d_v2
+  description: Get Dispense Unit By Id
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Medications_GetStandardDispenseUnitByIDV2
+- name: medications_medication_search_rx_c_u_i_v2
+  description: Get dispensable drugs by rxCUI
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Medications_MedicationSearchRxCUIV2
+- name: medications_medication_search_v2
+  description: Search for drugs
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Medications_MedicationSearchV2
+- name: medications_medication_select_v2
+  description: Get dispensable drug detail
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Medications_MedicationSelectV2
+- name: medications_get_drug_monograph_v2
+  description: Get Drug Monograph
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Medications_GetDrugMonographV2
+- name: narx_get_patient_narx_report_v2
+  description: Get patient Narx Report
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Narx_GetPatientNarxReportV2
+- name: narx_get_latest_narx_v2
+  description: Get latest patient NARX/PDMP data timestamp
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Narx_GetLatestNarxV2
+- name: narx_get_patient_narx_report_link_v2
+  description: Get patient Narx Report Link
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Narx_GetPatientNarxReportLinkV2
+- name: notifications_get_prescriber_notification_counts_v2
+  description: Get Notification Counts For Current Clinician
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Notifications_GetPrescriberNotificationCountsV2
+- name: notifications_get_transmission_error_details_v2
+  description: Get Transmission Errors For Current Clinician
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Notifications_GetTransmissionErrorDetailsV2
+- name: patients_get_patient_demographic_data_v2
+  description: Get patient demographics
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Patients_GetPatientDemographicDataV2
+- name: patients_edit_patient_demographic_data_v2
+  description: Edit patient demographics
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Patients_EditPatientDemographicDataV2
+- name: patients_search_patients_v2
+  description: Search Patients
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Patients_SearchPatientsV2
+- name: patients_add_edit_patient_ssn_v2
+  description: Add/Update Patient SSN details
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Patients_AddEditPatientSsnV2
+- name: patients_delete_patient_s_s_n_v2
+  description: Delete patient's SSN
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Patients_DeletePatientSSNV2
+- name: patients_add_patient_v2
+  description: Add Patient
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Patients_AddPatientV2
+- name: patients_merge_patients_v2
+  description: Merge patient's medications and allergies
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Patients_MergePatientsV2
+- name: pharmacies_pharmacy_search_v2
+  description: Search pharmacies
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Pharmacies_PharmacySearchV2
+- name: pharmacies_get_pharmacy_v2
+  description: Get pharmacy details
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Pharmacies_GetPharmacyV2
+- name: pharmacies_get_patient_pharmacies_v2
+  description: Get patient's pharmacies
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Pharmacies_GetPatientPharmaciesV2
+- name: pharmacies_add_patient_pharmacy_v2
+  description: Add Pharmacy to Patient
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Pharmacies_AddPatientPharmacyV2
+- name: pharmacies_get_pharmacy_restrictions_v2
+  description: Get Pharmacy Restrictions
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Pharmacies_GetPharmacyRestrictionsV2
+- name: pharmacies_remove_patient_pharmacy_v2
+  description: Delete Pharmacy from Patient
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Pharmacies_RemovePatientPharmacyV2
+- name: prescriptions_get_patient_prescription_v2
+  description: Get Prescriptions
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_GetPatientPrescriptionV2
+- name: prescriptions_get_prescription_log_details_v2
+  description: Get Prescription Logs
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_GetPrescriptionLogDetailsV2
+- name: prescriptions_get_prescription_snapshot_v2
+  description: Get Precription snapshot
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_GetPrescriptionSnapshotV2
+- name: prescriptions_get_e_p_c_s_suggestions_v2
+  description: Get EPCS Suggested Prescription Schedule
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_GetEPCSSuggestionsV2
+- name: prescriptions_get_patient_prescriptions_v2
+  description: Get patient's prescriptions
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_GetPatientPrescriptionsV2
+- name: prescriptions_delete_prescriptions_v2
+  description: Delete Prescriptions
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_DeletePrescriptionsV2
+- name: prescriptions_edit_coded_prescription_v2
+  description: Edit Coded Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_EditCodedPrescriptionV2
+- name: prescriptions_edit_coded_supply_v2
+  description: Edit Coded Supply Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_EditCodedSupplyV2
+- name: prescriptions_edit_free_text_supply_prescription_v2
+  description: Edit Free Text supply Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_EditFreeTextSupplyPrescriptionV2
+- name: prescriptions_edit_compiled_compound_v2
+  description: Edit Compiled Compound
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_EditCompiledCompoundV2
+- name: prescriptions_send_prescriptions_v2
+  description: Send Prescriptions
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_SendPrescriptionsV2
+- name: prescriptions_add_coded_prescription_v2
+  description: Add Coded Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_AddCodedPrescriptionV2
+- name: prescriptions_add_coded_supply_v2
+  description: Add Coded Supply Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_AddCodedSupplyV2
+- name: prescriptions_send_epcs_prescriptions_v2
+  description: Send EPCS Prescriptions
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_SendEpcsPrescriptionsV2
+- name: prescriptions_set_prescriptions_printed_v2
+  description: Set Prescriptions Printed
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_SetPrescriptionsPrintedV2
+- name: prescriptions_set_prescriptions_ready_to_sign_v2
+  description: Set Prescriptions Ready To Sign
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_SetPrescriptionsReadyToSignV2
+- name: prescriptions_send_to_address_prescriptions_v2
+  description: Send Prescriptions With Address
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_SendToAddressPrescriptionsV2
+- name: prescriptions_add_free_text_supply_prescription_v2
+  description: Add Free Text Supply Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_AddFreeTextSupplyPrescriptionV2
+- name: prescriptions_add_compiled_compound_v2
+  description: Add Compiled Compound
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_AddCompiledCompoundV2
+- name: prescriptions_copy_patient_prescription_v2
+  description: Copy Prescription For Patient
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_CopyPatientPrescriptionV2
+- name: prescriptions_cancel_prescription_v2
+  description: Cancel Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_CancelPrescriptionV2
+- name: prescriptions_ignore_alert_v2
+  description: Ignore Error For Prescription
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_IgnoreAlertV2
+- name: prescriptions_update_prescription_status_v2
+  description: Update Prescription's medication Status
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_UpdatePrescriptionStatusV2
+- name: prescriptions_change_prescription_pharmacy_v2
+  description: Change Prescription Pharmacy
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Prescriptions_ChangePrescriptionPharmacyV2
+- name: prior_authorizations_get_single_prior_authorization_case_by_
+  description: Get Single Prior Authorization Case By Id
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_GetSinglePriorAuthorizationCaseByIdV2
+- name: prior_authorizations_get_in_progress_prior_auth_cases_v2
+  description: List PA Cases In Progress For Patient
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_GetInProgressPriorAuthCasesV2
+- name: prior_authorizations_get_p_a_history_v2
+  description: Get PA history of a case
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_GetPAHistoryV2
+- name: prior_authorizations_get_prior_authorization_status_log_v2
+  description: Get Status Log for Specific Prior Authorization Case By Id
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_GetPriorAuthorizationStatusLogV2
+- name: prior_authorizations_get_single_question_details_by_id_v2
+  description: Get Single Question By Id
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_GetSingleQuestionDetailsByIdV2
+- name: prior_authorizations_download_attachment_v2
+  description: Download Attachment
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_DownloadAttachmentV2
+- name: prior_authorizations_delete_attachment_v2
+  description: Delete an Attachment
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_DeleteAttachmentV2
+- name: prior_authorizations_initiate_prior_authorization_v2
+  description: Initiate Prior Authorization
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_InitiatePriorAuthorizationV2
+- name: prior_authorizations_appeal_case_v2
+  description: Appeal Case By Id
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_AppealCaseV2
+- name: prior_authorizations_cancel_prior_auth_case_v2
+  description: Cancel PA Case By Id
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_CancelPriorAuthCaseV2
+- name: prior_authorizations_deny_p_a_case_v2
+  description: Deny Case By Id
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_DenyPACaseV2
+- name: prior_authorizations_remove_prior_auth_case_v2
+  description: Remove PA Case By Id
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_RemovePriorAuthCaseV2
+- name: prior_authorizations_submit_p_a_answers_v2
+  description: Submit PA Answers
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_SubmitPAAnswersV2
+- name: prior_authorizations_upload_attachment_v2
+  description: Upload Attachment
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_UploadAttachmentV2
+- name: prior_authorizations_approve_offline_case_v2
+  description: Approve Offline Case By Id
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_ApproveOfflineCaseV2
+- name: prior_authorizations_p_a_answer_single_question_v2
+  description: Answer PA Question
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizations_PAAnswerSingleQuestionV2
+- name: prior_authorizations_internal_get_prior_authorization_status
+  description: Get Status Log for Specific Prior Authorization Case By Id
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#PriorAuthorizationsInternal_GetPriorAuthorizationStatusLogV2UI
+- name: refills_get_refill_request_details_v2
+  description: Get refill requests for clinic(s)/patient
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Refills_GetRefillRequestDetailsV2
+- name: refills_get_detailed_refill_requests_v2
+  description: Get detailed refill requests for clinic(s)/patient
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Refills_GetDetailedRefillRequestsV2
+- name: refills_deny_refill_v2
+  description: Denies a pending refill request
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Refills_DenyRefillV2
+- name: refills_approve_refill_v2
+  description: Approves a pending refill request
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Refills_ApproveRefillV2
+- name: refills_replace_refill_v2
+  description: Replace the refill request with new prescription details
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Refills_ReplaceRefillV2
+- name: refills_change_refill_request_patient_v2
+  description: Change the patient details on a refill request
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Refills_ChangeRefillRequestPatientV2
+- name: rx_changes_get_rx_change_queue_v2
+  description: Get Clinician's Rx Change requests for clinic(s)/patient
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#RxChanges_GetRxChangeQueueV2
+- name: rx_changes_get_rx_change_queue_detailed_v2
+  description: Get Clinician's Rx Change requests for clinic(s)/patient
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#RxChanges_GetRxChangeQueueDetailedV2
+- name: rx_changes_deny_rx_change_v2
+  description: Denies a pending rxChange request
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#RxChanges_DenyRxChangeV2
+- name: rx_changes_approve_rx_change_v2
+  description: Approves a pending rxChange request
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#RxChanges_ApproveRxChangeV2
+- name: rx_changes_reconcile_rx_change_v2
+  description: Reconcile Rx. Change
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#RxChanges_ReconcileRxChangeV2
+- name: rx_changes_change_rx_change_request_patient_v2
+  description: Change patient details in a rxchange request
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#RxChanges_ChangeRxChangeRequestPatientV2
+- name: self_reported_medications_get_patient_self_report_medication
+  description: Get patient's self-reported medication details by SelfReportedMedicationId
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#SelfReportedMedications_GetPatientSelfReportMedicationDetailsByIdV2
+- name: self_reported_medications_get_patient_self_report_medication
+  description: Get patient's self-reported medications
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#SelfReportedMedications_GetPatientSelfReportMedicationsV2
+- name: self_reported_medications_edit_self_reported_medication_code
+  description: Edit a coded self-reported medication
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#SelfReportedMedications_EditSelfReportedMedicationCodedV2
+- name: self_reported_medications_edit_self_reported_medication_simp
+  description: Edit a simple self-reported medication
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#SelfReportedMedications_EditSelfReportedMedicationSimpleV2
+- name: self_reported_medications_edit_self_reported_medication_free
+  description: Edit a free-text self-reported medication
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#SelfReportedMedications_EditSelfReportedMedicationFreeTextV2
+- name: self_reported_medications_add_self_reported_medication_coded
+  description: Add a coded self-reported medication
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#SelfReportedMedications_AddSelfReportedMedicationCodedV2
+- name: self_reported_medications_add_self_reported_medication_simpl
+  description: Add a simple self-reported medication
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#SelfReportedMedications_AddSelfReportedMedicationSimpleV2
+- name: self_reported_medications_add_self_reported_medication_free_
+  description: Add a free-text self-reported medication
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#SelfReportedMedications_AddSelfReportedMedicationFreeTextV2
+- name: self_reported_medications_update_self_reported_medication_st
+  description: Update self-reported medication status
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#SelfReportedMedications_UpdateSelfReportedMedicationStatusV2
+- name: supplies_get_supply_by_i_d_v2
+  description: Get supply information
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Supplies_GetSupplyByIDV2
+- name: supplies_supplies_search_v2
+  description: Search supplies matching the exact NDC xor exact UPC.
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Supplies_SuppliesSearchV2
+- name: transparency_alternative_pharmacies_v2
+  description: Returns alternative pharmacies and offers for a given NDC and patient.
+  source_operation: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Transparency_AlternativePharmaciesV2

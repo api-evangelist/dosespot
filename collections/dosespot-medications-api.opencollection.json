@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DoseSpot Medications API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Medications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search the drug database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://my.dosespot.com/webapi/v2/medications/search",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search the Medi-Span drug database for medications and supplies by name."
+        },
+        {
+          "info": {
+            "name": "Check drug interactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://my.dosespot.com/webapi/v2/medications/interactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run drug-drug and drug-allergy interaction checks for a set of medications."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

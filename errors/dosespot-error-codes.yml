@@ -1,0 +1,421 @@
+generated: '2026-08-15'
+method: searched
+source: https://docs.dosespot.com/staging/docs/enumeration-tables
+envelope:
+  field: Result
+  shape: '{ ResultCode, ResultDescription }'
+  transport: HTTP 200 with the error carried in the Result object of the response envelope
+  schema_source: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#/definitions/Result
+note: DoseSpot does not return RFC 9457 problem documents for application errors. Every published operation declares
+  only a 200 response; the operation outcome is carried on the Result object as a numeric ResultCode plus a ResultDescription
+  string. The SaveResultsStatus table below is the published code registry a client must switch on. Codes 1-1999
+  are success/informational, 2000-2999 are validation, duplicate and access errors, and 3000-3999 are authorization,
+  token and runtime errors; 0 is SystemError. Transport-level failures (400 validation, 429 rate limit, 404 unknown
+  path) are recorded in errors/dosespot-problem-types.yml.
+code_count: 80
+classes:
+- range: '0'
+  meaning: SystemError
+- range: 1-1999
+  meaning: Success / informational
+- range: 2000-2999
+  meaning: Validation, duplicate, and access errors
+- range: 3000-3999
+  meaning: Authorization, token, payment and runtime errors
+error_codes:
+- code: '0'
+  name: SystemError
+  class: system-error
+- code: '1'
+  name: Success
+  class: success
+- code: '2'
+  name: SecurityValidationError
+  class: success
+- code: '3'
+  name: DataValidationError
+  class: success
+- code: '4'
+  name: NoCoverage
+  class: success
+- code: '5'
+  name: FreeTextTypeError
+  class: success
+- code: '1001'
+  name: PasswordSet
+  class: success
+- code: '1002'
+  name: ValidCredentials
+  class: success
+- code: '1003'
+  name: PasswordChanged
+  class: success
+- code: '1004'
+  name: MessageSent
+  class: success
+- code: '1005'
+  name: RegistrationEmailSent
+  class: success
+- code: '1006'
+  name: EmailMessage
+  class: success
+- code: '1007'
+  name: FileScanClean
+  class: success
+- code: '2000'
+  name: IncorrectPassword
+  class: validation-or-access-error
+- code: '2001'
+  name: AccountLocked
+  class: validation-or-access-error
+- code: '2016'
+  name: StripeError
+  class: validation-or-access-error
+- code: '2017'
+  name: UnusedStripeEvent
+  class: validation-or-access-error
+- code: '2018'
+  name: UserLoggedIn
+  class: validation-or-access-error
+- code: '2019'
+  name: FileScanVirusDetected
+  class: validation-or-access-error
+- code: '2020'
+  name: FileScanError
+  class: validation-or-access-error
+- code: '2021'
+  name: DuplicatePatient
+  class: validation-or-access-error
+- code: '2022'
+  name: ClinicianNotFound
+  class: validation-or-access-error
+- code: '2023'
+  name: NoSourceClinicianCredentialID
+  class: validation-or-access-error
+- code: '2024'
+  name: AprissApiError
+  class: validation-or-access-error
+- code: '2025'
+  name: UserAccountInactive
+  class: validation-or-access-error
+- code: '2026'
+  name: ClinicianNotConfirmed
+  class: validation-or-access-error
+- code: '2027'
+  name: ClinicianHasNoAccessToClinic
+  class: validation-or-access-error
+- code: '2028'
+  name: IncorrectSSOCalculations
+  class: validation-or-access-error
+- code: '2029'
+  name: ClinicianHasNoAccessToPatient
+  class: validation-or-access-error
+- code: '2030'
+  name: InvalidClinicKey
+  class: validation-or-access-error
+- code: '2031'
+  name: InvalidEncryptUserId
+  class: validation-or-access-error
+- code: '2032'
+  name: SSOFailedValidationCheck
+  class: validation-or-access-error
+- code: '2033'
+  name: NotAClinician
+  class: validation-or-access-error
+- code: '2034'
+  name: SSOFailedDataLogCheck
+  class: validation-or-access-error
+- code: '2035'
+  name: NoRecordsToExport
+  class: validation-or-access-error
+- code: '3001'
+  name: AuthorizationError
+  class: authorization-or-runtime-error
+- code: '3002'
+  name: RuntimeError
+  class: authorization-or-runtime-error
+- code: '3003'
+  name: PasswordExpired
+  class: authorization-or-runtime-error
+- code: '3004'
+  name: LoginFailed
+  class: authorization-or-runtime-error
+- code: '3005'
+  name: IncorrectEmailPassword
+  class: authorization-or-runtime-error
+- code: '3006'
+  name: UnknownUser
+  class: authorization-or-runtime-error
+- code: '3007'
+  name: InvalidToken
+  class: authorization-or-runtime-error
+- code: '3008'
+  name: AlreadyUsedToken
+  class: authorization-or-runtime-error
+- code: '3009'
+  name: ExpiredToken
+  class: authorization-or-runtime-error
+- code: '3010'
+  name: PasswordChangedTooRecently
+  class: authorization-or-runtime-error
+- code: '3011'
+  name: PasswordCopiesOldValue
+  class: authorization-or-runtime-error
+- code: '3012'
+  name: PasswordNotUpdated
+  class: authorization-or-runtime-error
+- code: '3013'
+  name: PasswordUpdated
+  class: authorization-or-runtime-error
+- code: '3014'
+  name: EmailAlreadyExist
+  class: authorization-or-runtime-error
+- code: '3015'
+  name: PaymentAccountNotVerified
+  class: authorization-or-runtime-error
+- code: '3023'
+  name: IDPReferenceIDAdded
+  class: authorization-or-runtime-error
+- code: '3024'
+  name: ClinicianReferenceIDNotFound
+  class: authorization-or-runtime-error
+- code: '3025'
+  name: ClinicianLicenseDuplicate
+  class: authorization-or-runtime-error
+- code: '3026'
+  name: ClinicianNotInitialized
+  class: authorization-or-runtime-error
+- code: '3027'
+  name: ClinicianNotInTFASwitch
+  class: authorization-or-runtime-error
+- code: '3028'
+  name: ClientInvoiceIdNotFound
+  class: authorization-or-runtime-error
+- code: '3029'
+  name: ClientInvoiceNoChargeId
+  class: authorization-or-runtime-error
+- code: '3030'
+  name: ClientInvoiceNoPdfUrl
+  class: authorization-or-runtime-error
+- code: '3031'
+  name: ClientInvoiceSendFailed
+  class: authorization-or-runtime-error
+- code: '3032'
+  name: ClientInvoiceDeductFailed
+  class: authorization-or-runtime-error
+- code: '3033'
+  name: ClientInvoiceAlreadyExists
+  class: authorization-or-runtime-error
+- code: '3034'
+  name: ClientInvoiceInvalidPayStatus
+  class: authorization-or-runtime-error
+- code: '3035'
+  name: NDCNotFound
+  class: authorization-or-runtime-error
+- code: '3036'
+  name: NDCGenDrugIDNotFound
+  class: authorization-or-runtime-error
+- code: '3037'
+  name: FailedToCreateStripeCustomer
+  class: authorization-or-runtime-error
+- code: '3038'
+  name: MissingStripeSecretKey
+  class: authorization-or-runtime-error
+- code: '3039'
+  name: FailedToCreateStripeCustomerUnknown
+  class: authorization-or-runtime-error
+- code: '3040'
+  name: ClientContractMissing
+  class: authorization-or-runtime-error
+- code: '3041'
+  name: StripeCustomerAlreadyExists
+  class: authorization-or-runtime-error
+- code: '3042'
+  name: InvoiceHadNoItems
+  class: authorization-or-runtime-error
+- code: '3043'
+  name: PatientFormularyDoesNotExist
+  class: authorization-or-runtime-error
+- code: '3044'
+  name: PatientEligibilityDoesNotExist
+  class: authorization-or-runtime-error
+- code: '3045'
+  name: FormularyStatusMissing
+  class: authorization-or-runtime-error
+- code: '3046'
+  name: FailedToParseAlternatives
+  class: authorization-or-runtime-error
+- code: '3047'
+  name: FailedToSendFormularyRequest
+  class: authorization-or-runtime-error
+- code: '3048'
+  name: FormularyRequestFailed
+  class: authorization-or-runtime-error
+- code: '3049'
+  name: ClinicianLicenseNotFailed
+  class: authorization-or-runtime-error
+- code: '3050'
+  name: ClinicianLicenseNotSupported
+  class: authorization-or-runtime-error
+- code: '3053'
+  name: PharmacyUpdateNeedsToGoToEditPage
+  class: authorization-or-runtime-error
+- code: '3055'
+  name: OnBehalfOfUserError
+  class: authorization-or-runtime-error
+related_registries:
+- name: Real Time Formulary Request Status
+  codes:
+  - code: '0'
+    name: Queued
+  - code: '1'
+    name: Sent
+  - code: '2'
+    name: Success
+  - code: '1000'
+    name: UnexpectedError
+  - code: '1001'
+    name: PatientEligibilityNotFound
+  - code: '1002'
+    name: FailedToGetAlternatives
+  - code: '1003'
+    name: PatientFormularyNotFound
+  - code: '1004'
+    name: FailedToParseFormularyData
+  - code: '1005'
+    name: FailedToProcessSend
+  - code: '1006'
+    name: FailedToQueueMessage
+  - code: '1007'
+    name: DataExpired
+  - code: '1008'
+    name: RequestExpired
+  - code: '1009'
+    name: SSRespondedWithErrorCode
+  - code: '1010'
+    name: MissingPatientBenefitsInputs
+  - code: '1011'
+    name: UnknownSSResponseSchema
+  - code: '1012'
+    name: SSRespondedWithTxnErrorCode
+- name: Prior Authorization Closed Reason Codes
+  codes:
+  - code: '0'
+    name: Unknown
+  - code: '1'
+    name: ElectronicPriorAuthNotSupported
+  - code: '2'
+    name: Other
+  - code: '3'
+    name: PriorAuthNotRequired
+  - code: '4'
+    name: CannotFindMatchingPatient
+  - code: '5'
+    name: PatientNotEligible
+  - code: '6'
+    name: PriorAuthDuplicateApproved
+  - code: '7'
+    name: PriorAuthDuplicateInProgress
+  - code: '8'
+    name: ClosedByPayer
+  - code: '9'
+    name: ClosedByProvider
+  - code: '10'
+    name: ClosedByMember
+  - code: '11'
+    name: AttachmentTypeNotSupported
+  - code: '12'
+    name: PrescriberNotAllowedToSubmitPARequest
+  - code: '13'
+    name: ResponseInconsistentWithQuestion
+  - code: '14'
+    name: ReceiverNotPAProcessorForThisPatient
+  - code: '15'
+    name: ReceiverNotPAProcessorForPatientMedicationCombo
+  - code: '16'
+    name: DuplicateDenied
+  - code: '17'
+    name: ProviderRespondedAfterDeadlineToReply
+  - code: '18'
+    name: ProductNotCoveredByThisPlanPriorAuthorizationNotAvailable
+  - code: '19'
+    name: PrescriptionWithinPrescribingLimitsPriorAuthorizationNotRequiredForPatientMedication
+  - code: '20'
+    name: CoverageLimitsMayExistForQuantityAndOrDaysSupply
+  - code: '21'
+    name: CoverageLimitsHaveBeenExceededExceptionNotAvailable
+  - code: '22'
+    name: ActivePAOnFile
+  - code: '23'
+    name: SubmittedProductCodeIsNotValid
+- name: Denial Reason Type
+  codes:
+  - code: '3'
+    name: DeniedNewRx
+    note: Deprecated. Do not use
+  - code: '4'
+    name: DeniedPatientUnknown
+  - code: '5'
+    name: DeniedPatientNotUnderCare
+  - code: '6'
+    name: DeniedPatientNoLongerUnderPatientCare
+  - code: '7'
+    name: DeniedTooSoon
+    note: RxRenewal only
+  - code: '8'
+    name: DeniedNeverPrescribed
+  - code: '9'
+    name: DeniedHavePatientContact
+  - code: '10'
+    name: DeniedRefillInappropriate
+    note: Deprecated. Do not use
+  - code: '11'
+    name: DeniedAlreadyPickedUp
+    note: Deprecated. Do not use
+  - code: '12'
+    name: DeniedAlreadyPickedUpPartialFill
+    note: Deprecated. Do not use
+  - code: '13'
+    name: DeniedNotPickedUp
+    note: Deprecated. Do not use
+  - code: '14'
+    name: DeniedChangeInappropriate
+    note: RxChange only
+  - code: '15'
+    name: DeniedNeedAppointment
+  - code: '16'
+    name: DeniedPrescriberNotAssociateWithLocation
+  - code: '17'
+    name: DeniedNoPriorAuthAttempt
+    note: RxChange only
+  - code: '18'
+    name: DeniedAlreadyHandled
+  - code: '21'
+    name: DeniedAtPatientRequest
+  - code: '22'
+    name: DeniedPatientAllergicToRequestMed
+    note: RxRenewal only
+  - code: '23'
+    name: DeniedMedicationDiscontinued
+    note: RxRenewal only
+  - code: '24'
+    name: DeniedPriorAuthNoAttempt
+    note: CMM only
+  - code: '25'
+    name: DeniedPriorAuthInProgress
+    note: CMM only
+  - code: '26'
+    name: DeniedOrderNotFound
+    note: CMM only
+  - code: '27'
+    name: DeniedPayerNoPriorAuth
+    note: CMM only
+  - code: '28'
+    name: DeniedPatientNoRecord
+    note: CMM only
+  - code: '29'
+    name: DeniedOrderExpired
+    note: CMM only
+  - code: '30'
+    name: DeniedPharmacyNotRecognized
+    note: CMM only

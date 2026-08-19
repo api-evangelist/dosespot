@@ -1,0 +1,29 @@
+overlay: 1.0.0
+info:
+  title: 'API Evangelist enhancements for DoseSpot REST API - Plan: Jumpstart + EPCS - V2'
+  version: 1.0.0
+extends: openapi/_original/dosespot-rest-api-jumpstart-epcs-v2-swagger.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provenance: Harvested 2026-08-15 from docs.dosespot.com (DoseSpot SwaggerHub portal,
+      org DoseSpot, api dosespot-staging-rest-api-v2).
+    x-apievangelist-real-base-urls:
+      staging: https://staging.dosespot.com/webapi/v2
+      production: https://my.dosespot.com/webapi/v2
+    x-apievangelist-note: The host/basePath in this document point at the SwaggerHub virtserver mock,
+      not at a DoseSpot API host.
+- target: $.securityDefinitions
+  update:
+    subscriptionKey:
+      type: apiKey
+      in: header
+      name: Ocp-Apim-Subscription-Key
+      description: Per-application subscription key issued by DoseSpot (Azure API Management). Documented
+        at docs.dosespot.com/staging/docs/getting-started; absent from the published Swagger.
+    bearerAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: OAuth2 bearer access token from the DoseSpot token endpoint. Documented in the DoseSpot
+        Authentication guide; absent from the published Swagger.

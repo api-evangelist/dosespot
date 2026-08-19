@@ -1,0 +1,470 @@
+{
+  "item": [
+    {
+      "id": "608e2006-9cdd-4f07-8c60-fb23f35b1af3",
+      "name": "Prescriptions",
+      "description": {
+        "content": "Prescription creation, transmission, status, and medication history.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1d758b6f-f65e-4856-a0cd-9ea7747cf58d",
+          "name": "List a patient's prescriptions",
+          "request": {
+            "name": "List a patient's prescriptions",
+            "description": {
+              "content": "Retrieve prescriptions and their statuses for a patient.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patients",
+                ":patientId",
+                "prescriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4655561a-8663-4081-b3f0-6f37ad04c445",
+              "name": "A list of prescriptions for the patient.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patients",
+                    ":patientId",
+                    "prescriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "patientId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Items\": [\n    {\n      \"PrescriptionId\": 6671,\n      \"Status\": \"string\",\n      \"WrittenDate\": \"1975-01-11T07:13:35.320Z\",\n      \"Directions\": \"string\",\n      \"Quantity\": \"string\",\n      \"DispenseUnitId\": 4284,\n      \"Refills\": \"string\",\n      \"DaysSupply\": 1335,\n      \"PharmacyId\": 8787,\n      \"PharmacyNotes\": \"string\",\n      \"NoSubstitutions\": false,\n      \"Medication\": {\n        \"NDC\": \"string\",\n        \"LexiGenProductId\": 3790,\n        \"LexiDrugSynId\": 8667,\n        \"LexiSynonymTypeId\": 3164,\n        \"Name\": \"string\",\n        \"Strength\": \"string\",\n        \"GenericProductName\": \"string\",\n        \"DrugClassification\": \"string\",\n        \"Schedule\": \"string\"\n      }\n    },\n    {\n      \"PrescriptionId\": 436,\n      \"Status\": \"string\",\n      \"WrittenDate\": \"1985-01-09T17:46:14.019Z\",\n      \"Directions\": \"string\",\n      \"Quantity\": \"string\",\n      \"DispenseUnitId\": 3164,\n      \"Refills\": \"string\",\n      \"DaysSupply\": 3609,\n      \"PharmacyId\": 5957,\n      \"PharmacyNotes\": \"string\",\n      \"NoSubstitutions\": true,\n      \"Medication\": {\n        \"NDC\": \"string\",\n        \"LexiGenProductId\": 8515,\n        \"LexiDrugSynId\": 1595,\n        \"LexiSynonymTypeId\": 6745,\n        \"Name\": \"string\",\n        \"Strength\": \"string\",\n        \"GenericProductName\": \"string\",\n        \"DrugClassification\": \"string\",\n        \"Schedule\": \"string\"\n      }\n    }\n  ],\n  \"PageResult\": {\n    \"CurrentPage\": 8411,\n    \"TotalPages\": 6903,\n    \"PageSize\": 3230,\n    \"HasPrevious\": true,\n    \"HasNext\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1381087c-bbc2-489b-83b9-6a71a4d2efa9",
+          "name": "Create a prescription",
+          "request": {
+            "name": "Create a prescription",
+            "description": {
+              "content": "Create a new prescription for a patient, ready to be sent to a pharmacy.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patients",
+                ":patientId",
+                "prescriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PrescriptionId\": \"<integer>\",\n  \"Status\": \"<string>\",\n  \"WrittenDate\": \"<dateTime>\",\n  \"Directions\": \"<string>\",\n  \"Quantity\": \"<string>\",\n  \"DispenseUnitId\": \"<integer>\",\n  \"Refills\": \"<string>\",\n  \"DaysSupply\": \"<integer>\",\n  \"PharmacyId\": \"<integer>\",\n  \"PharmacyNotes\": \"<string>\",\n  \"NoSubstitutions\": \"<boolean>\",\n  \"Medication\": {\n    \"NDC\": \"<string>\",\n    \"LexiGenProductId\": \"<integer>\",\n    \"LexiDrugSynId\": \"<integer>\",\n    \"LexiSynonymTypeId\": \"<integer>\",\n    \"Name\": \"<string>\",\n    \"Strength\": \"<string>\",\n    \"GenericProductName\": \"<string>\",\n    \"DrugClassification\": \"<string>\",\n    \"Schedule\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "10feec78-ede7-44cf-bfd0-b1ff5f2f7f30",
+              "name": "The created prescription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patients",
+                    ":patientId",
+                    "prescriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "patientId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"PrescriptionId\": \"<integer>\",\n  \"Status\": \"<string>\",\n  \"WrittenDate\": \"<dateTime>\",\n  \"Directions\": \"<string>\",\n  \"Quantity\": \"<string>\",\n  \"DispenseUnitId\": \"<integer>\",\n  \"Refills\": \"<string>\",\n  \"DaysSupply\": \"<integer>\",\n  \"PharmacyId\": \"<integer>\",\n  \"PharmacyNotes\": \"<string>\",\n  \"NoSubstitutions\": \"<boolean>\",\n  \"Medication\": {\n    \"NDC\": \"<string>\",\n    \"LexiGenProductId\": \"<integer>\",\n    \"LexiDrugSynId\": \"<integer>\",\n    \"LexiSynonymTypeId\": \"<integer>\",\n    \"Name\": \"<string>\",\n    \"Strength\": \"<string>\",\n    \"GenericProductName\": \"<string>\",\n    \"DrugClassification\": \"<string>\",\n    \"Schedule\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Item\": {\n    \"PrescriptionId\": \"<integer>\",\n    \"Status\": \"<string>\",\n    \"WrittenDate\": \"<dateTime>\",\n    \"Directions\": \"<string>\",\n    \"Quantity\": \"<string>\",\n    \"DispenseUnitId\": \"<integer>\",\n    \"Refills\": \"<string>\",\n    \"DaysSupply\": \"<integer>\",\n    \"PharmacyId\": \"<integer>\",\n    \"PharmacyNotes\": \"<string>\",\n    \"NoSubstitutions\": \"<boolean>\",\n    \"Medication\": {\n      \"NDC\": \"<string>\",\n      \"LexiGenProductId\": \"<integer>\",\n      \"LexiDrugSynId\": \"<integer>\",\n      \"LexiSynonymTypeId\": \"<integer>\",\n      \"Name\": \"<string>\",\n      \"Strength\": \"<string>\",\n      \"GenericProductName\": \"<string>\",\n      \"DrugClassification\": \"<string>\",\n      \"Schedule\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db3bf700-7b03-47b5-a782-d4cc8c648553",
+          "name": "Get a prescription",
+          "request": {
+            "name": "Get a prescription",
+            "description": {
+              "content": "Retrieve a single prescription and its current status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patients",
+                ":patientId",
+                "prescriptions",
+                ":prescriptionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "prescriptionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8725841f-f012-474d-897f-b396b5a39628",
+              "name": "The requested prescription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patients",
+                    ":patientId",
+                    "prescriptions",
+                    ":prescriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "patientId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "prescriptionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Item\": {\n    \"PrescriptionId\": \"<integer>\",\n    \"Status\": \"<string>\",\n    \"WrittenDate\": \"<dateTime>\",\n    \"Directions\": \"<string>\",\n    \"Quantity\": \"<string>\",\n    \"DispenseUnitId\": \"<integer>\",\n    \"Refills\": \"<string>\",\n    \"DaysSupply\": \"<integer>\",\n    \"PharmacyId\": \"<integer>\",\n    \"PharmacyNotes\": \"<string>\",\n    \"NoSubstitutions\": \"<boolean>\",\n    \"Medication\": {\n      \"NDC\": \"<string>\",\n      \"LexiGenProductId\": \"<integer>\",\n      \"LexiDrugSynId\": \"<integer>\",\n      \"LexiSynonymTypeId\": \"<integer>\",\n      \"Name\": \"<string>\",\n      \"Strength\": \"<string>\",\n      \"GenericProductName\": \"<string>\",\n      \"DrugClassification\": \"<string>\",\n      \"Schedule\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe4d8efd-70ad-48ab-8afa-a47a4d09b0bd",
+          "name": "Get aggregated medication history",
+          "request": {
+            "name": "Get aggregated medication history",
+            "description": {
+              "content": "Retrieve aggregated medication history data for a patient from pharmacy and payer sources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patients",
+                ":patientId",
+                "medicationHistory"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b069485-0220-4703-8184-52f95c072ae8",
+              "name": "The patient's medication history.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patients",
+                    ":patientId",
+                    "medicationHistory"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "patientId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Items\": [\n    {\n      \"NDC\": \"<string>\",\n      \"LexiGenProductId\": \"<integer>\",\n      \"LexiDrugSynId\": \"<integer>\",\n      \"LexiSynonymTypeId\": \"<integer>\",\n      \"Name\": \"<string>\",\n      \"Strength\": \"<string>\",\n      \"GenericProductName\": \"<string>\",\n      \"DrugClassification\": \"<string>\",\n      \"Schedule\": \"<string>\"\n    },\n    {\n      \"NDC\": \"<string>\",\n      \"LexiGenProductId\": \"<integer>\",\n      \"LexiDrugSynId\": \"<integer>\",\n      \"LexiSynonymTypeId\": \"<integer>\",\n      \"Name\": \"<string>\",\n      \"Strength\": \"<string>\",\n      \"GenericProductName\": \"<string>\",\n      \"DrugClassification\": \"<string>\",\n      \"Schedule\": \"<string>\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://my.dosespot.com/webapi/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3634b75b-a2ae-4adb-b462-1f6fad837a25",
+    "name": "DoseSpot Medications Prescriptions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.\n\nContact Support:\n Name: DoseSpot Support",
+      "type": "text/plain"
+    }
+  }
+}

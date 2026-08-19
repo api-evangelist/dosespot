@@ -1,0 +1,137 @@
+generated: '2026-08-15'
+method: searched
+source:
+  - https://docs.dosespot.com/staging/docs/getting-started
+  - https://docs.dosespot.com/staging/docs/overview
+  - https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+  - openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+name: DoseSpot REST API v2 conventions
+description: >-
+  Cross-cutting request/response semantics for the DoseSpot REST API v2, taken from the Getting Started guide
+  on DoseSpot's own developer portal (docs.dosespot.com, which DoseSpot states is "the official source for
+  DoseSpot technical documentation") and from the Swagger 2.0 documents that portal renders.
+
+authentication:
+  style: bearer-token-plus-subscription-key
+  headers:
+    - name: Ocp-Apim-Subscription-Key
+      required: true
+      description: >-
+        Per-application subscription key issued by DoseSpot. The Ocp-Apim- prefix is the Azure API Management
+        gateway convention, which is what fronts the DoseSpot v2 API.
+    - name: Authorization
+      required: true
+      description: OAuth2 bearer access token obtained from the DoseSpot token endpoint.
+  credential_issuance: >-
+    Credentials are not self-serve. "Contact your DoseSpot client integration specialist or account manager to
+    obtain" the subscription key.
+  scoping: Access is scoped by clinic key and clinician key.
+  detail: authentication/dosespot-authentication.yml
+
+http_semantics:
+  methods:
+    GET: Retrieve a resource or list of resources
+    POST: Create a new resource or perform an action
+    PUT: Update an existing resource
+    DELETE: Remove a resource
+  method_override: >-
+    "PUT is the preferred method for editing existing resources and DELETE is the preferred method for
+    deleting existing resources. In the case in which your technology does not support PUT or DELETE methods,
+    the same results can be obtained using the POST method."
+  content_negotiation:
+    request: Both JSON and XML formats are supported by the DoseSpot RESTful API.
+    response_media_types:
+      - application/json
+      - text/json
+      - application/problem+json
+      - application/xml
+      - text/xml
+    note: >-
+      Every published operation advertises application/problem+json in its produces list, so RFC 7807/9457
+      problem documents are negotiable - but no problem schema is defined anywhere in the spec and every
+      operation declares only a 200 response.
+
+response_envelope:
+  single: 'ItemResponse[T] -> { Item, Result }'
+  list: 'ListResponse[T] -> { Items, Result }'
+  paged: 'PagedListResponse[T] -> { Items, PageResult, Result }'
+  result:
+    schema: 'Result -> { ResultCode (required, string), ResultDescription (string) }'
+    semantics: >-
+      Application outcome is carried INSIDE a 200 response on Result.ResultCode, not on the HTTP status line.
+      The numeric code registry is published as the SaveResultsStatus enumeration - see
+      errors/dosespot-error-codes.yml. An agent must switch on ResultCode, not on the HTTP status.
+
+pagination:
+  style: page-number
+  request_params:
+    - {name: pageNumber, in: query, note: 'present on 19 operations in the Full plan'}
+    - {name: pageSize, in: query}
+    - {name: sortOrder, in: query}
+  response_object: PageResult
+  response_fields: [CurrentPage, TotalPages, PageSize, TotalCount, HasPrevious, HasNext]
+
+idempotency:
+  supported: false
+  evidence: >-
+    No Idempotency-Key header, no idempotency parameter and no idempotency language appears anywhere in either
+    published Swagger document (grepped 2026-08-15) or in the Getting Started guide. Write operations
+    (prescription creation, transmission, patient creation) carry no replay-safety contract. No Idempotency
+    pointer is wired into apis.yml as a result.
+
+field_conventions:
+  case_sensitivity: All string fields are case-insensitive unless otherwise specified.
+  whitespace: Trim whitespace from input fields before sending requests.
+  max_lengths: >-
+    Maximum string lengths are enforced; exceeding them results in an HTTP 400 response.
+  allowed_special_characters: ".!\"#$%&'()*+,-/:;<=>?@[]^_`{|}~"
+  field_rules:
+    - field: State
+      requirement: Must be a two-character U.S. state abbreviation (e.g. MA, CA) or the full name.
+    - field: ZIP Code
+      requirement: 5-digit or 9-digit ZIP (ZIP+4 accepted without hyphen).
+    - field: Phone Numbers
+      requirement: >-
+        Numeric only, formatted for the United States; 10 digits required. Extensions allowed using an "x"
+        before them. All area codes supported except "555" and codes starting with "0" or "1". Cannot contain
+        7 or more repeated numbers.
+
+versioning:
+  scheme: uri-path
+  current: v2
+  path_segment: /webapi/v2
+  predecessor: v1 (Lexicomp drug database) - migration required, see lifecycle/dosespot-lifecycle.yml
+  spec_variants:
+    - {name: 'Full + EPCS - V2', operations: 171}
+    - {name: 'Jumpstart + EPCS - V2', operations: 139}
+  note: >-
+    The API surface a customer receives is contract-dependent - JumpStart customers get a strict subset. Both
+    variants are published as separate Swagger documents from the same SwaggerHub API.
+
+rate_limiting:
+  documented: true
+  numeric_limits_published: false
+  status_on_exhaustion: 429
+  detail: rate-limits/dosespot-rate-limits.yml
+
+request_tracing:
+  request_id_header: null
+  note: No request-id / correlation-id header is documented or present in the published specs.
+
+encoding:
+  enumerations: >-
+    DoseSpot encodes most domain state as integer enumerations (prescription status, allergy type, pharmacy
+    service level as a bitwise sum, clinician role, dispense unit, prior-authorization status). The full
+    published registry is captured in vocabulary/dosespot-vocabulary.yml - 43 vocabularies, 450 terms. An
+    integrator cannot read a DoseSpot response without it.
+  bitfields:
+    - {field: ServiceLevel, note: 'Bitwise sum - ServiceLevel 2049 = NewRx (1) + EPCS (2048).'}
+
+cross_links:
+  errors: errors/dosespot-error-codes.yml
+  problem_types: errors/dosespot-problem-types.yml
+  lifecycle: lifecycle/dosespot-lifecycle.yml
+  authentication: authentication/dosespot-authentication.yml
+  rate_limits: rate-limits/dosespot-rate-limits.yml
+  vocabulary: vocabulary/dosespot-vocabulary.yml
+  data_model: data-model/dosespot-data-model.yml

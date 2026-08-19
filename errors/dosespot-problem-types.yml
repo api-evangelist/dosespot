@@ -1,0 +1,37 @@
+generated: '2026-08-15'
+method: derived
+source:
+- openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+- openapi/_original/dosespot-rest-api-jumpstart-epcs-v2-swagger.json
+format: result-envelope
+note: DoseSpot's published Swagger documents declare only 200 responses on every operation across both
+  plans (Full 171 ops, JumpStart 139 ops) - no 4xx/5xx responses are modelled. Errors are carried IN the
+  200 envelope on the Result object (ResultCode + ResultDescription); the numeric ResultCode values are
+  the real error catalogue and are published as the 'Save Results Status Type' enumeration table in the
+  developer portal (see errors/dosespot-error-codes.yml). Every operation also advertises application/problem+json
+  in its produces list, so RFC 7807/9457 problem documents are negotiable, but no problem schema is defined.
+produces_media_types:
+- application/json
+- application/problem+json
+- application/xml
+- text/json
+- text/xml
+rfc9457_negotiable: true
+documented_status_codes:
+- '200'
+transport_errors:
+- status: 429
+  title: Rate limit exceeded
+  source: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+  detail: All endpoints enforce reasonable rate limits; a 429 is returned when a limit is exceeded. Specific
+    limits are shared by the DoseSpot Integration Specialist.
+- status: 400
+  title: Validation failure
+  source: https://docs.dosespot.com/staging/docs/getting-started
+  detail: Maximum string lengths are enforced; exceeding them results in a 400 response.
+- status: 404
+  title: Resource not found
+  source: 'probe: https://my.dosespot.com/webapi/v2/ (unauthenticated)'
+  detail: 'The API host returns a JSON envelope {"statusCode": 404, "message": "Resource not found"} for
+    unknown paths under /webapi/v2.'
+problems: []

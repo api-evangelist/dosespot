@@ -1,0 +1,69 @@
+generated: '2026-08-15'
+method: probed
+source: live HTTP probes of every DoseSpot host in apis.yml plus the developer-portal host
+note: >-
+  Every /.well-known/ path was probed on 2026-08-15 against the API host (my.dosespot.com), the staging API
+  host (my.staging.dosespot.com, staging.dosespot.com), the marketing site (dosespot.com, www.dosespot.com),
+  the developer portal (docs.dosespot.com), the status page (status.dosespot.com) and the trust center
+  (trust.dosespot.com). NOTHING was found. Two hosts answer HTTP 200 to every /.well-known/* path with their
+  single-page-app shell rather than a document - status.dosespot.com (PagerDuty status page, 5,945 bytes of
+  HTML for /.well-known/security.txt) and trust.dosespot.com (Vanta trust center, 4,368 bytes of HTML). Those
+  are soft-200s, not served documents, and are recorded as misses. No WellKnown or SecurityTxt pointer is
+  wired into apis.yml as a result - this file records a verified absence.
+result: none
+hosts:
+  - host: https://my.dosespot.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://staging.dosespot.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+  - host: https://my.staging.dosespot.com
+    documents:
+      - {path: /.well-known/agent-card.json, status: 404}
+  - host: https://dosespot.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://www.dosespot.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+  - host: https://docs.dosespot.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://status.dosespot.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        served: soft-404
+        note: PagerDuty status-page SPA shell (text/html, 5945 bytes) - not a security.txt document.
+  - host: https://trust.dosespot.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        served: soft-404
+        note: Vanta trust-center SPA shell (text/html, 4368 bytes) - not a security.txt document.
+other_discovery:
+  - {path: /llms.txt, host: https://dosespot.com, status: 404}
+  - {path: /llms.txt, host: https://www.dosespot.com, status: 404}
+  - {path: /llms.txt, host: https://docs.dosespot.com, status: 404}
+  - {path: /robots.txt, host: https://dosespot.com, status: 200, note: 'Yoast block, Disallow empty (all crawling allowed)'}
+  - {path: /sitemap_index.xml, host: https://dosespot.com, status: 200}

@@ -1,0 +1,26 @@
+generated: '2026-08-15'
+method: searched
+probe: true
+url: https://trust.dosespot.com/
+name: Interra Health Trust Center
+platform: Vanta
+operator: >-
+  Interra Health - the parent brand covering DoseSpot and its subsidiary pVerify. The trust center is served
+  from DoseSpot's own domain (trust.dosespot.com, canonical https://trust.dosespot.com) and is linked from the
+  dosespot.com footer and from https://dosespot.com/security/, so it is DoseSpot's published trust surface even
+  though the page title carries the parent brand.
+certifications: [SOC 2 Type 2, HIPAA, PCI DSS, NIST]
+in_progress: [HITRUST Tier 2]
+certification_source: https://dosespot.com/security/
+note: >-
+  The trust center itself renders client-side (Vanta SPA; a raw fetch returns only the document head with the
+  company description and no control or certification list), so the certification list above is taken from
+  DoseSpot's own /security/ page rather than scraped from the trust center body. DoseSpot's /security/ page
+  states of SOC 2: "Currently, we have the type 2 designation with zero exceptions." Requesting reports through
+  the trust center requires an NDA workflow. The automated probe (probe-security-programs.py) recorded
+  trust=none because it requires two or more trust keywords in the fetched body and the body is JS-rendered -
+  this file is the manual, evidenced upgrade of that miss.
+evidence:
+  - {source: 'https://trust.dosespot.com/', http_status: 200, content_type: text/html, signal: 'Vanta trust-center shell, canonical trust.dosespot.com, title "Interra Health Trust Center"'}
+  - {source: 'https://dosespot.com/security/', http_status: 200, keywords: [SOC 2 Type 2, HITRUST, HIPAA, NIST, PCI DSS, ONC Certification, Real World Testing]}
+  - {source: 'https://dosespot.com/', http_status: 200, signal: 'footer links to https://trust.dosespot.com/'}

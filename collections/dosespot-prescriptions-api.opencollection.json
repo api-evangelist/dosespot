@@ -1,0 +1,105 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DoseSpot Medications Prescriptions API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Prescriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List a patient's prescriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://my.dosespot.com/webapi/v2/patients/:patientId/prescriptions",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve prescriptions and their statuses for a patient."
+        },
+        {
+          "info": {
+            "name": "Create a prescription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://my.dosespot.com/webapi/v2/patients/:patientId/prescriptions",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new prescription for a patient, ready to be sent to a pharmacy."
+        },
+        {
+          "info": {
+            "name": "Get a prescription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://my.dosespot.com/webapi/v2/patients/:patientId/prescriptions/:prescriptionId",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "prescriptionId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a single prescription and its current status."
+        },
+        {
+          "info": {
+            "name": "Get aggregated medication history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://my.dosespot.com/webapi/v2/patients/:patientId/medicationHistory",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve aggregated medication history data for a patient from pharmacy and payer sources."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

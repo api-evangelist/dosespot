@@ -1,0 +1,121 @@
+{
+  "item": [
+    {
+      "id": "4090d00a-7ad6-4446-ab44-278100905168",
+      "name": "Notifications",
+      "description": {
+        "content": "Clinician notification counts and actionable items.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b9a2ccae-75a5-4586-bda8-d847e26bd3d9",
+          "name": "Get notification counts",
+          "request": {
+            "name": "Get notification counts",
+            "description": {
+              "content": "Retrieve the count of pending notifications and actionable items (transmission errors, refill requests, pharmacy responses) for the authenticated clinician.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "notifications",
+                "counts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b6383f33-9676-48f3-99fe-7228b41a77cc",
+              "name": "Notification counts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "notifications",
+                    "counts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"PendingPrescriptionsCount\": 5448,\n  \"TransmissionErrorsCount\": 2488,\n  \"RefillRequestsCount\": 7088,\n  \"PharmacyResponsesCount\": 9296,\n  \"TotalNotificationCount\": 3514\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://my.dosespot.com/webapi/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ae8caf5e-65be-4e3c-9276-52c1a6c6f0a5",
+    "name": "DoseSpot Medications Notifications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.\n\nContact Support:\n Name: DoseSpot Support",
+      "type": "text/plain"
+    }
+  }
+}

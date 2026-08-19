@@ -1,0 +1,469 @@
+{
+  "item": [
+    {
+      "id": "9d5d7e76-0f70-4544-ae2c-7080fbf92459",
+      "name": "Patients",
+      "description": {
+        "content": "Patient demographics, allergies, and self-reported medications.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7423cb94-cb55-464d-bc2e-0f92e672bc82",
+          "name": "Search patients",
+          "request": {
+            "name": "Search patients",
+            "description": {
+              "content": "Search for patients within the clinic by name, date of birth, or other demographics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patients"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "firstName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "lastName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateOfBirth",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20bae990-3aaa-4359-a3d3-d69653a01813",
+              "name": "A paged list of patients.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "firstName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "lastName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dateOfBirth",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Items\": [\n    {\n      \"PatientId\": 7503,\n      \"Prefix\": \"string\",\n      \"FirstName\": \"string\",\n      \"MiddleName\": \"string\",\n      \"LastName\": \"string\",\n      \"Suffix\": \"string\",\n      \"DateOfBirth\": \"2019-11-29\",\n      \"Gender\": \"string\",\n      \"Email\": \"string\",\n      \"PrimaryPhone\": \"string\",\n      \"PrimaryPhoneType\": \"string\",\n      \"Address1\": \"string\",\n      \"Address2\": \"string\",\n      \"City\": \"string\",\n      \"State\": \"string\",\n      \"ZipCode\": \"string\",\n      \"Active\": false,\n      \"NonDoseSpotMedicalRecordNumber\": \"string\"\n    },\n    {\n      \"PatientId\": 4530,\n      \"Prefix\": \"string\",\n      \"FirstName\": \"string\",\n      \"MiddleName\": \"string\",\n      \"LastName\": \"string\",\n      \"Suffix\": \"string\",\n      \"DateOfBirth\": \"2007-05-12\",\n      \"Gender\": \"string\",\n      \"Email\": \"string\",\n      \"PrimaryPhone\": \"string\",\n      \"PrimaryPhoneType\": \"string\",\n      \"Address1\": \"string\",\n      \"Address2\": \"string\",\n      \"City\": \"string\",\n      \"State\": \"string\",\n      \"ZipCode\": \"string\",\n      \"Active\": true,\n      \"NonDoseSpotMedicalRecordNumber\": \"string\"\n    }\n  ],\n  \"PageResult\": {\n    \"CurrentPage\": 3330,\n    \"TotalPages\": 5488,\n    \"PageSize\": 2760,\n    \"HasPrevious\": true,\n    \"HasNext\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d8fa156-3632-4cef-945f-dac820b53db0",
+          "name": "Create a patient",
+          "request": {
+            "name": "Create a patient",
+            "description": {
+              "content": "Create a new patient record with demographics required for prescribing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patients"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PatientId\": \"<integer>\",\n  \"Prefix\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"MiddleName\": \"<string>\",\n  \"LastName\": \"<string>\",\n  \"Suffix\": \"<string>\",\n  \"DateOfBirth\": \"<date>\",\n  \"Gender\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"PrimaryPhone\": \"<string>\",\n  \"PrimaryPhoneType\": \"<string>\",\n  \"Address1\": \"<string>\",\n  \"Address2\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"ZipCode\": \"<string>\",\n  \"Active\": \"<boolean>\",\n  \"NonDoseSpotMedicalRecordNumber\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7cb83930-e250-45e9-916f-7476881cc708",
+              "name": "The created patient.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patients"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"PatientId\": \"<integer>\",\n  \"Prefix\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"MiddleName\": \"<string>\",\n  \"LastName\": \"<string>\",\n  \"Suffix\": \"<string>\",\n  \"DateOfBirth\": \"<date>\",\n  \"Gender\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"PrimaryPhone\": \"<string>\",\n  \"PrimaryPhoneType\": \"<string>\",\n  \"Address1\": \"<string>\",\n  \"Address2\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"ZipCode\": \"<string>\",\n  \"Active\": \"<boolean>\",\n  \"NonDoseSpotMedicalRecordNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Item\": {\n    \"PatientId\": \"<integer>\",\n    \"Prefix\": \"<string>\",\n    \"FirstName\": \"<string>\",\n    \"MiddleName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Suffix\": \"<string>\",\n    \"DateOfBirth\": \"<date>\",\n    \"Gender\": \"<string>\",\n    \"Email\": \"<string>\",\n    \"PrimaryPhone\": \"<string>\",\n    \"PrimaryPhoneType\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"Address2\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"ZipCode\": \"<string>\",\n    \"Active\": \"<boolean>\",\n    \"NonDoseSpotMedicalRecordNumber\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a68a2529-93a9-466c-8f57-08ff5413f1d3",
+          "name": "Get a patient",
+          "request": {
+            "name": "Get a patient",
+            "description": {
+              "content": "Retrieve a single patient record by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patients",
+                ":patientId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e8d9cc9-4208-4ac9-a923-6511abf45f20",
+              "name": "The requested patient.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patients",
+                    ":patientId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "patientId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Item\": {\n    \"PatientId\": \"<integer>\",\n    \"Prefix\": \"<string>\",\n    \"FirstName\": \"<string>\",\n    \"MiddleName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Suffix\": \"<string>\",\n    \"DateOfBirth\": \"<date>\",\n    \"Gender\": \"<string>\",\n    \"Email\": \"<string>\",\n    \"PrimaryPhone\": \"<string>\",\n    \"PrimaryPhoneType\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"Address2\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"ZipCode\": \"<string>\",\n    \"Active\": \"<boolean>\",\n    \"NonDoseSpotMedicalRecordNumber\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc4fc39a-0036-4ddf-85e5-156511f84806",
+          "name": "Update a patient",
+          "request": {
+            "name": "Update a patient",
+            "description": {
+              "content": "Update demographics for an existing patient.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patients",
+                ":patientId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PatientId\": \"<integer>\",\n  \"Prefix\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"MiddleName\": \"<string>\",\n  \"LastName\": \"<string>\",\n  \"Suffix\": \"<string>\",\n  \"DateOfBirth\": \"<date>\",\n  \"Gender\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"PrimaryPhone\": \"<string>\",\n  \"PrimaryPhoneType\": \"<string>\",\n  \"Address1\": \"<string>\",\n  \"Address2\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"ZipCode\": \"<string>\",\n  \"Active\": \"<boolean>\",\n  \"NonDoseSpotMedicalRecordNumber\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a4f977dd-6413-4bbc-9f70-29d455d487ee",
+              "name": "The updated patient.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patients",
+                    ":patientId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "patientId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"PatientId\": \"<integer>\",\n  \"Prefix\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"MiddleName\": \"<string>\",\n  \"LastName\": \"<string>\",\n  \"Suffix\": \"<string>\",\n  \"DateOfBirth\": \"<date>\",\n  \"Gender\": \"<string>\",\n  \"Email\": \"<string>\",\n  \"PrimaryPhone\": \"<string>\",\n  \"PrimaryPhoneType\": \"<string>\",\n  \"Address1\": \"<string>\",\n  \"Address2\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"ZipCode\": \"<string>\",\n  \"Active\": \"<boolean>\",\n  \"NonDoseSpotMedicalRecordNumber\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Item\": {\n    \"PatientId\": \"<integer>\",\n    \"Prefix\": \"<string>\",\n    \"FirstName\": \"<string>\",\n    \"MiddleName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Suffix\": \"<string>\",\n    \"DateOfBirth\": \"<date>\",\n    \"Gender\": \"<string>\",\n    \"Email\": \"<string>\",\n    \"PrimaryPhone\": \"<string>\",\n    \"PrimaryPhoneType\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"Address2\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"ZipCode\": \"<string>\",\n    \"Active\": \"<boolean>\",\n    \"NonDoseSpotMedicalRecordNumber\": \"<string>\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://my.dosespot.com/webapi/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c3fc3b19-31ab-4a3f-afc4-234c993d1bee",
+    "name": "DoseSpot Medications Patients API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.\n\nContact Support:\n Name: DoseSpot Support",
+      "type": "text/plain"
+    }
+  }
+}

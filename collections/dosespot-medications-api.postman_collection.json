@@ -1,0 +1,243 @@
+{
+  "item": [
+    {
+      "id": "df68e40c-f3ff-44b2-8624-dc242cfc7ecd",
+      "name": "Medications",
+      "description": {
+        "content": "Medi-Span drug search and interaction checks.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d44c6d9e-55c3-40c3-9cd9-c02869f477f4",
+          "name": "Search the drug database",
+          "request": {
+            "name": "Search the drug database",
+            "description": {
+              "content": "Search the Medi-Span drug database for medications and supplies by name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medications",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9511f18b-1564-4f30-85e6-2ae822703d53",
+              "name": "Matching medications.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medications",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Items\": [\n    {\n      \"NDC\": \"string\",\n      \"LexiGenProductId\": 4313,\n      \"LexiDrugSynId\": 3631,\n      \"LexiSynonymTypeId\": 3564,\n      \"Name\": \"string\",\n      \"Strength\": \"string\",\n      \"GenericProductName\": \"string\",\n      \"DrugClassification\": \"string\",\n      \"Schedule\": \"string\"\n    },\n    {\n      \"NDC\": \"string\",\n      \"LexiGenProductId\": 6921,\n      \"LexiDrugSynId\": 922,\n      \"LexiSynonymTypeId\": 2346,\n      \"Name\": \"string\",\n      \"Strength\": \"string\",\n      \"GenericProductName\": \"string\",\n      \"DrugClassification\": \"string\",\n      \"Schedule\": \"string\"\n    }\n  ],\n  \"PageResult\": {\n    \"CurrentPage\": 9678,\n    \"TotalPages\": 1017,\n    \"PageSize\": 4635,\n    \"HasPrevious\": true,\n    \"HasNext\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5d281219-3ab1-4c0b-ab95-58ee2b5d7123",
+          "name": "Check drug interactions",
+          "request": {
+            "name": "Check drug interactions",
+            "description": {
+              "content": "Run drug-drug and drug-allergy interaction checks for a set of medications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "medications",
+                "interactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PatientId\": \"<integer>\",\n  \"MedicationIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a9751276-b6c1-41f1-bebb-d27ceef91dbf",
+              "name": "Detected interactions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "medications",
+                    "interactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"PatientId\": \"<integer>\",\n  \"MedicationIds\": [\n    \"<integer>\",\n    \"<integer>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Interactions\": [\n    {\n      \"Severity\": \"string\",\n      \"Description\": \"string\"\n    },\n    {\n      \"Severity\": \"string\",\n      \"Description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://my.dosespot.com/webapi/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d4baef54-763b-4f9d-850a-bb0cf83edd8e",
+    "name": "DoseSpot Medications API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.\n\nContact Support:\n Name: DoseSpot Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,10 +1,14 @@
+generated: '2026-08-15'
+method: searched
+source: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+limit_count: 0
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: DoseSpot
 providerId: dosespot
 created: '2026-06-21'
-modified: '2026-06-21'
+modified: '2026-08-15'
 reconciled: false
 tags:
 - e-Prescribing
@@ -16,15 +20,15 @@ tags:
 - Rate Limiting
 - Quotas
 - Throttling
-description: >-
-  DoseSpot's API v2 enforces rate limits on its endpoints to safeguard against
-  bursts of incoming traffic and maximize platform stability. When a limit is
-  reached the API returns an HTTP 429 status code. DoseSpot also recommends
-  using Push Notifications instead of polling to reduce request volume. Specific
-  numeric limits are not published and are not reconciled in this artifact.
-notes: >-
-  Confirm specific per-endpoint and per-account limits, windows, and any
-  Retry-After behavior with DoseSpot during integration and reconciliation.
+description: DoseSpot's API v2 enforces rate limits on its endpoints to safeguard against bursts of incoming
+  traffic and maximize platform stability. When a limit is reached the API returns an HTTP 429 status
+  code. DoseSpot also recommends using Push Notifications instead of polling to reduce request volume.
+  Specific numeric limits are not published and are not reconciled in this artifact.
+notes: 'Re-verified 2026-08-15 on DoseSpot''s own developer portal and the v1-to-v2 migration notice.
+  DoseSpot states "All endpoints will enforce reasonable rate limits" and returns HTTP 429 when a limit
+  is exceeded, but publishes NO numeric limit, window, burst or response header anywhere public - "Rate
+  limit specifics are shared by the Integration Specialist". limit_count is therefore an honest 0: the
+  policy is documented, the numbers are not.'
 sources:
 - https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
 - https://dosespot.com/full-integration/
@@ -35,12 +39,18 @@ limits:
   scope: account
   metric: requests
   limit: see provider documentation
-  notes: API v2 endpoints enforce reasonable rate limits to protect against traffic bursts; exceeding returns HTTP 429.
+  notes: API v2 endpoints enforce reasonable rate limits to protect against traffic bursts; exceeding
+    returns HTTP 429.
 policies:
 - name: Push Notifications Over Polling
-  description: Use DoseSpot Push Notifications to receive events rather than polling endpoints, reducing request volume and the chance of hitting limits.
+  description: Use DoseSpot Push Notifications to receive events rather than polling endpoints, reducing
+    request volume and the chance of hitting limits.
 - name: Backoff Strategy
   description: Clients should implement exponential backoff with jitter on HTTP 429 responses.
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+headers:
+  published: false
+  note: DoseSpot documents no X-RateLimit-*, RateLimit-* or Retry-After response headers. An agent has
+    no runtime signal beyond the 429 itself.

@@ -1,10 +1,15 @@
+generated: '2026-08-15'
+method: searched
+source: https://dosespot.com/full-integration/ ; https://dosespot.com/jumpstart/
+plan_count: 2
+public_pricing_published: false
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: DoseSpot
 providerId: dosespot
 created: '2026-06-21'
-modified: '2026-06-21'
+modified: '2026-08-15'
 reconciled: false
 tags:
 - e-Prescribing
@@ -14,18 +19,21 @@ tags:
 - Pharmacy
 - EPCS
 - Plans
-description: >-
-  DoseSpot pricing is sales-led and not publicly listed. Packaging is organized
-  around integration models - JumpStart (a pre-built iFrame/SSO prescribing UI
-  with access to 70+ API calls) and Full Integration (a fully API-driven build
-  with access to 250+ API calls) - typically combined with per-provider and/or
-  per-transaction commercial terms plus EPCS (controlled substance) enablement.
-  Exact prices, minimums, and metering are negotiated per customer; no published
-  rate card exists, so plan entries below are not reconciled.
-notes: >-
-  Prices are not published. Contact DoseSpot sales for a quote and to confirm
-  the metering model (per provider, per prescription, and/or platform fee) and
-  EPCS pricing. Values here are structural placeholders pending reconciliation.
+description: DoseSpot pricing is sales-led and not publicly listed. Packaging is organized around integration
+  models - JumpStart (a pre-built iFrame/SSO prescribing UI with access to 70+ API calls) and Full Integration
+  (a fully API-driven build with access to 250+ API calls) - typically combined with per-provider and/or
+  per-transaction commercial terms plus EPCS (controlled substance) enablement. Exact prices, minimums,
+  and metering are negotiated per customer; no published rate card exists, so plan entries below are not
+  reconciled.
+notes: 'Prices are not published. Contact DoseSpot sales for a quote and to confirm the metering model
+  (per provider, per prescription, and/or platform fee) and EPCS pricing. Values here are structural placeholders
+  pending reconciliation.
+
+
+  Re-verified 2026-08-15: DoseSpot publishes no pricing page (dosespot.com/pricing 404, no pricing entry
+  in the published sitemap). Both integration models route to https://dosespot.com/request-a-demo/. The
+  two entries below are the named packaging DoseSpot advertises, not priced tiers; every price is ''contact
+  sales''.'
 sources:
 - https://dosespot.com/full-integration/
 - https://dosespot.com/jumpstart/
@@ -34,9 +42,8 @@ plans:
 - id: dosespot-jumpstart
   name: JumpStart Integration
   type: contract
-  description: >-
-    Pre-built iFrame / SSO prescribing experience embedded into your
-    application, with access to 70+ DoseSpot API calls. Faster time to launch.
+  description: Pre-built iFrame / SSO prescribing experience embedded into your application, with access
+    to 70+ DoseSpot API calls. Faster time to launch.
   entries:
   - label: JumpStart Package
     name: jumpstart
@@ -56,10 +63,8 @@ plans:
 - id: dosespot-full-integration
   name: Full Integration
   type: contract
-  description: >-
-    Fully API-driven, white-label e-prescribing build with access to 250+
-    DoseSpot API calls across patients, prescriptions, medications, pharmacies,
-    clinicians, eligibility, and notifications.
+  description: Fully API-driven, white-label e-prescribing build with access to 250+ DoseSpot API calls
+    across patients, prescriptions, medications, pharmacies, clinicians, eligibility, and notifications.
   entries:
   - label: Full Integration Package
     name: full_integration

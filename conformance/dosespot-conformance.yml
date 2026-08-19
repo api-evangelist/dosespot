@@ -1,0 +1,136 @@
+generated: '2026-08-15'
+method: searched
+source:
+  - https://dosespot.com/security/
+  - https://dosespot.com/onc-certification/
+  - https://dosespot.com/real-world-testing/
+  - https://trust.dosespot.com/
+  - https://docs.dosespot.com/staging/docs/getting-started
+  - openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+note: >-
+  DoseSpot is a regulated healthcare platform, so its conformance story is dominated by sector certification
+  (Surescripts, EPCS/DEA, ONC) and security attestation (SOC 2 Type 2, HIPAA), not by API-design standards. On
+  the API-design axis it conforms to very little: the published Swagger is 2.0 (not OpenAPI 3.x), declares no
+  securitySchemes, carries no tags, and models only 200 responses, so error semantics are carried in a
+  proprietary Result envelope rather than in RFC 9457 problem documents.
+
+standards:
+  - id: surescripts-certified
+    conforms: true
+    category: healthcare-network
+    evidence: >-
+      DoseSpot describes itself as Surescripts-certified across its site and integration pages; the API's
+      pharmacy directory and ServiceLevel bitfield (NewRx, Refill, Change, RxFill, Cancel, MedHistory,
+      Eligibility, ePA, Resupply, Census, CCR, EPCS) mirror the Surescripts transaction set.
+  - id: epcs
+    conforms: true
+    category: regulatory
+    evidence: >-
+      Both published Swagger documents are EPCS variants (Full_EPCSV2, JumpStart_EPCSV2) and the API exposes
+      EPCS registration, two-factor activation and identity-proofing states (RegistrationStatusType: IDPSuccess,
+      TFAActivatedSuccess, ...). EPCS is DEA-regulated electronic prescribing of controlled substances.
+  - id: onc-health-it-certification
+    conforms: true
+    category: regulatory
+    evidence: https://dosespot.com/onc-certification/
+  - id: onc-real-world-testing
+    conforms: true
+    category: regulatory
+    evidence: https://dosespot.com/real-world-testing/
+  - id: hipaa
+    conforms: true
+    category: regulatory
+    evidence: >-
+      Named on https://dosespot.com/security/; a Sub-Business Associate Agreement is published at
+      https://dosespot.com/exhibit-c-sub-business-associate-agreement/
+  - id: soc2-type2
+    conforms: true
+    category: attestation
+    evidence: >-
+      https://dosespot.com/security/ - "Currently, we have the type 2 designation with zero exceptions."
+      Reports are distributed through the Vanta trust center at https://trust.dosespot.com/
+  - id: hitrust
+    conforms: false
+    status: in-progress
+    category: attestation
+    evidence: >-
+      https://dosespot.com/security/ states DoseSpot is pursuing HITRUST certification, targeting a Tier 2
+      independent assessment. Recorded as not-yet-conformant.
+  - id: nist-csf
+    conforms: true
+    category: framework
+    evidence: NIST named as a control framework on https://dosespot.com/security/
+  - id: pci-dss
+    conforms: true
+    category: attestation
+    evidence: PCI DSS named on https://dosespot.com/security/
+  - id: pdmp-narx
+    conforms: true
+    category: healthcare-network
+    evidence: >-
+      Narx_GetPatientNarxReportV2 / Narx_GetLatestNarxV2 / Narx_GetPatientNarxReportLinkV2 operations plus a
+      published PDMP Role Type enumeration - the API brokers state Prescription Drug Monitoring Program data.
+  - id: ncpdp-scripts
+    conforms: partial
+    category: healthcare-standard
+    evidence: >-
+      The transaction vocabulary (NewRx, RxRenewal, RxChange, CancelRx, RxFill, ePA/prior authorization,
+      Real Time Prescription Benefit) is NCPDP SCRIPT-shaped, but DoseSpot never names an NCPDP SCRIPT version
+      in public material, so this is recorded as partial rather than asserted.
+  - id: medi-span
+    conforms: true
+    category: data-source
+    evidence: >-
+      Drug database is Medi-Span (Wolters Kluwer) as of API v2; the prior Lexicomp compendium was retired -
+      https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+  - id: rxnorm
+    conforms: true
+    category: terminology
+    evidence: Allergens_SearchByRxCUI operation accepts an RxCUI - RxNorm concept identifiers are supported.
+  - id: openapi-3
+    conforms: false
+    category: api-design
+    evidence: >-
+      The published documents are Swagger 2.0 ("swagger": "2.0"), not OpenAPI 3.x.
+  - id: oauth2
+    conforms: partial
+    category: api-design
+    evidence: >-
+      The Getting Started guide and the v1-to-v2 migration notice describe an OAuth2 bearer token from a token
+      endpoint, but NEITHER published Swagger document declares a securityDefinitions block, so the auth
+      contract is not machine-readable.
+  - id: rfc9457-problem-details
+    conforms: false
+    category: api-design
+    evidence: >-
+      application/problem+json is listed in every operation's produces array, but no problem schema is defined
+      and no 4xx/5xx response is modelled. Errors are returned inside a 200 on a proprietary Result object.
+  - id: rfc8594-sunset-header
+    conforms: false
+    category: api-design
+    evidence: No Sunset or Deprecation header support is documented.
+  - id: idempotency-key
+    conforms: false
+    category: api-design
+    evidence: No idempotency key header or parameter exists in either published Swagger document.
+  - id: json-api
+    conforms: false
+    category: api-design
+    evidence: Proprietary ItemResponse/ListResponse/PagedListResponse envelope, not JSON:API.
+  - id: fhir-r4
+    conforms: false
+    category: healthcare-standard
+    evidence: >-
+      No FHIR resource shapes, no /fhir base path, no FHIR capability statement. DoseSpot's v2 API is a
+      proprietary REST surface; FHIR interop, where it happens, is done by the integrating EHR.
+  - id: scim
+    conforms: false
+    category: api-design
+    evidence: Clinician and clinic staff provisioning is proprietary, not SCIM 2.0.
+
+compliance_program:
+  published: true
+  page: https://dosespot.com/security/
+  trust_center: https://trust.dosespot.com/
+  certifications: [SOC 2 Type 2, HIPAA, PCI DSS, NIST, ONC Health IT Certification, Surescripts, EPCS/DEA]
+  in_progress: [HITRUST Tier 2]

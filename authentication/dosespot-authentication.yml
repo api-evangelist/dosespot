@@ -1,6 +1,8 @@
-generated: '2026-07-11'
+generated: '2026-08-15'
 method: derived
-source: openapi/dosespot-openapi.yml
+source: openapi/dosespot-medications-api-openapi.yml, openapi/dosespot-notifications-api-openapi.yml,
+  openapi/dosespot-patients-api-openapi.yml, openapi/dosespot-pharmacies-api-openapi.yml, openapi/dosespot-prescribers-api-openapi.yml,
+  openapi/dosespot-prescriptions-api-openapi.yml
 summary:
   types:
   - apiKey
@@ -15,11 +17,21 @@ schemes:
   description: 'OAuth2 access token obtained from the DoseSpot token endpoint (POST /webapi/v2/connect/token)
     using your clinic and clinician credentials, sent as an Authorization: Bearer header.'
   sources:
-  - openapi/dosespot-openapi.yml
+  - openapi/dosespot-medications-api-openapi.yml
+  - openapi/dosespot-notifications-api-openapi.yml
+  - openapi/dosespot-patients-api-openapi.yml
+  - openapi/dosespot-pharmacies-api-openapi.yml
+  - openapi/dosespot-prescribers-api-openapi.yml
+  - openapi/dosespot-prescriptions-api-openapi.yml
 - name: subscriptionKey
   type: apiKey
   in: header
   parameter: Subscription-Key
   description: Per-application subscription key issued by DoseSpot.
   sources:
-  - openapi/dosespot-openapi.yml
+  - openapi/dosespot-medications-api-openapi.yml
+  - openapi/dosespot-notifications-api-openapi.yml
+  - openapi/dosespot-patients-api-openapi.yml
+  - openapi/dosespot-pharmacies-api-openapi.yml
+  - openapi/dosespot-prescribers-api-openapi.yml
+  - openapi/dosespot-prescriptions-api-openapi.yml

@@ -1,0 +1,385 @@
+{
+  "item": [
+    {
+      "id": "73dba30e-b8bd-40f7-adc6-aaa01aaf2b3a",
+      "name": "Pharmacies",
+      "description": {
+        "content": "Surescripts pharmacy search and patient pharmacy management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "74a10a84-1555-42f6-86aa-8a5bd1f7048b",
+          "name": "Search pharmacies",
+          "request": {
+            "name": "Search pharmacies",
+            "description": {
+              "content": "Search the Surescripts pharmacy directory by name, city, state, ZIP, or specialty.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pharmacies",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "city",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "zip",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "specialty",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de8e8774-976b-4f8a-93cf-b547202733e3",
+              "name": "Matching pharmacies.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pharmacies",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "city",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "zip",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "specialty",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Items\": [\n    {\n      \"PharmacyId\": 5614,\n      \"StoreName\": \"string\",\n      \"Address1\": \"string\",\n      \"Address2\": \"string\",\n      \"City\": \"string\",\n      \"State\": \"string\",\n      \"ZipCode\": \"string\",\n      \"PrimaryPhone\": \"string\",\n      \"PrimaryFax\": \"string\",\n      \"PharmacySpecialties\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"PharmacyId\": 314,\n      \"StoreName\": \"string\",\n      \"Address1\": \"string\",\n      \"Address2\": \"string\",\n      \"City\": \"string\",\n      \"State\": \"string\",\n      \"ZipCode\": \"string\",\n      \"PrimaryPhone\": \"string\",\n      \"PrimaryFax\": \"string\",\n      \"PharmacySpecialties\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"PageResult\": {\n    \"CurrentPage\": 2624,\n    \"TotalPages\": 314,\n    \"PageSize\": 4697,\n    \"HasPrevious\": false,\n    \"HasNext\": true\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e586fd69-2655-42c5-ac81-efbbcc5ca7f3",
+          "name": "List a patient's pharmacies",
+          "request": {
+            "name": "List a patient's pharmacies",
+            "description": {
+              "content": "Retrieve the pharmacies saved to a patient for prescription routing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patients",
+                ":patientId",
+                "pharmacies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de2c5b4f-9e69-4fce-a0f9-4fa1d6bb71ac",
+              "name": "The patient's pharmacies.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patients",
+                    ":patientId",
+                    "pharmacies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "patientId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Items\": [\n    {\n      \"PharmacyId\": 2793,\n      \"StoreName\": \"string\",\n      \"Address1\": \"string\",\n      \"Address2\": \"string\",\n      \"City\": \"string\",\n      \"State\": \"string\",\n      \"ZipCode\": \"string\",\n      \"PrimaryPhone\": \"string\",\n      \"PrimaryFax\": \"string\",\n      \"PharmacySpecialties\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"PharmacyId\": 959,\n      \"StoreName\": \"string\",\n      \"Address1\": \"string\",\n      \"Address2\": \"string\",\n      \"City\": \"string\",\n      \"State\": \"string\",\n      \"ZipCode\": \"string\",\n      \"PrimaryPhone\": \"string\",\n      \"PrimaryFax\": \"string\",\n      \"PharmacySpecialties\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"PageResult\": {\n    \"CurrentPage\": 9478,\n    \"TotalPages\": 36,\n    \"PageSize\": 1947,\n    \"HasPrevious\": false,\n    \"HasNext\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd6a8b89-9ac5-4a0b-bf13-b24c677eae25",
+          "name": "Add a pharmacy to a patient",
+          "request": {
+            "name": "Add a pharmacy to a patient",
+            "description": {
+              "content": "Save a pharmacy to a patient's preferred pharmacy list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patients",
+                ":patientId",
+                "pharmacies"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "patientId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PharmacyId\": \"<integer>\",\n  \"SetAsPrimary\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b0862611-1c8c-43ed-b8cf-155185ab437b",
+              "name": "The result of adding the pharmacy.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patients",
+                    ":patientId",
+                    "pharmacies"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "patientId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"PharmacyId\": \"<integer>\",\n  \"SetAsPrimary\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://my.dosespot.com/webapi/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ced54fe1-7996-4ab7-8c9f-683d59519955",
+    "name": "DoseSpot Medications Pharmacies API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.\n\nContact Support:\n Name: DoseSpot Support",
+      "type": "text/plain"
+    }
+  }
+}

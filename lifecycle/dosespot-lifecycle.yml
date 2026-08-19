@@ -1,0 +1,99 @@
+generated: '2026-08-15'
+method: searched
+source:
+  - https://status.dosespot.com/
+  - https://dosespot.com/exhibit-d-dosespot-service-level-agreement/
+  - https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+  - https://docs.dosespot.com/staging/docs/enumeration-tables
+  - openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+
+versioning:
+  scheme: uri-path
+  current: v2
+  path_segment: /webapi/v2
+  docs: https://docs.dosespot.com/staging/docs/getting-started
+  spec_versions:
+    - {name: Full_EPCSV2, title: 'DoseSpot REST API - Plan: Full + EPCS - V2'}
+    - {name: JumpStart_EPCSV2, title: 'DoseSpot REST API - Plan: Jumpstart + EPCS - V2'}
+  note: >-
+    The developer portal states the API guide "is connected directly to DoseSpot's API codebase and is
+    automatically updated when code changes" - the published Swagger is generated from the implementation.
+
+deprecation:
+  policy_url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+  formal_policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    DoseSpot publishes no standing deprecation policy page and does not emit RFC 8594 Sunset/Deprecation
+    headers. It does publish dated migration notices and it marks retired values inline in the enumeration
+    tables. The v1 retirement is the worked example below.
+  announced_migrations:
+    - from: API v1 (Lexicomp drug database)
+      to: API v2 (Medi-Span drug database)
+      announcement: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+      start_by: '2024-04-30'
+      complete_by: End of Summer 2024
+      driver: >-
+        "Lexicomp will not be updated beginning the second half of 2024" - the underlying drug compendium was
+        discontinued, forcing the v2 migration.
+      support: >-
+        Each customer is assigned an Integration Specialist; new documentation, Postman collections and Swagger
+        specifications are shared, plus a staging environment with a new client for testing.
+      caveat: >-
+        DoseSpot states it "will not be able to migrate 100% of these records" between drug compendiums; some
+        items must be manually recreated.
+  deprecated_values_in_docs:
+    source: https://docs.dosespot.com/staging/docs/enumeration-tables
+    note: >-
+      Retired enumeration members are marked "Deprecated. Do not use" in place rather than removed - e.g.
+      DenialReasonType 3/10/11/12/13, GenderType 3 (Unknown), FreeTextPrescriptionType 1 (Medication),
+      PatientMedicationStatusType 0 and 2, PrescriptionStatusType 5 (FaxSent).
+  deprecated_operations: []
+  deprecated_operations_note: >-
+    No operation in either published Swagger document carries `deprecated: true`.
+
+sla:
+  url: https://dosespot.com/exhibit-d-dosespot-service-level-agreement/
+  uptime_target: 99.9%
+  measurement_period: monthly
+  service_credits:
+    - {availability: '>= 99.5%', credit: none}
+    - {availability: '99.0% - 99.5%', credit: '10% of monthly charges or $10,000, whichever is smaller'}
+    - {availability: '< 99.0%', credit: '25% of monthly charges or $10,000, whichever is smaller'}
+  response_targets:
+    - {priority: Severe, response: 2 hours}
+    - {priority: High, response: 4 hours}
+    - {priority: Medium, response: 2 business days}
+    - {priority: Low, response: 4 business days}
+  support_hours: Normal business hours, excluding scheduled or emergency maintenance.
+  exclusions: Scheduled maintenance, force majeure, client misuse ("Service Exemptions").
+
+status_page:
+  url: https://status.dosespot.com/
+  platform: PagerDuty Status Page
+  status_page_id: PT3CPY5
+  created: '2024-10-07'
+  subscriptions: [email, slack, webhook]
+  publishes: application status, release updates, planned maintenance
+  components:
+    - {name: DoseSpot Prescribing Application, group: DoseSpot Applications, monitors: my.dosespot.com}
+    - {name: DoseSpot API V2, group: DoseSpot Applications}
+    - {name: pVerify Premium, group: pVerify Applications, monitors: premium.pverify.com}
+    - {name: pVerify API Management, group: pVerify Applications, monitors: apimgmt.pverify.com}
+    - {name: pVerify API, group: pVerify Applications, monitors: api.pverify.com}
+    - {name: pVerify Partner, group: pVerify Applications, monitors: partner.pverify.com}
+    - {name: TreatRx Application, group: TreatRx Applications}
+    - {name: TreatRx Services, group: TreatRx Applications}
+  note: >-
+    The status page covers the whole Interra Health group - DoseSpot, its subsidiary pVerify, and TreatRx - and
+    breaks out "DoseSpot API V2" as its own monitored component. It exposes no machine-readable summary
+    endpoint (/api/v2/summary.json and /api/v2/components.json both 404); the component list above was read
+    from the JSON payload the page embeds.
+
+certifications_lifecycle:
+  onc_certification: https://dosespot.com/onc-certification/
+  real_world_testing: https://dosespot.com/real-world-testing/
+  note: >-
+    ONC Health IT certification carries its own annual Real World Testing publication requirement, which
+    DoseSpot meets on the pages above. This is a regulatory lifecycle obligation, not an API versioning policy.

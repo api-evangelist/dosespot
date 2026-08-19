@@ -1,0 +1,46 @@
+generated: '2026-08-15'
+method: searched
+source:
+  - https://dosespot.com/full-integration/
+  - https://dosespot.com/jumpstart/
+  - https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+  - https://docs.dosespot.com/staging/docs/enumeration-tables
+spec_type: none
+asyncapi_published: false
+webhooks_advertised: true
+name: DoseSpot Push Notifications
+transport: HTTP callback (server-initiated push to a customer-supplied endpoint)
+description: >-
+  DoseSpot advertises Push Notifications on both of its integration products: "DoseSpot offers push
+  notifications for a wide array of events, including prescription-specific information and actionable items
+  that need to be brought to the provider's attention". Push Notifications are listed as an included capability
+  of both the JumpStart and the Full Integration packages, and DoseSpot's own guidance is to consume them
+  instead of polling in order to stay inside its rate limits.
+note: >-
+  DoseSpot publishes NO AsyncAPI document and NO public event catalogue. The event surface is real and is
+  advertised by the provider, but the event names, payload schemas, delivery guarantees, retry policy, signing
+  scheme and subscription mechanism are all sales-gated - they are shared by the assigned Integration
+  Specialist, not published. Nothing below is invented: the state vocabulary is the published enumeration set
+  the notifications describe, not a claimed list of webhook event names. No AsyncAPI pointer is wired into
+  apis.yml; only a Webhooks pointer, because that is what DoseSpot actually advertises.
+polling_alternative:
+  operations:
+    - openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Notifications_GetPrescriberNotificationCountsV2
+    - openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json#Notifications_GetTransmissionErrorDetailsV2
+  note: >-
+    The REST surface exposes the same notification data as a pull - GET /api/notifications/counts and
+    GET /api/notifications/errors. DoseSpot recommends push over polling to reduce request volume.
+event_domains_documented:
+  - domain: Prescription status
+    states_vocabulary: vocabulary/dosespot-vocabulary.yml#Prescription Status Type
+    states: [Entered, Printed, Sending, eRxSent, Error, Deleted, Requested, Edited, EpcsError, EpcsSigned, ReadyToSign, PharmacyVerified, PharmacySelect]
+  - domain: Transmission errors
+    operation: Notifications_GetTransmissionErrorDetailsV2
+  - domain: Refill and change requests
+    note: Refills and RxChanges resource groups (6 operations each) are the actionable-item surface.
+  - domain: Prior authorization status
+    states_vocabulary: vocabulary/dosespot-vocabulary.yml#Prior Authorization Status Type
+subscription:
+  mechanism: not published
+  documented_signing: not published
+  documented_retries: not published

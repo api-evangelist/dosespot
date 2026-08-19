@@ -1,0 +1,325 @@
+{
+  "item": [
+    {
+      "id": "0381d76f-7284-4dc9-a247-faf1f568ae79",
+      "name": "Prescribers",
+      "description": {
+        "content": "Clinician (prescriber) and clinic staff management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a627ef56-f72c-4cb4-bf60-bfe5308e0ee1",
+          "name": "Search clinicians",
+          "request": {
+            "name": "Search clinicians",
+            "description": {
+              "content": "Retrieve clinicians (prescribers) and supporting staff in the clinic.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clinicians"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fdc8fa03-b4cf-48cb-8eb7-6fa3d1fbfc82",
+              "name": "A list of clinicians.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clinicians"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Items\": [\n    {\n      \"ClinicianId\": 3816,\n      \"Prefix\": \"string\",\n      \"FirstName\": \"string\",\n      \"MiddleName\": \"string\",\n      \"LastName\": \"string\",\n      \"Suffix\": \"string\",\n      \"DateOfBirth\": \"1997-07-11\",\n      \"Email\": \"string\",\n      \"NPINumber\": \"string\",\n      \"DEANumber\": \"string\",\n      \"Address1\": \"string\",\n      \"City\": \"string\",\n      \"State\": \"string\",\n      \"ZipCode\": \"string\",\n      \"PrimaryPhone\": \"string\",\n      \"PrimaryFax\": \"string\",\n      \"Roles\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"ClinicianId\": 3563,\n      \"Prefix\": \"string\",\n      \"FirstName\": \"string\",\n      \"MiddleName\": \"string\",\n      \"LastName\": \"string\",\n      \"Suffix\": \"string\",\n      \"DateOfBirth\": \"1956-08-25\",\n      \"Email\": \"string\",\n      \"NPINumber\": \"string\",\n      \"DEANumber\": \"string\",\n      \"Address1\": \"string\",\n      \"City\": \"string\",\n      \"State\": \"string\",\n      \"ZipCode\": \"string\",\n      \"PrimaryPhone\": \"string\",\n      \"PrimaryFax\": \"string\",\n      \"Roles\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"PageResult\": {\n    \"CurrentPage\": 1686,\n    \"TotalPages\": 5797,\n    \"PageSize\": 8439,\n    \"HasPrevious\": false,\n    \"HasNext\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f103bbc-d639-478c-9253-ae13bce6980d",
+          "name": "Create a clinician",
+          "request": {
+            "name": "Create a clinician",
+            "description": {
+              "content": "Create a new clinician (prescriber) within the clinic.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clinicians"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ClinicianId\": \"<integer>\",\n  \"Prefix\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"MiddleName\": \"<string>\",\n  \"LastName\": \"<string>\",\n  \"Suffix\": \"<string>\",\n  \"DateOfBirth\": \"<date>\",\n  \"Email\": \"<string>\",\n  \"NPINumber\": \"<string>\",\n  \"DEANumber\": \"<string>\",\n  \"Address1\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"ZipCode\": \"<string>\",\n  \"PrimaryPhone\": \"<string>\",\n  \"PrimaryFax\": \"<string>\",\n  \"Roles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "97cd541d-963f-440a-b083-b648e013e6ea",
+              "name": "The created clinician.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clinicians"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ClinicianId\": \"<integer>\",\n  \"Prefix\": \"<string>\",\n  \"FirstName\": \"<string>\",\n  \"MiddleName\": \"<string>\",\n  \"LastName\": \"<string>\",\n  \"Suffix\": \"<string>\",\n  \"DateOfBirth\": \"<date>\",\n  \"Email\": \"<string>\",\n  \"NPINumber\": \"<string>\",\n  \"DEANumber\": \"<string>\",\n  \"Address1\": \"<string>\",\n  \"City\": \"<string>\",\n  \"State\": \"<string>\",\n  \"ZipCode\": \"<string>\",\n  \"PrimaryPhone\": \"<string>\",\n  \"PrimaryFax\": \"<string>\",\n  \"Roles\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Item\": {\n    \"ClinicianId\": \"<integer>\",\n    \"Prefix\": \"<string>\",\n    \"FirstName\": \"<string>\",\n    \"MiddleName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Suffix\": \"<string>\",\n    \"DateOfBirth\": \"<date>\",\n    \"Email\": \"<string>\",\n    \"NPINumber\": \"<string>\",\n    \"DEANumber\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"ZipCode\": \"<string>\",\n    \"PrimaryPhone\": \"<string>\",\n    \"PrimaryFax\": \"<string>\",\n    \"Roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f335aa6-0435-4f62-b10e-7297710541cd",
+          "name": "Get a clinician",
+          "request": {
+            "name": "Get a clinician",
+            "description": {
+              "content": "Retrieve a single clinician (prescriber) record by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "clinicians",
+                ":clinicianId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "clinicianId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "29b4022f-e337-4a36-afdf-848259e16909",
+              "name": "The requested clinician.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "clinicians",
+                    ":clinicianId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "clinicianId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Result\": {\n    \"ResultCode\": \"string\",\n    \"ResultDescription\": \"string\"\n  },\n  \"Item\": {\n    \"ClinicianId\": \"<integer>\",\n    \"Prefix\": \"<string>\",\n    \"FirstName\": \"<string>\",\n    \"MiddleName\": \"<string>\",\n    \"LastName\": \"<string>\",\n    \"Suffix\": \"<string>\",\n    \"DateOfBirth\": \"<date>\",\n    \"Email\": \"<string>\",\n    \"NPINumber\": \"<string>\",\n    \"DEANumber\": \"<string>\",\n    \"Address1\": \"<string>\",\n    \"City\": \"<string>\",\n    \"State\": \"<string>\",\n    \"ZipCode\": \"<string>\",\n    \"PrimaryPhone\": \"<string>\",\n    \"PrimaryFax\": \"<string>\",\n    \"Roles\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://my.dosespot.com/webapi/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1ad1cc66-aa6c-48af-ba46-ec9c22be6429",
+    "name": "DoseSpot Medications Prescribers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.\n\nContact Support:\n Name: DoseSpot Support",
+      "type": "text/plain"
+    }
+  }
+}

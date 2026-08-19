@@ -1,0 +1,102 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DoseSpot Medications Pharmacies API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pharmacies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search pharmacies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://my.dosespot.com/webapi/v2/pharmacies/search",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "city",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "zip",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "specialty",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search the Surescripts pharmacy directory by name, city, state, ZIP, or specialty."
+        },
+        {
+          "info": {
+            "name": "List a patient's pharmacies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://my.dosespot.com/webapi/v2/patients/:patientId/pharmacies",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve the pharmacies saved to a patient for prescription routing."
+        },
+        {
+          "info": {
+            "name": "Add a pharmacy to a patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://my.dosespot.com/webapi/v2/patients/:patientId/pharmacies",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Save a pharmacy to a patient's preferred pharmacy list."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

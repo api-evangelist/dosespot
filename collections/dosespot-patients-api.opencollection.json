@@ -1,0 +1,112 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "DoseSpot Medications Patients API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Patients",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search patients",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://my.dosespot.com/webapi/v2/patients",
+            "params": [
+              {
+                "name": "firstName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lastName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateOfBirth",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Search for patients within the clinic by name, date of birth, or other demographics."
+        },
+        {
+          "info": {
+            "name": "Create a patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://my.dosespot.com/webapi/v2/patients",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new patient record with demographics required for prescribing."
+        },
+        {
+          "info": {
+            "name": "Get a patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://my.dosespot.com/webapi/v2/patients/:patientId",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a single patient record by ID."
+        },
+        {
+          "info": {
+            "name": "Update a patient",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://my.dosespot.com/webapi/v2/patients/:patientId",
+            "params": [
+              {
+                "name": "patientId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update demographics for an existing patient."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

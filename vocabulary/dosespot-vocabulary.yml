@@ -1,0 +1,1022 @@
+generated: '2026-08-15'
+method: searched
+source: https://docs.dosespot.com/staging/docs/enumeration-tables
+name: DoseSpot API v2 Enumerations
+description: The complete published enumeration vocabulary for the DoseSpot REST API v2 - every coded value an integrator
+  must map (prescription status, allergy type, pharmacy service level bitfield, clinician role, dispense unit, prior-authorization
+  status and closed-reason codes, PDMP role, formulary/coverage codes and the SaveResultsStatus result codes). Captured
+  verbatim from the Enumeration Tables page of the DoseSpot developer portal at docs.dosespot.com, which DoseSpot
+  states is "the official source for DoseSpot technical documentation".
+vocabulary_count: 43
+term_count: 450
+vocabularies:
+- name: Age Unit Type
+  values:
+  - name: Days
+    value: '1'
+  - name: Years
+    value: '2'
+- name: Allergen Type
+  values:
+  - name: AllergenClass
+    value: '1'
+  - name: ScreenableIngredient
+    value: '2'
+  - name: FoodAndEnvironmentAllergens
+    value: '3'
+  - name: RoutedDoseFormDrugs
+    value: '4'
+- name: Allergy Reaction Type
+  values:
+  - name: Allergy
+    value: '1'
+  - name: AdverseReaction
+    value: '2'
+- name: Allergy Status Type
+  values:
+  - name: Active
+    value: '1'
+  - name: Inactive
+    value: '2'
+  - name: Deleted
+    value: '3'
+- name: Coverage Resource Type
+  values:
+  - name: AgeLimits
+    value: '1'
+  - name: ProductCoverageExclusion
+    value: '2'
+  - name: GenderLimits
+    value: '3'
+  - name: MedicalNecessity
+    value: '4'
+  - name: PriorAuthorization
+    value: '5'
+  - name: QuantityLimits
+    value: '6'
+  - name: StepTherapy
+    value: '7'
+  - name: General
+    value: '8'
+  - name: Copay
+    value: '9'
+  - name: Formulary
+    value: '10'
+- name: Denial Reason Type
+  values:
+  - name: DeniedNewRx
+    value: '3'
+    additional_information: Deprecated. Do not use
+  - name: DeniedPatientUnknown
+    value: '4'
+  - name: DeniedPatientNotUnderCare
+    value: '5'
+  - name: DeniedPatientNoLongerUnderPatientCare
+    value: '6'
+  - name: DeniedTooSoon
+    value: '7'
+    additional_information: RxRenewal only
+  - name: DeniedNeverPrescribed
+    value: '8'
+  - name: DeniedHavePatientContact
+    value: '9'
+  - name: DeniedRefillInappropriate
+    value: '10'
+    additional_information: Deprecated. Do not use
+  - name: DeniedAlreadyPickedUp
+    value: '11'
+    additional_information: Deprecated. Do not use
+  - name: DeniedAlreadyPickedUpPartialFill
+    value: '12'
+    additional_information: Deprecated. Do not use
+  - name: DeniedNotPickedUp
+    value: '13'
+    additional_information: Deprecated. Do not use
+  - name: DeniedChangeInappropriate
+    value: '14'
+    additional_information: RxChange only
+  - name: DeniedNeedAppointment
+    value: '15'
+  - name: DeniedPrescriberNotAssociateWithLocation
+    value: '16'
+  - name: DeniedNoPriorAuthAttempt
+    value: '17'
+    additional_information: RxChange only
+  - name: DeniedAlreadyHandled
+    value: '18'
+  - name: DeniedAtPatientRequest
+    value: '21'
+  - name: DeniedPatientAllergicToRequestMed
+    value: '22'
+    additional_information: RxRenewal only
+  - name: DeniedMedicationDiscontinued
+    value: '23'
+    additional_information: RxRenewal only
+  - name: DeniedPriorAuthNoAttempt
+    value: '24'
+    additional_information: CMM only
+  - name: DeniedPriorAuthInProgress
+    value: '25'
+    additional_information: CMM only
+  - name: DeniedOrderNotFound
+    value: '26'
+    additional_information: CMM only
+  - name: DeniedPayerNoPriorAuth
+    value: '27'
+    additional_information: CMM only
+  - name: DeniedPatientNoRecord
+    value: '28'
+    additional_information: CMM only
+  - name: DeniedOrderExpired
+    value: '29'
+    additional_information: CMM only
+  - name: DeniedPharmacyNotRecognized
+    value: '30'
+    additional_information: CMM only
+- name: Free Text Prescription Type
+  values:
+  - name: Medication
+    value: '1'
+    additional_information: Deprecated. Do not use.
+  - name: Supply
+    value: '2'
+  - name: Compound
+    value: '3'
+- name: Gender Type
+  values:
+  - name: Male
+    value: '1'
+  - name: Female
+    value: '2'
+  - name: Unknown
+    value: '3'
+    additional_information: Deprecated. Do not use.
+- name: Patient Medication Status Type
+  values:
+  - name: Unknown
+    value: '0'
+    additional_information: Deprecated. Do not use.
+  - name: Active
+    value: '1'
+  - name: Inactive
+    value: '2'
+    additional_information: Deprecated. Do not use.
+  - name: Discontinued
+    value: '3'
+  - name: Deleted
+    value: '4'
+  - name: Completed
+    value: '5'
+  - name: CancelRequested
+    value: '6'
+  - name: CancelPending
+    value: '7'
+  - name: Cancelled
+    value: '8'
+  - name: CancelDenied
+    value: '9'
+  - name: Changed
+    value: '10'
+  - name: FullFill
+    value: '11'
+  - name: PartialFill
+    value: '12'
+  - name: NoFill
+    value: '13'
+- name: Pharmacy Eligibility Status Type
+  values:
+  - name: Covered
+    value: '1'
+  - name: NotCovered
+    value: '2'
+  - name: OutOfPocket
+    value: '3'
+  - name: Unknown
+    value: '4'
+  - name: UnableToProcess
+    value: '5'
+- name: Pharmacy Specialty Type
+  values:
+  - name: EPCS
+    value: '2048'
+  - name: TwentyFourHourPharmacy/AnyPharmacyType
+    value: '64'
+  - name: LongTermCarePharmacy
+    value: '32'
+  - name: MailOrder
+    value: '1'
+  - name: Retail
+    value: '8'
+  - name: SpecialtyPharmacy
+    value: '16'
+- name: Phone Types
+  values:
+  - name: Undefined
+    value: '0'
+  - name: Beeper
+    value: '1'
+  - name: Cell
+    value: '2'
+  - name: Fax
+    value: '3'
+  - name: Home
+    value: '4'
+  - name: Work
+    value: '5'
+  - name: Night
+    value: '6'
+  - name: Primary
+    value: '7'
+    additional_information: Only valid for first phone number.
+- name: Prescription Status Type
+  values:
+  - name: Entered
+    value: '1'
+  - name: Printed
+    value: '2'
+  - name: Sending
+    value: '3'
+  - name: eRxSent
+    value: '4'
+  - name: FaxSent
+    value: '5'
+    additional_information: Deprecated. Do not use this.
+  - name: Error
+    value: '6'
+  - name: Deleted
+    value: '7'
+  - name: Requested
+    value: '8'
+  - name: Edited
+    value: '9'
+  - name: EpcsError
+    value: '10'
+  - name: EpcsSigned
+    value: '11'
+  - name: ReadyToSign
+    value: '12'
+  - name: PharmacyVerified
+    value: '13'
+  - name: PharmacySelect
+    value: '14'
+    additional_information: "For customers with PatientConnectâ\x80\x99s PharmacyTransfer feature enabled."
+- name: Registration Status Type
+  values:
+  - name: Pending
+    value: '1'
+  - name: RegistrationSuccess
+    value: '2'
+  - name: RegistrationError
+    value: '3'
+  - name: IDPSuccess
+    value: '4'
+  - name: IDPError
+    value: '5'
+  - name: TFAActivateInit
+    value: '6'
+  - name: TFAActivatedSuccess
+    value: '7'
+  - name: TFAActivatedError
+    value: '8'
+  - name: TFADeactivateInit
+    value: '9'
+  - name: TFADeactivatedSuccess
+    value: '10'
+  - name: TFADeactivatedError
+    value: '11'
+  - name: IDPInitializeSuccess
+    value: '12'
+  - name: N/A
+    value: '13'
+- name: Service Levels
+  values:
+  - name: NewRx
+    value: '1'
+  - name: Refill
+    value: '2'
+  - name: Change
+    value: '4'
+  - name: RxFill
+    value: '8'
+  - name: Cancel
+    value: '16'
+  - name: MedHistory
+    value: '32'
+  - name: Eligibility
+    value: '64'
+  - name: ePA
+    value: '128'
+  - name: Resupply
+    value: '256'
+  - name: Census
+    value: '512'
+  - name: CCR
+    value: '1024'
+  - name: Controlled Substance (EPCS)
+    value: '2048'
+- name: Quantity Amount Unit Type
+  values:
+  - name: DollarAmount
+    value: '1'
+  - name: DaysSupply
+    value: '2'
+  - name: Fills
+    value: '3'
+  - name: Quantity
+    value: '4'
+- name: Quantity Time Period Unit Type
+  values:
+  - name: Days
+    value: '1'
+  - name: Lifetime
+    value: '2'
+  - name: PerDispensing
+    value: '3'
+  - name: SpecificDateRange
+    value: '4'
+  - name: CalendarYear
+    value: '5'
+  - name: CalendarQuarter
+    value: '6'
+  - name: CalendarMonth
+    value: '7'
+- name: Step Drug Type
+  values:
+  - name: Unknown
+    value: '0'
+  - name: SpecificMedication
+    value: '1'
+  - name: PharmacologicalClass
+    value: '2'
+- name: Weight Unit Item
+  values:
+  - name: Lb
+    value: '1'
+  - name: Kg
+    value: '2'
+- name: Medication Types
+  values:
+  - name: Coded
+    value: '1'
+  - name: FreeText
+    value: '2'
+  - name: NDC
+    value: '3'
+  - name: Supply
+    value: '4'
+  - name: Compound
+    value: '5'
+- name: Clinician Role Type
+  values:
+  - name: PrescribingClinician
+    value: '1'
+  - name: ReportingClinician
+    value: '2'
+  - name: EpcsCoordinator
+    value: '3'
+  - name: ClinicianAdmin
+    value: '4'
+  - name: PrescribingAgentClinician
+    value: '5'
+  - name: ProxyClinician
+    value: '6'
+- name: Save Results Status Type
+  values:
+  - name: SystemError
+    value: '0'
+  - name: Success
+    value: '1'
+  - name: SecurityValidationError
+    value: '2'
+  - name: DataValidationError
+    value: '3'
+  - name: NoCoverage
+    value: '4'
+  - name: FreeTextTypeError
+    value: '5'
+  - name: PasswordSet
+    value: '1001'
+  - name: ValidCredentials
+    value: '1002'
+  - name: PasswordChanged
+    value: '1003'
+  - name: MessageSent
+    value: '1004'
+  - name: RegistrationEmailSent
+    value: '1005'
+  - name: EmailMessage
+    value: '1006'
+  - name: FileScanClean
+    value: '1007'
+  - name: IncorrectPassword
+    value: '2000'
+  - name: AccountLocked
+    value: '2001'
+  - name: StripeError
+    value: '2016'
+  - name: UnusedStripeEvent
+    value: '2017'
+  - name: UserLoggedIn
+    value: '2018'
+  - name: FileScanVirusDetected
+    value: '2019'
+  - name: FileScanError
+    value: '2020'
+  - name: DuplicatePatient
+    value: '2021'
+  - name: ClinicianNotFound
+    value: '2022'
+  - name: NoSourceClinicianCredentialID
+    value: '2023'
+  - name: AprissApiError
+    value: '2024'
+  - name: UserAccountInactive
+    value: '2025'
+  - name: ClinicianNotConfirmed
+    value: '2026'
+  - name: ClinicianHasNoAccessToClinic
+    value: '2027'
+  - name: IncorrectSSOCalculations
+    value: '2028'
+  - name: ClinicianHasNoAccessToPatient
+    value: '2029'
+  - name: InvalidClinicKey
+    value: '2030'
+  - name: InvalidEncryptUserId
+    value: '2031'
+  - name: SSOFailedValidationCheck
+    value: '2032'
+  - name: NotAClinician
+    value: '2033'
+  - name: SSOFailedDataLogCheck
+    value: '2034'
+  - name: NoRecordsToExport
+    value: '2035'
+  - name: AuthorizationError
+    value: '3001'
+  - name: RuntimeError
+    value: '3002'
+  - name: PasswordExpired
+    value: '3003'
+  - name: LoginFailed
+    value: '3004'
+  - name: IncorrectEmailPassword
+    value: '3005'
+  - name: UnknownUser
+    value: '3006'
+  - name: InvalidToken
+    value: '3007'
+  - name: AlreadyUsedToken
+    value: '3008'
+  - name: ExpiredToken
+    value: '3009'
+  - name: PasswordChangedTooRecently
+    value: '3010'
+  - name: PasswordCopiesOldValue
+    value: '3011'
+  - name: PasswordNotUpdated
+    value: '3012'
+  - name: PasswordUpdated
+    value: '3013'
+  - name: EmailAlreadyExist
+    value: '3014'
+  - name: PaymentAccountNotVerified
+    value: '3015'
+  - name: IDPReferenceIDAdded
+    value: '3023'
+  - name: ClinicianReferenceIDNotFound
+    value: '3024'
+  - name: ClinicianLicenseDuplicate
+    value: '3025'
+  - name: ClinicianNotInitialized
+    value: '3026'
+  - name: ClinicianNotInTFASwitch
+    value: '3027'
+  - name: ClientInvoiceIdNotFound
+    value: '3028'
+  - name: ClientInvoiceNoChargeId
+    value: '3029'
+  - name: ClientInvoiceNoPdfUrl
+    value: '3030'
+  - name: ClientInvoiceSendFailed
+    value: '3031'
+  - name: ClientInvoiceDeductFailed
+    value: '3032'
+  - name: ClientInvoiceAlreadyExists
+    value: '3033'
+  - name: ClientInvoiceInvalidPayStatus
+    value: '3034'
+  - name: NDCNotFound
+    value: '3035'
+  - name: NDCGenDrugIDNotFound
+    value: '3036'
+  - name: FailedToCreateStripeCustomer
+    value: '3037'
+  - name: MissingStripeSecretKey
+    value: '3038'
+  - name: FailedToCreateStripeCustomerUnknown
+    value: '3039'
+  - name: ClientContractMissing
+    value: '3040'
+  - name: StripeCustomerAlreadyExists
+    value: '3041'
+  - name: InvoiceHadNoItems
+    value: '3042'
+  - name: PatientFormularyDoesNotExist
+    value: '3043'
+  - name: PatientEligibilityDoesNotExist
+    value: '3044'
+  - name: FormularyStatusMissing
+    value: '3045'
+  - name: FailedToParseAlternatives
+    value: '3046'
+  - name: FailedToSendFormularyRequest
+    value: '3047'
+  - name: FormularyRequestFailed
+    value: '3048'
+  - name: ClinicianLicenseNotFailed
+    value: '3049'
+  - name: ClinicianLicenseNotSupported
+    value: '3050'
+  - name: PharmacyUpdateNeedsToGoToEditPage
+    value: '3053'
+  - name: OnBehalfOfUserError
+    value: '3055'
+- name: Height Unit Item
+  values:
+  - name: Inch
+    value: '1'
+    additional_information: Must use INCH, not IN
+  - name: Cm
+    value: '2'
+- name: Patient Insurance Identifier Type
+  values:
+  - name: PayerId
+    value: '1'
+  - name: ProcessorIdentificationNumber
+    value: '2'
+  - name: NAICCode
+    value: '3'
+  - name: MutuallyDefined
+    value: '4'
+  - name: StandardUniqueHealthPlanIdentifier
+    value: '5'
+  - name: IINNumber
+    value: '6'
+- name: Custom Eligibility Info Type
+  values:
+  - name: PCN
+    value: '13'
+  - name: CardholderID
+    value: '3'
+  - name: GroupID
+    value: '6'
+- name: Dispense Unit Type ID
+  values:
+  - name: Applicator
+    value: '35'
+  - name: Blister
+    value: '39'
+  - name: Caplet
+    value: '44'
+  - name: Capsule
+    value: '4'
+  - name: Each
+    value: '32'
+  - name: Film
+    value: '52'
+  - name: Gram
+    value: '8'
+  - name: Gum
+    value: '33'
+  - name: Implant
+    value: '54'
+  - name: Insert
+    value: '57'
+  - name: Kit
+    value: '11'
+  - name: Lancet
+    value: '90'
+  - name: Lozenge
+    value: '13'
+  - name: Milliliter
+    value: '15'
+  - name: Packet
+    value: '21'
+  - name: Pad
+    value: '64'
+  - name: Patch
+    value: '28'
+  - name: Pen Needle
+    value: '83'
+  - name: Ring
+    value: '70'
+  - name: Sponge
+    value: '73'
+  - name: Stick
+    value: '75'
+  - name: Strip
+    value: '76'
+  - name: Suppository
+    value: '23'
+  - name: Swab
+    value: '77'
+  - name: Tablet
+    value: '26'
+  - name: Troche
+    value: '81'
+  - name: Unspecified
+    value: '19'
+  - name: Wafer
+    value: '82'
+- name: Clinician Specialty Type
+  values:
+  - name: AllergyAndImmunology
+    value: '1'
+  - name: Dermatology
+    value: '2'
+  - name: Dentistry
+    value: '3'
+  - name: BehavioralHealth
+    value: '4'
+  - name: FamilyMedicine
+    value: '5'
+  - name: InternalMedicine
+    value: '6'
+  - name: ObstetricsAndGynecology
+    value: '7'
+  - name: Orthopedics
+    value: '8'
+  - name: Pediatrics
+    value: '9'
+  - name: PhysicalMedicine
+    value: '10'
+  - name: Psychiatry
+    value: '11'
+  - name: Urology
+    value: '12'
+- name: Quantity Code List Qualifier Code
+  values:
+  - name: Item38
+    value: '0'
+    additional_information: Indicates the original quantity prescribed
+  - name: Item40
+    value: '1'
+    additional_information: Remaining quantity
+  - name: Item87
+    value: '2'
+    additional_information: Dispensed quantity
+  - name: QS
+    value: '3'
+    additional_information: Quantity Sufficient. Indicates a quantity sufficient for a specified treatment duration
+      or condition
+  - name: CF
+    value: '4'
+    additional_information: Carried Forward. Refers to a quantity carried forward from a previous transaction or
+      calculation.
+  - name: UQ
+    value: '5'
+    additional_information: Usual Quantity. Specifies the usual or typical quantity dispensed based on standard
+      practice or patient history.
+- name: Coverage Reference Code
+  values:
+  - name: AgeLimits
+    value: '0'
+  - name: DaysSupplyExceeded
+    value: '1'
+  - name: DrugExclusion
+    value: '2'
+  - name: ExcessiveUtilization
+    value: '3'
+  - name: FullCostNotCovered
+    value: '4'
+  - name: GenderLimits
+    value: '5'
+  - name: MandatoryGeneric
+    value: '6'
+  - name: MedicalNecessity
+    value: '7'
+  - name: NotOnFormulary
+    value: '8'
+  - name: PharmacyOutOfNetwork
+    value: '9'
+  - name: PlanLimitExclusion
+    value: '10'
+  - name: QuantityLimits
+    value: '11'
+  - name: QuantityLimitExceeded
+    value: '12'
+  - name: QuantityNotValid
+    value: '13'
+  - name: ResourceLink
+    value: '14'
+  - name: StepTherapy
+    value: '15'
+  - name: TextMessage
+    value: '16'
+    additional_information: May contain GoodRx link
+- name: PDMP Role Type
+  values:
+  - name: Physician
+    value: '1'
+  - name: Dentist
+    value: '2'
+  - name: NursePractitioner
+    value: '3'
+  - name: PhysiciansAssistant
+    value: '4'
+  - name: Resident
+    value: '6'
+  - name: Intern
+    value: '7'
+  - name: Psychologist
+    value: '8'
+  - name: Optometrist
+    value: '9'
+  - name: NaturopathicPhysician
+    value: '10'
+- name: TFA Type
+  values:
+  - name: Mobile
+    value: '2'
+  - name: Token
+    value: '3'
+- name: Patient Status
+  values:
+  - name: ActiveOnly
+    value: '0'
+  - name: InactiveOnly
+    value: '1'
+  - name: Both
+    value: '2'
+- name: Pharmacy Specialty Type for OnDemandFormulary
+  values:
+  - name: EPCS
+    value: '2048'
+  - name: TwentyFourHourPharmacy
+    value: '64'
+  - name: LongTermCarePharmacy
+    value: '32'
+  - name: MailOrder
+    value: '1'
+  - name: Retail
+    value: '8'
+  - name: SpecialtyPharmacy
+    value: '16'
+- name: Pharmacy Specialty Type for RTPB
+  values:
+  - name: Retail
+    value: '0'
+  - name: Mail Order
+    value: '1'
+  - name: Item90DayAtRetail
+    value: '2'
+  - name: Specialty
+    value: '3'
+- name: Real Time Formulary Request Status
+  values:
+  - name: Queued
+    value: '0'
+  - name: Sent
+    value: '1'
+  - name: Success
+    value: '2'
+  - name: UnexpectedError
+    value: '1000'
+  - name: PatientEligibilityNotFound
+    value: '1001'
+  - name: FailedToGetAlternatives
+    value: '1002'
+  - name: PatientFormularyNotFound
+    value: '1003'
+  - name: FailedToParseFormularyData
+    value: '1004'
+  - name: FailedToProcessSend
+    value: '1005'
+  - name: FailedToQueueMessage
+    value: '1006'
+  - name: DataExpired
+    value: '1007'
+  - name: RequestExpired
+    value: '1008'
+  - name: SSRespondedWithErrorCode
+    value: '1009'
+  - name: MissingPatientBenefitsInputs
+    value: '1010'
+  - name: UnknownSSResponseSchema
+    value: '1011'
+  - name: SSRespondedWithTxnErrorCode
+    value: '1012'
+- name: Prior Authorization Status Type
+  values:
+  - name: Unknown
+    value: '0'
+  - name: Requested
+    value: '1'
+  - name: NotRequired
+    value: '2'
+  - name: Closed
+    value: '3'
+  - name: Deferred
+    value: '4'
+  - name: ActionRequired
+    value: '5'
+  - name: Pending
+    value: '6'
+  - name: Approved
+    value: '7'
+  - name: Denied
+    value: '8'
+  - name: AppealRequested
+    value: '9'
+  - name: CancelRequested
+    value: '10'
+  - name: Canceled
+    value: '11'
+  - name: CancelDenied
+    value: '12'
+  - name: Error
+    value: '13'
+  - name: Deleted
+    value: '14'
+  - name: PartiallyDenied
+    value: '15'
+  - name: InProcess
+    value: '16'
+- name: Prior Authorization Closed Reason Codes
+  values:
+  - name: Unknown
+    value: '0'
+  - name: ElectronicPriorAuthNotSupported
+    value: '1'
+  - name: Other
+    value: '2'
+  - name: PriorAuthNotRequired
+    value: '3'
+  - name: CannotFindMatchingPatient
+    value: '4'
+  - name: PatientNotEligible
+    value: '5'
+  - name: PriorAuthDuplicateApproved
+    value: '6'
+  - name: PriorAuthDuplicateInProgress
+    value: '7'
+  - name: ClosedByPayer
+    value: '8'
+  - name: ClosedByProvider
+    value: '9'
+  - name: ClosedByMember
+    value: '10'
+  - name: AttachmentTypeNotSupported
+    value: '11'
+  - name: PrescriberNotAllowedToSubmitPARequest
+    value: '12'
+  - name: ResponseInconsistentWithQuestion
+    value: '13'
+  - name: ReceiverNotPAProcessorForThisPatient
+    value: '14'
+  - name: ReceiverNotPAProcessorForPatientMedicationCombo
+    value: '15'
+  - name: DuplicateDenied
+    value: '16'
+  - name: ProviderRespondedAfterDeadlineToReply
+    value: '17'
+  - name: ProductNotCoveredByThisPlanPriorAuthorizationNotAvailable
+    value: '18'
+  - name: PrescriptionWithinPrescribingLimitsPriorAuthorizationNotRequiredForPatientMedication
+    value: '19'
+  - name: CoverageLimitsMayExistForQuantityAndOrDaysSupply
+    value: '20'
+  - name: CoverageLimitsHaveBeenExceededExceptionNotAvailable
+    value: '21'
+  - name: ActivePAOnFile
+    value: '22'
+  - name: SubmittedProductCodeIsNotValid
+    value: '23'
+- name: Prior Authorization Answer Type
+  values:
+  - name: Select
+    value: '1'
+  - name: Multiselect
+    value: '2'
+  - name: Date
+    value: '3'
+  - name: DateTime
+    value: '4'
+  - name: Numeric
+    value: '5'
+  - name: FreeText
+    value: '6'
+- name: Drug Status Code
+  values:
+  - name: Covered
+  - name: CoveredWithRestrictions
+  - name: ErrorProcessingPharmacyType
+  - name: Not Covered (Not Reimbursable)
+  - name: NotCovered
+  - name: PharmacyTypeNotSupported
+  - name: PharmacyNotFound
+- name: Pharmacy Type
+  values:
+  - name: Unknown
+    value: '1'
+  - name: Retail
+    value: '2'
+  - name: MailOrder
+    value: '3'
+  - name: SpecialtyPharmacy
+    value: '4'
+  - name: LongTermCarePharmacy
+    value: '5'
+  - name: Any
+    value: '6'
+  - name: TwentyFourHourPharmacy
+    value: '7'
+  - name: FaxPharmacy
+    value: '8'
+  - name: EPCS
+    value: '9'
+  - name: InHouseDispensing
+    value: '10'
+  - name: Compounding
+    value: '11'
+  - name: DME
+    value: '12'
+  - name: Kiosk
+    value: '13'
+  - name: SupportsDigitalSignature
+    value: '14'
+  - name: FaxPharmacyExternal
+    value: '15'
+- name: Dispense Unit Type ID
+  values:
+  - name: Applicator
+    value: '35'
+  - name: Blister
+    value: '39'
+  - name: Caplet
+    value: '44'
+  - name: Capsule
+    value: '4'
+  - name: Each
+    value: '32'
+  - name: Film
+    value: '52'
+  - name: Gram
+    value: '8'
+  - name: Gum
+    value: '33'
+  - name: Implant
+    value: '54'
+  - name: Insert
+    value: '57'
+  - name: Kit
+    value: '11'
+  - name: Lancet
+    value: '90'
+  - name: Lozenge
+    value: '13'
+  - name: Milliliter
+    value: '15'
+  - name: Packet
+    value: '21'
+  - name: Pad
+    value: '64'
+  - name: Patch
+    value: '28'
+  - name: Pen Needle
+    value: '83'
+  - name: Ring
+    value: '70'
+  - name: Sponge
+    value: '73'
+  - name: Stick
+    value: '75'
+  - name: Strip
+    value: '76'
+  - name: Suppository
+    value: '23'
+  - name: Swab
+    value: '77'
+  - name: Tablet
+    value: '26'
+  - name: Troche
+    value: '81'
+  - name: Unspecified
+    value: '19'
+  - name: Wafer
+    value: '82'
+- name: Severity Level
+  values:
+  - name: MinorInteraction
+  - name: ModerateInteraction
+  - name: MajorInteraction
+  - name: UnknownInteraction
+- name: Allergen Category
+  values:
+  - name: CommonAllergens
+    additional_information: From the common allergens of Medispan
+  - name: UncommonAllergens
+    additional_information: Expressly pulled from all screenable ingredients/classes that exist
+  - name: OtherBrandDrugs
+    additional_information: From the brand drugs of Medispan - routed doseform drugs

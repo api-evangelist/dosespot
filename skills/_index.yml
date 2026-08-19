@@ -1,0 +1,34 @@
+generated: '2026-08-15'
+method: generated
+source: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+note: >-
+  Packaged Agent Skills for the DoseSpot REST API v2. Every operationId referenced below is verified verbatim
+  against the Swagger document DoseSpot publishes on its own SwaggerHub org and renders at docs.dosespot.com;
+  none are invented. The conventions, error-envelope and enumeration rules the steps rely on come from
+  conventions/dosespot-conventions.yml, errors/dosespot-error-codes.yml and vocabulary/dosespot-vocabulary.yml.
+  DoseSpot publishes no skills or AGENTS.md of its own - searched 2026-08-15.
+safety_posture: >-
+  This is a DEA- and HIPAA-regulated prescribing API. Three operations are explicitly marked human-in-the-loop
+  in the skills and must never be called autonomously: Prescriptions_IgnoreAlertV2 (overrides a drug-safety
+  alert), Patients_MergePatientsV2 (irreversible chart merge), and the EPCS identity-proofing ceremony.
+skills:
+  - file: dosespot-onboard-a-patient.md
+    name: Onboard a patient into DoseSpot
+    api: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+    operations: [Patients_SearchPatientsV2, Patients_AddPatientV2, Allergies_AddCodedPatientAllergyV2, Allergies_AddNoKnownPatientAllergyV2, SelfReportedMedications_AddSelfReportedMedicationCodedV2, MedicationHistory_LogPatientMedicationHistoryConsentV2, MedicationHistory_GetMedicationHistoryV2]
+  - file: dosespot-prescribe-a-medication.md
+    name: Write and transmit a prescription with DoseSpot
+    api: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+    operations: [Medications_MedicationSearchV2, Medications_MedicationSelectV2, Interactions_GetPreCheckInteractionsV2, Prescriptions_AddCodedPrescriptionV2, Prescriptions_SetPrescriptionsReadyToSignV2, Prescriptions_SendPrescriptionsV2, Prescriptions_SendEpcsPrescriptionsV2, Prescriptions_GetPrescriptionLogDetailsV2]
+  - file: dosespot-manage-patient-pharmacies.md
+    name: Find and attach a pharmacy in DoseSpot
+    api: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+    operations: [Pharmacies_PharmacySearchV2, Pharmacies_GetPharmacyRestrictionsV2, Pharmacies_AddPatientPharmacyV2, Prescriptions_ChangePrescriptionPharmacyV2]
+  - file: dosespot-work-the-notification-queues.md
+    name: Work the DoseSpot notification, refill and RxChange queues
+    api: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+    operations: [Notifications_GetPrescriberNotificationCountsV2, Notifications_GetTransmissionErrorDetailsV2, Refills_GetDetailedRefillRequestsV2, Refills_ApproveRefillV2, RxChanges_GetRxChangeQueueDetailedV2, RxChanges_ApproveRxChangeV2, HealthCheck_CheckHealthV2]
+  - file: dosespot-epcs-clinician-enrollment.md
+    name: Enroll a clinician for EPCS in DoseSpot
+    api: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
+    operations: [Clinicians_ClinicianAddV2, DEANumbers_AddDEANumber, Clinicians_InitializeIDPV2, Clinicians_ClinicianIdentityProofingV2, Clinicians_TfaActivateV2, Clinicians_SetPinV2, Clinicians_ClinicianCheckRegistrationStatusV2]
