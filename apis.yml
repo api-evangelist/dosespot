@@ -121,6 +121,8 @@ apis:
   humanURL: https://dosespot.com/full-integration/
   baseURL: https://my.dosespot.com/webapi/v2
   tags:
+  - Notification
+  tags_raw:
   - Notifications
   properties:
   - type: OpenAPI
