@@ -47,56 +47,6 @@ created: '2026-06-21'
 modified: '2026-08-15'
 specificationVersion: '0.23'
 apis:
-- aid: dosespot:dosespot-rest-api-jumpstart-epcs-v2
-  name: DoseSpot REST API - JumpStart + EPCS - V2
-  description: The DoseSpot REST API v2 contract for JumpStart customers - 139 operations, the subset
-    available alongside DoseSpot's pre-built iFrame/SSO prescribing experience. Harvested verbatim from
-    DoseSpot's own developer portal.
-  humanURL: https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-jumpstart_epcsv2
-  baseURL: https://my.dosespot.com/webapi/v2
-  tags:
-  - Prescriptions
-  - EPCS
-  - JumpStart
-  - Patients
-  - Pharmacies
-  properties:
-  - type: OpenAPI
-    url: openapi/_original/dosespot-rest-api-jumpstart-epcs-v2-swagger.json
-  - type: Overlay
-    url: overlays/dosespot-jumpstart-epcs-v2-overlay.yaml
-  - type: Documentation
-    url: https://docs.dosespot.com/
-  - type: APIReference
-    url: https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-jumpstart_epcsv2
-  - type: GettingStarted
-    url: https://docs.dosespot.com/staging/docs/getting-started
-- aid: dosespot:dosespot-rest-api-full-epcs-v2
-  name: DoseSpot REST API - Full + EPCS - V2
-  description: The complete DoseSpot REST API v2 contract for Full Integration customers - 171 operations
-    across 28 resource groups covering patients, allergies, medications, interactions, pharmacies, prescriptions,
-    EPCS signing and transmission, refills, RxChange, prior authorization, eligibility, medication history,
-    PDMP/Narx and clinician administration. Harvested verbatim from DoseSpot's own developer portal.
-  humanURL: https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-full_epcsv2
-  baseURL: https://my.dosespot.com/webapi/v2
-  tags:
-  - Prescriptions
-  - EPCS
-  - Patients
-  - Pharmacies
-  - Medications
-  - Prior Authorization
-  properties:
-  - type: OpenAPI
-    url: openapi/_original/dosespot-rest-api-full-epcs-v2-swagger.json
-  - type: Overlay
-    url: overlays/dosespot-full-epcs-v2-overlay.yaml
-  - type: Documentation
-    url: https://docs.dosespot.com/
-  - type: APIReference
-    url: https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-full_epcsv2
-  - type: GettingStarted
-    url: https://docs.dosespot.com/staging/docs/getting-started
 - aid: dosespot:dosespot-medications-api
   name: DoseSpot Medications API
   description: Medi-Span drug search and interaction checks.
@@ -208,6 +158,8 @@ apis:
   - type: Documentation
     url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
 common:
+- type: Overlay
+  url: overlays/dosespot-jumpstart-epcs-v2-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/dosespot-agentic-access.yml
 - type: DomainSecurity
