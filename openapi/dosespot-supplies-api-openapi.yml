@@ -1,0 +1,192 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Supplies API
+  version: '1.0'
+  description: 'Operations tagged Supplies across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: Supplies
+paths:
+  /api/supplies/{supplyId}:
+    get:
+      tags:
+      - Supplies
+      summary: Get supply information
+      description: Returns a supply matching the ID
+      operationId: Supplies_GetSupplyByIDV2
+      parameters:
+      - name: supplyId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_SupplySearchResultForAPI'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_SupplySearchResultForAPI'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_SupplySearchResultForAPI'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_SupplySearchResultForAPI'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_SupplySearchResultForAPI'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/supplies/search:
+    get:
+      tags:
+      - Supplies
+      summary: 'Search supplies
+
+        matching the exact NDC xor exact UPC.'
+      description: Returns a list of supplies matching a supply name of three or more characters xor matching the exact NDC xor exact UPC (or HRI). Can filter active/obsolete supplies.
+      operationId: Supplies_SuppliesSearchV2
+      parameters:
+      - name: pageNumber
+        in: query
+        description: 1-based (default of 1)
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: name
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: ndc
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: upc
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: supplyStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - Active
+          - Inactive
+          - All
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SupplySearchResultForAPI'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SupplySearchResultForAPI'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SupplySearchResultForAPI'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SupplySearchResultForAPI'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SupplySearchResultForAPI'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    PagedListResponse_SupplySearchResultForAPI:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/SupplySearchResultForAPI'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    SupplySearchResultForAPI:
+      type: object
+      properties:
+        SupplyId:
+          type: integer
+          format: int32
+          description: Primary key in the Supply table
+        NDC:
+          type: string
+          description: National Drug Code
+        UPC:
+          type: string
+          description: Universal Packaging Code
+        Name:
+          type: string
+          description: Supply name
+        OTC:
+          type: boolean
+          description: True if IsRx is true
+        IsObsolete:
+          type: boolean
+    ItemResponse_SupplySearchResultForAPI:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/SupplySearchResultForAPI'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

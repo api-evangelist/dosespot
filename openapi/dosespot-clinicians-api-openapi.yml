@@ -1,0 +1,2382 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Clinicians API
+  version: '1.0'
+  description: 'Operations tagged Clinicians across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: Clinicians
+paths:
+  /api/clinicians/pdmp:
+    get:
+      tags:
+      - Clinicians
+      summary: Get Prescription Drug Monitoring Program data
+      description: Get Prescription Drug Monitoring Program data for the clinician's state
+      operationId: Clinicians_GetClinicianPDMPV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_PDMPResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_PDMPResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_PDMPResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_PDMPResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_PDMPResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/idpDisclaimer:
+    get:
+      tags:
+      - Clinicians
+      summary: Get identity proofing disclaimer
+      description: Retrieves the signing of the disclaimer for identity proofing for a clinician. If you have signed the disclaimer, there will be a date.
+      operationId: Clinicians_GetIdentityProofingDisclaimerV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerResponse'
+    post:
+      tags:
+      - Clinicians
+      summary: Accept identity proofing disclaimer
+      description: Completes the signing of the disclaimer for identity proofing for a clinician.
+      operationId: Clinicians_AcceptIdentityProofingDisclaimerV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerRequest'
+        description: Accept Disclaimer Request
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}:
+    get:
+      tags:
+      - Clinicians
+      summary: Get clinician information
+      description: Get Clinician's details By ID
+      operationId: Clinicians_GetClinicianDetailsByIdV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: Clinician ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_Clinician'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_Clinician'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_Clinician'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_Clinician'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_Clinician'
+    put:
+      tags:
+      - Clinicians
+      summary: Edit clinician information
+      description: "Updates an existing clinicianâ\x80\x99s contact information"
+      operationId: Clinicians_PutClinicianEditV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: Clinician ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+        description: Updated clinician data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinician:
+    get:
+      tags:
+      - Clinicians
+      summary: Get Clinician By Npi Or Dea
+      operationId: Clinicians_GetClinicianByNpiOrDeaV2
+      parameters:
+      - name: npi
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: string
+      - name: dea
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/clinicians:
+    get:
+      tags:
+      - Clinicians
+      summary: Get patient's clinicians
+      description: Retrieves information on all clinicians that have affected a patient record
+      operationId: Clinicians_GetPatientCliniciansV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_Clinician'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_Clinician'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_Clinician'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_Clinician'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_Clinician'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/legalAgreements:
+    get:
+      tags:
+      - Clinicians
+      summary: Retrieves a list of clinician's legal agreements
+      operationId: Clinicians_GetClinicianLegalAgreementsV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_AgreementInfoResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_AgreementInfoResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_AgreementInfoResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_AgreementInfoResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_AgreementInfoResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/registrationStatus:
+    get:
+      tags:
+      - Clinicians
+      summary: Get clinician specific registration status
+      description: "Retrieves a clinicianâ\x80\x99s registration status at the clinic used to obtain the Authentication token"
+      operationId: Clinicians_ClinicianCheckRegistrationStatusV2
+      parameters:
+      - name: clinicianId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_eRxRegistrationStatusType'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_eRxRegistrationStatusType'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_eRxRegistrationStatusType'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_eRxRegistrationStatusType'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_eRxRegistrationStatusType'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/prescriptions/{prescriptionId}/prescriberInfo:
+    get:
+      tags:
+      - Clinicians
+      summary: Get a Prescription's prescriber Information
+      operationId: Clinicians_GetPrescriptionPrescriberInfoAPIV2
+      parameters:
+      - name: prescriptionId
+        in: path
+        description: The prescription Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriberInfoResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrescriberInfoResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PrescriberInfoResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PrescriberInfoResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PrescriberInfoResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/pin:
+    post:
+      tags:
+      - Clinicians
+      summary: Sets a clinician's PIN
+      operationId: Clinicians_SetPinV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianSetPinRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianSetPinRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianSetPinRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianSetPinRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianSetPinRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianSetPinRequest'
+        description: PIN Request Data
+        required: true
+    put:
+      tags:
+      - Clinicians
+      summary: Change a clinician's PIN
+      operationId: Clinicians_ChangePinV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianChangePinRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianChangePinRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianChangePinRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianChangePinRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianChangePinRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianChangePinRequest'
+        description: PIN Request Data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/supervisors:
+    put:
+      tags:
+      - Clinicians
+      summary: Add a supervisor to a clinician
+      operationId: Clinicians_AddSupervisorToClinicianV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: The ID of the clinician
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/SupervisorToClinicianRequest'
+          text/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/SupervisorToClinicianRequest'
+          application/problem+json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/SupervisorToClinicianRequest'
+          application/xml:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/SupervisorToClinicianRequest'
+          text/xml:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/SupervisorToClinicianRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/SupervisorToClinicianRequest'
+        required: true
+    delete:
+      tags:
+      - Clinicians
+      summary: Remove a supervisor from a clinician
+      operationId: Clinicians_DeleteSupervisorToClinicianV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: The ID of the clinician
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteClinicianSupervisorRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DeleteClinicianSupervisorRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/DeleteClinicianSupervisorRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DeleteClinicianSupervisorRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/DeleteClinicianSupervisorRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DeleteClinicianSupervisorRequest'
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians:
+    post:
+      tags:
+      - Clinicians
+      summary: Add new clinician
+      description: Creates a new clinician
+      operationId: Clinicians_ClinicianAddV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicianRequest'
+        description: New clinician data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/idp:
+    post:
+      tags:
+      - Clinicians
+      summary: Clinician identity proofing
+      description: "Completes the first step of identity proofing for a clinician. This must be completed along with subsequent steps in \norder to enable electronic prescribing of controlled substances by this clinician. The results will return a session \nID and a collection of questions and answers (3 sets of 4 answers), which can be used as the body parameters for the \nsecond step of IDP"
+      operationId: Clinicians_ClinicianIdentityProofingV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingRequest'
+        description: IDP data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/idpOtp:
+    post:
+      tags:
+      - Clinicians
+      summary: Submit IDP one time code
+      description: Identity Proofing with a one time code
+      operationId: Clinicians_ClinicianIdentityProofingOneTimeCodeV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingOneTimeCodeRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingOneTimeCodeRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingOneTimeCodeRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingOneTimeCodeRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingOneTimeCodeRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingOneTimeCodeRequest'
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/resetPin:
+    post:
+      tags:
+      - Clinicians
+      summary: Reset My Pin
+      description: Resets the clinician's PIN to "" or null
+      operationId: Clinicians_ResetMyPinV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/idpAnswers:
+    post:
+      tags:
+      - Clinicians
+      summary: Submit clinician identity proofing answers
+      description: "Completes the final step of identity proofing for a clinician. This must be completed along with subsequent steps to enable electronic \nprescribing of controlled substances by this clinician.If an additional question is returned, this same method must be used again to \nsubmit an answer for it. After this, a clinician will either be marked as having passed or failed identity proofing."
+      operationId: Clinicians_ClinicianIdentityProofingAnswersV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianIdentityProofingResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingAnswersRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingAnswersRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingAnswersRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingAnswersRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingAnswersRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianIdentityProofingAnswersRequest'
+        description: IDP data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/resyncToken:
+    post:
+      tags:
+      - Clinicians
+      summary: Resync clinician's token
+      description: Resync's clinician token to match the token generated by the authentication manager
+      operationId: Clinicians_ResyncTokenV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianResyncTokenRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianResyncTokenRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianResyncTokenRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianResyncTokenRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianResyncTokenRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianResyncTokenRequest'
+        description: Token Request Data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/tfaActivate:
+    post:
+      tags:
+      - Clinicians
+      summary: Two factor authentication activation
+      description: Completes a clinician's two factor activation
+      operationId: Clinicians_TfaActivateV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaActivationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaActivationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaActivationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaActivationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaActivationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaActivationRequest'
+        description: TFA Request Data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/sendMobileTfa:
+    post:
+      tags:
+      - Clinicians
+      summary: Send mobile activation message
+      description: Registers a clinician with DUO Mobile and sends download and activation message
+      operationId: Clinicians_SendMobileTfaV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianMobileTfaInitiationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianMobileTfaInitiationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianMobileTfaInitiationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianMobileTfaInitiationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianMobileTfaInitiationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianMobileTfaInitiationRequest'
+        description: TFA Initiate Request Data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/tfaDeactivate:
+    post:
+      tags:
+      - Clinicians
+      summary: Two factor authentication de-activation
+      description: Completes a clinician's two factor deactivation
+      operationId: Clinicians_TfaDeactivateV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaDeactivationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaDeactivationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaDeactivationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaDeactivationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaDeactivationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianTfaDeactivationRequest'
+        description: TFA Request Data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/acceptAgreement:
+    post:
+      tags:
+      - Clinicians
+      summary: Accepts a legal agreement
+      operationId: Clinicians_AcceptAgreementV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianAcceptAgreementResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClinicianAcceptAgreementResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ClinicianAcceptAgreementResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianAcceptAgreementResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicianAcceptAgreementResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianAcceptAgreementRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianAcceptAgreementRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianAcceptAgreementRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianAcceptAgreementRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianAcceptAgreementRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianAcceptAgreementRequest'
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/idpInit:
+    post:
+      tags:
+      - Clinicians
+      summary: Initialize identity proofing
+      description: Mark Clinician IDP Initialized
+      operationId: Clinicians_InitializeIDPV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/resetPin:
+    post:
+      tags:
+      - Clinicians
+      summary: Reset Clinician's PIN
+      description: Resets a different clinician's PIN to "" or null
+      operationId: Clinicians_ResetClinicianPinV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: Clinician ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/initTfaActivate:
+    post:
+      tags:
+      - Clinicians
+      summary: Initialize two factor authentication
+      description: Initializes activation of a clinician's two factor authentication
+      operationId: Clinicians_InitializeTfaActivationV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: Clinician ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianInitializeTfaActivationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianInitializeTfaActivationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianInitializeTfaActivationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianInitializeTfaActivationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianInitializeTfaActivationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianInitializeTfaActivationRequest'
+        description: TFA Init Activation Request Data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/initTfaDeactivate:
+    post:
+      tags:
+      - Clinicians
+      summary: Initialize two factor authentication deactivation
+      description: Initializes deactivation of a clinician's two factor authentication
+      operationId: Clinicians_InitializeTfaDeactivationV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: Clinician ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/deanumbers:
+    get:
+      tags:
+      - Clinicians
+      summary: Get clinician's DEA numbers
+      operationId: DEANumbers_GetDEANumbers
+      parameters:
+      - name: clinicianId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_DEANumberResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_DEANumberResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_DEANumberResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_DEANumberResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_DEANumberResponse'
+    post:
+      tags:
+      - Clinicians
+      summary: Add a DEA number to a clinician
+      operationId: DEANumbers_AddDEANumber
+      parameters:
+      - name: clinicianId
+        in: path
+        description: the clinician id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierGuidResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierGuidResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierGuidResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierGuidResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierGuidResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+        description: The request
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/deanumbers/{deanumberId}:
+    get:
+      tags:
+      - Clinicians
+      summary: Get a clinician's DEA number
+      operationId: DEANumbers_GetDEANumber
+      parameters:
+      - name: clinicianId
+        in: path
+        description: The clinician to update
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: deanumberId
+        in: path
+        description: The clinician DEA Number Id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_DEANumberResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_DEANumberResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_DEANumberResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_DEANumberResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_DEANumberResponse'
+    put:
+      tags:
+      - Clinicians
+      summary: Edit a DEA number to a clinician
+      operationId: DEANumbers_EditDEANumber
+      parameters:
+      - name: clinicianId
+        in: path
+        description: The clinician to update
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: deanumberId
+        in: path
+        description: The clinician DEA Number Id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DEANumberRequest'
+        description: The request
+        required: true
+    delete:
+      tags:
+      - Clinicians
+      summary: Delete a clinician's DEA number
+      operationId: DEANumbers_DeleteDEANumber
+      parameters:
+      - name: clinicianId
+        in: path
+        description: The clinician to update
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: deanumberId
+        in: path
+        description: The clinician DEA Number Id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    DEANumberRequest:
+      type: object
+      required:
+      - DEANumber
+      - State
+      properties:
+        DEANumber:
+          type: string
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
+        AddressLine1:
+          type: string
+        AddressLine2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+          description: State abbreviation like DC, CA or State name like 'District of Columbia', 'California'
+        Zip:
+          type: string
+          description: 5-digits zip code or extended zip+4 with a dash separator (xxxxx-xxxx)
+          pattern: ^\d{5}(-\d{4})?$
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    ItemResponse_PDMPResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/PDMPResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    IdentifierGuidResponse:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    PrescriberAgentInfo:
+      type: object
+      properties:
+        Prefix:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        LastName:
+          type: string
+        Suffix:
+          type: string
+    AgreementInfoResponse:
+      type: object
+      properties:
+        AgreementId:
+          type: integer
+          format: int32
+        AgreementDate:
+          type: string
+          format: date-time
+        AgreementText:
+          type: string
+    ClinicianResyncTokenRequest:
+      type: object
+      required:
+      - Code1
+      - Code2
+      - Code3
+      properties:
+        Code1:
+          type: string
+        Code2:
+          type: string
+        Code3:
+          type: string
+    ItemResponse_DEANumberResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/DEANumberResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    ClinicianIdentityProofingDisclaimerResponse:
+      type: object
+      properties:
+        IdpDisclaimerDate:
+          type: string
+          format: date-time
+        IdpDisclaimerId:
+          type: integer
+          format: int32
+        IdpDisclaimerText:
+          type: string
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ClinicianIdentityProofingResponse:
+      type: object
+      properties:
+        SessionID:
+          type: string
+        Questions:
+          type: array
+          items:
+            type: string
+        Answers:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+        OtpSent:
+          type: boolean
+        IdpResultSummary:
+          type: string
+        IDCapture:
+          type: boolean
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ClinicianIdentityProofingRequest:
+      type: object
+      required:
+      - City
+      - CreditCardNumber
+      - DateOfBirth
+      - FirstName
+      - HomeAddress
+      - IsMobileNumber
+      - LastName
+      - PhoneNumber
+      - State
+      - ZipCode
+      properties:
+        FirstName:
+          type: string
+          minLength: 0
+          maxLength: 32
+          pattern: ^[A-Za-z]+(?:[ '\-][A-Za-z]+)*$
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 32
+          pattern: ^$|^[A-Za-z]+$
+        LastName:
+          type: string
+          minLength: 0
+          maxLength: 32
+          pattern: ^(?=.{2,32}$)[A-Za-z]+(?:[ '\-][A-Za-z]+)*$
+        HomeAddress:
+          type: string
+          pattern: ^[A-Za-z0-9\/\.\-\#\ ]+$
+        City:
+          type: string
+          minLength: 0
+          maxLength: 38
+          pattern: ^[A-Za-z]+\.?(?:[ '\-][A-Za-z]+\.?)*$
+        State:
+          type: string
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+          pattern: ^(?:\d{5}|\d{9}|\d{5}\-\d{4})$
+        DateOfBirth:
+          type: string
+          format: date-time
+        SocialSecurityNumber:
+          type: string
+          minLength: 0
+          maxLength: 11
+          pattern: ^(?:\d{9}|\d{3}\-\d{2}\-\d{4}|\d{3} \d{2} \d{4})$
+        CreditCardNumber:
+          type: string
+        DrivingLicenseNumber:
+          type: string
+        DrivingLicenseNumberState:
+          type: string
+        PhoneNumber:
+          type: string
+        IsMobileNumber:
+          type: boolean
+      description: represent a request to clinican identity proof
+    ClinicianSetPinRequest:
+      type: object
+      required:
+      - PIN
+      properties:
+        PIN:
+          type: string
+    PrescriberInfo:
+      type: object
+      properties:
+        Address1:
+          type: string
+        Address2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        DEANumber:
+          type: string
+        Prefix:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        LastName:
+          type: string
+        Suffix:
+          type: string
+    AddEditClinicianRequest:
+      type: object
+      required:
+      - Address1
+      - City
+      - ClinicianRoleType
+      - DateOfBirth
+      - FirstName
+      - LastName
+      - PrimaryFax
+      - PrimaryPhone
+      - State
+      - ZipCode
+      properties:
+        Prefix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Email:
+          type: string
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType3:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        DEANumber:
+          type: string
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
+        DEANumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeaNumber'
+        NADEANumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/NaDeaNumber'
+        MedicalLicenseNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicalLicenseNumber'
+        NPINumber:
+          type: string
+        ClinicianRoleType:
+          type: array
+          items:
+            type: string
+            enum:
+            - PrescribingClinician
+            - ReportingClinician
+            - EpcsCoordinator
+            - ClinicianAdmin
+            - PrescribingAgentClinician
+            - ProxyClinician
+        EPCSRequested:
+          type: boolean
+        Active:
+          type: boolean
+        PDMPRoleType:
+          type: string
+          enum:
+          - Physician
+          - Dentist
+          - NursePractioner
+          - PhysiciansAssistant
+          - Resident
+          - Intern
+          - Psychologist
+          - Optometrist
+          - NaturopathicPhysician
+        ClinicianSpecialtyType:
+          type: string
+          enum:
+          - AllergyAndImmunology
+          - Dermatology
+          - Dentistry
+          - BehavioralHealth
+          - FamilyMedicine
+          - InternalMedicine
+          - ObstetricsAndGynecology
+          - Orthopedics
+          - Pediatrics
+          - PhysicalMedicine
+          - Psychiatry
+          - Urology
+      description: 'Represents a request to add or edit a clinician.
+
+        This class overrides the identifier property so that it will not be serialized for requests.'
+    ListResponse_DEANumberResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/DEANumberResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    PrescriberInfoResponse:
+      type: object
+      properties:
+        Prescriber:
+          $ref: '#/components/schemas/PrescriberInfo'
+        PrescriberAgent:
+          $ref: '#/components/schemas/PrescriberAgentInfo'
+        Supervisor:
+          $ref: '#/components/schemas/PrescriberInfo'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ClinicianIdentityProofingOneTimeCodeRequest:
+      type: object
+      required:
+      - MobileCode
+      - SessionID
+      properties:
+        SessionID:
+          type: string
+        MobileCode:
+          type: string
+          description: Entered OTP
+      description: represent a request to clinican identity proof one time code after success
+    MedicalLicenseNumber:
+      type: object
+      required:
+      - LicenseNumber
+      properties:
+        LicenseNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+        ClinicId:
+          type: string
+    SupervisorToClinicianRequest:
+      type: object
+      required:
+      - ClinicId
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+        SupervisorId:
+          type: integer
+          format: int32
+    ItemResponse_eRxRegistrationStatusType:
+      type: object
+      properties:
+        Item:
+          type: string
+          description: The response object.
+          enum:
+          - Pending
+          - RegistrationSuccess
+          - RegistrationError
+          - IDPSuccess
+          - IDPError
+          - TFAActivateInit
+          - TFAActivatedSuccess
+          - TFAActivatedError
+          - TFADeactivateInit
+          - TFADeactivatedSuccess
+          - TFADeactivatedError
+          - IDPInitializeSuccess
+          - NotApplicable
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    DeaNumber:
+      type: object
+      required:
+      - DEANumber
+      properties:
+        DEANumber:
+          type: string
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
+        State:
+          type: string
+        ClinicId:
+          type: string
+    ItemResponse_Clinician:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/Clinician'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    ClinicianAcceptAgreementResponse:
+      type: object
+      properties:
+        AgreementId:
+          type: integer
+          format: int32
+        NameSigned:
+          type: string
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ClinicianAcceptAgreementRequest:
+      type: object
+      required:
+      - AgreementId
+      - NameSigned
+      properties:
+        AgreementId:
+          type: integer
+          format: int32
+        NameSigned:
+          type: string
+    ListResponse_AgreementInfoResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/AgreementInfoResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ListResponse_Clinician:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/Clinician'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    ClinicianInitializeTfaActivationRequest:
+      type: object
+      required:
+      - TfaTypeId
+      properties:
+        TfaTypeId:
+          type: string
+          enum:
+          - Mobile
+          - Token
+    Clinician:
+      type: object
+      required:
+      - Address1
+      - City
+      - DateOfBirth
+      - FirstName
+      - LastName
+      - PrimaryFax
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        ClinicianId:
+          type: integer
+          format: int32
+        Prefix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Email:
+          type: string
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType3:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        DEANumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeaNumber'
+        DEANumber:
+          type: string
+        NADEANumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/NaDeaNumber'
+        MedicalLicenseNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicalLicenseNumber'
+        NPINumber:
+          type: string
+        Roles:
+          type: array
+          items:
+            type: string
+            enum:
+            - PrescribingClinician
+            - ReportingClinician
+            - EpcsCoordinator
+            - ClinicianAdmin
+            - PrescribingAgentClinician
+            - ProxyClinician
+        PDMPRoleType:
+          type: string
+          enum:
+          - Physician
+          - Dentist
+          - NursePractioner
+          - PhysiciansAssistant
+          - Resident
+          - Intern
+          - Psychologist
+          - Optometrist
+          - NaturopathicPhysician
+        SpecialtyTypeId:
+          type: integer
+          format: int32
+        Confirmed:
+          type: boolean
+        Active:
+          type: boolean
+        AccountLocked:
+          type: boolean
+        EpcsRequested:
+          type: boolean
+        ClinicInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicianClinicErxSummary'
+    NaDeaNumber:
+      type: object
+      required:
+      - NADEANumber
+      properties:
+        NADEANumber:
+          type: string
+          pattern: ^[a-zA-Z0-9]{9}$
+        State:
+          type: string
+        ClinicId:
+          type: string
+    ClinicianMobileTfaInitiationRequest:
+      type: object
+      required:
+      - MobilePhoneNumber
+      properties:
+        MobilePhoneNumber:
+          type: string
+    ClinicianClinicErxSummary:
+      type: object
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+        HasNewRx:
+          type: boolean
+        HasRefills:
+          type: boolean
+        HasRxChange:
+          type: boolean
+        HasCancel:
+          type: boolean
+        HasRxFill:
+          type: boolean
+        HasEpcs:
+          type: boolean
+        HasEpa:
+          type: boolean
+    ClinicianTfaActivationRequest:
+      type: object
+      properties:
+        CredentialID:
+          type: string
+        ReferenceNumber:
+          type: string
+        OneTimePassword:
+          type: string
+        PIN:
+          type: string
+    ClinicianIdentityProofingDisclaimerRequest:
+      type: object
+      required:
+      - IdpDisclaimerId
+      properties:
+        IdpDisclaimerId:
+          type: integer
+          format: int32
+    DEANumberResponse:
+      type: object
+      properties:
+        DEANumberId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        DEANumber:
+          type: string
+        AddressLine1:
+          type: string
+        AddressLine2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Zip:
+          type: string
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    ClinicianIdentityProofingAnswersRequest:
+      type: object
+      required:
+      - Answers
+      - SessionID
+      properties:
+        SessionID:
+          type: string
+        Answers:
+          type: array
+          items:
+            type: string
+    DeleteClinicianSupervisorRequest:
+      type: object
+      required:
+      - ClinicIds
+      properties:
+        ClinicIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    PDMPResponse:
+      type: object
+      properties:
+        StateId:
+          type: integer
+          format: int32
+        ProgramName:
+          type: string
+        URL:
+          type: string
+        Message:
+          type: string
+    ClinicianChangePinRequest:
+      type: object
+      required:
+      - CurrentPIN
+      - NewPIN
+      properties:
+        CurrentPIN:
+          type: string
+        NewPIN:
+          type: string
+    ClinicianTfaDeactivationRequest:
+      type: object
+      required:
+      - OneTimePassword
+      - PIN
+      properties:
+        CredentialID:
+          type: string
+        OneTimePassword:
+          type: string
+        PIN:
+          type: string
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

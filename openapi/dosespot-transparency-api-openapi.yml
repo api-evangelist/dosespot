@@ -1,0 +1,198 @@
+openapi: 3.2.0
+info:
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Transparency API'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+tags:
+- name: Transparency
+paths:
+  /api/patients/{patientId}/transparency/alternativePharmacies:
+    get:
+      tags:
+      - Transparency
+      summary: Returns alternative pharmacies and offers for a given NDC and patient.
+      operationId: Transparency_AlternativePharmaciesV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: nDC
+        in: query
+        description: The NDC of the medication.
+        required: true
+        schema:
+          type: string
+          pattern: ^\d{10,11}$
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PharmacyAlternativeResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PharmacyAlternativeResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PharmacyAlternativeResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PharmacyAlternativeResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PharmacyAlternativeResponse'
+components:
+  schemas:
+    PharmacyOffer:
+      type: object
+      properties:
+        OfferType:
+          type: string
+          enum:
+          - Cash
+          - InsuranceEstimate
+          - Prime
+          - RxPass
+        Price:
+          type: string
+        Quantity:
+          type: string
+        EstimatedDelivery:
+          type: string
+    PharmacyAlternative:
+      type: object
+      properties:
+        IsDrugAvailable:
+          type: boolean
+        Pharmacy:
+          $ref: '#/components/schemas/Pharmacy'
+        NotDispensableReason:
+          type: string
+          enum:
+          - CURRENTLY_UNAVAILABLE
+          - DOES_NOT_DISPENSE
+        PharmacyOffers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PharmacyOffer'
+    Pharmacy:
+      type: object
+      properties:
+        PharmacyId:
+          type: integer
+          format: int32
+          description: The pharmacy identifier.
+        StoreName:
+          type: string
+          description: The pharmacy store name.
+        Address1:
+          type: string
+          description: The pharmacy address.
+        Address2:
+          type: string
+          description: The pharmacy address.
+        City:
+          type: string
+          description: The pharmacy city.
+        State:
+          type: string
+          description: The pharmacy state.
+        ZipCode:
+          type: string
+          description: The pharmacy zip code.
+        PrimaryPhone:
+          type: string
+          description: The pharmacy primary phone number.
+        PrimaryPhoneType:
+          type: string
+          description: The pharmacy primary phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          description: The pharmacy primary fax number.
+        PhoneAdditional1:
+          type: string
+          description: Additional phone number.
+        PhoneAdditionalType1:
+          type: string
+          description: Additional phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          description: Additional phone number.
+        PhoneAdditionalType2:
+          type: string
+          description: Additional phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          description: Additional phone number.
+        PhoneAdditionalType3:
+          type: string
+          description: Additional phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PharmacySpecialties:
+          type: array
+          description: The pharmacy specialties.
+          items:
+            type: string
+        ServiceLevel:
+          type: integer
+          format: int32
+          description: The pharmacy service level.
+        Latitude:
+          type: number
+          format: double
+          description: The pharmacy Latitude.
+        Longitude:
+          type: number
+          format: double
+          description: The pharmacy Longitude.
+        NCPDPID:
+          type: string
+      description: Represents a pharmacy entity.
+    PharmacyAlternativeResponse:
+      type: object
+      properties:
+        PharmacyAlternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PharmacyAlternative'

@@ -1,0 +1,1331 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Refills API
+  version: '1.0'
+  description: 'Operations tagged Refills across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: Refills
+paths:
+  /api/refills/pending:
+    get:
+      tags:
+      - Refills
+      summary: Get refill requests for clinic(s)/patient
+      description: Retrieves information on refill requests associated with clinician's clinic(s)/patient
+      operationId: Refills_GetRefillRequestDetailsV2
+      parameters:
+      - name: clinic
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - All
+          - Current
+          maximum: 1
+          minimum: 0
+      - name: patientId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          maximum: 2147483647
+          minimum: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_GetRefillResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_GetRefillResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_GetRefillResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_GetRefillResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_GetRefillResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/refills/pending/detailed:
+    get:
+      tags:
+      - Refills
+      summary: Get detailed refill requests for clinic(s)/patient
+      description: Retrieves information on refill requests associated with clinician's clinic(s)/patient
+      operationId: Refills_GetDetailedRefillRequestsV2
+      parameters:
+      - name: clinic
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - All
+          - Current
+          maximum: 1
+          minimum: 0
+      - name: patientId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          maximum: 2147483647
+          minimum: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_GetRefillDetailedResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_GetRefillDetailedResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_GetRefillDetailedResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_GetRefillDetailedResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_GetRefillDetailedResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/refills/{refillId}/deny:
+    post:
+      tags:
+      - Refills
+      summary: Denies a pending refill request
+      description: Denies a pending refill request by providing the denial reason
+      operationId: Refills_DenyRefillV2
+      parameters:
+      - name: refillId
+        in: path
+        description: Refill ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DenyRefillRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/DenyRefillRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/DenyRefillRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/DenyRefillRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/DenyRefillRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DenyRefillRequest'
+        description: Refill data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/refills/{refillId}/approve:
+    post:
+      tags:
+      - Refills
+      summary: Approves a pending refill request
+      description: Approves a pending refill request by providing the number of refills
+      operationId: Refills_ApproveRefillV2
+      parameters:
+      - name: refillId
+        in: path
+        description: Refill ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApproveRefillRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ApproveRefillRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ApproveRefillRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ApproveRefillRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ApproveRefillRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ApproveRefillRequest'
+        description: Refill data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/refills/{refillId}/replace:
+    post:
+      tags:
+      - Refills
+      summary: Replace the refill request with new prescription details
+      description: Provides the ability to replace a refill request with a different medication.
+      operationId: Refills_ReplaceRefillV2
+      parameters:
+      - name: refillId
+        in: path
+        description: Refill ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceRefillRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ReplaceRefillRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ReplaceRefillRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ReplaceRefillRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ReplaceRefillRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ReplaceRefillRequest'
+        description: Replace request
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/refills/{refillId}/changePatient:
+    patch:
+      tags:
+      - Refills
+      summary: Change the patient details on a refill request
+      description: "Provides the ability to link a refill request to a different, existing patient in the same clinic.\nThis is only applicable for refill requests that came in from the pharmacy with discrepancies in a patientâ\x80\x99s name,\ndate of birth, or gender and were not able to be automatically linked to the appropriate, existing patient within DoseSpot."
+      operationId: Refills_ChangeRefillRequestPatientV2
+      parameters:
+      - name: refillId
+        in: path
+        description: Refill ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeRefillPatientRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ChangeRefillPatientRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ChangeRefillPatientRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ChangeRefillPatientRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ChangeRefillPatientRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangeRefillPatientRequest'
+        description: Patient ID
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    CodedPrescriptionRequestUI:
+      type: object
+      required:
+      - Directions
+      - DispensableDrugId
+      - DispenseUnitId
+      - Quantity
+      - Refills
+      - Status
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        PatientFormularyId:
+          type: integer
+          format: int32
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+          minLength: 0
+          maxLength: 210
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        RxReferenceNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        EligibilityId:
+          type: integer
+          format: int32
+        NonDoseSpotPrescriptionId:
+          type: string
+          minLength: 0
+          maxLength: 35
+        IsRefillReplace:
+          type: boolean
+        IsUrgent:
+          type: boolean
+        SupervisorId:
+          type: integer
+          format: int32
+        RetailPharmacyToMailToPatient:
+          type: boolean
+        RTPSCoupon:
+          $ref: '#/components/schemas/RTPSCoupon'
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    Diagnosis:
+      type: object
+      properties:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    ChangeRefillPatientRequest:
+      type: object
+      required:
+      - PatientId
+      properties:
+        PatientId:
+          type: integer
+          format: int32
+    Patient:
+      type: object
+      required:
+      - Active
+      - Address1
+      - City
+      - DateOfBirth
+      - FirstName
+      - Gender
+      - LastName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        PatientId:
+          type: integer
+          format: int32
+        Prefix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        FirstName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Gender:
+          type: string
+          enum:
+          - Male
+          - Female
+          - Unknown
+        Email:
+          type: string
+          minLength: 0
+          maxLength: 80
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+          minLength: 0
+          maxLength: 50
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        Weight:
+          type: number
+          format: float
+        WeightMetric:
+          type: string
+          enum:
+          - lb
+          - kg
+        Height:
+          type: number
+          format: float
+        HeightMetric:
+          type: string
+          enum:
+          - inch
+          - cm
+        NonDoseSpotMedicalRecordNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+        IsHospice:
+          type: boolean
+    ReplaceRefillRequest:
+      type: object
+      required:
+      - PatientID
+      properties:
+        PatientID:
+          type: integer
+          format: int32
+        Pin:
+          type: string
+          pattern: ^(?:\d{4})?$
+        Otp:
+          type: string
+        NewPrescription:
+          $ref: '#/components/schemas/CodedPrescriptionRequestUI'
+        NewSupplyPrescription:
+          $ref: '#/components/schemas/CodedSupplyRequest'
+        NewCompoundPrescription:
+          $ref: '#/components/schemas/CompoundPrescriptionRequestUI'
+        NewFreeTextPrescription:
+          $ref: '#/components/schemas/FreeTextPrescriptionRequest'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    GetRefillResponse:
+      type: object
+      properties:
+        RefillId:
+          type: integer
+          format: int32
+        NewPatient:
+          type: boolean
+        Patient:
+          $ref: '#/components/schemas/Patient'
+        ClinicId:
+          type: integer
+          format: int32
+        ClinicianId:
+          type: integer
+          format: int32
+        RequestedPrescriptionId:
+          type: integer
+          format: int32
+        DispensedPrescriptionId:
+          type: integer
+          format: int32
+        OriginalPrescriptionId:
+          type: integer
+          format: int32
+        PharmacyId:
+          type: integer
+          format: int32
+        RequestedDate:
+          type: string
+          format: date-time
+        RequestExpirationDate:
+          type: string
+          format: date-time
+    CodedSupplyRequest:
+      type: object
+      required:
+      - Directions
+      - DispenseUnitId
+      - Quantity
+      - Refills
+      - Status
+      - SupplyId
+      properties:
+        SupplyId:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 2147483647
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+          minLength: 0
+          maxLength: 210
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        RxReferenceNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        EligibilityId:
+          type: integer
+          format: int32
+        NonDoseSpotPrescriptionId:
+          type: string
+          minLength: 0
+          maxLength: 35
+        IsRefillReplace:
+          type: boolean
+        IsUrgent:
+          type: boolean
+        SupervisorId:
+          type: integer
+          format: int32
+        RetailPharmacyToMailToPatient:
+          type: boolean
+        RTPSCoupon:
+          $ref: '#/components/schemas/RTPSCoupon'
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    DenyRefillRequest:
+      type: object
+      required:
+      - DenialReason
+      properties:
+        DenialReason:
+          type: string
+          enum:
+          - DeniedPatientUnknown
+          - DeniedPatientNotUnderCare
+          - DeniedPatientNoLongerUnderPatientCare
+          - DeniedTooSoon
+          - DeniedNeverPrescribed
+          - DeniedHavePatientContact
+          - DeniedRefillInappropriate
+          - DeniedAlreadyPickedUp
+          - DeniedAlreadyPickedUpPartialFill
+          - DeniedNotPickedUp
+          - DeniedChangeInappropriate
+          - DeniedNeedAppointment
+          - DeniedPrescriberNotAssociateWithLocation
+          - DeniedNoPriorAuthAttempt
+          - DeniedAlreadyHandled
+          - DeniedAtPatientRequest
+          - DeniedPatientAllergicToRequestMed
+          - DeniedMedicationDiscontinued
+        Note:
+          type: string
+          minLength: 0
+          maxLength: 70
+    RTPSCoupon:
+      type: object
+      properties:
+        BIN:
+          type: string
+        PCN:
+          type: string
+        MemberID:
+          type: string
+        GroupID:
+          type: string
+    PrescriptionDiagnosis:
+      type: object
+      properties:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    GetRefillDetailedResponse:
+      type: object
+      properties:
+        RefillId:
+          type: integer
+          format: int32
+        NewPatient:
+          type: boolean
+        Patient:
+          $ref: '#/components/schemas/Patient'
+        ClinicId:
+          type: integer
+          format: int32
+        ClinicianId:
+          type: integer
+          format: int32
+        RequestedPrescription:
+          $ref: '#/components/schemas/Prescription'
+        DispensedPrescription:
+          $ref: '#/components/schemas/Prescription'
+        OriginalPrescription:
+          $ref: '#/components/schemas/Prescription'
+        PharmacyId:
+          type: integer
+          format: int32
+        RequestedDate:
+          type: string
+          format: date-time
+        RequestExpirationDate:
+          type: string
+          format: date-time
+    FreeTextPrescriptionRequest:
+      type: object
+      required:
+      - Directions
+      - DispenseUnitId
+      - DisplayName
+      - NotControlled
+      - Quantity
+      - Refills
+      - Status
+      - Type
+      properties:
+        DisplayName:
+          type: string
+          minLength: 3
+          maxLength: 300
+        Type:
+          type: string
+          enum:
+          - Medication
+          - Supply
+          - Compound
+        NotControlled:
+          type: boolean
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+          minLength: 0
+          maxLength: 210
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        RxReferenceNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        EligibilityId:
+          type: integer
+          format: int32
+        NonDoseSpotPrescriptionId:
+          type: string
+          minLength: 0
+          maxLength: 35
+        IsRefillReplace:
+          type: boolean
+        IsUrgent:
+          type: boolean
+        SupervisorId:
+          type: integer
+          format: int32
+        RetailPharmacyToMailToPatient:
+          type: boolean
+        RTPSCoupon:
+          $ref: '#/components/schemas/RTPSCoupon'
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    PagedListResponse_GetRefillResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/GetRefillResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    CompoundPrescriptionRequestUI:
+      type: object
+      required:
+      - CompoundDescription
+      - CompoundIngredients
+      - Directions
+      - DispenseUnitId
+      - Quantity
+      - Refills
+      - Status
+      properties:
+        CompoundDescription:
+          type: string
+        CompoundIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompoundIngredient'
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+          minLength: 0
+          maxLength: 210
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        RxReferenceNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        EligibilityId:
+          type: integer
+          format: int32
+        NonDoseSpotPrescriptionId:
+          type: string
+          minLength: 0
+          maxLength: 35
+        IsRefillReplace:
+          type: boolean
+        IsUrgent:
+          type: boolean
+        SupervisorId:
+          type: integer
+          format: int32
+        RetailPharmacyToMailToPatient:
+          type: boolean
+        RTPSCoupon:
+          $ref: '#/components/schemas/RTPSCoupon'
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    Prescription:
+      type: object
+      properties:
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosis'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosis'
+        Refills:
+          type: string
+        PrescriptionId:
+          type: integer
+          format: int32
+        WrittenDate:
+          type: string
+          format: date-time
+        Directions:
+          type: string
+        Quantity:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        DaysSupply:
+          type: integer
+          format: int32
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        LastFillDate:
+          type: string
+          format: date-time
+        PrescriberId:
+          type: integer
+          format: int32
+        PrescriberAgentId:
+          type: integer
+          format: int32
+        RxReferenceNumber:
+          type: string
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Entered
+          - Printed
+          - Sending
+          - eRxSent
+          - FaxSent
+          - Error
+          - Deleted
+          - Requested
+          - Edited
+          - EpcsError
+          - EpcsSigned
+          - ReadyToSign
+          - PharmacyVerified
+          - PharmacySelect
+        Formulary:
+          type: boolean
+        EligibilityId:
+          type: integer
+          format: int32
+        Type:
+          type: string
+          enum:
+          - Coded
+          - FreeText
+          - NDC
+          - Supply
+          - Compound
+        NonDoseSpotPrescriptionId:
+          type: string
+        ErrorIgnored:
+          type: boolean
+        SupplyId:
+          type: integer
+          format: int32
+        FreeTextType:
+          type: string
+          enum:
+          - Medication
+          - Supply
+          - Compound
+        ClinicId:
+          type: integer
+          format: int32
+        SupervisorId:
+          type: integer
+          format: int32
+        IsUrgent:
+          type: boolean
+        IsRxRenewal:
+          type: boolean
+        RxRenewalNote:
+          type: string
+        Strength:
+          type: string
+        PatientMedicationId:
+          type: integer
+          format: int32
+        MedicationStatus:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        Comment:
+          type: string
+        DateInactive:
+          type: string
+          format: date-time
+        Encounter:
+          type: string
+        DisplayName:
+          type: string
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Schedule:
+          type: integer
+          format: int32
+        CompoundIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompoundIngredient'
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    CompoundIngredient:
+      type: object
+      required:
+      - Quantity
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        IsFreeTextEPCS:
+          type: boolean
+    PrescriptionDiagnosisIds:
+      type: object
+      properties:
+        PrimaryDiagnosisId:
+          type: integer
+          format: int32
+        SecondaryDiagnosisId:
+          type: integer
+          format: int32
+    PagedListResponse_GetRefillDetailedResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/GetRefillDetailedResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ApproveRefillRequest:
+      type: object
+      required:
+      - Refills
+      properties:
+        Refills:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 99
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        EffectiveDate:
+          type: string
+          format: date-time
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

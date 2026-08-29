@@ -1,0 +1,120 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Clinic Groups API
+  version: '1.0'
+  description: 'Operations tagged ClinicGroups across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: ClinicGroups
+paths:
+  /api/clinicGroups:
+    post:
+      tags:
+      - ClinicGroups
+      summary: Manages clinic groups
+      description: Handles clinic group actions which include adding and modifying clinic list in a clinic group.
+      operationId: ClinicGroups_AddEditClinicGroupV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AddEditClinicGroupResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AddEditClinicGroupResponse'
+            application/problem+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AddEditClinicGroupResponse'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AddEditClinicGroupResponse'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AddEditClinicGroupResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicGroupRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicGroupRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicGroupRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicGroupRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicGroupRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicGroupRequest'
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    AddEditClinicGroupRequest:
+      type: object
+      required:
+      - ClinicIds
+      properties:
+        ClinicIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        ClinicGroupName:
+          type: string
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    AddEditClinicGroupResponse:
+      type: object
+      properties:
+        UserId:
+          type: integer
+          format: int32
+        ClientId:
+          type: integer
+          format: int32
+        ClientName:
+          type: string
+        ClinicIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        ClinicGroupName:
+          type: string
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

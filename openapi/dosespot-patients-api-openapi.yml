@@ -1,20 +1,15 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: DoseSpot Medications Patients API
-  description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.
-  termsOfService: https://dosespot.com/
-  contact:
-    name: DoseSpot Support
-    url: https://dosespot.com/full-integration/
-  version: '2.0'
+  title: Dosespot Patients API
+  version: '1.0'
+  description: 'Operations tagged Patients across 3 of this provider''s published API definitions: dosespot-openapi.yml, dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://my.dosespot.com/webapi/v2
   description: Production
 - url: https://my.staging.dosespot.com/webapi/v2
   description: Staging
-security:
-- bearerAuth: []
-  subscriptionKey: []
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Patients
   description: Patient demographics, allergies, and self-reported medications.
@@ -51,6 +46,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PatientListResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
     post:
       operationId: createPatient
       tags:
@@ -70,6 +68,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PatientResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
+    servers:
+    - url: https://my.dosespot.com/webapi/v2
+      description: Production
+    - url: https://my.staging.dosespot.com/webapi/v2
+      description: Staging
   /patients/{patientId}:
     get:
       operationId: getPatient
@@ -90,6 +96,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PatientResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
     post:
       operationId: updatePatient
       tags:
@@ -115,8 +124,379 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PatientResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
+    servers:
+    - url: https://my.dosespot.com/webapi/v2
+      description: Production
+    - url: https://my.staging.dosespot.com/webapi/v2
+      description: Staging
+  /api/patients/{patientId}:
+    get:
+      tags:
+      - Patients
+      summary: Get patient demographics
+      description: Retrieves the existing demographic information in a patient record.
+      operationId: Patients_GetPatientDemographicDataV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_GetPatient'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_GetPatient'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_GetPatient'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_GetPatient'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_GetPatient'
+    put:
+      tags:
+      - Patients
+      summary: Edit patient demographics
+      description: Updates the demographic information for an existing patient record
+      operationId: Patients_EditPatientDemographicDataV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+        description: Updated patient data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/search:
+    get:
+      tags:
+      - Patients
+      summary: Search Patients
+      description: Returns a list of patient records matching a specified search query.
+      operationId: Patients_SearchPatientsV2
+      parameters:
+      - name: firstName
+        in: query
+        description: Patient First Name
+        required: false
+        schema:
+          type: string
+      - name: lastName
+        in: query
+        description: Patient Last Name
+        required: false
+        schema:
+          type: string
+      - name: dob
+        in: query
+        description: Patient date of birth (M/dd/yyyy)
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: status
+        in: query
+        description: Patient Status to include (if none supplied defaults to both)
+        required: false
+        schema:
+          type: string
+          enum:
+          - InactiveOnly
+          - ActiveOnly
+          - Both
+      - name: pageNumber
+        in: query
+        description: Page Number
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_Patient'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_Patient'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_Patient'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_Patient'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_Patient'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/SSN:
+    put:
+      tags:
+      - Patients
+      summary: Add/Update Patient SSN details
+      operationId: Patients_AddEditPatientSsnV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatientSsnRequestModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PatientSsnRequestModel'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/PatientSsnRequestModel'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PatientSsnRequestModel'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PatientSsnRequestModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatientSsnRequestModel'
+        required: true
+    delete:
+      tags:
+      - Patients
+      summary: Delete patient's SSN
+      description: Deletes the SSN from a Patient.
+      operationId: Patients_DeletePatientSSNV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients:
+    post:
+      tags:
+      - Patients
+      summary: Add Patient
+      description: Creates a new patient and returns the corresponding patient ID
+      operationId: Patients_AddPatientV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddEditPatientRequest'
+        description: New patient data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/merge:
+    post:
+      tags:
+      - Patients
+      summary: Merge patient's medications and allergies
+      description: 'Merges the medications from one patient record to another patient record.
+
+        Optionally merges allergies when MergeAllergies is set to true.
+
+        This includes all types of self-reported medications and prescriptions.
+
+        When MergeAllergies is true, all allergies are also merged.
+
+        Duplicate allergies are not created. When an AllergenID is present, allergies are considered duplicates based on matching AllergenID. When AllergenID is not present, allergies are considered duplicates based on the combination of AllergyCode, AllergyCodeTypeID, and DisplayName. Free-text allergies and NKA (No Known Allergies) entries are also deduplicated according to their free-text description and NKA status so that equivalent entries are not duplicated.
+
+        Other patient data such as demographics, preferred pharmacies, etc. are NOT merged.'
+      operationId: Patients_MergePatientsV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergePatientsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MergePatientsRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/MergePatientsRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/MergePatientsRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/MergePatientsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MergePatientsRequest'
+        description: Patient IDs of patients being merged and merge options
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
     Patient:
       type: object
       properties:
@@ -158,6 +538,29 @@ components:
           type: boolean
         NonDoseSpotMedicalRecordNumber:
           type: string
+    PatientListResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Patient'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+    PatientResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Item:
+            $ref: '#/components/schemas/Patient'
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
     PageResult:
       type: object
       properties:
@@ -171,37 +574,675 @@ components:
           type: boolean
         HasNext:
           type: boolean
-    ApiResult:
+    IdentifierResponse:
       type: object
       properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
         Result:
-          $ref: '#/components/schemas/ResultStatus'
-    PatientResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Item:
-            $ref: '#/components/schemas/Patient'
-    PatientListResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Patient'
-          PageResult:
-            $ref: '#/components/schemas/PageResult'
-    ResultStatus:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    Result:
       type: object
+      required:
+      - ResultCode
       properties:
         ResultCode:
           type: string
-          description: OK or ERROR.
+          description: The result code of the operation.
         ResultDescription:
           type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    AddEditPatientRequest:
+      type: object
+      required:
+      - Active
+      - Address1
+      - City
+      - DateOfBirth
+      - FirstName
+      - Gender
+      - LastName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        Prefix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        FirstName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Gender:
+          type: string
+          enum:
+          - Male
+          - Female
+          - Unknown
+        Email:
+          type: string
+          minLength: 0
+          maxLength: 80
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+          minLength: 0
+          maxLength: 50
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        Weight:
+          type: number
+          format: float
+        WeightMetric:
+          type: string
+          enum:
+          - lb
+          - kg
+        Height:
+          type: number
+          format: float
+        HeightMetric:
+          type: string
+          enum:
+          - inch
+          - cm
+        NonDoseSpotMedicalRecordNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+        IsHospice:
+          type: boolean
+    Patient_2:
+      type: object
+      required:
+      - Active
+      - Address1
+      - City
+      - DateOfBirth
+      - FirstName
+      - Gender
+      - LastName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        PatientId:
+          type: integer
+          format: int32
+        Prefix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        FirstName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Gender:
+          type: string
+          enum:
+          - Male
+          - Female
+          - Unknown
+        Email:
+          type: string
+          minLength: 0
+          maxLength: 80
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+          minLength: 0
+          maxLength: 50
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        Weight:
+          type: number
+          format: float
+        WeightMetric:
+          type: string
+          enum:
+          - lb
+          - kg
+        Height:
+          type: number
+          format: float
+        HeightMetric:
+          type: string
+          enum:
+          - inch
+          - cm
+        NonDoseSpotMedicalRecordNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+        IsHospice:
+          type: boolean
+    MergePatientsRequest:
+      type: object
+      required:
+      - FromPatientId
+      - ToPatientId
+      properties:
+        FromPatientId:
+          type: integer
+          format: int32
+          description: The patient identifier to merge from.
+        ToPatientId:
+          type: integer
+          format: int32
+          description: The patient identifier to merge to.
+        MergeAllergies:
+          type: boolean
+          description: 'Indicates whether to merge allergies from the source patient to the target patient.
+
+            Default is false for backwards compatibility.'
+      description: Represents a request to merge two patients.
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    PagedListResponse_Patient:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Patient_2'
+        PageResult:
+          $ref: '#/components/schemas/PageResult_2'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ItemResponse_GetPatient:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/GetPatient'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    GetPatient:
+      type: object
+      properties:
+        PatientId:
+          type: integer
+          format: int32
+        Prefix:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        LastName:
+          type: string
+        Suffix:
+          type: string
+        DateOfBirth:
+          type: string
+          format: date-time
+        Gender:
+          type: string
+          enum:
+          - Male
+          - Female
+          - Unknown
+        Email:
+          type: string
+        Address1:
+          type: string
+        Address2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PhoneAdditional1:
+          type: string
+        PhoneAdditional2:
+          type: string
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryPhone:
+          type: string
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        Weight:
+          type: number
+          format: float
+        WeightMetric:
+          type: string
+          enum:
+          - lb
+          - kg
+        Height:
+          type: number
+          format: float
+        HeightMetric:
+          type: string
+          enum:
+          - inch
+          - cm
+        NonDoseSpotMedicalRecordNumber:
+          type: string
+        Active:
+          type: boolean
+        Encounter:
+          type: string
+        IsHospice:
+          type: boolean
+        HasSSN:
+          type: boolean
+    PatientSsnRequestModel:
+      type: object
+      required:
+      - PatientSSN
+      properties:
+        PatientSSN:
+          type: string
+          pattern: ^(?:\d{9}|\d{3}-\d{2}-\d{4})$
+    PageResult_2:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    Patient_3:
+      type: object
+      required:
+      - Active
+      - Address1
+      - City
+      - DateOfBirth
+      - FirstName
+      - Gender
+      - LastName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        PatientId:
+          type: integer
+          format: int32
+        Prefix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        FirstName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Gender:
+          type: string
+          enum:
+          - Male
+          - Female
+          - Unknown
+        Email:
+          type: string
+          minLength: 0
+          maxLength: 80
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+          minLength: 0
+          maxLength: 50
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        Weight:
+          type: number
+          format: float
+        WeightMetric:
+          type: string
+          enum:
+          - lb
+          - kg
+        Height:
+          type: number
+          format: float
+        HeightMetric:
+          type: string
+          enum:
+          - inch
+          - cm
+        NonDoseSpotMedicalRecordNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+        IsHospice:
+          type: boolean
+    PagedListResponse_Patient_2:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Patient_3'
+        PageResult:
+          $ref: '#/components/schemas/PageResult_3'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PageResult_3:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
   securitySchemes:
     bearerAuth:
       type: http
@@ -213,3 +1254,7 @@ components:
       in: header
       name: Subscription-Key
       description: Per-application subscription key issued by DoseSpot.
+x-refined-from:
+- dosespot-openapi.yml
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

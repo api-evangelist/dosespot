@@ -1,0 +1,215 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Interactions API
+  version: '1.0'
+  description: 'Operations tagged Interactions across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: Interactions
+paths:
+  /api/patients/{patientId}/interactions/drugs:
+    get:
+      tags:
+      - Interactions
+      summary: Check drug-drug interactions
+      description: "Retrieves a list of interactions among the medications in a patientâ\x80\x99s record"
+      operationId: Interactions_GetDrugInteractionsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_DrugInteraction'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_DrugInteraction'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_DrugInteraction'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_DrugInteraction'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_DrugInteraction'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/interactions/allergies:
+    get:
+      tags:
+      - Interactions
+      summary: Get allergies interactions
+      description: "Retrieves a list of interactions between the medications and drug allergies in a patientâ\x80\x99s record"
+      operationId: Interactions_GetAllergyInteractionsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_AllergyInteraction'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_AllergyInteraction'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_AllergyInteraction'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_AllergyInteraction'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_AllergyInteraction'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/interactions/precheck/{dispensableDrugId}:
+    get:
+      tags:
+      - Interactions
+      summary: Check pre-check interactions
+      description: Checks the interactions (drug and allergy) without actually adding the drug to the patient's record.
+      operationId: Interactions_GetPreCheckInteractionsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: dispensableDrugId
+        in: path
+        description: Dispensable Drug ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreCheckInteractionsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PreCheckInteractionsResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PreCheckInteractionsResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PreCheckInteractionsResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PreCheckInteractionsResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    DrugInteraction:
+      type: object
+      properties:
+        InteractionMessage:
+          type: string
+        SeverityLevel:
+          type: string
+          enum:
+          - MinorInteraction
+          - ModerateInteraction
+          - MajorInteraction
+          - UnknownInteraction
+        Drugs:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrugInformation'
+        IsProspective:
+          type: boolean
+    ListResponse_DrugInteraction:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/DrugInteraction'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    ListResponse_AllergyInteraction:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/AllergyInteraction'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    AllergyInteraction:
+      type: object
+      properties:
+        InteractionMessage:
+          type: string
+    DrugInformation:
+      type: object
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        RoutedDoseFormDrugId:
+          type: integer
+          format: int32
+        DrugName:
+          type: string
+    PreCheckInteractionsResponse:
+      type: object
+      properties:
+        AllergyInteractions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllergyInteraction'
+        DrugInteractions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrugInteraction'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

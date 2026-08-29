@@ -1,0 +1,1082 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Eligibilities API
+  version: '1.0'
+  description: 'Operations tagged Eligibilities across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: Eligibilities
+paths:
+  /api/patients/{patientId}/eligibilities:
+    get:
+      tags:
+      - Eligibilities
+      summary: Get patient's insurance information
+      description: "Retrieves a patientâ\x80\x99s insurance details and payer information"
+      operationId: Eligibilities_GetPayerInformationV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PayerInformationResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PayerInformationResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PayerInformationResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PayerInformationResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PayerInformationResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/formulary:
+    get:
+      tags:
+      - Eligibilities
+      summary: Get patient's medication coverage
+      description: "Retrieves information of a patientâ\x80\x99s insurance coverage for a specified drug, including copay information, coverage restrictions, and available payer alternatives"
+      operationId: Eligibilities_GetMedicationCoverageV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: patientEligibilityId
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: nDC
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 24
+          minLength: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_MedicationCoverageResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_MedicationCoverageResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_MedicationCoverageResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_MedicationCoverageResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_MedicationCoverageResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptionbenefits:
+    get:
+      tags:
+      - Eligibilities
+      summary: Get prescription benefits
+      description: "Retrieves information of a patientâ\x80\x99s insurance coverage for a specified prescription, including copay information, coverage restrictions, and available payer alternatives"
+      operationId: Eligibilities_GetPrescriptionBenefitsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: ndc
+        in: query
+        required: true
+        schema:
+          type: string
+          maxLength: 24
+          minLength: 0
+      - name: pharmacyId
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: quantity
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: daysSupply
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: dispenseUnitTypeID
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: patientEligibilityId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_GetPrescriptionBenefitResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_GetPrescriptionBenefitResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_GetPrescriptionBenefitResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_GetPrescriptionBenefitResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_GetPrescriptionBenefitResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/insurance:
+    post:
+      tags:
+      - Eligibilities
+      summary: Add custom insurance info
+      description: Add custom insurance to a patient provided the clinic allows it.
+      operationId: Eligibilities_CustomInsuranceInfoV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomInsuranceRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CustomInsuranceRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CustomInsuranceRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CustomInsuranceRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CustomInsuranceRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CustomInsuranceRequest'
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    FormularyInfo:
+      type: object
+      properties:
+        ProductId:
+          type: integer
+          format: int32
+        Ndc:
+          type: string
+        FormularyStatusId:
+          type: integer
+          format: int32
+        FormularyAbbreviation:
+          type: string
+        FormularyStatusMessage:
+          type: string
+        OrderRank:
+          type: integer
+          format: int32
+        IsGeneric:
+          type: boolean
+        IsRx:
+          type: boolean
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    ItemResponse_GetPrescriptionBenefitResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/GetPrescriptionBenefitResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    PrescriptionBenefitsPharmacy:
+      type: object
+      properties:
+        PharmacyType:
+          type: string
+          enum:
+          - Retail
+          - Mail
+          - Item90DayAtRetail
+          - Specialty
+          - LongTermCare
+        Identifications:
+          type: object
+          additionalProperties:
+            type: string
+        PharmacistLastName:
+          type: string
+        PharmacistFirstName:
+          type: string
+        PharmacistMiddleName:
+          type: string
+        PharmacistSuffix:
+          type: string
+        PharmacistPrefix:
+          type: string
+        Email:
+          type: string
+        DistanceFromRequestedPharmacy:
+          type: number
+          format: double
+        PharmacyId:
+          type: integer
+          format: int32
+          description: The pharmacy identifier.
+        StoreName:
+          type: string
+          description: The pharmacy store name.
+        Address1:
+          type: string
+          description: The pharmacy address.
+        Address2:
+          type: string
+          description: The pharmacy address.
+        City:
+          type: string
+          description: The pharmacy city.
+        State:
+          type: string
+          description: The pharmacy state.
+        ZipCode:
+          type: string
+          description: The pharmacy zip code.
+        PrimaryPhone:
+          type: string
+          description: The pharmacy primary phone number.
+        PrimaryPhoneType:
+          type: string
+          description: The pharmacy primary phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          description: The pharmacy primary fax number.
+        PhoneAdditional1:
+          type: string
+          description: Additional phone number.
+        PhoneAdditionalType1:
+          type: string
+          description: Additional phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          description: Additional phone number.
+        PhoneAdditionalType2:
+          type: string
+          description: Additional phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          description: Additional phone number.
+        PhoneAdditionalType3:
+          type: string
+          description: Additional phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PharmacySpecialties:
+          type: array
+          description: The pharmacy specialties.
+          items:
+            type: string
+        ServiceLevel:
+          type: integer
+          format: int32
+          description: The pharmacy service level.
+        Latitude:
+          type: number
+          format: double
+          description: The pharmacy Latitude.
+        Longitude:
+          type: number
+          format: double
+          description: The pharmacy Longitude.
+        NCPDPID:
+          type: string
+    TherapeuticAlternatives:
+      type: object
+      properties:
+        Ndc:
+          type: string
+        FormularyStatus:
+          type: string
+        Copay:
+          $ref: '#/components/schemas/PayerCopay'
+        DisplayName:
+          type: string
+        FormularyInfo:
+          $ref: '#/components/schemas/FormularyInfo'
+        FullDisplayString:
+          type: string
+        DisplayStrength:
+          type: string
+        DefaultDispenseUnitID:
+          type: integer
+          format: int32
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Schedule:
+          type: integer
+          format: int32
+        IsDetox:
+          type: boolean
+        HasGHB:
+          type: boolean
+        RxCUI:
+          type: integer
+          format: int32
+    PharmacyEligibility:
+      type: object
+      properties:
+        PharmacyType:
+          type: string
+          enum:
+          - Any
+          - FaxPharmacy
+          - EPCS
+          - TwentyFourHourPharmacy
+          - LongTermCarePharmacy
+          - MailOrder
+          - Retail
+          - SpecialtyPharmacy
+        EligibilityStatus:
+          type: string
+          enum:
+          - Covered
+          - NotCovered
+          - OutOfPocket
+          - Unknown
+          - UnableToProcess
+        Name:
+          type: string
+    PayerCopay:
+      type: object
+      properties:
+        IsDrugSpecific:
+          type: boolean
+        PharmacyType:
+          type: string
+          enum:
+          - Any
+          - FaxPharmacy
+          - EPCS
+          - TwentyFourHourPharmacy
+          - LongTermCarePharmacy
+          - MailOrder
+          - Retail
+          - SpecialtyPharmacy
+        FlatCopayAmount:
+          type: number
+          format: double
+        PercentCopayAmount:
+          type: number
+          format: double
+        FlatCopayAmountFirst:
+          type: boolean
+        MinimumCopayAmount:
+          type: number
+          format: double
+        MaximumCopayAmount:
+          type: number
+          format: double
+        DaysSupply:
+          type: integer
+          format: int32
+        CopayTier:
+          type: integer
+          format: int32
+        MaximumCopayTier:
+          type: integer
+          format: int32
+        OutOfPocketMinimum:
+          type: number
+          format: double
+        OutOfPocketMaximum:
+          type: number
+          format: double
+    StepMedicationRestriction:
+      type: object
+      properties:
+        Ndc:
+          type: string
+        StepDrugType:
+          type: string
+          enum:
+          - Unknown
+          - SpecificMedication
+          - PharmacologicalClass
+        StepOrder:
+          type: integer
+          format: int32
+        DisplayName:
+          type: string
+        RxCUI:
+          type: integer
+          format: int32
+        DispensableDrugId:
+          type: integer
+          format: int32
+    PricingCoverageFactorsCoverageAlerts:
+      type: object
+      properties:
+        ReferenceCode:
+          type: string
+          enum:
+          - AgeLimits
+          - DaysSupplyExceeded
+          - DrugExclusion
+          - ExcessiveUtilization
+          - FullCostNotCovered
+          - GenderLimits
+          - MandatoryGeneric
+          - MedicalNecessity
+          - NotOnFormulary
+          - PharmacyOutOfNetwork
+          - PlanLimitExclusion
+          - QuantityLimits
+          - QuantityLimitExceeded
+          - QuantityNotValid
+          - ResourceLink
+          - StepTherapy
+          - TextMessage
+        ReferenceText:
+          type: string
+    CoverageMessage:
+      type: object
+      properties:
+        Message:
+          type: string
+        LongMessage:
+          type: string
+    PrescriptionBenefitPayerAlternativeDetail:
+      type: object
+      properties:
+        PatientSpecificPricingCoverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatientSpecificPricingCoverage'
+        Ndc:
+          type: string
+        DisplayName:
+          type: string
+        RxCUI:
+          type: integer
+          format: int32
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Coverage:
+          $ref: '#/components/schemas/MedicationCoverage'
+    PatientSpecificPricingCoverage:
+      type: object
+      properties:
+        Pharmacy:
+          description: Pricing for each pharmacy available
+          $ref: '#/components/schemas/PrescriptionBenefitsPharmacy'
+        PricingCoverage:
+          description: Contains PMBC pricing for original medication requested.
+          $ref: '#/components/schemas/PricingCoverageFactors'
+    QuantityLimitRestriction:
+      type: object
+      properties:
+        MaximumAmount:
+          type: number
+          format: double
+        AmountUnit:
+          type: string
+          enum:
+          - DollarAmount
+          - DaysSupply
+          - Fills
+          - Quantity
+        TimePeriodUnit:
+          type: string
+          enum:
+          - Days
+          - Lifetime
+          - PerDispensing
+          - SpecificDateRange
+          - CalendarYear
+          - CalendarQuarter
+          - CalendarMonth
+        StartDate:
+          type: string
+          format: date-time
+        EndDate:
+          type: string
+          format: date-time
+        MaximumTimePeriodUnits:
+          type: integer
+          format: int32
+    PayerInformationResponse:
+      type: object
+      properties:
+        PatientEligibilityId:
+          type: integer
+          format: int32
+        PayerName:
+          type: string
+        PharmacyEligibilities:
+          type: array
+          items:
+            $ref: '#/components/schemas/PharmacyEligibility'
+        PlanName:
+          type: string
+        CoverageId:
+          type: string
+        PayerId:
+          type: string
+        BIN:
+          type: string
+        PCN:
+          type: string
+        FormularyId:
+          type: string
+        AlternativesId:
+          type: string
+        CopayId:
+          type: string
+        DemographicChanges:
+          type: boolean
+        Demographics:
+          $ref: '#/components/schemas/PayerDemographics'
+        ErrorMessage:
+          type: string
+        InfoMessage:
+          type: string
+        MemberId:
+          type: string
+    GetPrescriptionBenefitResponse:
+      type: object
+      properties:
+        PatientFormularyId:
+          type: integer
+          format: int32
+        Brand:
+          type: boolean
+        Otc:
+          type: boolean
+        Alternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerAlternativeAPI'
+        RealTimeFormularyRequestStatus:
+          type: integer
+          format: int32
+        PatientSpecificPricingCoverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatientSpecificPricingCoverage'
+        OptionalPharmacy:
+          $ref: '#/components/schemas/PrescriptionBenefitsPharmacy'
+    PayerAlternativeDetail:
+      type: object
+      properties:
+        Ndc:
+          type: string
+        Coverage:
+          $ref: '#/components/schemas/MedicationCoverage'
+    CoverageRestrictions:
+      type: object
+      properties:
+        IsExcluded:
+          type: boolean
+        HasMedicalNecessity:
+          type: boolean
+        HasPriorAuthorization:
+          type: boolean
+        HasStepTherapy:
+          type: boolean
+        HasQuantityLimit:
+          type: boolean
+        HasAgeLimit:
+          type: boolean
+        AgeLimitRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgeLimitRestriction'
+        GenderRestriction:
+          type: string
+          enum:
+          - Male
+          - Female
+          - Unknown
+        QuantityLimitRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuantityLimitRestriction'
+        StepMedicationRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/StepMedicationRestriction'
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageMessage'
+        DrugResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageResource'
+        SummaryResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageResource'
+    PayerDemographics:
+      type: object
+      properties:
+        LastName:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        Suffix:
+          type: string
+        DateOfBirth:
+          type: string
+          format: date-time
+        Gender:
+          type: string
+          enum:
+          - Male
+          - Female
+          - Unknown
+        Address:
+          $ref: '#/components/schemas/PayerAddress'
+    PayerAlternative:
+      type: object
+      properties:
+        Ndc:
+          type: string
+        Details:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerAlternativeDetail'
+    RepresentitiveFormularyCoverage:
+      type: object
+      properties:
+        CopayFactors:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerCopay'
+        FormularyStatus:
+          type: string
+        FormularyStatusText:
+          type: string
+        RealTimeFormularyCoverageRestrictions:
+          $ref: '#/components/schemas/RealTimeFormularyCoverageRestrictions'
+    AgeLimitRestriction:
+      type: object
+      properties:
+        MinimumAge:
+          type: integer
+          format: int32
+        MinimumAgeUnit:
+          type: string
+          enum:
+          - Days
+          - Years
+        MaximumAge:
+          type: integer
+          format: int32
+        MaximumAgeUnit:
+          type: string
+          enum:
+          - Days
+          - Years
+    PricingCoverageFactors:
+      type: object
+      properties:
+        DrugStatusCode:
+          type: string
+        DrugStatus:
+          type: string
+        QuantityPricedValue:
+          type: string
+        QuantityPricedCodeListQualifier:
+          type: string
+          enum:
+          - Item38
+          - Item40
+          - Item87
+          - QS
+          - CF
+          - UQ
+        QuantityPricedUnitOfMeasureType:
+          type: string
+        QuantityPricedUnitOfMeasureTypeId:
+          type: integer
+          format: int32
+        DaysSupplyPriced:
+          type: string
+        PlanPayAmount:
+          type: string
+        EstimatedPatientPayAmount:
+          type: string
+        OOPAppliedAmount:
+          type: string
+        OOPRemainingAmount:
+          type: string
+        DeductibleAppliedAmount:
+          type: string
+        DeductibleRemainingAmount:
+          type: string
+        CoverageAlerts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricingCoverageFactorsCoverageAlerts'
+        FormularyStatus:
+          type: string
+          description: 'U = Unknown
+
+            0 =  Not Reimbursable 1 = Non Formulary
+
+            2 = On Formulary (Not Preferred)
+
+            3 = Preferred Level 1
+
+            4 = Preferred Level 2
+
+            5 = Preferred Level 3
+
+            Preferred Levels up to 99 are allowed.'
+        PriorAuthRequired:
+          type: boolean
+          description: 'Y- PA required
+
+            N - PA Not required'
+    ListResponse_PayerInformationResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/PayerInformationResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    MedicationCoverageResponse:
+      type: object
+      properties:
+        FormularyStatus:
+          type: string
+        Brand:
+          type: boolean
+        Otc:
+          type: boolean
+        Copays:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerCopay'
+        Alternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerAlternativeAPI'
+        TherapeuticAlternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/TherapeuticAlternatives'
+        Restrictions:
+          $ref: '#/components/schemas/CoverageRestrictions'
+        RealTimeFormularyRequestStatus:
+          type: integer
+          format: int32
+    CoverageResource:
+      type: object
+      properties:
+        Url:
+          type: string
+        ResourceType:
+          type: string
+          enum:
+          - AgeLimits
+          - ProductCoverageExclusion
+          - GenderLimits
+          - MedicalNecessity
+          - PriorAuthorization
+          - QuantityLimits
+          - StepTherapy
+          - General
+          - Copay
+          - Formulary
+    PayerAddress:
+      type: object
+      properties:
+        AddressLine1:
+          type: string
+        AddressLine2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+    CustomEligibilityInfo:
+      type: object
+      properties:
+        CustomEligibilityInfoType:
+          type: string
+          enum:
+          - PCN
+          - CardholderID
+          - GroupID
+        CustomEligibilityInfoValue:
+          type: string
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    MedicationCoverage:
+      type: object
+      properties:
+        FormularyStatus:
+          type: string
+        Copays:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerCopay'
+        Alternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerAlternative'
+        Restrictions:
+          $ref: '#/components/schemas/CoverageRestrictions'
+    GenderLimitRestriction:
+      type: object
+      properties:
+        GenderAbbreviation:
+          type: string
+        GenderDescription:
+          type: string
+    PayerAlternativeAPI:
+      type: object
+      properties:
+        Ndc:
+          type: string
+        DisplayName:
+          type: string
+        RxCUI:
+          type: integer
+          format: int32
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Brand:
+          type: boolean
+        Otc:
+          type: boolean
+        Details:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescriptionBenefitPayerAlternativeDetail'
+        RepresentativeFormularyCoverage:
+          $ref: '#/components/schemas/RepresentitiveFormularyCoverage'
+        PatientSpecificPricingCoverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatientSpecificPricingCoverage'
+    ItemResponse_MedicationCoverageResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/MedicationCoverageResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    RealTimeFormularyCoverageRestrictions:
+      type: object
+      properties:
+        HasCoverageRestrictions:
+          type: boolean
+        IsExcluded:
+          type: boolean
+        HasMedicalNecessity:
+          type: boolean
+        HasPriorAuthorization:
+          type: boolean
+        HasStepTherapy:
+          type: boolean
+        AgeLimitRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgeLimitRestriction'
+        GenderLimitRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenderLimitRestriction'
+        QuantityLimitRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuantityLimitRestriction'
+        StepMedicationRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/StepMedicationRestriction'
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageMessage'
+        DrugResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageResource'
+        SummaryResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageResource'
+    CustomInsuranceRequest:
+      type: object
+      required:
+      - PatientInsuranceIdentifier
+      - PatientInsuranceIdentifierType
+      properties:
+        PatientInsuranceIdentifierType:
+          type: string
+          enum:
+          - PayerID
+          - ProcessorIdentificationNumber
+          - NAICCode
+          - MutuallyDefined
+          - StandardUniqueHealthPlanIdentifier
+          - IINNumber
+        PatientInsuranceIdentifier:
+          type: string
+          minLength: 0
+          maxLength: 35
+        PersonCode:
+          type: string
+          minLength: 0
+          maxLength: 2
+        PayerName:
+          type: string
+        CustomEligibilityDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomEligibilityInfo'
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

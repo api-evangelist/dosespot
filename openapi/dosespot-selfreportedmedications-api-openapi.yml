@@ -1,0 +1,924 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Self Reported Medications API
+  version: '1.0'
+  description: 'Operations tagged SelfReportedMedications across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: SelfReportedMedications
+paths:
+  /api/patients/{patientId}/selfReportedMedications/{selfReportedMedicationId}:
+    get:
+      tags:
+      - SelfReportedMedications
+      summary: Get patient's self-reported medication details by SelfReportedMedicationId
+      description: Retrieves details of self-reported medication in a patient record by SelfReportedMedicationId
+      operationId: SelfReportedMedications_GetPatientSelfReportMedicationDetailsByIdV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: selfReportedMedicationId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_SelfReportedMedicationResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_SelfReportedMedicationResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_SelfReportedMedicationResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_SelfReportedMedicationResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_SelfReportedMedicationResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/selfReportedMedications:
+    get:
+      tags:
+      - SelfReportedMedications
+      summary: Get patient's self-reported medications
+      description: Retrieves details of self-reported medications in a patient record
+      operationId: SelfReportedMedications_GetPatientSelfReportMedicationsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: startDate
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: endDate
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: pageNumber
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SelfReportedMedicationResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SelfReportedMedicationResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SelfReportedMedicationResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SelfReportedMedicationResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SelfReportedMedicationResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/selfReportedMedications/coded/{selfReportedMedicationId}:
+    put:
+      tags:
+      - SelfReportedMedications
+      summary: Edit a coded self-reported medication
+      description: Updates an existing self-reported medication in a patient record
+      operationId: SelfReportedMedications_EditSelfReportedMedicationCodedV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: selfReportedMedicationId
+        in: path
+        description: Self-reported medication ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+        description: Self-reported medication data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/selfReportedMedications/simple/{selfReportedMedicationId}:
+    put:
+      tags:
+      - SelfReportedMedications
+      summary: Edit a simple self-reported medication
+      description: Updates an existing simple self-reported medication in a patient record
+      operationId: SelfReportedMedications_EditSelfReportedMedicationSimpleV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: selfReportedMedicationId
+        in: path
+        description: Self-reported medication ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+        description: Self-reported medication data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/selfReportedMedications/freetext/{selfReportedMedicationId}:
+    put:
+      tags:
+      - SelfReportedMedications
+      summary: Edit a free-text self-reported medication
+      description: "Updates an existing self-reported medication specified by a free-text DisplayName in a patientâ\x80\x99s record"
+      operationId: SelfReportedMedications_EditSelfReportedMedicationFreeTextV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: selfReportedMedicationId
+        in: path
+        description: Self-reported medication ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+        description: Self-reported medication data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/selfReportedMedications/coded:
+    post:
+      tags:
+      - SelfReportedMedications
+      summary: Add a coded self-reported medication
+      description: "Adds a coded self-reported medication to a patientâ\x80\x99s record"
+      operationId: SelfReportedMedications_AddSelfReportedMedicationCodedV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
+        description: Self-reported medication data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/selfReportedMedications/simple:
+    post:
+      tags:
+      - SelfReportedMedications
+      summary: Add a simple self-reported medication
+      description: "Adds a simple self-reported medication to a patientâ\x80\x99s record"
+      operationId: SelfReportedMedications_AddSelfReportedMedicationSimpleV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
+        description: Self-reported medication data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/selfReportedMedications/freetext:
+    post:
+      tags:
+      - SelfReportedMedications
+      summary: Add a free-text self-reported medication
+      description: "Adds a free-text self-reported medication to a patientâ\x80\x99s record meaning the clinician can type any 300 character name.\nThis should only be used if a simple or coded version of the medication does not exist"
+      operationId: SelfReportedMedications_AddSelfReportedMedicationFreeTextV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
+        description: Self-reported medication data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/selfReportedMedications/{selfReportedMedicationId}/updateStatus:
+    post:
+      tags:
+      - SelfReportedMedications
+      summary: Update self-reported medication status
+      description: "Updates the status of a self-reported medication in a patientâ\x80\x99s record"
+      operationId: SelfReportedMedications_UpdateSelfReportedMedicationStatusV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: selfReportedMedicationId
+        in: path
+        description: Self-reported medication ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSelfReportedMedicationStatusRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSelfReportedMedicationStatusRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/UpdateSelfReportedMedicationStatusRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateSelfReportedMedicationStatusRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateSelfReportedMedicationStatusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateSelfReportedMedicationStatusRequest'
+        description: Patient medication status data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    FreeTextSelfReportedMedicationRequest:
+      type: object
+      required:
+      - DisplayName
+      - Status
+      properties:
+        DisplayName:
+          type: string
+          minLength: 0
+          maxLength: 300
+        Refills:
+          type: integer
+          format: int32
+        DaysSupply:
+          type: integer
+          format: int32
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 500
+        WrittenDate:
+          type: string
+          format: date-time
+        PrescriberUserId:
+          type: integer
+          format: int32
+        PrescribingAgentUserId:
+          type: integer
+          format: int32
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    SelfReportedMedicationResponse:
+      type: object
+      properties:
+        SelfReportedMedicationId:
+          type: integer
+          format: int32
+        DateReported:
+          type: string
+          format: date-time
+        DatePrescribed:
+          type: string
+          format: date-time
+        DisplayName:
+          type: string
+        DispenseUnitType:
+          type: string
+        DosageText:
+          type: string
+        Directions:
+          type: string
+        DaysSupply:
+          type: integer
+          format: int32
+        Dispense:
+          type: string
+        Quantity:
+          type: string
+        DispenseUnitTypeId:
+          type: integer
+          format: int32
+        Refills:
+          type: integer
+          format: int32
+        Comment:
+          type: string
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        DiscontinuedDate:
+          type: string
+          format: date-time
+        Schedule:
+          type: integer
+          format: int32
+        Encounter:
+          type: string
+        DispensableDrugID:
+          type: integer
+          format: int32
+        RoutedDoseformDrugID:
+          type: integer
+          format: int32
+        RoutedDoseFormDrugID:
+          type: integer
+          format: int32
+        OTC:
+          type: boolean
+        NDC:
+          type: string
+        DoseForm:
+          type: string
+        Route:
+          type: string
+        Strength:
+          type: string
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ItemResponse_SelfReportedMedicationResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/SelfReportedMedicationResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    CodedSelfReportedMedicationRequest:
+      type: object
+      required:
+      - DispensableDrugId
+      - Status
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Refills:
+          type: integer
+          format: int32
+        DaysSupply:
+          type: integer
+          format: int32
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 500
+        WrittenDate:
+          type: string
+          format: date-time
+        PrescriberUserId:
+          type: integer
+          format: int32
+        PrescribingAgentUserId:
+          type: integer
+          format: int32
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    PagedListResponse_SelfReportedMedicationResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/SelfReportedMedicationResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    UpdateSelfReportedMedicationStatusRequest:
+      type: object
+      required:
+      - Status
+      properties:
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    SimpleSelfReportedMedicationRequest:
+      type: object
+      required:
+      - RoutedDoseFormDrugId
+      - Status
+      properties:
+        RoutedDoseFormDrugId:
+          type: integer
+          format: int32
+        Refills:
+          type: integer
+          format: int32
+        DaysSupply:
+          type: integer
+          format: int32
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 500
+        WrittenDate:
+          type: string
+          format: date-time
+        PrescriberUserId:
+          type: integer
+          format: int32
+        PrescribingAgentUserId:
+          type: integer
+          format: int32
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

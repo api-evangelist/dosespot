@@ -1,20 +1,15 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: DoseSpot Medications Notifications API
-  description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.
-  termsOfService: https://dosespot.com/
-  contact:
-    name: DoseSpot Support
-    url: https://dosespot.com/full-integration/
-  version: '2.0'
+  title: Dosespot Notifications API
+  version: '1.0'
+  description: 'Operations tagged Notifications across 3 of this provider''s published API definitions: dosespot-openapi.yml, dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://my.dosespot.com/webapi/v2
   description: Production
 - url: https://my.staging.dosespot.com/webapi/v2
   description: Staging
-security:
-- bearerAuth: []
-  subscriptionKey: []
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Notifications
   description: Clinician notification counts and actionable items.
@@ -33,6 +28,89 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NotificationCountResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
+    servers:
+    - url: https://my.dosespot.com/webapi/v2
+      description: Production
+    - url: https://my.staging.dosespot.com/webapi/v2
+      description: Staging
+  /api/notifications/counts:
+    get:
+      tags:
+      - Notifications
+      summary: Get Notification Counts For Current Clinician
+      description: Lists the number of notifications for refill requests, transmission errors, and prescriptions that are pending a response from the clinician at a single clinic
+      operationId: Notifications_GetPrescriberNotificationCountsV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriberNotificationCountsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrescriberNotificationCountsResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PrescriberNotificationCountsResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PrescriberNotificationCountsResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PrescriberNotificationCountsResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/notifications/errors:
+    get:
+      tags:
+      - Notifications
+      summary: Get Transmission Errors For Current Clinician
+      description: Lists the notifications for transmission errors for the clinician's associated clinic(s)
+      operationId: Notifications_GetTransmissionErrorDetailsV2
+      parameters:
+      - name: pageNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          maximum: 2147483647
+          minimum: 1
+      - name: clinic
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - All
+          - Current
+          maximum: 1
+          minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_TransmissionErrors'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_TransmissionErrors'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_TransmissionErrors'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_TransmissionErrors'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_TransmissionErrors'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
     ApiResult:
@@ -63,6 +141,91 @@ components:
           description: OK or ERROR.
         ResultDescription:
           type: string
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    TransmissionErrors:
+      type: object
+      properties:
+        PrescriptionId:
+          type: integer
+          format: int32
+        DateWritten:
+          type: string
+          format: date-time
+        ErrorDateTimeStamp:
+          type: string
+          format: date-time
+        ErrorDetails:
+          type: string
+        PatientId:
+          type: integer
+          format: int32
+        ClinicId:
+          type: integer
+          format: int32
+    PagedListResponse_TransmissionErrors:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/TransmissionErrors'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PrescriberNotificationCountsResponse:
+      type: object
+      properties:
+        RefillRequestsCount:
+          type: integer
+          format: int32
+        TransactionErrorsCount:
+          type: integer
+          format: int32
+        PendingPrescriptionsCount:
+          type: integer
+          format: int32
+        PendingRxChangeCount:
+          type: integer
+          format: int32
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
   securitySchemes:
     bearerAuth:
       type: http
@@ -74,3 +237,7 @@ components:
       in: header
       name: Subscription-Key
       description: Per-application subscription key issued by DoseSpot.
+x-refined-from:
+- dosespot-openapi.yml
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

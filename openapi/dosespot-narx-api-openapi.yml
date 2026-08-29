@@ -1,0 +1,198 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Narx API
+  version: '1.0'
+  description: 'Operations tagged Narx across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: Narx
+paths:
+  /api/patients/{patientId}/narx:
+    get:
+      tags:
+      - Narx
+      summary: Get patient Narx Report
+      description: Returns the patient's report if any
+      operationId: Narx_GetPatientNarxReportV2
+      parameters:
+      - name: patientId
+        in: path
+        description: PatientId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NarxResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/NarxResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/NarxResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/NarxResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/NarxResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/narx/latest:
+    get:
+      tags:
+      - Narx
+      summary: Get latest patient NARX/PDMP data timestamp
+      description: Returns the timestamp of the most recent successful NARX/PDMP request for the patient
+      operationId: Narx_GetLatestNarxV2
+      parameters:
+      - name: patientId
+        in: path
+        description: PatientId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LatestNarxResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/LatestNarxResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/LatestNarxResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/LatestNarxResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/LatestNarxResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/narx/report:
+    get:
+      tags:
+      - Narx
+      summary: Get patient Narx Report Link
+      description: Returns the url to the Narx Report for the patient
+      operationId: Narx_GetPatientNarxReportLinkV2
+      parameters:
+      - name: patientId
+        in: path
+        description: PatientId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_String'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_String'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_String'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_String'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_String'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    KeyValuePair_String_String:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    ItemResponse_String:
+      type: object
+      properties:
+        Item:
+          type: string
+          description: The response object.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    NarxResponse:
+      type: object
+      properties:
+        HasReport:
+          type: boolean
+        SoftErrorMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValuePair_String_String'
+        DisallowedMessages:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValuePair_String_String'
+        Disclaimer:
+          type: string
+        ReportStates:
+          type: array
+          items:
+            type: string
+        ReportStatesMessage:
+          type: string
+        NarxScores:
+          type: array
+          items:
+            $ref: '#/components/schemas/KeyValuePair_String_String'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    LatestNarxResponse:
+      type: object
+      properties:
+        LatestTimestamp:
+          type: string
+          format: date-time
+        PatientId:
+          type: integer
+          format: int32
+        LastPulledByClinicianId:
+          type: integer
+          format: int32
+        LastPulledAtClinicId:
+          type: integer
+          format: int32
+        Encounter:
+          type: string
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

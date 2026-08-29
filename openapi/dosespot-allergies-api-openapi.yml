@@ -1,0 +1,440 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Allergies API
+  version: '1.0'
+  description: 'Operations tagged Allergies across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: Allergies
+paths:
+  /api/patients/{patientId}/allergies:
+    get:
+      tags:
+      - Allergies
+      summary: Get patient's allergies
+      description: Retrieves a detailed list of all allergies for a given patient
+      operationId: Allergies_GetPatientAllergiesV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PatientAllergy'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PatientAllergy'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PatientAllergy'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PatientAllergy'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PatientAllergy'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/allergies/{patientAllergyId}:
+    put:
+      tags:
+      - Allergies
+      summary: Edit drug allergy
+      description: Updates an existing drug allergy in a patient
+      operationId: Allergies_EditPatientAllergyV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: patientAllergyId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditPatientAllergyRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EditPatientAllergyRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/EditPatientAllergyRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/EditPatientAllergyRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/EditPatientAllergyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/EditPatientAllergyRequest'
+        description: No Known patient allergy data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/allergies/coded:
+    post:
+      tags:
+      - Allergies
+      summary: Add coded patient allergy
+      description: Adds an coded allergy to a patient record
+      operationId: Allergies_AddCodedPatientAllergyV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodedPatientAllergyRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CodedPatientAllergyRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CodedPatientAllergyRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CodedPatientAllergyRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CodedPatientAllergyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CodedPatientAllergyRequest'
+        description: coded patient allergy data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/allergies/freetext:
+    post:
+      tags:
+      - Allergies
+      summary: Add freetext patient allergy
+      description: Adds an freetext allergy to a patient record
+      operationId: Allergies_AddFreetextPatientAllergyV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FreetextPatientAllergyRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FreetextPatientAllergyRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/FreetextPatientAllergyRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/FreetextPatientAllergyRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/FreetextPatientAllergyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FreetextPatientAllergyRequest'
+        description: freetext patient allergy data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/allergies/noKnownAllergy:
+    post:
+      tags:
+      - Allergies
+      summary: Add no known patient allergy record
+      description: Adds an no known patient allergy record
+      operationId: Allergies_AddNoKnownPatientAllergyV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    CodedPatientAllergyRequest:
+      type: object
+      required:
+      - AllergenId
+      - ReactionType
+      - StatusType
+      properties:
+        AllergenId:
+          type: integer
+          format: int32
+        Reaction:
+          type: string
+          description: The patient reaction to the allergy.
+          minLength: 0
+          maxLength: 200
+        ReactionType:
+          type: string
+          description: The allergy reaction type.
+          enum:
+          - Allergy
+          - AdverseReaction
+        StatusType:
+          type: string
+          description: The status of the allergy.
+          enum:
+          - Active
+          - Inactive
+          - Deleted
+        OnsetDate:
+          type: string
+          format: date-time
+          description: The onset date of the allergy.
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ListResponse_PatientAllergy:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/PatientAllergy'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    EditPatientAllergyRequest:
+      type: object
+      required:
+      - ReactionType
+      - StatusType
+      properties:
+        Reaction:
+          type: string
+          minLength: 0
+          maxLength: 200
+        ReactionType:
+          type: string
+          description: The allergy reaction type.
+          enum:
+          - Allergy
+          - AdverseReaction
+        StatusType:
+          type: string
+          description: The status of the allergy.
+          enum:
+          - Active
+          - Inactive
+          - Deleted
+        OnsetDate:
+          type: string
+          format: date-time
+          description: The onset date of the allergy.
+    PatientAllergy:
+      type: object
+      properties:
+        PatientAllergyId:
+          type: integer
+          format: int32
+        DisplayName:
+          type: string
+        AllergenId:
+          type: integer
+          format: int32
+        AllergenType:
+          type: string
+          enum:
+          - AllergenClass
+          - ScreenableIngredient
+          - FoodAndEnvironmentalAllergens
+          - RoutedDoseFormDrugs
+        Reaction:
+          type: string
+        ReactionType:
+          type: string
+          enum:
+          - Allergy
+          - AdverseReaction
+        StatusType:
+          type: string
+          enum:
+          - Active
+          - Inactive
+          - Deleted
+        OnsetDate:
+          type: string
+          format: date-time
+        LastUpdatedUserId:
+          type: integer
+          format: int32
+    FreetextPatientAllergyRequest:
+      type: object
+      required:
+      - FreeTextDisplayName
+      - ReactionType
+      - StatusType
+      properties:
+        FreeTextDisplayName:
+          type: string
+          minLength: 0
+          maxLength: 200
+        Reaction:
+          type: string
+          description: The patient reaction to the allergy.
+          minLength: 0
+          maxLength: 200
+        ReactionType:
+          type: string
+          description: The allergy reaction type.
+          enum:
+          - Allergy
+          - AdverseReaction
+        StatusType:
+          type: string
+          description: The status of the allergy.
+          enum:
+          - Active
+          - Inactive
+          - Deleted
+        OnsetDate:
+          type: string
+          format: date-time
+          description: The onset date of the allergy.
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

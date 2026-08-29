@@ -1,0 +1,115 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Diagnoses API
+  version: '1.0'
+  description: 'Operations tagged Diagnoses across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: Diagnoses
+paths:
+  /api/diagnoses/search:
+    get:
+      tags:
+      - Diagnoses
+      summary: Search Diagnoses
+      description: Search diagnoses by International Classification of Diseases codes or by CDT procedural codes
+      operationId: Diagnoses_DiagnosisSearchV2
+      parameters:
+      - name: searchTerm
+        in: query
+        description: The term we are searching
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: The page number default to 1
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_DiagnosisSearchResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_DiagnosisSearchResult'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_DiagnosisSearchResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_DiagnosisSearchResult'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_DiagnosisSearchResult'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    PagedListResponse_DiagnosisSearchResult:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/DiagnosisSearchResult'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    DiagnosisSearchResult:
+      type: object
+      properties:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisName:
+          type: string
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

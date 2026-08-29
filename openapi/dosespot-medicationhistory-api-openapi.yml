@@ -1,0 +1,234 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Medication History API
+  version: '1.0'
+  description: 'Operations tagged MedicationHistory across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: MedicationHistory
+paths:
+  /api/patients/{patientId}/medications/history:
+    get:
+      tags:
+      - MedicationHistory
+      summary: Get patient's medication history
+      description: "Retrieves a patientâ\x80\x99s medication history according to PBM insurance claims submitted to the Surescripts \nePrescribing network. A date range may be specified. A patient must give consent to retrieve this data."
+      operationId: MedicationHistory_GetMedicationHistoryV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: start
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: end
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: pageNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          maximum: 2147483645
+          minimum: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SureScriptsHistoryMedication'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SureScriptsHistoryMedication'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SureScriptsHistoryMedication'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SureScriptsHistoryMedication'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_SureScriptsHistoryMedication'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/medications/history/consent:
+    post:
+      tags:
+      - MedicationHistory
+      summary: Log patient's medication history consent
+      description: "Logs a patientâ\x80\x99s consent for their clinician to retrieve and view their medication history"
+      operationId: MedicationHistory_LogPatientMedicationHistoryConsentV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_DateTime'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_DateTime'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_DateTime'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_DateTime'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_DateTime'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    SureScriptsHistoryMedication:
+      type: object
+      properties:
+        PatientMedicationHistoryId:
+          type: integer
+          format: int64
+        PharmacyNotes:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        LastFillDate:
+          type: string
+          format: date-time
+        Payer:
+          type: string
+        DaysSupply:
+          type: integer
+          format: int32
+        Directions:
+          type: string
+        DispenseUnitDescription:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        Refills:
+          type: string
+        WrittenDate:
+          type: string
+          format: date-time
+        DiagnosisCode:
+          type: string
+        DiagnosisQualifier:
+          type: string
+        DoseForm:
+          type: string
+        Route:
+          type: string
+        Strength:
+          type: string
+        GenericDrugName:
+          type: string
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Brand:
+          type: boolean
+        RxCUI:
+          type: string
+        OTC:
+          type: boolean
+        NDC:
+          type: string
+        Schedule:
+          type: integer
+          format: int32
+        DisplayName:
+          type: string
+        DrugClassification:
+          type: string
+        ExpirationDate:
+          type: string
+          format: date-time
+    ItemResponse_DateTime:
+      type: object
+      properties:
+        Item:
+          type: string
+          format: date-time
+          description: The response object.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    PagedListResponse_SureScriptsHistoryMedication:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/SureScriptsHistoryMedication'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

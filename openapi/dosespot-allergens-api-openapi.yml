@@ -1,0 +1,230 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Allergens API
+  version: '1.0'
+  description: 'Operations tagged Allergens across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: Allergens
+paths:
+  /api/allergens/{allergenId}:
+    get:
+      tags:
+      - Allergens
+      summary: Search allergen by ID
+      description: 'Retrieves an active or inactive Allergen Class or Screenable Ingredient
+
+        matching the ID'
+      operationId: Allergens_GetAllergenByIDV2
+      parameters:
+      - name: allergenId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_AllergySearchResultForAPI'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_AllergySearchResultForAPI'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_AllergySearchResultForAPI'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_AllergySearchResultForAPI'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_AllergySearchResultForAPI'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/allergens/searchByRxCUI:
+    get:
+      tags:
+      - Allergens
+      summary: Search allergens by RxCUI
+      description: Retrieves a list of Allergens matching the specified RxCUI
+      operationId: Allergens_SearchByRxCUI
+      parameters:
+      - name: rxCui
+        in: query
+        description: ''
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+            application/problem+json:
+              schema:
+                type: object
+            application/xml:
+              schema:
+                type: object
+            text/xml:
+              schema:
+                type: object
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/allergens/search:
+    get:
+      tags:
+      - Allergens
+      summary: Search allergens by name
+      description: 'Retrieves a list of Allergen Classes or Screenable Ingredients
+
+        matching a specified query of three or more characters'
+      operationId: Allergens_AllergenSearchV2
+      parameters:
+      - name: name
+        in: query
+        description: ''
+        required: true
+        schema:
+          type: string
+      - name: pageNumber
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_AllergySearchResultForAPI'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_AllergySearchResultForAPI'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_AllergySearchResultForAPI'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_AllergySearchResultForAPI'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_AllergySearchResultForAPI'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    AllergySearchResultForAPI:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: Could be Allergen class xor screenable ingredient generic drug name
+        BrandName:
+          type: string
+          description: If this is a screenable ingredient, we return the brand name
+        AllergenId:
+          type: integer
+          format: int32
+          description: The record's PK
+        AllergenType:
+          type: string
+          description: Either AllergenClass or ScreenableIngredient
+          enum:
+          - AllergenClass
+          - ScreenableIngredient
+          - FoodAndEnvironmentalAllergens
+          - RoutedDoseFormDrugs
+        IsActive:
+          type: boolean
+          description: Whether the AllergenClass or ScreenableIngredient is Active or Inactive
+        AllergenCategory:
+          type: string
+          description: 'CommonAllergens (from the common allergens of Medispan, UncommonAllergens
+
+            (expressly pulled from all screenable ingredients/classes that exist),
+
+            OtherBrandDrugs (from the brand drugs of Medispan - routed doseform drugs)'
+          enum:
+          - CommonAllergens
+          - UncommonAllergens
+          - OtherBrandDrugs
+        RxCuis:
+          type: array
+          description: Gets or sets the list of RxCUI identifiers.
+          items:
+            type: string
+    ItemResponse_AllergySearchResultForAPI:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/AllergySearchResultForAPI'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    PagedListResponse_AllergySearchResultForAPI:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/AllergySearchResultForAPI'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

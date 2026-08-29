@@ -1,0 +1,736 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Clinics API
+  version: '1.0'
+  description: 'Operations tagged Clinics across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: Clinics
+paths:
+  /api/clinics/{clinicId}:
+    get:
+      tags:
+      - Clinics
+      summary: Gets clinic information
+      description: "Given a clinicId gets the respective clinicâ\x80\x99s information"
+      operationId: Clinics_GetClinicDetailsV2
+      parameters:
+      - name: clinicId
+        in: path
+        description: Clinic ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicDetailResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClinicDetailResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ClinicDetailResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicDetailResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicDetailResponse'
+    put:
+      tags:
+      - Clinics
+      summary: Edit Clinic information
+      description: "Updates an existing clinicâ\x80\x99s contact information"
+      operationId: Clinics_ClinicEditV2
+      parameters:
+      - name: clinicId
+        in: path
+        description: Clinic ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+        description: Updated clinic data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/clinics:
+    get:
+      tags:
+      - Clinics
+      summary: Get patient's clinics
+      description: Retrieves information on all clinics that have been associated with a patient
+      operationId: Clinics_GetPatientClinicsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_Clinic'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_Clinic'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_Clinic'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_Clinic'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_Clinic'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/clinicIds:
+    get:
+      tags:
+      - Clinics
+      summary: Gets a clinician's clinic identifiers
+      description: 'Retrieves a list of clinic identifiers for a clinician
+
+        regardless of eRx functions for those clinics'
+      operationId: Clinics_GetClinicianClinicsV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: includeClinicGroups
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: clinicStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - Active
+          - Inactive
+          - All
+          maximum: 2
+          minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_ClinicIdentifier'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_ClinicIdentifier'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_ClinicIdentifier'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_ClinicIdentifier'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_ClinicIdentifier'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinics:
+    post:
+      tags:
+      - Clinics
+      summary: Add clinic
+      description: Adds a new clinic
+      operationId: Clinics_ClinicAddV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClinicKeyResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ClinicKeyResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ClinicKeyResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicKeyResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ClinicKeyResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AddEditClinicRequest'
+        description: New clinic data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/transfer:
+    post:
+      tags:
+      - Clinics
+      summary: Transfer patient clinic
+      description: Change the clinic this patient is associated with
+      operationId: Clinics_PatientClinicTransferV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePatientClinicRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ChangePatientClinicRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ChangePatientClinicRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ChangePatientClinicRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ChangePatientClinicRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePatientClinicRequest'
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/{clinicianId}/clinics:
+    post:
+      tags:
+      - Clinics
+      summary: Add clinician clinics
+      description: Adds a clinician to one or more existing clinics
+      operationId: Clinics_ClinicianAddMultipleClinicsV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: Clinician ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianAddMultipleClinicsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianAddMultipleClinicsRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianAddMultipleClinicsRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianAddMultipleClinicsRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianAddMultipleClinicsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianAddMultipleClinicsRequest'
+        description: Clinic list
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinics/{clinicId}/clinicians:
+    delete:
+      tags:
+      - Clinics
+      summary: Removes clinician(s) from a specified clinic
+      description: Removes an array of clinicians from a specified clinic
+      operationId: Clinics_ClinicRemoveMultipleCliniciansV2
+      parameters:
+      - name: clinicId
+        in: path
+        description: Clinic ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicRemoveMultipleCliniciansRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicRemoveMultipleCliniciansRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicRemoveMultipleCliniciansRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicRemoveMultipleCliniciansRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicRemoveMultipleCliniciansRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicRemoveMultipleCliniciansRequest'
+        description: List of Clinician IDs
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    ListResponse_ClinicIdentifier:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/ClinicIdentifier'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    ClinicDetailResponse:
+      type: object
+      properties:
+        Clinic:
+          $ref: '#/components/schemas/Clinic'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ClinicKeyResponse:
+      type: object
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+        ClinicKey:
+          type: string
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ClinicianAddMultipleClinicsRequest:
+      type: object
+      required:
+      - ClinicIds
+      properties:
+        ClinicIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    ClinicRemoveMultipleCliniciansRequest:
+      type: object
+      required:
+      - ClinicianIds
+      properties:
+        ClinicianIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    ClinicIdentifier:
+      type: object
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+    Clinic:
+      type: object
+      required:
+      - Address1
+      - City
+      - ClinicName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+        ClinicName:
+          type: string
+        ClinicNameLongForm:
+          type: string
+          minLength: 0
+          maxLength: 250
+        Address1:
+          type: string
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType3:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+    ChangePatientClinicRequest:
+      type: object
+      required:
+      - ClinicIdToAdd
+      - ClinicIdToRemove
+      properties:
+        ClinicIdToRemove:
+          type: integer
+          format: int32
+        ClinicIdToAdd:
+          type: integer
+          format: int32
+    AddEditClinicRequest:
+      type: object
+      required:
+      - Address1
+      - City
+      - ClinicName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        ClinicName:
+          type: string
+        ClinicNameLongForm:
+          type: string
+          minLength: 0
+          maxLength: 250
+        Address1:
+          type: string
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType3:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+      description: 'Represents a request to add or edit a clinic.
+
+        This class overrides the identifier property so that it will not be serialized for requests.'
+    ListResponse_Clinic:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/Clinic'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

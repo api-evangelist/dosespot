@@ -1,0 +1,807 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Clinician Favorites API
+  version: '1.0'
+  description: 'Operations tagged ClinicianFavorites across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: ClinicianFavorites
+paths:
+  /api/clinicians/{clinicianId}/prescriptionFavorites:
+    get:
+      tags:
+      - ClinicianFavorites
+      summary: Get clinician's favorite prescriptions
+      description: Retrieves a list of clinician's favorite prescriptions
+      operationId: ClinicianFavorites_GetClinicianPrescriptionFavoritesV2
+      parameters:
+      - name: clinicianId
+        in: path
+        description: clinician Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: favoriteType
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - All
+          - Medication
+          - Supply
+          - CompiledCompound
+          maximum: 3
+          minimum: 0
+      - name: pageNumber
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          maximum: 2147483645
+          minimum: 1
+      - name: pageSize
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+          maximum: 100
+          minimum: 1
+      - name: searchName
+        in: query
+        required: false
+        schema:
+          type: string
+          pattern: ^.{2,}$
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_ClinicianFavoritePrescriptionResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_ClinicianFavoritePrescriptionResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_ClinicianFavoritePrescriptionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_ClinicianFavoritePrescriptionResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_ClinicianFavoritePrescriptionResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/prescriptionFavorites/coded/{favoriteId}:
+    put:
+      tags:
+      - ClinicianFavorites
+      summary: Edit Clinician's Coded Favorite Prescription
+      description: Edits clinician's coded favorite prescription
+      operationId: ClinicianFavorites_EditClinicianCodedPrescriptionFavoriteV2
+      parameters:
+      - name: favoriteId
+        in: path
+        description: Clinician's Favorite Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+        description: Favorite medication prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/prescriptionFavorites/supply/{favoriteId}:
+    put:
+      tags:
+      - ClinicianFavorites
+      summary: Edit Clinician's Supply Favorite Prescription
+      description: Edits clinician's favorite supply prescription
+      operationId: ClinicianFavorites_EditClinicianSupplyFavoriteV2
+      parameters:
+      - name: favoriteId
+        in: path
+        description: Clinician's Favorite Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+        description: Favorite supply prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/prescriptionFavorites/compiledcompound/{favoriteId}:
+    put:
+      tags:
+      - ClinicianFavorites
+      summary: Edit Clinician's Favorite Compiled Compound Prescription
+      description: Edit clinician's favorite compiled compound prescription
+      operationId: ClinicianFavorites_EditClinicianCompiledCompoundFavoriteV2
+      parameters:
+      - name: favoriteId
+        in: path
+        description: Clinician's Favorite Id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+        description: Favorite medication prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/prescriptionFavorites/coded:
+    post:
+      tags:
+      - ClinicianFavorites
+      summary: Add clinician favorite coded Prescription
+      description: Adds a favorite prescription defined by DoseSpot drug values to an existing clinician
+      operationId: ClinicianFavorites_AddClinicianPrescriptionFavoriteV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
+        description: Favorite medication prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/prescriptionFavorites/supply:
+    post:
+      tags:
+      - ClinicianFavorites
+      summary: Add Clinician Supply Favorite Prescription
+      description: Adds a favorite supply prescription defined by DoseSpot supply values to an existing clinician
+      operationId: ClinicianFavorites_AddClinicianSupplyFavoriteV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
+        description: Favorite supply prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/prescriptionFavorites/compiledcompound:
+    post:
+      tags:
+      - ClinicianFavorites
+      summary: Add Clinician Compiled Compound Favorite Prescription
+      description: Adds a favorite compiled compound prescription defined by DoseSpot drug values to an existing clinician
+      operationId: ClinicianFavorites_AddClinicianCompiledCompoundFavoriteV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+        description: Favorite medication prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/clinicians/prescriptionFavorites:
+    delete:
+      tags:
+      - ClinicianFavorites
+      summary: Delete Clinician Favorites
+      operationId: ClinicianFavorites_DeleteClinicianFavoriteV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FavoriteIdListRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FavoriteIdListRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/FavoriteIdListRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/FavoriteIdListRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/FavoriteIdListRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FavoriteIdListRequest'
+        description: List of Favorite Ids
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    Diagnosis:
+      type: object
+      properties:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    CompoundIngredient:
+      type: object
+      required:
+      - Quantity
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        IsFreeTextEPCS:
+          type: boolean
+    ClinicianFavoritePrescriptionResponse:
+      type: object
+      properties:
+        ClinicianFavoritePrescriptionID:
+          type: integer
+          format: int32
+        ClinicianID:
+          type: integer
+          format: int32
+        DispenseUnitTypeID:
+          type: integer
+          format: int32
+        FirstDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosis'
+        SecondDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosis'
+        MedDisplayName:
+          type: string
+        MedFullName:
+          type: string
+        MedStrengthString:
+          type: string
+        Directions:
+          type: string
+        Quantity:
+          type: string
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Refills:
+          type: integer
+          format: int32
+        DaysSupply:
+          type: integer
+          format: int32
+        NoSubstitutions:
+          type: boolean
+        Notes:
+          type: string
+        Title:
+          type: string
+        SpecialtyType:
+          type: string
+          enum:
+          - AllergyAndImmunology
+          - Dermatology
+          - Dentistry
+          - BehavioralHealth
+          - FamilyMedicine
+          - InternalMedicine
+          - ObstetricsAndGynecology
+          - Orthopedics
+          - Pediatrics
+          - PhysicalMedicine
+          - Psychiatry
+          - Urology
+        DateAdded:
+          type: string
+          format: date-time
+        DateLastUsed:
+          type: string
+          format: date-time
+        IsSupply:
+          type: boolean
+        CompoundId:
+          type: integer
+          format: int32
+        IsCompound:
+          type: boolean
+        SourceClinicId:
+          type: integer
+          format: int32
+        SupplyId:
+          type: integer
+          format: int32
+        CompoundIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompoundIngredient'
+    PrescriptionDiagnosisIds:
+      type: object
+      properties:
+        PrimaryDiagnosisId:
+          type: integer
+          format: int32
+        SecondaryDiagnosisId:
+          type: integer
+          format: int32
+    ClinicianPrescriptionFavoriteCompiledCompoundRequest:
+      type: object
+      required:
+      - CompoundDescription
+      - CompoundIngredients
+      - Directions
+      - DispenseUnitTypeId
+      - Quantity
+      - Refills
+      - Title
+      properties:
+        CompoundDescription:
+          type: string
+        CompoundIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompoundIngredient'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitTypeId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        Notes:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Title:
+          type: string
+          minLength: 0
+          maxLength: 500
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ClinicianPrescriptionFavoriteSupplyRequest:
+      type: object
+      required:
+      - Directions
+      - DispenseUnitTypeId
+      - Quantity
+      - Refills
+      - Title
+      properties:
+        SupplyId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitTypeId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        Notes:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Title:
+          type: string
+          minLength: 0
+          maxLength: 500
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+    PagedListResponse_ClinicianFavoritePrescriptionResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    FavoriteIdListRequest:
+      type: object
+      properties:
+        FavoriteIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    PrescriptionDiagnosis:
+      type: object
+      properties:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    ClinicianPrescriptionFavoriteCodedRequest:
+      type: object
+      required:
+      - Directions
+      - DispensableDrugId
+      - DispenseUnitTypeId
+      - Quantity
+      - Refills
+      - Title
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitTypeId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        Notes:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Title:
+          type: string
+          minLength: 0
+          maxLength: 500
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

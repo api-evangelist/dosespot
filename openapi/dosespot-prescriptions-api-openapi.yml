@@ -1,20 +1,15 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: DoseSpot Medications Prescriptions API
-  description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.
-  termsOfService: https://dosespot.com/
-  contact:
-    name: DoseSpot Support
-    url: https://dosespot.com/full-integration/
-  version: '2.0'
+  title: Dosespot Prescriptions API
+  version: '1.0'
+  description: 'Operations tagged Prescriptions across 3 of this provider''s published API definitions: dosespot-openapi.yml, dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://my.dosespot.com/webapi/v2
   description: Production
 - url: https://my.staging.dosespot.com/webapi/v2
   description: Staging
-security:
-- bearerAuth: []
-  subscriptionKey: []
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Prescriptions
   description: Prescription creation, transmission, status, and medication history.
@@ -39,6 +34,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PrescriptionListResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
     post:
       operationId: createPatientPrescription
       tags:
@@ -64,6 +62,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PrescriptionResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
+    servers:
+    - url: https://my.dosespot.com/webapi/v2
+      description: Production
+    - url: https://my.staging.dosespot.com/webapi/v2
+      description: Staging
   /patients/{patientId}/prescriptions/{prescriptionId}:
     get:
       operationId: getPatientPrescription
@@ -89,6 +95,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PrescriptionResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
+    servers:
+    - url: https://my.dosespot.com/webapi/v2
+      description: Production
+    - url: https://my.staging.dosespot.com/webapi/v2
+      description: Staging
   /patients/{patientId}/medicationHistory:
     get:
       operationId: getMedicationHistory
@@ -109,6 +123,1497 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MedicationHistoryResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
+    servers:
+    - url: https://my.dosespot.com/webapi/v2
+      description: Production
+    - url: https://my.staging.dosespot.com/webapi/v2
+      description: Staging
+  /api/patients/{patientId}/prescriptions/{prescriptionId}:
+    get:
+      tags:
+      - Prescriptions
+      summary: Get Prescriptions
+      description: Retrieves details of a prescription in a patient record
+      operationId: Prescriptions_GetPatientPrescriptionV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PrescriptionResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PrescriptionResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/{prescriptionId}/log:
+    get:
+      tags:
+      - Prescriptions
+      summary: Get Prescription Logs
+      description: Retrieves the prescription log for an existing prescription in a patient record. This is the full history of the prescription.
+      operationId: Prescriptions_GetPrescriptionLogDetailsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PrescriptionLog'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PrescriptionLog'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PrescriptionLog'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PrescriptionLog'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PrescriptionLog'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/{prescriptionId}/snapshot:
+    get:
+      tags:
+      - Prescriptions
+      summary: Get Precription snapshot
+      description: Retrieves prescription snapshot
+      operationId: Prescriptions_GetPrescriptionSnapshotV2
+      parameters:
+      - name: patientId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionSnapshotResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionSnapshotResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PrescriptionSnapshotResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PrescriptionSnapshotResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PrescriptionSnapshotResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/{prescriptionId}/epcsSuggestions:
+    get:
+      tags:
+      - Prescriptions
+      summary: Get EPCS Suggested Prescription Schedule
+      description: Retrieves calculated/suggested jurisdiction, DEA number, and schedule
+      operationId: Prescriptions_GetEPCSSuggestionsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EpcsSuggestionsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/EpcsSuggestionsResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/EpcsSuggestionsResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EpcsSuggestionsResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/EpcsSuggestionsResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions:
+    get:
+      tags:
+      - Prescriptions
+      summary: Get patient's prescriptions
+      description: Retrieves details of prescriptions in a patient record
+      operationId: Prescriptions_GetPatientPrescriptionsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: endDate
+        in: query
+        description: End of date range (timestamp UTC)
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: startDate
+        in: query
+        description: Start of date range (timestamp UTC)
+        required: false
+        schema:
+          type: string
+          format: date-time
+      - name: statusClass
+        in: query
+        description: Getting Prescription for Active/Inactive/Pending Medication
+        required: false
+        schema:
+          type: string
+          enum:
+          - Active
+          - Inactive
+          - Pending
+          maximum: 3
+          minimum: 1
+      - name: prescriptionStatus
+        in: query
+        description: The status of the prescription
+        required: false
+        schema:
+          type: string
+          enum:
+          - Entered
+          - Printed
+          - Sending
+          - eRxSent
+          - FaxSent
+          - Error
+          - Deleted
+          - Requested
+          - Edited
+          - EpcsError
+          - EpcsSigned
+          - ReadyToSign
+          - PharmacyVerified
+          - PharmacySelect
+          - Retracted
+          maximum: 14
+          minimum: 1
+      - name: pageNumber
+        in: query
+        description: The page number default to 1
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: sortColumn
+        in: query
+        description: Sort Column
+        required: false
+        schema:
+          type: string
+          enum:
+          - DateWritten
+          maximum: 0
+          minimum: 0
+      - name: sortOrder
+        in: query
+        description: Sort Order
+        required: false
+        schema:
+          type: string
+          enum:
+          - Asc
+          - Desc
+          maximum: 1
+          minimum: 0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_Prescription'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_Prescription'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_Prescription'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_Prescription'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_Prescription'
+    delete:
+      tags:
+      - Prescriptions
+      summary: Delete Prescriptions
+      description: "Marks 1 or more prescriptions in a patientâ\x80\x99s record as deleted. Deleted prescriptions are not included in any interaction checks."
+      operationId: Prescriptions_DeletePrescriptionsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrescriptionIdListRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrescriptionIdListRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/PrescriptionIdListRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PrescriptionIdListRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PrescriptionIdListRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PrescriptionIdListRequest'
+        description: List of prescription IDs
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/coded/{prescriptionId}:
+    put:
+      tags:
+      - Prescriptions
+      summary: Edit Coded Prescription
+      description: Edits an existing prescription for a specified patient
+      operationId: Prescriptions_EditCodedPrescriptionV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+        description: Updated prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/supply/{prescriptionId}:
+    put:
+      tags:
+      - Prescriptions
+      summary: Edit Coded Supply Prescription
+      description: Edits a prescription defined by Dosespot drug values to an existing patient record
+      operationId: Prescriptions_EditCodedSupplyV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/supply/freetext/{prescriptionId}:
+    put:
+      tags:
+      - Prescriptions
+      summary: Edit Free Text supply Prescription
+      description: Edits an existing supply prescription for a specified patient
+      operationId: Prescriptions_EditFreeTextSupplyPrescriptionV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+        description: Updated prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/compiledcompound/{prescriptionId}:
+    put:
+      tags:
+      - Prescriptions
+      summary: Edit Compiled Compound
+      description: Edits an existing compound prescription for a specified patient
+      operationId: Prescriptions_EditCompiledCompoundV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+        description: Updated prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/send:
+    post:
+      tags:
+      - Prescriptions
+      summary: Send Prescriptions
+      description: Sends 1 or more non-epcs prescriptions to a previously designated pharmacy.\r\nThis endpoint is for clinicians with/without PINs.
+      operationId: Prescriptions_SendPrescriptionsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+        description: List of prescription IDs, with optional PIN
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/coded:
+    post:
+      tags:
+      - Prescriptions
+      summary: Add Coded Prescription
+      description: Adds a prescription defined by DoseSpot drug values to an existing patient record
+      operationId: Prescriptions_AddCodedPrescriptionV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CodedPrescriptionRequest'
+        description: Prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/supply:
+    post:
+      tags:
+      - Prescriptions
+      summary: Add Coded Supply Prescription
+      description: Adds a supply defined by DoseSpot drug values to an existing patient record
+      operationId: Prescriptions_AddCodedSupplyV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CodedSupplyRequest'
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/sendEpcs:
+    post:
+      tags:
+      - Prescriptions
+      summary: Send EPCS Prescriptions
+      description: Sends 1 or more EPCS prescriptions and optionally 1 or more non-EPCS prescriptions to a previously designated pharmacy
+      operationId: Prescriptions_SendEpcsPrescriptionsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendEpcsPrescriptionsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SendEpcsPrescriptionsRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/SendEpcsPrescriptionsRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SendEpcsPrescriptionsRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/SendEpcsPrescriptionsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendEpcsPrescriptionsRequest'
+        description: List of prescription IDs with prescriber PIN / OTP
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/setPrinted:
+    post:
+      tags:
+      - Prescriptions
+      summary: Set Prescriptions Printed
+      description: Marks 1 or more prescriptions within a patient record as being printed. This does not create or handle the actual printouts. This endpoint is for clinicians with/without PINs.
+      operationId: Prescriptions_SetPrescriptionsPrintedV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsRequest'
+        description: List of prescription IDs, with optional PIN
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/readyToSign:
+    post:
+      tags:
+      - Prescriptions
+      summary: Set Prescriptions Ready To Sign
+      description: Set 1 or more prescriptions as Ready to Sign
+      operationId: Prescriptions_SetPrescriptionsReadyToSignV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PrescriptionsReadyToSignRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PrescriptionsReadyToSignRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/PrescriptionsReadyToSignRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PrescriptionsReadyToSignRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PrescriptionsReadyToSignRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PrescriptionsReadyToSignRequest'
+        description: List of prescription IDs and DEA Overrides
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/sendToAddress:
+    post:
+      tags:
+      - Prescriptions
+      summary: Send Prescriptions With Address
+      description: Sends 1 or more non-epcs prescriptions to a previously designated pharmacy and to a specific patient address. This endpoint is for clinicians with or without PINs.
+      operationId: Prescriptions_SendToAddressPrescriptionsV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsWithAddressRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsWithAddressRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsWithAddressRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsWithAddressRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsWithAddressRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SendPrescriptionsWithAddressRequest'
+        description: List of prescription IDs, with optional PIN
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/supply/freetext:
+    post:
+      tags:
+      - Prescriptions
+      summary: Add Free Text Supply Prescription
+      description: Adds a supply prescription request for a patient defined by its display name
+      operationId: Prescriptions_AddFreeTextSupplyPrescriptionV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FreeTextSupplyPrescriptionRequest'
+        description: Prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/compiledcompound:
+    post:
+      tags:
+      - Prescriptions
+      summary: Add Compiled Compound
+      description: Adds a compound prescription to an existing patient record
+      operationId: Prescriptions_AddCompiledCompoundV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CompoundPrescriptionRequest'
+        description: Prescription data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/{prescriptionId}/copy:
+    post:
+      tags:
+      - Prescriptions
+      summary: Copy Prescription For Patient
+      description: Copies and creates a new prescription based of an existing prescription in a patient record
+      operationId: Prescriptions_CopyPatientPrescriptionV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CopyPrescriptionRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CopyPrescriptionRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CopyPrescriptionRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CopyPrescriptionRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CopyPrescriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CopyPrescriptionRequest'
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/{prescriptionId}/cancel:
+    post:
+      tags:
+      - Prescriptions
+      summary: Cancel Prescription
+      description: Cancel a patient's particular prescription
+      operationId: Prescriptions_CancelPrescriptionV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelPrescriptionRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/CancelPrescriptionRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/CancelPrescriptionRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/CancelPrescriptionRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CancelPrescriptionRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CancelPrescriptionRequest'
+        description: Comment
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/{prescriptionId}/ignoreError:
+    post:
+      tags:
+      - Prescriptions
+      summary: Ignore Error For Prescription
+      description: Marks a prescription that previously resulted in a transmission error so that it no longer appears in the error counts or summary lists
+      operationId: Prescriptions_IgnoreAlertV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IgnoreAlertRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/IgnoreAlertRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/IgnoreAlertRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/IgnoreAlertRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/IgnoreAlertRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/IgnoreAlertRequest'
+        description: Comment
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/{prescriptionId}/medicationStatus:
+    post:
+      tags:
+      - Prescriptions
+      summary: Update Prescription's medication Status
+      description: Updates the status of an existing prescription for a specified patient
+      operationId: Prescriptions_UpdatePrescriptionStatusV2
+      parameters:
+      - name: patientId
+        in: path
+        description: Patient ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: Prescription ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePrescriptionMedicationStatusRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePrescriptionMedicationStatusRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/UpdatePrescriptionMedicationStatusRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdatePrescriptionMedicationStatusRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/UpdatePrescriptionMedicationStatusRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdatePrescriptionMedicationStatusRequest'
+        description: Medication status data
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/prescriptions/{prescriptionId}/pharmacy:
+    patch:
+      tags:
+      - Prescriptions
+      summary: Change Prescription Pharmacy
+      description: Changes the pharmacy that an existing prescription in a patient record is queued to be sent to
+      operationId: Prescriptions_ChangePrescriptionPharmacyV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: prescriptionId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePrescriptionPharmacyRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/ChangePrescriptionPharmacyRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/ChangePrescriptionPharmacyRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ChangePrescriptionPharmacyRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ChangePrescriptionPharmacyRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePrescriptionPharmacyRequest'
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
     PrescriptionListResult:
@@ -122,6 +1627,21 @@ components:
               $ref: '#/components/schemas/Prescription'
           PageResult:
             $ref: '#/components/schemas/PageResult'
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+    PrescriptionResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Item:
+            $ref: '#/components/schemas/Prescription'
     Prescription:
       type: object
       properties:
@@ -151,48 +1671,6 @@ components:
           type: boolean
         Medication:
           $ref: '#/components/schemas/Medication'
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-        TotalPages:
-          type: integer
-        PageSize:
-          type: integer
-        HasPrevious:
-          type: boolean
-        HasNext:
-          type: boolean
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
-    PrescriptionResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Item:
-            $ref: '#/components/schemas/Prescription'
-    MedicationHistoryResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Medication'
-    ResultStatus:
-      type: object
-      properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
     Medication:
       type: object
       properties:
@@ -215,6 +1693,1283 @@ components:
         Schedule:
           type: string
           description: DEA schedule for controlled substances.
+    MedicationHistoryResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Medication'
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
+    Diagnosis:
+      type: object
+      properties:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    PrescriptionWithClinicianReferenceNumberOverrides:
+      type: object
+      properties:
+        PrescriptionId:
+          type: integer
+          format: int32
+        ClinicianReferenceNumberOverrides:
+          $ref: '#/components/schemas/ClinicianReferenceNumberOverrides'
+    PrescriptionResponse:
+      type: object
+      properties:
+        Prescription:
+          $ref: '#/components/schemas/Prescription_2'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    CompoundPrescriptionRequest:
+      type: object
+      required:
+      - CompoundDescription
+      - CompoundIngredients
+      - Directions
+      - DispenseUnitId
+      - Quantity
+      - Refills
+      - Status
+      properties:
+        CompoundDescription:
+          type: string
+        CompoundIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompoundIngredient'
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+          minLength: 0
+          maxLength: 210
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        RxReferenceNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        EligibilityId:
+          type: integer
+          format: int32
+        NonDoseSpotPrescriptionId:
+          type: string
+          minLength: 0
+          maxLength: 35
+        IsRefillReplace:
+          type: boolean
+        IsUrgent:
+          type: boolean
+        SupervisorId:
+          type: integer
+          format: int32
+        RetailPharmacyToMailToPatient:
+          type: boolean
+        RTPSCoupon:
+          $ref: '#/components/schemas/RTPSCoupon'
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    ChangePrescriptionPharmacyRequest:
+      type: object
+      required:
+      - PharmacyId
+      properties:
+        PharmacyId:
+          type: integer
+          format: int32
+    SendEpcsPrescriptionsRequest:
+      type: object
+      required:
+      - Pin
+      - PrescriptionIds
+      properties:
+        Pin:
+          type: string
+          pattern: ^[0-9]{4}$
+        OTP:
+          type: string
+          pattern: ^[0-9]{6}$
+        PrescriptionIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        NoEPCSPrescriptionIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    PrescriptionSnapshotResponse:
+      type: object
+      properties:
+        PrescriptionSnapshot:
+          $ref: '#/components/schemas/PrescriptionSnapshot'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    FreeTextSupplyPrescriptionRequest:
+      type: object
+      required:
+      - Directions
+      - DispenseUnitId
+      - DisplayName
+      - NotControlled
+      - Quantity
+      - Refills
+      - Status
+      properties:
+        DisplayName:
+          type: string
+          minLength: 3
+          maxLength: 300
+        NotControlled:
+          type: boolean
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+          minLength: 0
+          maxLength: 210
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        RxReferenceNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        EligibilityId:
+          type: integer
+          format: int32
+        NonDoseSpotPrescriptionId:
+          type: string
+          minLength: 0
+          maxLength: 35
+        IsRefillReplace:
+          type: boolean
+        IsUrgent:
+          type: boolean
+        SupervisorId:
+          type: integer
+          format: int32
+        RetailPharmacyToMailToPatient:
+          type: boolean
+        RTPSCoupon:
+          $ref: '#/components/schemas/RTPSCoupon'
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    PageResult_2:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    AgentSnapshot:
+      type: object
+      properties:
+        FirstName:
+          type: string
+        LastName:
+          type: string
+    ClinicianReferenceNumberOverrides:
+      type: object
+      properties:
+        OverrideDeaNumber:
+          type: string
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
+        OverrideSupervisorDeaNumber:
+          type: string
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
+    ListResponse_PrescriptionLog:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/PrescriptionLog'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    PagedListResponse_Prescription:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Prescription_2'
+        PageResult:
+          $ref: '#/components/schemas/PageResult_2'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    CodedSupplyRequest:
+      type: object
+      required:
+      - Directions
+      - DispenseUnitId
+      - Quantity
+      - Refills
+      - Status
+      - SupplyId
+      properties:
+        SupplyId:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 2147483647
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+          minLength: 0
+          maxLength: 210
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        RxReferenceNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        EligibilityId:
+          type: integer
+          format: int32
+        NonDoseSpotPrescriptionId:
+          type: string
+          minLength: 0
+          maxLength: 35
+        IsRefillReplace:
+          type: boolean
+        IsUrgent:
+          type: boolean
+        SupervisorId:
+          type: integer
+          format: int32
+        RetailPharmacyToMailToPatient:
+          type: boolean
+        RTPSCoupon:
+          $ref: '#/components/schemas/RTPSCoupon'
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    CodedPrescriptionRequest:
+      type: object
+      required:
+      - Directions
+      - DispensableDrugId
+      - DispenseUnitId
+      - Quantity
+      - Refills
+      - Status
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        PatientFormularyId:
+          type: integer
+          format: int32
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+          minLength: 0
+          maxLength: 210
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        RxReferenceNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        EligibilityId:
+          type: integer
+          format: int32
+        NonDoseSpotPrescriptionId:
+          type: string
+          minLength: 0
+          maxLength: 35
+        IsRefillReplace:
+          type: boolean
+        IsUrgent:
+          type: boolean
+        SupervisorId:
+          type: integer
+          format: int32
+        RetailPharmacyToMailToPatient:
+          type: boolean
+        RTPSCoupon:
+          $ref: '#/components/schemas/RTPSCoupon'
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    PrescriptionIdListRequest:
+      type: object
+      properties:
+        PrescriptionIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    RTPSCoupon:
+      type: object
+      properties:
+        BIN:
+          type: string
+        PCN:
+          type: string
+        MemberID:
+          type: string
+        GroupID:
+          type: string
+    PrescriptionsReadyToSignRequest:
+      type: object
+      required:
+      - Prescriptions
+      properties:
+        Prescriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescriptionWithClinicianReferenceNumberOverrides'
+    PrescriptionDiagnosis:
+      type: object
+      properties:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    PrescriptionLog:
+      type: object
+      properties:
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Entered
+          - Printed
+          - Sending
+          - eRxSent
+          - FaxSent
+          - Error
+          - Deleted
+          - Requested
+          - Edited
+          - EpcsError
+          - EpcsSigned
+          - ReadyToSign
+          - PharmacyVerified
+          - PharmacySelect
+        DateTimeStamp:
+          type: string
+          format: date-time
+        AdditionalInfo:
+          type: string
+        Ignored:
+          type: boolean
+        User:
+          type: string
+        WasRefillRequest:
+          type: boolean
+        MedicationStatus:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+    EpcsSuggestions:
+      type: object
+      properties:
+        SuggestedDeaNumber:
+          $ref: '#/components/schemas/DeaNumber'
+        SuggestedSupervisorDeaNumber:
+          $ref: '#/components/schemas/DeaNumber'
+        Schedule:
+          $ref: '#/components/schemas/ScheduleInfo'
+    PrescriptionSnapshot:
+      type: object
+      properties:
+        Prescriber:
+          $ref: '#/components/schemas/PrescriberSnapshot'
+        Patient:
+          $ref: '#/components/schemas/PatientSnapshot'
+        Agent:
+          $ref: '#/components/schemas/AgentSnapshot'
+        Supervisor:
+          $ref: '#/components/schemas/SupervisorSnapshot'
+        Pharmacy:
+          $ref: '#/components/schemas/PharmacySnapshot'
+        Medication:
+          $ref: '#/components/schemas/MedicationSnapshot'
+    DeaNumber:
+      type: object
+      required:
+      - DEANumber
+      properties:
+        DEANumber:
+          type: string
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
+        State:
+          type: string
+        ClinicId:
+          type: string
+    PrescriberSnapshot:
+      type: object
+      properties:
+        FirstName:
+          type: string
+        LastName:
+          type: string
+        DEANumber:
+          type: string
+        NPINumber:
+          type: string
+        Address:
+          $ref: '#/components/schemas/AddressSnapshot'
+    PatientSnapshot:
+      type: object
+      properties:
+        FirstName:
+          type: string
+        LastName:
+          type: string
+        DateOfBirth:
+          type: string
+          format: date-time
+        Address:
+          $ref: '#/components/schemas/AddressSnapshot'
+    EpcsSuggestionsResponse:
+      type: object
+      properties:
+        EpcsSuggestions:
+          $ref: '#/components/schemas/EpcsSuggestions'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PharmacySnapshot:
+      type: object
+      properties:
+        StoreName:
+          type: string
+        NCPDPID:
+          type: string
+        NPI:
+          type: string
+        Address:
+          $ref: '#/components/schemas/AddressSnapshot'
+    SupervisorSnapshot:
+      type: object
+      properties:
+        FirstName:
+          type: string
+        LastName:
+          type: string
+        DEANumber:
+          type: string
+        NPINumber:
+          type: string
+        Address:
+          $ref: '#/components/schemas/AddressSnapshot'
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    Prescription_2:
+      type: object
+      properties:
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosis'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosis'
+        Refills:
+          type: string
+        PrescriptionId:
+          type: integer
+          format: int32
+        WrittenDate:
+          type: string
+          format: date-time
+        Directions:
+          type: string
+        Quantity:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        DaysSupply:
+          type: integer
+          format: int32
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        LastFillDate:
+          type: string
+          format: date-time
+        PrescriberId:
+          type: integer
+          format: int32
+        PrescriberAgentId:
+          type: integer
+          format: int32
+        RxReferenceNumber:
+          type: string
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Entered
+          - Printed
+          - Sending
+          - eRxSent
+          - FaxSent
+          - Error
+          - Deleted
+          - Requested
+          - Edited
+          - EpcsError
+          - EpcsSigned
+          - ReadyToSign
+          - PharmacyVerified
+          - PharmacySelect
+        Formulary:
+          type: boolean
+        EligibilityId:
+          type: integer
+          format: int32
+        Type:
+          type: string
+          enum:
+          - Coded
+          - FreeText
+          - NDC
+          - Supply
+          - Compound
+        NonDoseSpotPrescriptionId:
+          type: string
+        ErrorIgnored:
+          type: boolean
+        SupplyId:
+          type: integer
+          format: int32
+        FreeTextType:
+          type: string
+          enum:
+          - Medication
+          - Supply
+          - Compound
+        ClinicId:
+          type: integer
+          format: int32
+        SupervisorId:
+          type: integer
+          format: int32
+        IsUrgent:
+          type: boolean
+        IsRxRenewal:
+          type: boolean
+        RxRenewalNote:
+          type: string
+        Strength:
+          type: string
+        PatientMedicationId:
+          type: integer
+          format: int32
+        MedicationStatus:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        Comment:
+          type: string
+        DateInactive:
+          type: string
+          format: date-time
+        Encounter:
+          type: string
+        DisplayName:
+          type: string
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Schedule:
+          type: integer
+          format: int32
+        CompoundIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompoundIngredient'
+    UpdatePrescriptionMedicationStatusRequest:
+      type: object
+      required:
+      - Status
+      properties:
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        InactiveDate:
+          type: string
+          format: date-time
+    CancelPrescriptionRequest:
+      type: object
+      properties:
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    MedicationSnapshot:
+      type: object
+      properties:
+        DisplayName:
+          type: string
+        Schedule:
+          type: integer
+          format: int32
+        State:
+          type: string
+        Strength:
+          type: string
+        Route:
+          type: string
+        GenericDrugName:
+          type: string
+        IsRx:
+          type: boolean
+        OTC:
+          type: boolean
+        NDC_UPC_HRI:
+          type: string
+        NDC_UPC_HRI_Type:
+          type: integer
+          format: int32
+    CompoundIngredient:
+      type: object
+      required:
+      - Quantity
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        IsFreeTextEPCS:
+          type: boolean
+    PrescriptionDiagnosisIds:
+      type: object
+      properties:
+        PrimaryDiagnosisId:
+          type: integer
+          format: int32
+        SecondaryDiagnosisId:
+          type: integer
+          format: int32
+    SendPrescriptionsRequest:
+      type: object
+      required:
+      - PrescriptionIds
+      properties:
+        Pin:
+          type: string
+          pattern: ^(?:\d{4})?$
+        PrescriptionIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        PharmacyOverride:
+          type: boolean
+    SendPrescriptionsWithAddressRequest:
+      type: object
+      required:
+      - Address1
+      - City
+      - PrescriptionIds
+      - State
+      - ZipCode
+      properties:
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+          minLength: 0
+          maxLength: 35
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        Pin:
+          type: string
+          pattern: ^(?:\d{4})?$
+        PrescriptionIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        PharmacyOverride:
+          type: boolean
+    AddressSnapshot:
+      type: object
+      properties:
+        Address1:
+          type: string
+        Address2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+    IgnoreAlertRequest:
+      type: object
+      properties:
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+    ScheduleInfo:
+      type: object
+      properties:
+        Schedule:
+          type: integer
+          format: int32
+        StateName:
+          type: string
+        ClinicId:
+          type: integer
+          format: int32
+    CopyPrescriptionRequest:
+      type: object
+      properties:
+        NewEffectiveDate:
+          type: string
+          format: date-time
+    PrescriptionResponse_2:
+      type: object
+      properties:
+        Prescription:
+          $ref: '#/components/schemas/Prescription_3'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PageResult_3:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    PagedListResponse_Prescription_2:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Prescription_3'
+        PageResult:
+          $ref: '#/components/schemas/PageResult_3'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Prescription_3:
+      type: object
+      properties:
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosis'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosis'
+        Refills:
+          type: string
+        PrescriptionId:
+          type: integer
+          format: int32
+        WrittenDate:
+          type: string
+          format: date-time
+        Directions:
+          type: string
+        Quantity:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        DaysSupply:
+          type: integer
+          format: int32
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        LastFillDate:
+          type: string
+          format: date-time
+        PrescriberId:
+          type: integer
+          format: int32
+        PrescriberAgentId:
+          type: integer
+          format: int32
+        RxReferenceNumber:
+          type: string
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Entered
+          - Printed
+          - Sending
+          - eRxSent
+          - FaxSent
+          - Error
+          - Deleted
+          - Requested
+          - Edited
+          - EpcsError
+          - EpcsSigned
+          - ReadyToSign
+          - PharmacyVerified
+          - PharmacySelect
+        Formulary:
+          type: boolean
+        EligibilityId:
+          type: integer
+          format: int32
+        Type:
+          type: string
+          enum:
+          - Coded
+          - FreeText
+          - NDC
+          - Supply
+          - Compound
+        NonDoseSpotPrescriptionId:
+          type: string
+        ErrorIgnored:
+          type: boolean
+        SupplyId:
+          type: integer
+          format: int32
+        FreeTextType:
+          type: string
+          enum:
+          - Medication
+          - Supply
+          - Compound
+        ClinicId:
+          type: integer
+          format: int32
+        SupervisorId:
+          type: integer
+          format: int32
+        IsUrgent:
+          type: boolean
+        IsRxRenewal:
+          type: boolean
+        RxRenewalNote:
+          type: string
+        Strength:
+          type: string
+        PatientMedicationId:
+          type: integer
+          format: int32
+        MedicationStatus:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        Comment:
+          type: string
+        DateInactive:
+          type: string
+          format: date-time
+        Encounter:
+          type: string
+        DisplayName:
+          type: string
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Schedule:
+          type: integer
+          format: int32
+        CompoundIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompoundIngredient'
   securitySchemes:
     bearerAuth:
       type: http
@@ -226,3 +2981,7 @@ components:
       in: header
       name: Subscription-Key
       description: Per-application subscription key issued by DoseSpot.
+x-refined-from:
+- dosespot-openapi.yml
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

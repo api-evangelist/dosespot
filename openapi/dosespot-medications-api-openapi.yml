@@ -1,20 +1,15 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: DoseSpot Medications API
-  description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.
-  termsOfService: https://dosespot.com/
-  contact:
-    name: DoseSpot Support
-    url: https://dosespot.com/full-integration/
-  version: '2.0'
+  title: Dosespot Medications API
+  version: '1.0'
+  description: 'Operations tagged Medications across 3 of this provider''s published API definitions: dosespot-openapi.yml, dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://my.dosespot.com/webapi/v2
   description: Production
 - url: https://my.staging.dosespot.com/webapi/v2
   description: Staging
-security:
-- bearerAuth: []
-  subscriptionKey: []
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Medications
   description: Medi-Span drug search and interaction checks.
@@ -43,6 +38,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MedicationSearchResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
+    servers:
+    - url: https://my.dosespot.com/webapi/v2
+      description: Production
+    - url: https://my.staging.dosespot.com/webapi/v2
+      description: Staging
   /medications/interactions:
     post:
       operationId: checkMedicationInteractions
@@ -63,49 +66,259 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InteractionCheckResult'
+      security:
+      - bearerAuth: []
+        subscriptionKey: []
+    servers:
+    - url: https://my.dosespot.com/webapi/v2
+      description: Production
+    - url: https://my.staging.dosespot.com/webapi/v2
+      description: Staging
+  /api/dispenseUnits:
+    get:
+      tags:
+      - Medications
+      summary: Get Dispense Units
+      description: Returns a detailed list of all types of dispense units available for prescription requests
+      operationId: Medications_GetStandardDispenseUnitsV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_StandardDispenseUnitType'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_StandardDispenseUnitType'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_StandardDispenseUnitType'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_StandardDispenseUnitType'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_StandardDispenseUnitType'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/dispenseUnits/{dispenseUnitId}:
+    get:
+      tags:
+      - Medications
+      summary: Get Dispense Unit By Id
+      description: Lists the details of a specified dispense unit type
+      operationId: Medications_GetStandardDispenseUnitByIDV2
+      parameters:
+      - name: dispenseUnitId
+        in: path
+        description: Dispense units id
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_StandardDispenseUnitType'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_StandardDispenseUnitType'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_StandardDispenseUnitType'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_StandardDispenseUnitType'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_StandardDispenseUnitType'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/medications/searchByRxCUI:
+    get:
+      tags:
+      - Medications
+      summary: Get dispensable drugs by rxCUI
+      description: Returns a list of drugs based on an rxCUI
+      operationId: Medications_MedicationSearchRxCUIV2
+      parameters:
+      - name: rxCUI
+        in: query
+        description: ''
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_MedicationSelectResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_MedicationSelectResult'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_MedicationSelectResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_MedicationSelectResult'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_MedicationSelectResult'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/medications/search:
+    get:
+      tags:
+      - Medications
+      summary: Search for drugs
+      description: Returns a list of relevant dispensable drugs matching a specified drug name of three or more characters.
+      operationId: Medications_MedicationSearchV2
+      parameters:
+      - name: pageNumber
+        in: query
+        description: Starting page number (1-based)
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: name
+        in: query
+        required: true
+        schema:
+          type: string
+          pattern: ^.{2,}$
+      - name: drugStatus
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - Active
+          - Inactive
+          - All
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_MedicationSearchResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_MedicationSearchResult'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_MedicationSearchResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_MedicationSearchResult'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_MedicationSearchResult'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/medications/select:
+    get:
+      tags:
+      - Medications
+      summary: Get dispensable drug detail
+      description: Selects a drug based on rxCUI OR NDC OR DispensableDrugId.
+      operationId: Medications_MedicationSelectV2
+      parameters:
+      - name: dispensableDrugId
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: nDC
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: rXCUI
+        in: query
+        required: false
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_MedicationSelectResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_MedicationSelectResult'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_MedicationSelectResult'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_MedicationSelectResult'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ItemResponse_MedicationSelectResult'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/medications/monograph:
+    get:
+      tags:
+      - Medications
+      summary: Get Drug Monograph
+      description: Get a drug monograph based on a DispensableDrugId or an NDC.
+      operationId: Medications_GetDrugMonographV2
+      parameters:
+      - name: dispensableDrugId
+        in: query
+        description: DispensableDrugId
+        required: false
+        schema:
+          type: integer
+          format: int32
+          maximum: 2147483645
+          minimum: 1
+      - name: nDC
+        in: query
+        description: Drug NDC
+        required: false
+        schema:
+          type: string
+      - name: monographFormat
+        in: query
+        description: Return XML or HTML defaults to HTML
+        required: false
+        schema:
+          type: string
+          enum:
+          - HTML
+          - XML
+          maximum: 2
+          minimum: 1
+      responses:
+        '200':
+          description: HTML or XML of the Drug Monograph or 'We could not locate the drug monograph at this time'.
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    PageResult:
+    ResultStatus:
       type: object
       properties:
-        CurrentPage:
-          type: integer
-        TotalPages:
-          type: integer
-        PageSize:
-          type: integer
-        HasPrevious:
-          type: boolean
-        HasNext:
-          type: boolean
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
-    InteractionCheckResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Interactions:
-            type: array
-            items:
-              type: object
-              properties:
-                Severity:
-                  type: string
-                Description:
-                  type: string
-    InteractionCheckRequest:
-      type: object
-      properties:
-        PatientId:
-          type: integer
-        MedicationIds:
-          type: array
-          items:
-            type: integer
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
     MedicationSearchResult:
       allOf:
       - $ref: '#/components/schemas/ApiResult'
@@ -117,14 +330,15 @@ components:
               $ref: '#/components/schemas/Medication'
           PageResult:
             $ref: '#/components/schemas/PageResult'
-    ResultStatus:
+    InteractionCheckRequest:
       type: object
       properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
+        PatientId:
+          type: integer
+        MedicationIds:
+          type: array
+          items:
+            type: integer
     Medication:
       type: object
       properties:
@@ -147,6 +361,273 @@ components:
         Schedule:
           type: string
           description: DEA schedule for controlled substances.
+    InteractionCheckResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Interactions:
+            type: array
+            items:
+              type: object
+              properties:
+                Severity:
+                  type: string
+                Description:
+                  type: string
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    ItemResponse_StandardDispenseUnitType:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/StandardDispenseUnitType'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    ListResponse_MedicationSelectResult:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/MedicationSelectResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    MedicationSearchResult_2:
+      type: object
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        RoutedDoseFormDrugId:
+          type: integer
+          format: int32
+        NDC:
+          type: string
+        RXCUI:
+          type: integer
+          format: int32
+        NameWithRouteDoseForm:
+          type: string
+        Strength:
+          type: string
+        IsObsolete:
+          type: boolean
+    PagedListResponse_MedicationSearchResult:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/MedicationSearchResult_2'
+        PageResult:
+          $ref: '#/components/schemas/PageResult_2'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ItemResponse_MedicationSelectResult:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/MedicationSelectResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    StandardDispenseUnitType:
+      type: object
+      properties:
+        StandardDispenseUnitTypeID:
+          type: integer
+          format: int32
+        Name:
+          type: string
+        Abbreviation:
+          type: string
+        Singular:
+          type: string
+        Plural:
+          type: string
+        SingularOrPlural:
+          type: string
+        PotencyUnitCode:
+          type: string
+        IsActive:
+          type: boolean
+    ListResponse_StandardDispenseUnitType:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/StandardDispenseUnitType'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    MedicationSelectResult:
+      type: object
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        NDC:
+          type: string
+        RXCUI:
+          type: integer
+          format: int32
+        DisplayName:
+          type: string
+        DrugName:
+          type: string
+        Route:
+          type: string
+        DoseForm:
+          type: string
+        Strength:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Brand:
+          type: boolean
+        GenericDrugName:
+          type: string
+        OTC:
+          type: boolean
+        IsObsolete:
+          type: boolean
+        DrugClassification:
+          type: string
+        Schedule:
+          type: integer
+          format: int32
+        StateSchedule:
+          type: array
+          items:
+            $ref: '#/components/schemas/StateSchedule'
+    StateSchedule:
+      type: object
+      properties:
+        StateName:
+          type: string
+        Schedule:
+          type: integer
+          format: int32
+    PageResult_2:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    MedicationSearchResult_3:
+      type: object
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        RoutedDoseFormDrugId:
+          type: integer
+          format: int32
+        NDC:
+          type: string
+        RXCUI:
+          type: integer
+          format: int32
+        NameWithRouteDoseForm:
+          type: string
+        Strength:
+          type: string
+        IsObsolete:
+          type: boolean
+    PagedListResponse_MedicationSearchResult_2:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/MedicationSearchResult_3'
+        PageResult:
+          $ref: '#/components/schemas/PageResult_3'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PageResult_3:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
   securitySchemes:
     bearerAuth:
       type: http
@@ -158,3 +639,7 @@ components:
       in: header
       name: Subscription-Key
       description: Per-application subscription key issued by DoseSpot.
+x-refined-from:
+- dosespot-openapi.yml
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

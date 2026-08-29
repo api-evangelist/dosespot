@@ -1,0 +1,1164 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Prior Authorizations API
+  version: '1.0'
+  description: 'Operations tagged PriorAuthorizations across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: PriorAuthorizations
+paths:
+  /api/priorAuths/{priorAuthId}:
+    get:
+      tags:
+      - PriorAuthorizations
+      summary: Get Single Prior Authorization Case By Id
+      description: Retrieves Details For A Single Prior Authorization Case
+      operationId: PriorAuthorizations_GetSinglePriorAuthorizationCaseByIdV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: Prior Authorization Case ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationCaseFullDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationCaseFullDetails'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationCaseFullDetails'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationCaseFullDetails'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationCaseFullDetails'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/patients/{patientId}/priorAuths:
+    get:
+      tags:
+      - PriorAuthorizations
+      summary: List PA Cases In Progress For Patient
+      description: "Lists the patient's in-progress prior authorization cases. An in-progress case is one that has received an initiation response and not in one of the terminal statuses.\n            This is the same filter as the UI."
+      operationId: PriorAuthorizations_GetInProgressPriorAuthCasesV2
+      parameters:
+      - name: patientId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PriorAuthorizationCaseFullDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PriorAuthorizationCaseFullDetails'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PriorAuthorizationCaseFullDetails'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PriorAuthorizationCaseFullDetails'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListResponse_PriorAuthorizationCaseFullDetails'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/history:
+    get:
+      tags:
+      - PriorAuthorizations
+      summary: Get PA history of a case
+      description: Get PA history of a prior authorization case
+      operationId: PriorAuthorizations_GetPAHistoryV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: PriorAuth Case ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationHistoryResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationHistoryResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationHistoryResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationHistoryResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationHistoryResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/statusLog:
+    get:
+      tags:
+      - PriorAuthorizations
+      summary: Get Status Log for Specific Prior Authorization Case By Id
+      description: Status Log for Specific Prior Authorization Case By Id
+      operationId: PriorAuthorizations_GetPriorAuthorizationStatusLogV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: Prior Authorization Case ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/questions/{questionId}:
+    get:
+      tags:
+      - PriorAuthorizations
+      summary: Get Single Question By Id
+      description: Gets the details of a single prior authorization question
+      operationId: PriorAuthorizations_GetSingleQuestionDetailsByIdV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: Question ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: questionId
+        in: path
+        description: Question ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthQuestionResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthQuestionResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthQuestionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthQuestionResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthQuestionResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/attachments/{attachmentId}:
+    get:
+      tags:
+      - PriorAuthorizations
+      summary: Download Attachment
+      description: Downloads an attachment as a file
+      operationId: PriorAuthorizations_DownloadAttachmentV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: attachmentId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+            application/problem+json:
+              schema:
+                type: object
+            application/xml:
+              schema:
+                type: object
+            text/xml:
+              schema:
+                type: object
+    delete:
+      tags:
+      - PriorAuthorizations
+      summary: Delete an Attachment
+      description: Deletes a specific attachment of a prior authorization case
+      operationId: PriorAuthorizations_DeleteAttachmentV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: priorAuthCaseId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: attachmentId
+        in: path
+        description: ''
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/initiate:
+    post:
+      tags:
+      - PriorAuthorizations
+      summary: Initiate Prior Authorization
+      description: Initiates prior authorization for a patients prescription
+      operationId: PriorAuthorizations_InitiatePriorAuthorizationV2
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthInitiationRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthInitiationRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthInitiationRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PriorAuthInitiationRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PriorAuthInitiationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PriorAuthInitiationRequest'
+        description: PriorAuthInitiationRequest
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/appeal:
+    post:
+      tags:
+      - PriorAuthorizations
+      summary: Appeal Case By Id
+      description: Appeals prior authorization case
+      operationId: PriorAuthorizations_AppealCaseV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: PriorAuth Case ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthorizationAppealRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthorizationAppealRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthorizationAppealRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PriorAuthorizationAppealRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PriorAuthorizationAppealRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PriorAuthorizationAppealRequest'
+        description: PriorAuthorizationAppealRequest
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/cancel:
+    post:
+      tags:
+      - PriorAuthorizations
+      summary: Cancel PA Case By Id
+      description: Cancels an active prior authorization case
+      operationId: PriorAuthorizations_CancelPriorAuthCaseV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: PriorAuth Case ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/denied:
+    post:
+      tags:
+      - PriorAuthorizations
+      summary: Deny Case By Id
+      description: Denies offline or online prior authorization cases
+      operationId: PriorAuthorizations_DenyPACaseV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: priorAuthCaseId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/remove:
+    post:
+      tags:
+      - PriorAuthorizations
+      summary: Remove PA Case By Id
+      description: Removes a prior authorzation case
+      operationId: PriorAuthorizations_RemovePriorAuthCaseV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: PriorAuth Case ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/submit:
+    post:
+      tags:
+      - PriorAuthorizations
+      summary: Submit PA Answers
+      description: Submits anwsers of a prior authorization case, which will send the answers out
+      operationId: PriorAuthorizations_SubmitPAAnswersV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: PriorAuth Case ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/attachments:
+    post:
+      tags:
+      - PriorAuthorizations
+      summary: Upload Attachment
+      description: Adds a single attachment to a prior authorization case
+      operationId: PriorAuthorizations_UploadAttachmentV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: priorAuthCaseId
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/IdentifierResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/approveOffline:
+    post:
+      tags:
+      - PriorAuthorizations
+      summary: Approve Offline Case By Id
+      description: Approves an offline prior authorization case
+      operationId: PriorAuthorizations_ApproveOfflineCaseV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: PriorAuth Case ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Response'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthApproveOfflineRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthApproveOfflineRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthApproveOfflineRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PriorAuthApproveOfflineRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PriorAuthApproveOfflineRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PriorAuthApproveOfflineRequest'
+        description: PriorAuthorizationApproveOfflineRequest
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /api/priorAuths/{priorAuthId}/questions/{questionId}/answer:
+    post:
+      tags:
+      - PriorAuthorizations
+      summary: Answer PA Question
+      description: Adds an answer to a single question of a prior authorization case
+      operationId: PriorAuthorizations_PAAnswerSingleQuestionV2
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: Prior Authorization Case ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: questionId
+        in: path
+        description: Prior Authorization Question ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthAnswerSingleQuestionResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthAnswerSingleQuestionResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthAnswerSingleQuestionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthAnswerSingleQuestionResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthAnswerSingleQuestionResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthAnswerRequest'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthAnswerRequest'
+          application/problem+json:
+            schema:
+              $ref: '#/components/schemas/PriorAuthAnswerRequest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PriorAuthAnswerRequest'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/PriorAuthAnswerRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PriorAuthAnswerRequest'
+        description: PriorAuthorizationAnswer
+        required: true
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+  /ui/priorAuths/{priorAuthId}/statusLog:
+    get:
+      tags:
+      - PriorAuthorizations
+      summary: Get Status Log for Specific Prior Authorization Case By Id
+      description: Status Log for Specific Prior Authorization Case By Id
+      operationId: PriorAuthorizationsInternal_GetPriorAuthorizationStatusLogV2UI
+      parameters:
+      - name: priorAuthId
+        in: path
+        description: Prior Authorization Case ID
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    PriorAuthApproveOfflineRequest:
+      type: object
+      required:
+      - AuthorizationNumber
+      properties:
+        AuthorizationNumber:
+          type: string
+    PAStatusLog:
+      type: object
+      properties:
+        Status:
+          type: string
+        AdditionalInfoAttachmentId:
+          type: integer
+          format: int32
+        AdditionalInfo:
+          type: string
+        CreatedDateStamp:
+          type: string
+          format: date-time
+    PriorAuthorizationChoiceAnswer:
+      type: object
+      properties:
+        PriorAuthorizationQuestionChoiceId:
+          type: integer
+          format: int32
+        PriorAuthorizationQuestionChoiceText:
+          type: string
+    PriorAuthorizationAppealRequest:
+      type: object
+      required:
+      - AppealReason
+      properties:
+        AppealReason:
+          type: string
+    PACancelDetails:
+      type: object
+      properties:
+        CancelReason:
+          type: string
+    PriorAuthAnswerRequest:
+      type: object
+      properties:
+        PriorAuthorizationQuestionChoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriorAuthorizationChoiceAnswer'
+        DateTimeAnswer:
+          type: string
+          format: date-time
+        NumericAnswer:
+          type: number
+          format: double
+        FreeTextAnswer:
+          type: string
+    PAFinalStatus:
+      type: object
+      properties:
+        PriorAuthorizationStatusType:
+          type: string
+          enum:
+          - Unknown
+          - Requested
+          - NotRequired
+          - Closed
+          - Deferred
+          - ActionRequired
+          - Pending
+          - Approved
+          - Denied
+          - AppealRequested
+          - CancelRequested
+          - Canceled
+          - CancelDenied
+          - Error
+          - Deleted
+          - PartiallyDenied
+          - InProcess
+        ClosedReasonCodeId:
+          type: string
+          enum:
+          - Unknown
+          - ElectronicPriorAuthNotSupported
+          - Other
+          - PriorAuthNotRequired
+          - CannotFindMatchingPatient
+          - PatientNotEligible
+          - PriorAuthDuplicateApproved
+          - PriorAuthDuplicateInProcess
+          - ClosedByPayer
+          - ClosedByProvider
+          - ClosedByMember
+          - AttachmentTypeNotSupported
+          - PrescriberNotAllowedToSubmitPARequest
+          - ResponseInconsistentWithQuestion
+          - ReceiverNotPAProcessorForThisPatient
+          - ReceiverNotPAProcessorForPatientMedicationCombo
+          - DuplicateDenied
+          - ProviderRespondedAfterDeadlineToReply
+          - ProductNotCoveredByThisPlanPriorAuthorizationNotAvailable
+          - PrescriptionWithinPrescribingLimitsPriorAuthorizationNotRequiredForPatientMedication
+          - CoverageLimitsMayExistForQuantityAndOrDaysSupply
+          - CoverageLimitsHaveBeenExceededExceptionNotAvailable
+          - ActivePAOnFile
+          - SubmittedProductCodeIsNotValid
+        AuthorizationNumber:
+          type: string
+        AuthorizationPeriodStart:
+          type: string
+          format: date-time
+        AuthorizationPeriodEnd:
+          type: string
+          format: date-time
+        PharmacyType:
+          type: string
+          enum:
+          - Unknown
+          - Retail
+          - MailOrder
+          - SpecialtyPharmacy
+          - LongTermCarePharmacy
+          - Any
+          - TwentyFourHourPharmacy
+          - FaxPharmacy
+          - EPCS
+          - InHouseDispensing
+          - Compounding
+          - DME
+          - Kiosk
+          - SupportsDigitalSignature
+          - FaxPharmacyExternal
+        Quantity:
+          type: string
+        DaysSupply:
+          type: string
+        NumberOfCycles:
+          type: string
+        NumberOfRefills:
+          type: string
+        Note:
+          type: string
+        CanAppeal:
+          type: boolean
+    PriorAuthorizationQuestionResponseChoice:
+      type: object
+      properties:
+        QuestionChoiceId:
+          type: integer
+          format: int32
+        QuestionChoiceText:
+          type: string
+        AdditionalFreeTextRequired:
+          type: boolean
+        AdditionalFreeTextAllowed:
+          type: boolean
+    PAAttachment:
+      type: object
+      properties:
+        AttachmentId:
+          type: integer
+          format: int32
+        CreatedDateStamp:
+          type: string
+          format: date-time
+        FileName:
+          type: string
+        IsOutbound:
+          type: boolean
+    PriorAuthInitiationRequest:
+      type: object
+      properties:
+        PrescriptionId:
+          type: integer
+          format: int32
+        RxChangeId:
+          type: integer
+          format: int32
+        PatientEligibilityId:
+          type: integer
+          format: int32
+        Expedite:
+          type: boolean
+        Offline:
+          type: boolean
+    PAHistoryQuestionSet:
+      type: object
+      properties:
+        PriorAuthorizationQuestionSetId:
+          type: integer
+          format: int32
+        QuestionSetAlias:
+          type: string
+        Title:
+          type: string
+        AnsweredQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAAnsweredQuestions'
+        Attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAAttachment'
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ListResponse_PriorAuthorizationCaseFullDetails:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/PriorAuthorizationCaseFullDetails'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    PAAnsweredQuestions:
+      type: object
+      properties:
+        Question:
+          type: string
+        Answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAAnswers'
+    PAAppealDetails:
+      type: object
+      properties:
+        AppealCaseId:
+          type: string
+        NotesForAppeal:
+          type: string
+        AppealReason:
+          type: string
+    PriorAuthorizationCaseFullDetails:
+      type: object
+      properties:
+        PriorAuthorizationCaseId:
+          type: integer
+          format: int32
+        PrescriptionId:
+          type: integer
+          format: int32
+        CaseAlias:
+          type: string
+        Note:
+          type: string
+        IsOffline:
+          type: boolean
+        InitializedDate:
+          type: string
+          format: date-time
+        NextResponseDeadline:
+          type: string
+          format: date-time
+        CurrentStatus:
+          type: string
+          enum:
+          - Unknown
+          - Requested
+          - NotRequired
+          - Closed
+          - Deferred
+          - ActionRequired
+          - Pending
+          - Approved
+          - Denied
+          - AppealRequested
+          - CancelRequested
+          - Canceled
+          - CancelDenied
+          - Error
+          - Deleted
+          - PartiallyDenied
+          - InProcess
+        CurrentStatusDate:
+          type: string
+          format: date-time
+        ExpectedResponseDate:
+          type: string
+          format: date-time
+          description: Only available if an InProcess prior authorization case has been recieved
+        AttachmentRequired:
+          type: boolean
+          description: Only available if the prior authorization case is in a state that requires an attachment
+        NextQuestionId:
+          type: integer
+          format: int32
+        IsExpedited:
+          type: boolean
+        FinalStatus:
+          description: Details related to a prior authorization case that is no longer in progress
+          $ref: '#/components/schemas/PAFinalStatus'
+        AppealDetails:
+          description: Details related to an appealed prior authorization case
+          $ref: '#/components/schemas/PAAppealDetails'
+        CancelDetails:
+          description: Details related to a cancelled prior authorization case
+          $ref: '#/components/schemas/PACancelDetails'
+        Attachments:
+          type: array
+          description: A list of the attachments related to the prior authorization case
+          items:
+            $ref: '#/components/schemas/PAAttachment'
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    PriorAuthAnswerSingleQuestionResponse:
+      type: object
+      properties:
+        NextQuestionID:
+          type: integer
+          format: int32
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PriorAuthorizationHistoryResponse:
+      type: object
+      properties:
+        FinalStatus:
+          type: string
+        AuthorizationNumber:
+          type: string
+        EffectiveDate:
+          type: string
+          format: date-time
+        ExpirationDate:
+          type: string
+          format: date-time
+        Note:
+          type: string
+        CanAppeal:
+          type: string
+        IsOffline:
+          type: boolean
+        Attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAAttachment'
+        StatusLogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAStatusLog'
+        QuestionSets:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAHistoryQuestionSet'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PriorAuthQuestionResponse:
+      type: object
+      properties:
+        QuestionText:
+          type: string
+        AnswerType:
+          type: string
+          enum:
+          - Select
+          - Multiselect
+          - Date
+          - DateTime
+          - Numeric
+          - FreeText
+        AnswerChoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriorAuthorizationQuestionResponseChoice'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PAAnswers:
+      type: object
+      properties:
+        Answer:
+          type: string
+        AnswerDateTime:
+          type: string
+          format: date-time
+        AnswerNumeric:
+          type: number
+          format: double
+        AnswerFreeText:
+          type: string
+    PriorAuthStatusLogUI:
+      type: object
+      properties:
+        Status:
+          type: string
+        AdditionalInfo:
+          type: string
+        CreatedDateStamp:
+          type: string
+          format: date-time
+        Attachment:
+          $ref: '#/components/schemas/PAAttachment'
+    PriorAuthorizationStatusLogUIResponse:
+      type: object
+      properties:
+        StatusLog:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriorAuthStatusLogUI'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

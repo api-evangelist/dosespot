@@ -169,6 +169,217 @@ apis:
     url: collections/dosespot.opencollection.json
   - type: Documentation
     url: https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/
+- aid: dosespot:dosespot-allergens-api
+  name: DoseSpot Allergens API
+  description: The Allergens API from DoseSpot — 3 operation(s) for allergens.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Allergens
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-allergens-api-openapi.yml
+- aid: dosespot:dosespot-allergies-api
+  name: DoseSpot Allergies API
+  description: The Allergies API from DoseSpot — 5 operation(s) for allergies.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Allergies
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-allergies-api-openapi.yml
+- aid: dosespot:dosespot-clinicfavorites-api
+  name: DoseSpot Clinic Favorites API
+  description: The ClinicFavorites API from DoseSpot — 7 operation(s) for clinicfavorites.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - ClinicFavorites
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-clinicfavorites-api-openapi.yml
+- aid: dosespot:dosespot-clinicgroups-api
+  name: DoseSpot Clinic Groups API
+  description: The ClinicGroups API from DoseSpot — 1 operation(s) for clinicgroups.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - ClinicGroups
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-clinicgroups-api-openapi.yml
+- aid: dosespot:dosespot-clinicianfavorites-api
+  name: DoseSpot Clinician Favorites API
+  description: The ClinicianFavorites API from DoseSpot — 8 operation(s) for clinicianfavorites.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - ClinicianFavorites
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-clinicianfavorites-api-openapi.yml
+- aid: dosespot:dosespot-clinicianordersets-api
+  name: DoseSpot Clinician Order Sets API
+  description: The ClinicianOrderSets API from DoseSpot — 3 operation(s) for clinicianordersets.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - ClinicianOrderSets
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-clinicianordersets-api-openapi.yml
+- aid: dosespot:dosespot-clinicians-api
+  name: DoseSpot Clinicians API
+  description: The Clinicians API from DoseSpot — 26 operation(s) for clinicians.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Clinicians
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-clinicians-api-openapi.yml
+- aid: dosespot:dosespot-clinicordersets-api
+  name: DoseSpot Clinic Order Sets API
+  description: The ClinicOrderSets API from DoseSpot — 1 operation(s) for clinicordersets.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - ClinicOrderSets
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-clinicordersets-api-openapi.yml
+- aid: dosespot:dosespot-clinics-api
+  name: DoseSpot Clinics API
+  description: The Clinics API from DoseSpot — 7 operation(s) for clinics.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Clinics
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-clinics-api-openapi.yml
+- aid: dosespot:dosespot-diagnoses-api
+  name: DoseSpot Diagnoses API
+  description: The Diagnoses API from DoseSpot — 1 operation(s) for diagnoses.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Diagnoses
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-diagnoses-api-openapi.yml
+- aid: dosespot:dosespot-eligibilities-api
+  name: DoseSpot Eligibilities API
+  description: The Eligibilities API from DoseSpot — 4 operation(s) for eligibilities.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Eligibilities
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-eligibilities-api-openapi.yml
+- aid: dosespot:dosespot-healthcheck-api
+  name: DoseSpot Health Check API
+  description: The HealthCheck API from DoseSpot — 1 operation(s) for healthcheck.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - HealthCheck
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-healthcheck-api-openapi.yml
+- aid: dosespot:dosespot-interactions-api
+  name: DoseSpot Interactions API
+  description: The Interactions API from DoseSpot — 3 operation(s) for interactions.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Interactions
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-interactions-api-openapi.yml
+- aid: dosespot:dosespot-medicationhistory-api
+  name: DoseSpot Medication History API
+  description: The MedicationHistory API from DoseSpot — 2 operation(s) for medicationhistory.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - MedicationHistory
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-medicationhistory-api-openapi.yml
+- aid: dosespot:dosespot-narx-api
+  name: DoseSpot Narx API
+  description: The Narx API from DoseSpot — 3 operation(s) for narx.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Narx
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-narx-api-openapi.yml
+- aid: dosespot:dosespot-priorauthorizations-api
+  name: DoseSpot Prior Authorizations API
+  description: The PriorAuthorizations API from DoseSpot — 16 operation(s) for priorauthorizations.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - PriorAuthorizations
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-priorauthorizations-api-openapi.yml
+- aid: dosespot:dosespot-refills-api
+  name: DoseSpot Refills API
+  description: The Refills API from DoseSpot — 6 operation(s) for refills.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Refills
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-refills-api-openapi.yml
+- aid: dosespot:dosespot-rxchanges-api
+  name: DoseSpot Rx Changes API
+  description: The RxChanges API from DoseSpot — 6 operation(s) for rxchanges.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - RxChanges
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-rxchanges-api-openapi.yml
+- aid: dosespot:dosespot-selfreportedmedications-api
+  name: DoseSpot Self Reported Medications API
+  description: >-
+    The SelfReportedMedications API from DoseSpot — 9 operation(s) for selfreportedmedications.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - SelfReportedMedications
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-selfreportedmedications-api-openapi.yml
+- aid: dosespot:dosespot-supplies-api
+  name: DoseSpot Supplies API
+  description: The Supplies API from DoseSpot — 2 operation(s) for supplies.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Supplies
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-supplies-api-openapi.yml
+- aid: dosespot:dosespot-transparency-api
+  name: DoseSpot Transparency API
+  description: The Transparency API from DoseSpot — 1 operation(s) for transparency.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Transparency
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-transparency-api-openapi.yml
 common:
 - type: Overlay
   url: overlays/dosespot-jumpstart-epcs-v2-overlay.yaml

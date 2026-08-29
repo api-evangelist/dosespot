@@ -1,0 +1,245 @@
+openapi: 3.2.0
+info:
+  title: Dosespot Clinic Order Sets API
+  version: '1.0'
+  description: 'Operations tagged ClinicOrderSets across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
+tags:
+- name: ClinicOrderSets
+paths:
+  /api/clinic/ordersets:
+    get:
+      tags:
+      - ClinicOrderSets
+      summary: Get clinic Order Sets
+      operationId: ClinicOrderSets_GetClinicOrderSets
+      parameters:
+      - name: pageNumber
+        in: query
+        description: Gets or sets the page number for the request.Default value will be 1.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: pageSize
+        in: query
+        description: Gets or sets the page size for the request. Default value will be 20.
+        required: false
+        schema:
+          type: integer
+          format: int32
+      - name: sortOrder
+        in: query
+        description: Gets or sets the sort order for the request. Value will be Asc or Desc. Default value will be Asc.
+        required: false
+        schema:
+          type: string
+          enum:
+          - Asc
+          - Desc
+      - name: searchString
+        in: query
+        description: Gets or sets the search string for the request.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_ClinicOrderSetResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_ClinicOrderSetResponse'
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_ClinicOrderSetResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_ClinicOrderSetResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/PagedListResponse_ClinicOrderSetResponse'
+    servers:
+    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
+components:
+  schemas:
+    ClinicFavoritePrescriptionResponse:
+      type: object
+      properties:
+        ClinicFavoritePrescriptionId:
+          type: integer
+          format: int32
+        DispenseUnitTypeId:
+          type: integer
+          format: int32
+        FirstDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosis'
+        SecondDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosis'
+        MedDisplayName:
+          type: string
+        MedFullName:
+          type: string
+        MedStrengthString:
+          type: string
+        Directions:
+          type: string
+        Quantity:
+          type: string
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Refills:
+          type: integer
+          format: int32
+        DaysSupply:
+          type: integer
+          format: int32
+        NoSubstitutions:
+          type: boolean
+        Notes:
+          type: string
+        Title:
+          type: string
+        SpecialtyType:
+          type: string
+          enum:
+          - AllergyAndImmunology
+          - Dermatology
+          - Dentistry
+          - BehavioralHealth
+          - FamilyMedicine
+          - InternalMedicine
+          - ObstetricsAndGynecology
+          - Orthopedics
+          - Pediatrics
+          - PhysicalMedicine
+          - Psychiatry
+          - Urology
+        DateAdded:
+          type: string
+          format: date-time
+        DateLastUsed:
+          type: string
+          format: date-time
+        IsSupply:
+          type: boolean
+        CompoundId:
+          type: integer
+          format: int32
+        IsCompound:
+          type: boolean
+        SourceClinicId:
+          type: integer
+          format: int32
+        SupplyId:
+          type: integer
+          format: int32
+        CompoundIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompoundIngredient'
+    PagedListResponse_ClinicOrderSetResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ClinicOrderSetResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    Diagnosis:
+      type: object
+      properties:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string
+    CompoundIngredient:
+      type: object
+      required:
+      - Quantity
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        IsFreeTextEPCS:
+          type: boolean
+    PrescriptionDiagnosis:
+      type: object
+      properties:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    ClinicOrderSetResponse:
+      type: object
+      properties:
+        OrderSetId:
+          type: integer
+          format: int32
+          description: Gets or sets the unique identifier for the order set.
+        Title:
+          type: string
+          description: Gets or sets the title of the order set.
+        Favorites:
+          type: array
+          description: Gets or sets the list of favorite prescriptions associated with this order set.
+          items:
+            $ref: '#/components/schemas/ClinicFavoritePrescriptionResponse'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+x-refined-from:
+- dosespot-rest-api-full-epcs-v2-swagger.json
+- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

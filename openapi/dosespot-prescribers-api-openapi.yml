@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: DoseSpot Medications Prescribers API
+  title: DoseSpot Prescribers API
   description: DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. The REST API (v2) lets healthcare and EHR/EMR applications embed the full prescription lifecycle - patients, prescriptions, medications and drug search, pharmacies, clinicians/prescribers, eligibility, and notifications. Requests are authenticated with an OAuth2 Bearer access token obtained from the token endpoint and a per-application Subscription-Key header; access is scoped by clinic and clinician keys. Endpoint paths, request/response schemas, and field names below are modeled from DoseSpot's publicly described API v2 surface and integration guides; consult DoseSpot's partner documentation for the authoritative, complete contract.
   termsOfService: https://dosespot.com/
   contact:
@@ -79,24 +79,21 @@ paths:
                 $ref: '#/components/schemas/ClinicianResult'
 components:
   schemas:
-    PageResult:
+    ResultStatus:
       type: object
       properties:
-        CurrentPage:
-          type: integer
-        TotalPages:
-          type: integer
-        PageSize:
-          type: integer
-        HasPrevious:
-          type: boolean
-        HasNext:
-          type: boolean
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+    ClinicianResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Item:
+            $ref: '#/components/schemas/Clinician'
     Clinician:
       type: object
       properties:
@@ -137,13 +134,6 @@ components:
           type: array
           items:
             type: string
-    ClinicianResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Item:
-            $ref: '#/components/schemas/Clinician'
     ClinicianListResult:
       allOf:
       - $ref: '#/components/schemas/ApiResult'
@@ -155,14 +145,24 @@ components:
               $ref: '#/components/schemas/Clinician'
           PageResult:
             $ref: '#/components/schemas/PageResult'
-    ResultStatus:
+    ApiResult:
       type: object
       properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
   securitySchemes:
     bearerAuth:
       type: http
