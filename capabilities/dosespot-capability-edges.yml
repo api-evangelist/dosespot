@@ -1,0 +1,117 @@
+slug: dosespot
+provider: DoseSpot
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Healthcare Providers
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 10
+edges:
+- tag: ClinicianOrderSets
+  spec_file: dosespot-clinicianordersets-api-openapi.yml
+  capability_id: BC-2830.20
+  capability_id_l1: BC-2830
+  capability_name: Computerised Provider Order Entry
+  confidence: 0.85
+  evidence: '"Get clinician Order Sets", "Add an Order Set", schema OrderSetDetailsResponse'
+  reason: Order set creation and maintenance for prescribing is explicitly part of Computerised Provider
+    Order Entry (order sets and clinical protocols).
+- tag: Eligibilities
+  spec_file: dosespot-eligibilities-api-openapi.yml
+  capability_id: BC-2800.30
+  capability_id_l1: BC-2800
+  capability_name: Eligibility & Benefits Verification
+  confidence: 0.85
+  evidence: '"Get patient''s insurance information", "Get patient''s medication coverage", "Get prescription
+    benefits", schema PayerInformationResponse'
+  reason: Retrieval of payer coverage, formulary and prescription benefits for a patient is insurance
+    eligibility and benefits verification.
+- tag: Interactions
+  spec_file: dosespot-interactions-api-openapi.yml
+  capability_id: BC-2830.40
+  capability_id_l1: BC-2830
+  capability_name: Clinical Decision Support
+  confidence: 0.85
+  evidence: '"Check drug-drug interactions", "Get allergies interactions", schemas DrugInteraction, AllergyInteraction'
+  reason: Real-time drug-drug and drug-allergy interaction screening at prescribing time is clinical decision
+    support alerting.
+- tag: ClinicianFavorites
+  spec_file: dosespot-clinicianfavorites-api-openapi.yml
+  capability_id: BC-2830.20
+  capability_id_l1: BC-2830
+  capability_name: Computerised Provider Order Entry
+  confidence: 0.8
+  evidence: '"Get clinician''s favorite prescriptions", "Add clinician favorite coded Prescription", schema
+    ClinicianPrescriptionFavoriteCompiledCompoundRequest'
+  reason: Clinician-maintained favourite prescription templates used to speed provider order entry of
+    medications — computerised provider order entry / order sets territory within clinical documentation.
+- tag: Narx
+  spec_file: dosespot-narx-api-openapi.yml
+  capability_id: BC-2850.50
+  capability_id_l1: BC-2850
+  capability_name: Controlled-Substance Stewardship
+  confidence: 0.75
+  evidence: '"Get patient Narx Report", "Get latest patient NARX/PDMP data timestamp"'
+  reason: NARX scores and PDMP data retrieval support controlled-substance monitoring and diversion/misuse
+    risk assessment at the point of prescribing.
+- tag: Prescriptions
+  spec_file: dosespot-prescriptions-api-openapi.yml
+  capability_id: BC-2830.20
+  capability_id_l1: BC-2830
+  capability_name: Computerised Provider Order Entry
+  confidence: 0.75
+  evidence: POST /patients/{patientId}/prescriptions createPatientPrescription Create a prescription;
+    GET /api/patients/{patientId}/prescriptions/{prescriptionId}/epcsSuggestions Get EPCS Suggested Prescription
+    Schedule; SendEpcsPrescriptionsRequest
+  reason: The operations author, edit, sign/send and log electronic prescriptions for a patient, i.e.
+    clinician order entry for medications, which is exactly Computerised Provider Order Entry. Some overlap
+    with pharmacy dispensing and medication history keeps this below 0.8.
+- tag: ClinicOrderSets
+  spec_file: dosespot-clinicordersets-api-openapi.yml
+  capability_id: BC-2830.20
+  capability_id_l1: BC-2830
+  capability_name: Computerised Provider Order Entry
+  confidence: 0.72
+  evidence: GET /api/clinic/ordersets  'Get clinic Order Sets'; schema ClinicOrderSetResponse
+  reason: Retrieval of clinic prescription order sets, which the capability definition explicitly places
+    within provider order entry ('order sets and clinical protocols').
+- tag: ClinicFavorites
+  spec_file: dosespot-clinicfavorites-api-openapi.yml
+  capability_id: BC-2830.20
+  capability_id_l1: BC-2830
+  capability_name: Computerised Provider Order Entry
+  confidence: 0.7
+  evidence: POST /api/clinics/{clinicId}/prescriptionFavorites/coded  'Add Clinic Coded Medication Favorite
+    Prescription'; schema ClinicPrescriptionFavoriteMedicationRequest with PrescriptionDiagnosis
+  reason: Curation of clinic-level favourite prescription templates used when writing medication orders
+    — order-set/order-entry support within provider order entry.
+- tag: MedicationHistory
+  spec_file: dosespot-medicationhistory-api-openapi.yml
+  capability_id: BC-2850.40
+  capability_id_l1: BC-2850
+  capability_name: Medication Administration & Reconciliation
+  confidence: 0.7
+  evidence: '"Get patient''s medication history", "Log patient''s medication history consent", schema
+    SureScriptsHistoryMedication'
+  reason: Retrieval of external medication fill history for a patient supports medication reconciliation
+    across transitions; alternative reading as documentation, hence moderate confidence.
+- tag: Patients
+  spec_file: dosespot-patients-api-openapi.yml
+  capability_id: BC-2800.20
+  capability_id_l1: BC-2800
+  capability_name: Patient Registration Management
+  confidence: 0.7
+  evidence: POST /patients createPatient Create a patient; GET /api/patients/{patientId} Patients_GetPatientDemographicDataV2
+    Get patient demographics; PUT ... Patients_EditPatientDemographicDataV2 Edit patient demographics;
+    PUT /api/patients/{patientId}/SSN Add/Update Patient SSN details
+  reason: Operations create, update and search patient records and maintain demographic/identity attributes
+    (name, demographics, SSN), which is capture and stewardship of patient registration data rather than
+    any clinical or billing act. The merge endpoint hints at MPI stewardship, but the bulk of the surface
+    is demographic record capture, so Patient Registration Management is the closest fit; ambiguity with
+    BC-2900.10 keeps confidence moderate.

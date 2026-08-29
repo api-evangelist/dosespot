@@ -381,6 +381,9 @@ apis:
   - type: OpenAPI
     url: openapi/dosespot-transparency-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/dosespot-capability-edges.yml
+  name: DoseSpot Business Capability Map
 - type: Overlay
   url: overlays/dosespot-jumpstart-epcs-v2-overlay.yaml
 - type: AgenticAccess
