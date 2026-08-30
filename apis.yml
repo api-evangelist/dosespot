@@ -285,6 +285,8 @@ apis:
   humanURL: https://dosespot.com/full-integration/
   baseURL: https://my.dosespot.com/webapi/v2
   tags:
+  - Health Check
+  tags_raw:
   - HealthCheck
   properties:
   - type: OpenAPI
@@ -305,6 +307,8 @@ apis:
   humanURL: https://dosespot.com/full-integration/
   baseURL: https://my.dosespot.com/webapi/v2
   tags:
+  - Medication History
+  tags_raw:
   - MedicationHistory
   properties:
   - type: OpenAPI
