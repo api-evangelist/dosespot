@@ -1,19 +1,1314 @@
-generated: '2026-07-15'
+generated: '2026-09-16'
 method: generated
-source: openapi/dosespot-openapi.yml
+source: openapi/dosespot-allergens-api-openapi.yml, openapi/dosespot-allergies-api-openapi.yml,
+  openapi/dosespot-clinicfavorites-api-openapi.yml, openapi/dosespot-clinicgroups-api-openapi.yml,
+  openapi/dosespot-clinicianfavorites-api-openapi.yml, openapi/dosespot-clinicianordersets-api-openapi.yml,
+  openapi/dosespot-clinicians-api-openapi.yml, openapi/dosespot-clinicordersets-api-openapi.yml,
+  openapi/dosespot-clinics-api-openapi.yml, openapi/dosespot-diagnoses-api-openapi.yml, openapi/dosespot-eligibilities-api-openapi.yml,
+  openapi/dosespot-health-check-api-openapi.yml, openapi/dosespot-interactions-api-openapi.yml,
+  openapi/dosespot-medicationhistory-api-openapi.yml, openapi/dosespot-medications-api-openapi.yml,
+  openapi/dosespot-narx-api-openapi.yml, openapi/dosespot-notifications-api-openapi.yml, openapi/dosespot-patients-api-openapi.yml,
+  openapi/dosespot-pharmacies-api-openapi.yml, openapi/dosespot-prescribers-api-openapi.yml,
+  openapi/dosespot-prescriptions-api-openapi.yml, openapi/dosespot-priorauthorizations-api-openapi.yml,
+  openapi/dosespot-refills-api-openapi.yml, openapi/dosespot-rxchanges-api-openapi.yml, openapi/dosespot-selfreportedmedications-api-openapi.yml,
+  openapi/dosespot-supplies-api-openapi.yml, openapi/dosespot-transparency-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 17
+  operations: 188
   by_action_class:
-    connected: 11
-    acting: 6
+    connected: 80
+    acting: 108
   by_consequence:
-    read: 11
-    write: 6
-  human_in_the_loop_required: 0
+    read: 80
+    write: 98
+    physical: 8
+    safety-critical: 2
+  human_in_the_loop_required: 2
 operations:
+- path: /api/allergens/{allergenId}
+  method: get
+  operationId: Allergens_GetAllergenByIDV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/allergens/searchByRxCUI
+  method: get
+  operationId: Allergens_SearchByRxCUI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/allergens/search
+  method: get
+  operationId: Allergens_AllergenSearchV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/allergies
+  method: get
+  operationId: Allergies_GetPatientAllergiesV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/allergies/{patientAllergyId}
+  method: put
+  operationId: Allergies_EditPatientAllergyV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/allergies/coded
+  method: post
+  operationId: Allergies_AddCodedPatientAllergyV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/allergies/freetext
+  method: post
+  operationId: Allergies_AddFreetextPatientAllergyV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/allergies/noKnownAllergy
+  method: post
+  operationId: Allergies_AddNoKnownPatientAllergyV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinics/{clinicId}/prescriptionFavorites
+  method: get
+  operationId: ClinicFavorites_GetClinicPrescriptionFavoritesV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinics/{clinicId}/prescriptionFavorites/coded/{favoriteId}
+  method: put
+  operationId: ClinicFavorites_EditClinicCodedMedicationFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinics/{clinicId}/prescriptionFavorites/supply/{favoriteId}
+  method: put
+  operationId: ClinicFavorites_EditClinicSupplyFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinics/{clinicId}/prescriptionFavorites/compiledcompound/{favoriteId}
+  method: put
+  operationId: ClinicFavorites_EditClinicCompiledCompoundFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinics/{clinicId}/prescriptionFavorites/coded
+  method: post
+  operationId: ClinicFavorites_AddClinicCodedMedicationFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinics/{clinicId}/prescriptionFavorites/supply
+  method: post
+  operationId: ClinicFavorites_AddClinicSupplyFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinics/{clinicId}/prescriptionFavorites/compiledcompound
+  method: post
+  operationId: ClinicFavorites_AddClinicCompiledCompoundFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicGroups
+  method: post
+  operationId: ClinicGroups_AddEditClinicGroupV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}/prescriptionFavorites
+  method: get
+  operationId: ClinicianFavorites_GetClinicianPrescriptionFavoritesV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/prescriptionFavorites/coded/{favoriteId}
+  method: put
+  operationId: ClinicianFavorites_EditClinicianCodedPrescriptionFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/prescriptionFavorites/supply/{favoriteId}
+  method: put
+  operationId: ClinicianFavorites_EditClinicianSupplyFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/prescriptionFavorites/compiledcompound/{favoriteId}
+  method: put
+  operationId: ClinicianFavorites_EditClinicianCompiledCompoundFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/prescriptionFavorites/coded
+  method: post
+  operationId: ClinicianFavorites_AddClinicianPrescriptionFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/prescriptionFavorites/supply
+  method: post
+  operationId: ClinicianFavorites_AddClinicianSupplyFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/prescriptionFavorites/compiledcompound
+  method: post
+  operationId: ClinicianFavorites_AddClinicianCompiledCompoundFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/prescriptionFavorites
+  method: delete
+  operationId: ClinicianFavorites_DeleteClinicianFavoriteV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/ordersets/{orderSetId}/details
+  method: get
+  operationId: ClinicianOrderSets_GetClinicianOrderSetDetailsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/ordersets
+  method: get
+  operationId: ClinicianOrderSets_GetClinicianOrderSetsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/ordersets
+  method: post
+  operationId: ClinicianOrderSets_AddClinicianOrderSetV2
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/ordersets/{orderSetId}
+  method: put
+  operationId: ClinicianOrderSets_UpdateClinicianOrderSetV2
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/ordersets/{orderSetId}
+  method: delete
+  operationId: ClinicianOrderSets_DeleteClinicianOrderSetV2
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/pdmp
+  method: get
+  operationId: Clinicians_GetClinicianPDMPV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/idpDisclaimer
+  method: get
+  operationId: Clinicians_GetIdentityProofingDisclaimerV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/idpDisclaimer
+  method: post
+  operationId: Clinicians_AcceptIdentityProofingDisclaimerV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}
+  method: get
+  operationId: Clinicians_GetClinicianDetailsByIdV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/{clinicianId}
+  method: put
+  operationId: Clinicians_PutClinicianEditV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinician
+  method: get
+  operationId: Clinicians_GetClinicianByNpiOrDeaV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/clinicians
+  method: get
+  operationId: Clinicians_GetPatientCliniciansV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/{clinicianId}/legalAgreements
+  method: get
+  operationId: Clinicians_GetClinicianLegalAgreementsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/{clinicianId}/registrationStatus
+  method: get
+  operationId: Clinicians_ClinicianCheckRegistrationStatusV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/prescriptions/{prescriptionId}/prescriberInfo
+  method: get
+  operationId: Clinicians_GetPrescriptionPrescriberInfoAPIV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/pin
+  method: post
+  operationId: Clinicians_SetPinV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/pin
+  method: put
+  operationId: Clinicians_ChangePinV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}/supervisors
+  method: put
+  operationId: Clinicians_AddSupervisorToClinicianV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}/supervisors
+  method: delete
+  operationId: Clinicians_DeleteSupervisorToClinicianV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians
+  method: post
+  operationId: Clinicians_ClinicianAddV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/idp
+  method: post
+  operationId: Clinicians_ClinicianIdentityProofingV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/idpOtp
+  method: post
+  operationId: Clinicians_ClinicianIdentityProofingOneTimeCodeV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/resetPin
+  method: post
+  operationId: Clinicians_ResetMyPinV2
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /api/clinicians/idpAnswers
+  method: post
+  operationId: Clinicians_ClinicianIdentityProofingAnswersV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/resyncToken
+  method: post
+  operationId: Clinicians_ResyncTokenV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/tfaActivate
+  method: post
+  operationId: Clinicians_TfaActivateV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/sendMobileTfa
+  method: post
+  operationId: Clinicians_SendMobileTfaV2
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/tfaDeactivate
+  method: post
+  operationId: Clinicians_TfaDeactivateV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/acceptAgreement
+  method: post
+  operationId: Clinicians_AcceptAgreementV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}/idpInit
+  method: post
+  operationId: Clinicians_InitializeIDPV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}/resetPin
+  method: post
+  operationId: Clinicians_ResetClinicianPinV2
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /api/clinicians/{clinicianId}/initTfaActivate
+  method: post
+  operationId: Clinicians_InitializeTfaActivationV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}/initTfaDeactivate
+  method: post
+  operationId: Clinicians_InitializeTfaDeactivationV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}/deanumbers
+  method: get
+  operationId: DEANumbers_GetDEANumbers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/{clinicianId}/deanumbers
+  method: post
+  operationId: DEANumbers_AddDEANumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}/deanumbers/{deanumberId}
+  method: get
+  operationId: DEANumbers_GetDEANumber
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/{clinicianId}/deanumbers/{deanumberId}
+  method: put
+  operationId: DEANumbers_EditDEANumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}/deanumbers/{deanumberId}
+  method: delete
+  operationId: DEANumbers_DeleteDEANumber
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinic/ordersets
+  method: get
+  operationId: ClinicOrderSets_GetClinicOrderSets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinics/{clinicId}
+  method: get
+  operationId: Clinics_GetClinicDetailsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinics/{clinicId}
+  method: put
+  operationId: Clinics_ClinicEditV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/clinics
+  method: get
+  operationId: Clinics_GetPatientClinicsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinicians/{clinicianId}/clinicIds
+  method: get
+  operationId: Clinics_GetClinicianClinicsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/clinics
+  method: post
+  operationId: Clinics_ClinicAddV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/transfer
+  method: post
+  operationId: Clinics_PatientClinicTransferV2
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinicians/{clinicianId}/clinics
+  method: post
+  operationId: Clinics_ClinicianAddMultipleClinicsV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/clinics/{clinicId}/clinicians
+  method: delete
+  operationId: Clinics_ClinicRemoveMultipleCliniciansV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/diagnoses/search
+  method: get
+  operationId: Diagnoses_DiagnosisSearchV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/eligibilities
+  method: get
+  operationId: Eligibilities_GetPayerInformationV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/formulary
+  method: get
+  operationId: Eligibilities_GetMedicationCoverageV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/prescriptionbenefits
+  method: get
+  operationId: Eligibilities_GetPrescriptionBenefitsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/insurance
+  method: post
+  operationId: Eligibilities_CustomInsuranceInfoV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/general/check
+  method: get
+  operationId: HealthCheck_CheckHealthV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/interactions/drugs
+  method: get
+  operationId: Interactions_GetDrugInteractionsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/interactions/allergies
+  method: get
+  operationId: Interactions_GetAllergyInteractionsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/interactions/precheck/{dispensableDrugId}
+  method: get
+  operationId: Interactions_GetPreCheckInteractionsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/medications/history
+  method: get
+  operationId: MedicationHistory_GetMedicationHistoryV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/medications/history/consent
+  method: post
+  operationId: MedicationHistory_LogPatientMedicationHistoryConsentV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /medications/search
+  method: get
+  operationId: searchMedications
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /medications/interactions
+  method: post
+  operationId: checkMedicationInteractions
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/dispenseUnits
+  method: get
+  operationId: Medications_GetStandardDispenseUnitsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/dispenseUnits/{dispenseUnitId}
+  method: get
+  operationId: Medications_GetStandardDispenseUnitByIDV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/medications/searchByRxCUI
+  method: get
+  operationId: Medications_MedicationSearchRxCUIV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/medications/search
+  method: get
+  operationId: Medications_MedicationSearchV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/medications/select
+  method: get
+  operationId: Medications_MedicationSelectV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/medications/monograph
+  method: get
+  operationId: Medications_GetDrugMonographV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/narx
+  method: get
+  operationId: Narx_GetPatientNarxReportV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/narx/latest
+  method: get
+  operationId: Narx_GetLatestNarxV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/narx/report
+  method: get
+  operationId: Narx_GetPatientNarxReportLinkV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /notifications/counts
+  method: get
+  operationId: getNotificationCounts
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/notifications/counts
+  method: get
+  operationId: Notifications_GetPrescriberNotificationCountsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/notifications/errors
+  method: get
+  operationId: Notifications_GetTransmissionErrorDetailsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /patients
   method: get
   operationId: searchPatients
@@ -66,9 +1361,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /patients/{patientId}/prescriptions
+- path: /api/patients/{patientId}
   method: get
-  operationId: getPatientPrescriptions
+  operationId: Patients_GetPatientDemographicDataV2
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -76,9 +1371,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /patients/{patientId}/prescriptions
-  method: post
-  operationId: createPatientPrescription
+- path: /api/patients/{patientId}
+  method: put
+  operationId: Patients_EditPatientDemographicDataV2
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -92,9 +1387,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /patients/{patientId}/prescriptions/{prescriptionId}
+- path: /api/patients/search
   method: get
-  operationId: getPatientPrescription
+  operationId: Patients_SearchPatientsV2
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -102,29 +1397,57 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /patients/{patientId}/medicationHistory
-  method: get
-  operationId: getMedicationHistory
+- path: /api/patients/{patientId}/SSN
+  method: put
+  operationId: Patients_AddEditPatientSsnV2
   x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
     token:
-      max-ttl: 3600
-    audit: none
-- path: /medications/search
-  method: get
-  operationId: searchMedications
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/SSN
+  method: delete
+  operationId: Patients_DeletePatientSSNV2
   x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
     token:
-      max-ttl: 3600
-    audit: none
-- path: /medications/interactions
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients
   method: post
-  operationId: checkMedicationInteractions
+  operationId: Patients_AddPatientV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/merge
+  method: post
+  operationId: Patients_MergePatientsV2
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -174,6 +1497,78 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /api/pharmacies/search
+  method: get
+  operationId: Pharmacies_PharmacySearchV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/pharmacies/{pharmacyId}
+  method: get
+  operationId: Pharmacies_GetPharmacyV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/pharmacies
+  method: get
+  operationId: Pharmacies_GetPatientPharmaciesV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/pharmacies
+  method: post
+  operationId: Pharmacies_AddPatientPharmacyV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/pharmacies/restrictions
+  method: get
+  operationId: Pharmacies_GetPharmacyRestrictionsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/pharmacies/{pharmacyId}
+  method: delete
+  operationId: Pharmacies_RemovePatientPharmacyV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /clinicians
   method: get
   operationId: searchClinicians
@@ -210,9 +1605,965 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /notifications/counts
+- path: /patients/{patientId}/prescriptions
   method: get
-  operationId: getNotificationCounts
+  operationId: getPatientPrescriptions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /patients/{patientId}/prescriptions
+  method: post
+  operationId: createPatientPrescription
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /patients/{patientId}/prescriptions/{prescriptionId}
+  method: get
+  operationId: getPatientPrescription
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /patients/{patientId}/medicationHistory
+  method: get
+  operationId: getMedicationHistory
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/prescriptions/{prescriptionId}
+  method: get
+  operationId: Prescriptions_GetPatientPrescriptionV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/prescriptions/{prescriptionId}/log
+  method: get
+  operationId: Prescriptions_GetPrescriptionLogDetailsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/prescriptions/{prescriptionId}/snapshot
+  method: get
+  operationId: Prescriptions_GetPrescriptionSnapshotV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/prescriptions/{prescriptionId}/epcsSuggestions
+  method: get
+  operationId: Prescriptions_GetEPCSSuggestionsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/prescriptions
+  method: get
+  operationId: Prescriptions_GetPatientPrescriptionsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/prescriptions
+  method: delete
+  operationId: Prescriptions_DeletePrescriptionsV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/coded/{prescriptionId}
+  method: put
+  operationId: Prescriptions_EditCodedPrescriptionV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/supply/{prescriptionId}
+  method: put
+  operationId: Prescriptions_EditCodedSupplyV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/supply/freetext/{prescriptionId}
+  method: put
+  operationId: Prescriptions_EditFreeTextSupplyPrescriptionV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/compiledcompound/{prescriptionId}
+  method: put
+  operationId: Prescriptions_EditCompiledCompoundV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/send
+  method: post
+  operationId: Prescriptions_SendPrescriptionsV2
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/coded
+  method: post
+  operationId: Prescriptions_AddCodedPrescriptionV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/supply
+  method: post
+  operationId: Prescriptions_AddCodedSupplyV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/sendEpcs
+  method: post
+  operationId: Prescriptions_SendEpcsPrescriptionsV2
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/setPrinted
+  method: post
+  operationId: Prescriptions_SetPrescriptionsPrintedV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/readyToSign
+  method: post
+  operationId: Prescriptions_SetPrescriptionsReadyToSignV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/sendToAddress
+  method: post
+  operationId: Prescriptions_SendToAddressPrescriptionsV2
+  x-agentic-access:
+    action-class: acting
+    consequence: physical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 300
+      exchange: true
+      purpose-required: true
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/supply/freetext
+  method: post
+  operationId: Prescriptions_AddFreeTextSupplyPrescriptionV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/compiledcompound
+  method: post
+  operationId: Prescriptions_AddCompiledCompoundV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/{prescriptionId}/copy
+  method: post
+  operationId: Prescriptions_CopyPatientPrescriptionV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/{prescriptionId}/cancel
+  method: post
+  operationId: Prescriptions_CancelPrescriptionV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/{prescriptionId}/ignoreError
+  method: post
+  operationId: Prescriptions_IgnoreAlertV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/{prescriptionId}/medicationStatus
+  method: post
+  operationId: Prescriptions_UpdatePrescriptionStatusV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/prescriptions/{prescriptionId}/pharmacy
+  method: patch
+  operationId: Prescriptions_ChangePrescriptionPharmacyV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/priorAuths/{priorAuthId}
+  method: get
+  operationId: PriorAuthorizations_GetSinglePriorAuthorizationCaseByIdV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/priorAuths
+  method: get
+  operationId: PriorAuthorizations_GetInProgressPriorAuthCasesV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/priorAuths/{priorAuthId}/history
+  method: get
+  operationId: PriorAuthorizations_GetPAHistoryV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/priorAuths/{priorAuthId}/statusLog
+  method: get
+  operationId: PriorAuthorizations_GetPriorAuthorizationStatusLogV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/priorAuths/{priorAuthId}/questions/{questionId}
+  method: get
+  operationId: PriorAuthorizations_GetSingleQuestionDetailsByIdV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/priorAuths/{priorAuthId}/attachments/{attachmentId}
+  method: get
+  operationId: PriorAuthorizations_DownloadAttachmentV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/priorAuths/{priorAuthId}/attachments/{attachmentId}
+  method: delete
+  operationId: PriorAuthorizations_DeleteAttachmentV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/priorAuths/initiate
+  method: post
+  operationId: PriorAuthorizations_InitiatePriorAuthorizationV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/priorAuths/{priorAuthId}/appeal
+  method: post
+  operationId: PriorAuthorizations_AppealCaseV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/priorAuths/{priorAuthId}/cancel
+  method: post
+  operationId: PriorAuthorizations_CancelPriorAuthCaseV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/priorAuths/{priorAuthId}/denied
+  method: post
+  operationId: PriorAuthorizations_DenyPACaseV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/priorAuths/{priorAuthId}/remove
+  method: post
+  operationId: PriorAuthorizations_RemovePriorAuthCaseV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/priorAuths/{priorAuthId}/submit
+  method: post
+  operationId: PriorAuthorizations_SubmitPAAnswersV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/priorAuths/{priorAuthId}/attachments
+  method: post
+  operationId: PriorAuthorizations_UploadAttachmentV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/priorAuths/{priorAuthId}/approveOffline
+  method: post
+  operationId: PriorAuthorizations_ApproveOfflineCaseV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/priorAuths/{priorAuthId}/questions/{questionId}/answer
+  method: post
+  operationId: PriorAuthorizations_PAAnswerSingleQuestionV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /ui/priorAuths/{priorAuthId}/statusLog
+  method: get
+  operationId: PriorAuthorizationsInternal_GetPriorAuthorizationStatusLogV2UI
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/refills/pending
+  method: get
+  operationId: Refills_GetRefillRequestDetailsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/refills/pending/detailed
+  method: get
+  operationId: Refills_GetDetailedRefillRequestsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/refills/{refillId}/deny
+  method: post
+  operationId: Refills_DenyRefillV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/refills/{refillId}/approve
+  method: post
+  operationId: Refills_ApproveRefillV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/refills/{refillId}/replace
+  method: post
+  operationId: Refills_ReplaceRefillV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/refills/{refillId}/changePatient
+  method: patch
+  operationId: Refills_ChangeRefillRequestPatientV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/rxchanges/pending
+  method: get
+  operationId: RxChanges_GetRxChangeQueueV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/rxchanges/pending/detailed
+  method: get
+  operationId: RxChanges_GetRxChangeQueueDetailedV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/rxchanges/{rxChangeId}/deny
+  method: post
+  operationId: RxChanges_DenyRxChangeV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/rxchanges/{rxChangeId}/approve
+  method: post
+  operationId: RxChanges_ApproveRxChangeV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/rxchanges/{rxChangeId}/patients/{patientId}/reconcile
+  method: post
+  operationId: RxChanges_ReconcileRxChangeV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/rxchanges/{rxChangeId}/changePatient
+  method: patch
+  operationId: RxChanges_ChangeRxChangeRequestPatientV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/selfReportedMedications/{selfReportedMedicationId}
+  method: get
+  operationId: SelfReportedMedications_GetPatientSelfReportMedicationDetailsByIdV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/selfReportedMedications
+  method: get
+  operationId: SelfReportedMedications_GetPatientSelfReportMedicationsV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/selfReportedMedications/coded/{selfReportedMedicationId}
+  method: put
+  operationId: SelfReportedMedications_EditSelfReportedMedicationCodedV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/selfReportedMedications/simple/{selfReportedMedicationId}
+  method: put
+  operationId: SelfReportedMedications_EditSelfReportedMedicationSimpleV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/selfReportedMedications/freetext/{selfReportedMedicationId}
+  method: put
+  operationId: SelfReportedMedications_EditSelfReportedMedicationFreeTextV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/selfReportedMedications/coded
+  method: post
+  operationId: SelfReportedMedications_AddSelfReportedMedicationCodedV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/selfReportedMedications/simple
+  method: post
+  operationId: SelfReportedMedications_AddSelfReportedMedicationSimpleV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/selfReportedMedications/freetext
+  method: post
+  operationId: SelfReportedMedications_AddSelfReportedMedicationFreeTextV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/patients/{patientId}/selfReportedMedications/{selfReportedMedicationId}/updateStatus
+  method: post
+  operationId: SelfReportedMedications_UpdateSelfReportedMedicationStatusV2
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/supplies/{supplyId}
+  method: get
+  operationId: Supplies_GetSupplyByIDV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/supplies/search
+  method: get
+  operationId: Supplies_SuppliesSearchV2
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/patients/{patientId}/transparency/alternativePharmacies
+  method: get
+  operationId: Transparency_AlternativePharmaciesV2
   x-agentic-access:
     action-class: connected
     consequence: read
