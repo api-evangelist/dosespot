@@ -282,18 +282,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/dosespot-eligibilities-api-openapi.yml
-- aid: dosespot:dosespot-healthcheck-api
-  name: DoseSpot Health Check API
-  description: The HealthCheck API from DoseSpot — 1 operation(s) for healthcheck.
-  humanURL: https://dosespot.com/full-integration/
-  baseURL: https://my.dosespot.com/webapi/v2
-  tags:
-  - Health Check
-  tags_raw:
-  - HealthCheck
-  properties:
-  - type: OpenAPI
-    url: openapi/dosespot-healthcheck-api-openapi.yml
 - aid: dosespot:dosespot-interactions-api
   name: DoseSpot Interactions API
   description: The Interactions API from DoseSpot — 3 operation(s) for interactions.
@@ -387,6 +375,16 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/dosespot-transparency-api-openapi.yml
+- aid: dosespot:dosespot-health-check-api
+  name: DoseSpot Health Check API
+  description: The Health Check API from DoseSpot — 1 operation(s) for health check.
+  humanURL: https://dosespot.com/full-integration/
+  baseURL: https://my.dosespot.com/webapi/v2
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/dosespot-health-check-api-openapi.yml
 common:
 - type: CapabilityMap
   url: capabilities/dosespot-capability-edges.yml
