@@ -51,6 +51,22 @@ tags:
 - EPCS
 - Prescriptions
 - Clinical
+- Medication
+- Prior Authorization
+- Surescripts
+- Medi-Span
+- Telehealth
+- PDMP
+- Digital Health
+tags_raw:
+- e-Prescribing
+- eRx
+- Healthcare
+- EHR
+- Pharmacy
+- EPCS
+- Prescriptions
+- Clinical
 - Medications
 - Prior Authorization
 - Surescripts
@@ -68,6 +84,8 @@ apis:
   humanURL: https://dosespot.com/full-integration/
   baseURL: https://my.dosespot.com/webapi/v2
   tags:
+  - Medication
+  tags_raw:
   - Medications
   properties:
   - type: OpenAPI
