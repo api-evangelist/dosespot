@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 12
+edge_count: 14
 edges:
 - tag: ClinicianOrderSets
   spec_file: dosespot-clinicianordersets-api-openapi.yml
@@ -106,6 +106,16 @@ edges:
     schemas ''DrugInteraction'', ''AllergyInteraction'''
   reason: Real-time drug-drug and drug-allergy screening surfaced to the prescriber at order time is classic
     clinical decision support (alerts/advisories) embedded in the prescribing workflow.
+- tag: Narx
+  spec_file: dosespot-narx-api-openapi.yml
+  capability_id: BC-2850.50
+  capability_id_l1: BC-2850
+  capability_name: Controlled-Substance Stewardship
+  confidence: 0.75
+  evidence: '"Get patient Narx Report", "Get latest patient NARX/PDMP data timestamp"'
+  reason: NARX scores and PDMP data retrieval support controlled-substance monitoring and diversion/misuse
+    risk assessment at the point of prescribing.
+  recovered_from: healthcare-vertical-edges.json
 - tag: PriorAuthorizations
   spec_file: dosespot-priorauthorizations-api-openapi.yml
   capability_id: BC-2800.30
@@ -139,3 +149,14 @@ edges:
   reason: CRUD and search over patient demographic and identity data is Patient Registration Management.
     The 'Merge patient's medications and allergies' operation touches master patient index work, but demographic
     capture dominates the surface.
+- tag: MedicationHistory
+  spec_file: dosespot-medicationhistory-api-openapi.yml
+  capability_id: BC-2850.40
+  capability_id_l1: BC-2850
+  capability_name: Medication Administration & Reconciliation
+  confidence: 0.7
+  evidence: '"Get patient''s medication history", "Log patient''s medication history consent", schema
+    SureScriptsHistoryMedication'
+  reason: Retrieval of external medication fill history for a patient supports medication reconciliation
+    across transitions; alternative reading as documentation, hence moderate confidence.
+  recovered_from: healthcare-vertical-edges.json
