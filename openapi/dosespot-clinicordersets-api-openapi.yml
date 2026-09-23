@@ -1,11 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Dosespot Clinic Order Sets API
-  version: '1.0'
-  description: 'Operations tagged ClinicOrderSets across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Clinic Order…'
 servers:
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: ClinicOrderSets
 paths:
@@ -64,10 +62,56 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/PagedListResponse_ClinicOrderSetResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
+    PrescriptionDiagnosis:
+      type: object
+      properties:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    PagedListResponse_ClinicOrderSetResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ClinicOrderSetResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ClinicOrderSetResponse:
+      type: object
+      properties:
+        OrderSetId:
+          type: integer
+          format: int32
+          description: Gets or sets the unique identifier for the order set.
+        Title:
+          type: string
+          description: Gets or sets the title of the order set.
+        Favorites:
+          type: array
+          description: Gets or sets the list of favorite prescriptions associated with this order set.
+          items:
+            $ref: '#/components/schemas/ClinicFavoritePrescriptionResponse'
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     ClinicFavoritePrescriptionResponse:
       type: object
       properties:
@@ -144,42 +188,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompoundIngredient'
-    PagedListResponse_ClinicOrderSetResponse:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/ClinicOrderSetResponse'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
-    Diagnosis:
-      type: object
-      properties:
-        DiagnosisId:
-          type: integer
-          format: int32
-        DiagnosisCode:
-          type: string
-        DiagnosisDescription:
-          type: string
     CompoundIngredient:
       type: object
       required:
@@ -197,28 +205,6 @@ components:
           type: string
         IsFreeTextEPCS:
           type: boolean
-    PrescriptionDiagnosis:
-      type: object
-      properties:
-        PrimaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-        SecondaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-    ClinicOrderSetResponse:
-      type: object
-      properties:
-        OrderSetId:
-          type: integer
-          format: int32
-          description: Gets or sets the unique identifier for the order set.
-        Title:
-          type: string
-          description: Gets or sets the title of the order set.
-        Favorites:
-          type: array
-          description: Gets or sets the list of favorite prescriptions associated with this order set.
-          items:
-            $ref: '#/components/schemas/ClinicFavoritePrescriptionResponse'
     PageResult:
       type: object
       properties:
@@ -240,6 +226,13 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-x-refined-from:
-- dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json
+    Diagnosis:
+      type: object
+      properties:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string

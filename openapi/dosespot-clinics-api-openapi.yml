@@ -1,11 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Dosespot Clinics API
-  version: '1.0'
-  description: 'Operations tagged Clinics across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Clinics API'
 servers:
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Clinics
 paths:
@@ -98,8 +96,6 @@ paths:
               $ref: '#/components/schemas/AddEditClinicRequest'
         description: Updated clinic data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/clinics:
     get:
       tags:
@@ -134,8 +130,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ListResponse_Clinic'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/clinicIds:
     get:
       tags:
@@ -188,8 +182,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ListResponse_ClinicIdentifier'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinics:
     post:
       tags:
@@ -238,8 +230,6 @@ paths:
               $ref: '#/components/schemas/AddEditClinicRequest'
         description: New clinic data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/transfer:
     post:
       tags:
@@ -295,8 +285,6 @@ paths:
             schema:
               $ref: '#/components/schemas/ChangePatientClinicRequest'
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/clinics:
     post:
       tags:
@@ -363,8 +351,6 @@ paths:
               $ref: '#/components/schemas/ClinicianAddMultipleClinicsRequest'
         description: Clinic list
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinics/{clinicId}/clinicians:
     delete:
       tags:
@@ -431,10 +417,21 @@ paths:
               $ref: '#/components/schemas/ClinicRemoveMultipleCliniciansRequest'
         description: List of Clinician IDs
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ClinicIdentifier:
+      type: object
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
     Result:
       type: object
       required:
@@ -447,54 +444,6 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    ListResponse_ClinicIdentifier:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/ClinicIdentifier'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
-    ClinicDetailResponse:
-      type: object
-      properties:
-        Clinic:
-          $ref: '#/components/schemas/Clinic'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    ClinicKeyResponse:
-      type: object
-      properties:
-        ClinicId:
-          type: integer
-          format: int32
-        ClinicKey:
-          type: string
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    ClinicianAddMultipleClinicsRequest:
-      type: object
-      required:
-      - ClinicIds
-      properties:
-        ClinicIds:
-          type: array
-          items:
-            type: integer
-            format: int32
     ClinicRemoveMultipleCliniciansRequest:
       type: object
       required:
@@ -505,122 +454,6 @@ components:
           items:
             type: integer
             format: int32
-    ClinicIdentifier:
-      type: object
-      properties:
-        ClinicId:
-          type: integer
-          format: int32
-    Clinic:
-      type: object
-      required:
-      - Address1
-      - City
-      - ClinicName
-      - PrimaryPhone
-      - PrimaryPhoneType
-      - State
-      - ZipCode
-      properties:
-        ClinicId:
-          type: integer
-          format: int32
-        ClinicName:
-          type: string
-        ClinicNameLongForm:
-          type: string
-          minLength: 0
-          maxLength: 250
-        Address1:
-          type: string
-        Address2:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Active:
-          type: boolean
-        City:
-          type: string
-        State:
-          type: string
-        ZipCode:
-          type: string
-        PrimaryPhone:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PrimaryPhoneType:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PrimaryFax:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditional1:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType1:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional2:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType2:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional3:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType3:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-    ChangePatientClinicRequest:
-      type: object
-      required:
-      - ClinicIdToAdd
-      - ClinicIdToRemove
-      properties:
-        ClinicIdToRemove:
-          type: integer
-          format: int32
-        ClinicIdToAdd:
-          type: integer
-          format: int32
     AddEditClinicRequest:
       type: object
       required:
@@ -719,6 +552,28 @@ components:
       description: 'Represents a request to add or edit a clinic.
 
         This class overrides the identifier property so that it will not be serialized for requests.'
+    ChangePatientClinicRequest:
+      type: object
+      required:
+      - ClinicIdToAdd
+      - ClinicIdToRemove
+      properties:
+        ClinicIdToRemove:
+          type: integer
+          format: int32
+        ClinicIdToAdd:
+          type: integer
+          format: int32
+    ClinicianAddMultipleClinicsRequest:
+      type: object
+      required:
+      - ClinicIds
+      properties:
+        ClinicIds:
+          type: array
+          items:
+            type: integer
+            format: int32
     ListResponse_Clinic:
       type: object
       properties:
@@ -731,6 +586,132 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a list of objects.
-x-refined-from:
-- dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json
+    ClinicDetailResponse:
+      type: object
+      properties:
+        Clinic:
+          $ref: '#/components/schemas/Clinic'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Clinic:
+      type: object
+      required:
+      - Address1
+      - City
+      - ClinicName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+        ClinicName:
+          type: string
+        ClinicNameLongForm:
+          type: string
+          minLength: 0
+          maxLength: 250
+        Address1:
+          type: string
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType3:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+    ClinicKeyResponse:
+      type: object
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+        ClinicKey:
+          type: string
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ListResponse_ClinicIdentifier:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/ClinicIdentifier'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.

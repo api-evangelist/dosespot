@@ -1,11 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Dosespot Clinician Favorites API
-  version: '1.0'
-  description: 'Operations tagged ClinicianFavorites across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Clinician…'
 servers:
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: ClinicianFavorites
 paths:
@@ -77,8 +75,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/PagedListResponse_ClinicianFavoritePrescriptionResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/prescriptionFavorites/coded/{favoriteId}:
     put:
       tags:
@@ -135,8 +131,6 @@ paths:
               $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
         description: Favorite medication prescription data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/prescriptionFavorites/supply/{favoriteId}:
     put:
       tags:
@@ -193,8 +187,6 @@ paths:
               $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
         description: Favorite supply prescription data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/prescriptionFavorites/compiledcompound/{favoriteId}:
     put:
       tags:
@@ -251,8 +243,6 @@ paths:
               $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
         description: Favorite medication prescription data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/prescriptionFavorites/coded:
     post:
       tags:
@@ -301,8 +291,6 @@ paths:
               $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCodedRequest'
         description: Favorite medication prescription data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/prescriptionFavorites/supply:
     post:
       tags:
@@ -351,8 +339,6 @@ paths:
               $ref: '#/components/schemas/ClinicianPrescriptionFavoriteSupplyRequest'
         description: Favorite supply prescription data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/prescriptionFavorites/compiledcompound:
     post:
       tags:
@@ -401,8 +387,6 @@ paths:
               $ref: '#/components/schemas/ClinicianPrescriptionFavoriteCompiledCompoundRequest'
         description: Favorite medication prescription data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/prescriptionFavorites:
     delete:
       tags:
@@ -460,31 +444,36 @@ paths:
               $ref: '#/components/schemas/FavoriteIdListRequest'
         description: List of Favorite Ids
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    IdentifierResponse:
+    PrescriptionDiagnosis:
       type: object
       properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    Response:
+      type: object
+      properties:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    Diagnosis:
+      description: The result of the operation.
+    PagedListResponse_ClinicianFavoritePrescriptionResponse:
       type: object
       properties:
-        DiagnosisId:
-          type: integer
-          format: int32
-        DiagnosisCode:
-          type: string
-        DiagnosisDescription:
-          type: string
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
     Result:
       type: object
       required:
@@ -497,6 +486,25 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
+    FavoriteIdListRequest:
+      type: object
+      properties:
+        FavoriteIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
     CompoundIngredient:
       type: object
       required:
@@ -514,6 +522,112 @@ components:
           type: string
         IsFreeTextEPCS:
           type: boolean
+    ClinicianPrescriptionFavoriteSupplyRequest:
+      type: object
+      required:
+      - Directions
+      - DispenseUnitTypeId
+      - Quantity
+      - Refills
+      - Title
+      properties:
+        SupplyId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitTypeId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        Notes:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Title:
+          type: string
+          minLength: 0
+          maxLength: 500
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+    ClinicianPrescriptionFavoriteCompiledCompoundRequest:
+      type: object
+      required:
+      - CompoundDescription
+      - CompoundIngredients
+      - Directions
+      - DispenseUnitTypeId
+      - Quantity
+      - Refills
+      - Title
+      properties:
+        CompoundDescription:
+          type: string
+        CompoundIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompoundIngredient'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitTypeId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        Notes:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Title:
+          type: string
+          minLength: 0
+          maxLength: 500
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+    PrescriptionDiagnosisIds:
+      type: object
+      properties:
+        PrimaryDiagnosisId:
+          type: integer
+          format: int32
+        SecondaryDiagnosisId:
+          type: integer
+          format: int32
     ClinicianFavoritePrescriptionResponse:
       type: object
       properties:
@@ -593,169 +707,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompoundIngredient'
-    PrescriptionDiagnosisIds:
-      type: object
-      properties:
-        PrimaryDiagnosisId:
-          type: integer
-          format: int32
-        SecondaryDiagnosisId:
-          type: integer
-          format: int32
-    ClinicianPrescriptionFavoriteCompiledCompoundRequest:
-      type: object
-      required:
-      - CompoundDescription
-      - CompoundIngredients
-      - Directions
-      - DispenseUnitTypeId
-      - Quantity
-      - Refills
-      - Title
-      properties:
-        CompoundDescription:
-          type: string
-        CompoundIngredients:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompoundIngredient'
-        Refills:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 99
-        DaysSupply:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 365
-        DispenseUnitTypeId:
-          type: integer
-          format: int32
-        Quantity:
-          type: string
-        NoSubstitutions:
-          type: boolean
-        Notes:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        Directions:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        Title:
-          type: string
-          minLength: 0
-          maxLength: 500
-        FirstPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-        SecondPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    ClinicianPrescriptionFavoriteSupplyRequest:
-      type: object
-      required:
-      - Directions
-      - DispenseUnitTypeId
-      - Quantity
-      - Refills
-      - Title
-      properties:
-        SupplyId:
-          type: integer
-          format: int32
-        FreeText:
-          type: string
-        Refills:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 99
-        DaysSupply:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 365
-        DispenseUnitTypeId:
-          type: integer
-          format: int32
-        Quantity:
-          type: string
-        NoSubstitutions:
-          type: boolean
-        Notes:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        Directions:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        Title:
-          type: string
-          minLength: 0
-          maxLength: 500
-        FirstPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-        SecondPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-    PagedListResponse_ClinicianFavoritePrescriptionResponse:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    FavoriteIdListRequest:
-      type: object
-      properties:
-        FavoriteIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    PrescriptionDiagnosis:
-      type: object
-      properties:
-        PrimaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-        SecondaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
     ClinicianPrescriptionFavoriteCodedRequest:
       type: object
       required:
@@ -802,6 +753,34 @@ components:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
         SecondPrescriptionDiagnosis:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-x-refined-from:
-- dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    Diagnosis:
+      type: object
+      properties:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string

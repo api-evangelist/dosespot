@@ -1,11 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Dosespot Diagnoses API
-  version: '1.0'
-  description: 'Operations tagged Diagnoses across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Diagnoses API'
 servers:
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Diagnoses
 paths:
@@ -49,24 +47,18 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/PagedListResponse_DiagnosisSearchResult'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    PagedListResponse_DiagnosisSearchResult:
+    DiagnosisSearchResult:
       type: object
       properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/DiagnosisSearchResult'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisName:
+          type: string
     Result:
       type: object
       required:
@@ -79,16 +71,6 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    DiagnosisSearchResult:
-      type: object
-      properties:
-        DiagnosisId:
-          type: integer
-          format: int32
-        DiagnosisCode:
-          type: string
-        DiagnosisName:
-          type: string
     PageResult:
       type: object
       properties:
@@ -110,6 +92,17 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-x-refined-from:
-- dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json
+    PagedListResponse_DiagnosisSearchResult:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/DiagnosisSearchResult'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'

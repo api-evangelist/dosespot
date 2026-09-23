@@ -1,11 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Dosespot Narx API
-  version: '1.0'
-  description: 'Operations tagged Narx across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Narx API'
 servers:
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Narx
 paths:
@@ -43,8 +41,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/NarxResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/narx/latest:
     get:
       tags:
@@ -79,8 +75,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/LatestNarxResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/narx/report:
     get:
       tags:
@@ -115,10 +109,15 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ItemResponse_String'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
+    KeyValuePair_String_String:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
     Result:
       type: object
       required:
@@ -131,23 +130,6 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    KeyValuePair_String_String:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    ItemResponse_String:
-      type: object
-      properties:
-        Item:
-          type: string
-          description: The response object.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
     NarxResponse:
       type: object
       properties:
@@ -176,6 +158,16 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
+    ItemResponse_String:
+      type: object
+      properties:
+        Item:
+          type: string
+          description: The response object.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
     LatestNarxResponse:
       type: object
       properties:
@@ -193,6 +185,3 @@ components:
           format: int32
         Encounter:
           type: string
-x-refined-from:
-- dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

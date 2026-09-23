@@ -11,7 +11,7 @@ paths:
     get:
       tags:
       - Transparency
-      summary: Returns alternative pharmacies and offers for a given NDC and patient.
+      summary: Returns alternative pharmacies and offers for a given NDC and patient
       operationId: Transparency_AlternativePharmaciesV2
       parameters:
       - name: patientId
@@ -49,6 +49,13 @@ paths:
                 $ref: '#/components/schemas/PharmacyAlternativeResponse'
 components:
   schemas:
+    PharmacyAlternativeResponse:
+      type: object
+      properties:
+        PharmacyAlternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PharmacyAlternative'
     PharmacyOffer:
       type: object
       properties:
@@ -189,10 +196,3 @@ components:
         NCPDPID:
           type: string
       description: Represents a pharmacy entity.
-    PharmacyAlternativeResponse:
-      type: object
-      properties:
-        PharmacyAlternatives:
-          type: array
-          items:
-            $ref: '#/components/schemas/PharmacyAlternative'

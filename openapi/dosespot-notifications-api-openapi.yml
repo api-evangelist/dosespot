@@ -2,14 +2,13 @@ openapi: 3.2.0
 info:
   title: Dosespot Notifications API
   version: '1.0'
-  description: 'Operations tagged Notifications across 3 of this provider''s published API definitions: dosespot-openapi.yml, dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Notifications across 2 of this provider''s published API definitions: dosespot-openapi.yml, dosespot-rest-api-full-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://my.dosespot.com/webapi/v2
   description: Production
 - url: https://my.staging.dosespot.com/webapi/v2
   description: Staging
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Notifications
   description: Clinician notification counts and actionable items.
@@ -141,6 +140,24 @@ components:
           description: OK or ERROR.
         ResultDescription:
           type: string
+    PrescriberNotificationCountsResponse:
+      type: object
+      properties:
+        RefillRequestsCount:
+          type: integer
+          format: int32
+        TransactionErrorsCount:
+          type: integer
+          format: int32
+        PendingPrescriptionsCount:
+          type: integer
+          format: int32
+        PendingRxChangeCount:
+          type: integer
+          format: int32
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
     Result:
       type: object
       required:
@@ -187,24 +204,6 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    PrescriberNotificationCountsResponse:
-      type: object
-      properties:
-        RefillRequestsCount:
-          type: integer
-          format: int32
-        TransactionErrorsCount:
-          type: integer
-          format: int32
-        PendingPrescriptionsCount:
-          type: integer
-          format: int32
-        PendingRxChangeCount:
-          type: integer
-          format: int32
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     PageResult:
       type: object
       properties:
@@ -240,4 +239,3 @@ components:
 x-refined-from:
 - dosespot-openapi.yml
 - dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

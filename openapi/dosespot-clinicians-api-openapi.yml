@@ -1,11 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Dosespot Clinicians API
-  version: '1.0'
-  description: 'Operations tagged Clinicians across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Clinicians API'
 servers:
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Clinicians
 paths:
@@ -35,8 +33,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ItemResponse_PDMPResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/idpDisclaimer:
     get:
       tags:
@@ -110,8 +106,6 @@ paths:
               $ref: '#/components/schemas/ClinicianIdentityProofingDisclaimerRequest'
         description: Accept Disclaimer Request
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}:
     get:
       tags:
@@ -201,8 +195,6 @@ paths:
               $ref: '#/components/schemas/AddEditClinicianRequest'
         description: Updated clinician data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinician:
     get:
       tags:
@@ -241,8 +233,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/IdentifierResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/clinicians:
     get:
       tags:
@@ -277,8 +267,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ListResponse_Clinician'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/legalAgreements:
     get:
       tags:
@@ -312,8 +300,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ListResponse_AgreementInfoResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/registrationStatus:
     get:
       tags:
@@ -347,8 +333,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ItemResponse_eRxRegistrationStatusType'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/prescriptions/{prescriptionId}/prescriberInfo:
     get:
       tags:
@@ -382,8 +366,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/PrescriberInfoResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/pin:
     post:
       tags:
@@ -477,8 +459,6 @@ paths:
               $ref: '#/components/schemas/ClinicianChangePinRequest'
         description: PIN Request Data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/supervisors:
     put:
       tags:
@@ -598,8 +578,6 @@ paths:
             schema:
               $ref: '#/components/schemas/DeleteClinicianSupervisorRequest'
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians:
     post:
       tags:
@@ -648,14 +626,18 @@ paths:
               $ref: '#/components/schemas/AddEditClinicianRequest'
         description: New clinician data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/idp:
     post:
       tags:
       - Clinicians
       summary: Clinician identity proofing
-      description: "Completes the first step of identity proofing for a clinician. This must be completed along with subsequent steps in \norder to enable electronic prescribing of controlled substances by this clinician. The results will return a session \nID and a collection of questions and answers (3 sets of 4 answers), which can be used as the body parameters for the \nsecond step of IDP"
+      description: 'Completes the first step of identity proofing for a clinician. This must be completed along with subsequent steps in
+
+        order to enable electronic prescribing of controlled substances by this clinician. The results will return a session
+
+        ID and a collection of questions and answers (3 sets of 4 answers), which can be used as the body parameters for the
+
+        second step of IDP'
       operationId: Clinicians_ClinicianIdentityProofingV2
       responses:
         '200':
@@ -698,8 +680,6 @@ paths:
               $ref: '#/components/schemas/ClinicianIdentityProofingRequest'
         description: IDP data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/idpOtp:
     post:
       tags:
@@ -747,8 +727,6 @@ paths:
             schema:
               $ref: '#/components/schemas/ClinicianIdentityProofingOneTimeCodeRequest'
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/resetPin:
     post:
       tags:
@@ -775,14 +753,16 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/Response'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/idpAnswers:
     post:
       tags:
       - Clinicians
       summary: Submit clinician identity proofing answers
-      description: "Completes the final step of identity proofing for a clinician. This must be completed along with subsequent steps to enable electronic \nprescribing of controlled substances by this clinician.If an additional question is returned, this same method must be used again to \nsubmit an answer for it. After this, a clinician will either be marked as having passed or failed identity proofing."
+      description: 'Completes the final step of identity proofing for a clinician. This must be completed along with subsequent steps to enable electronic
+
+        prescribing of controlled substances by this clinician.If an additional question is returned, this same method must be used again to
+
+        submit an answer for it. After this, a clinician will either be marked as having passed or failed identity proofing.'
       operationId: Clinicians_ClinicianIdentityProofingAnswersV2
       responses:
         '200':
@@ -825,8 +805,6 @@ paths:
               $ref: '#/components/schemas/ClinicianIdentityProofingAnswersRequest'
         description: IDP data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/resyncToken:
     post:
       tags:
@@ -875,8 +853,6 @@ paths:
               $ref: '#/components/schemas/ClinicianResyncTokenRequest'
         description: Token Request Data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/tfaActivate:
     post:
       tags:
@@ -925,8 +901,6 @@ paths:
               $ref: '#/components/schemas/ClinicianTfaActivationRequest'
         description: TFA Request Data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/sendMobileTfa:
     post:
       tags:
@@ -975,8 +949,6 @@ paths:
               $ref: '#/components/schemas/ClinicianMobileTfaInitiationRequest'
         description: TFA Initiate Request Data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/tfaDeactivate:
     post:
       tags:
@@ -1025,8 +997,6 @@ paths:
               $ref: '#/components/schemas/ClinicianTfaDeactivationRequest'
         description: TFA Request Data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/acceptAgreement:
     post:
       tags:
@@ -1073,8 +1043,6 @@ paths:
             schema:
               $ref: '#/components/schemas/ClinicianAcceptAgreementRequest'
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/idpInit:
     post:
       tags:
@@ -1109,8 +1077,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/Response'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/resetPin:
     post:
       tags:
@@ -1145,8 +1111,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/Response'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/initTfaActivate:
     post:
       tags:
@@ -1203,8 +1167,6 @@ paths:
               $ref: '#/components/schemas/ClinicianInitializeTfaActivationRequest'
         description: TFA Init Activation Request Data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/initTfaDeactivate:
     post:
       tags:
@@ -1239,8 +1201,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/Response'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/deanumbers:
     get:
       tags:
@@ -1328,8 +1288,6 @@ paths:
               $ref: '#/components/schemas/DEANumberRequest'
         description: The request
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/{clinicianId}/deanumbers/{deanumberId}:
     get:
       tags:
@@ -1470,44 +1428,188 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/Response'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    DEANumberRequest:
+    Clinician:
       type: object
       required:
-      - DEANumber
+      - Address1
+      - City
+      - DateOfBirth
+      - FirstName
+      - LastName
+      - PrimaryFax
+      - PrimaryPhone
+      - PrimaryPhoneType
       - State
+      - ZipCode
       properties:
-        DEANumber:
+        ClinicianId:
+          type: integer
+          format: int32
+        Prefix:
           type: string
-          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
-        AddressLine1:
+          minLength: 0
+          maxLength: 10
+        FirstName:
           type: string
-        AddressLine2:
+        MiddleName:
           type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Email:
+          type: string
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
         City:
           type: string
         State:
           type: string
-          description: State abbreviation like DC, CA or State name like 'District of Columbia', 'California'
-        Zip:
+        ZipCode:
           type: string
-          description: 5-digits zip code or extended zip+4 with a dash separator (xxxxx-xxxx)
-          pattern: ^\d{5}(-\d{4})?$
-    Result:
+        PrimaryPhone:
+          type: string
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType3:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        DEANumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeaNumber'
+        DEANumber:
+          type: string
+        NADEANumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/NaDeaNumber'
+        MedicalLicenseNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicalLicenseNumber'
+        NPINumber:
+          type: string
+        Roles:
+          type: array
+          items:
+            type: string
+            enum:
+            - PrescribingClinician
+            - ReportingClinician
+            - EpcsCoordinator
+            - ClinicianAdmin
+            - PrescribingAgentClinician
+            - ProxyClinician
+        PDMPRoleType:
+          type: string
+          enum:
+          - Physician
+          - Dentist
+          - NursePractioner
+          - PhysiciansAssistant
+          - Resident
+          - Intern
+          - Psychologist
+          - Optometrist
+          - NaturopathicPhysician
+        SpecialtyTypeId:
+          type: integer
+          format: int32
+        Confirmed:
+          type: boolean
+        Active:
+          type: boolean
+        AccountLocked:
+          type: boolean
+        EpcsRequested:
+          type: boolean
+        ClinicInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicianClinicErxSummary'
+    ListResponse_DEANumberResponse:
       type: object
-      required:
-      - ResultCode
       properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/DEANumberResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
     ItemResponse_PDMPResponse:
       type: object
       properties:
@@ -1518,79 +1620,29 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a single object.
-    IdentifierGuidResponse:
+    IdentifierResponse:
       type: object
       properties:
         Id:
-          type: string
-          format: uuid
-          example: 00000000-0000-0000-0000-000000000000
+          type: integer
+          format: int32
           description: The entity identifier.
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing an entity identifier.
-    PrescriberAgentInfo:
-      type: object
-      properties:
-        Prefix:
-          type: string
-        FirstName:
-          type: string
-        MiddleName:
-          type: string
-        LastName:
-          type: string
-        Suffix:
-          type: string
-    AgreementInfoResponse:
-      type: object
-      properties:
-        AgreementId:
-          type: integer
-          format: int32
-        AgreementDate:
-          type: string
-          format: date-time
-        AgreementText:
-          type: string
-    ClinicianResyncTokenRequest:
+    ClinicianIdentityProofingAnswersRequest:
       type: object
       required:
-      - Code1
-      - Code2
-      - Code3
+      - Answers
+      - SessionID
       properties:
-        Code1:
+        SessionID:
           type: string
-        Code2:
-          type: string
-        Code3:
-          type: string
-    ItemResponse_DEANumberResponse:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/DEANumberResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    ClinicianIdentityProofingDisclaimerResponse:
-      type: object
-      properties:
-        IdpDisclaimerDate:
-          type: string
-          format: date-time
-        IdpDisclaimerId:
-          type: integer
-          format: int32
-        IdpDisclaimerText:
-          type: string
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
+        Answers:
+          type: array
+          items:
+            type: string
     ClinicianIdentityProofingResponse:
       type: object
       properties:
@@ -1615,6 +1667,185 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
+    PrescriberAgentInfo:
+      type: object
+      properties:
+        Prefix:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        LastName:
+          type: string
+        Suffix:
+          type: string
+    ItemResponse_eRxRegistrationStatusType:
+      type: object
+      properties:
+        Item:
+          type: string
+          description: The response object.
+          enum:
+          - Pending
+          - RegistrationSuccess
+          - RegistrationError
+          - IDPSuccess
+          - IDPError
+          - TFAActivateInit
+          - TFAActivatedSuccess
+          - TFAActivatedError
+          - TFADeactivateInit
+          - TFADeactivatedSuccess
+          - TFADeactivatedError
+          - IDPInitializeSuccess
+          - NotApplicable
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    MedicalLicenseNumber:
+      type: object
+      required:
+      - LicenseNumber
+      properties:
+        LicenseNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+        ClinicId:
+          type: string
+    ListResponse_Clinician:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/Clinician'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    PrescriberInfo:
+      type: object
+      properties:
+        Address1:
+          type: string
+        Address2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        DEANumber:
+          type: string
+        Prefix:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        LastName:
+          type: string
+        Suffix:
+          type: string
+    ClinicianIdentityProofingOneTimeCodeRequest:
+      type: object
+      required:
+      - MobileCode
+      - SessionID
+      properties:
+        SessionID:
+          type: string
+        MobileCode:
+          type: string
+          description: Entered OTP
+      description: represent a request to clinican identity proof one time code after success
+    DEANumberRequest:
+      type: object
+      required:
+      - DEANumber
+      - State
+      properties:
+        DEANumber:
+          type: string
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
+        AddressLine1:
+          type: string
+        AddressLine2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+          description: State abbreviation like DC, CA or State name like 'District of Columbia', 'California'
+        Zip:
+          type: string
+          description: 5-digits zip code or extended zip+4 with a dash separator (xxxxx-xxxx)
+          pattern: ^\d{5}(-\d{4})?$
+    PrescriberInfoResponse:
+      type: object
+      properties:
+        Prescriber:
+          $ref: '#/components/schemas/PrescriberInfo'
+        PrescriberAgent:
+          $ref: '#/components/schemas/PrescriberAgentInfo'
+        Supervisor:
+          $ref: '#/components/schemas/PrescriberInfo'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ClinicianInitializeTfaActivationRequest:
+      type: object
+      required:
+      - TfaTypeId
+      properties:
+        TfaTypeId:
+          type: string
+          enum:
+          - Mobile
+          - Token
+    PDMPResponse:
+      type: object
+      properties:
+        StateId:
+          type: integer
+          format: int32
+        ProgramName:
+          type: string
+        URL:
+          type: string
+        Message:
+          type: string
+    SupervisorToClinicianRequest:
+      type: object
+      required:
+      - ClinicId
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+        SupervisorId:
+          type: integer
+          format: int32
     ClinicianIdentityProofingRequest:
       type: object
       required:
@@ -1678,51 +1909,6 @@ components:
         IsMobileNumber:
           type: boolean
       description: represent a request to clinican identity proof
-    ClinicianSetPinRequest:
-      type: object
-      required:
-      - PIN
-      properties:
-        PIN:
-          type: string
-    PrescriberInfo:
-      type: object
-      properties:
-        Address1:
-          type: string
-        Address2:
-          type: string
-        City:
-          type: string
-        State:
-          type: string
-        ZipCode:
-          type: string
-        PrimaryPhone:
-          type: string
-        PrimaryPhoneType:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        DEANumber:
-          type: string
-        Prefix:
-          type: string
-        FirstName:
-          type: string
-        MiddleName:
-          type: string
-        LastName:
-          type: string
-        Suffix:
-          type: string
     AddEditClinicianRequest:
       type: object
       required:
@@ -1896,362 +2082,14 @@ components:
       description: 'Represents a request to add or edit a clinician.
 
         This class overrides the identifier property so that it will not be serialized for requests.'
-    ListResponse_DEANumberResponse:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/DEANumberResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
-    PrescriberInfoResponse:
-      type: object
-      properties:
-        Prescriber:
-          $ref: '#/components/schemas/PrescriberInfo'
-        PrescriberAgent:
-          $ref: '#/components/schemas/PrescriberAgentInfo'
-        Supervisor:
-          $ref: '#/components/schemas/PrescriberInfo'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    ClinicianIdentityProofingOneTimeCodeRequest:
+    ClinicianIdentityProofingDisclaimerRequest:
       type: object
       required:
-      - MobileCode
-      - SessionID
+      - IdpDisclaimerId
       properties:
-        SessionID:
-          type: string
-        MobileCode:
-          type: string
-          description: Entered OTP
-      description: represent a request to clinican identity proof one time code after success
-    MedicalLicenseNumber:
-      type: object
-      required:
-      - LicenseNumber
-      properties:
-        LicenseNumber:
-          type: string
-          minLength: 0
-          maxLength: 35
-        State:
-          type: string
-        ClinicId:
-          type: string
-    SupervisorToClinicianRequest:
-      type: object
-      required:
-      - ClinicId
-      properties:
-        ClinicId:
+        IdpDisclaimerId:
           type: integer
           format: int32
-        SupervisorId:
-          type: integer
-          format: int32
-    ItemResponse_eRxRegistrationStatusType:
-      type: object
-      properties:
-        Item:
-          type: string
-          description: The response object.
-          enum:
-          - Pending
-          - RegistrationSuccess
-          - RegistrationError
-          - IDPSuccess
-          - IDPError
-          - TFAActivateInit
-          - TFAActivatedSuccess
-          - TFAActivatedError
-          - TFADeactivateInit
-          - TFADeactivatedSuccess
-          - TFADeactivatedError
-          - IDPInitializeSuccess
-          - NotApplicable
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    DeaNumber:
-      type: object
-      required:
-      - DEANumber
-      properties:
-        DEANumber:
-          type: string
-          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
-        State:
-          type: string
-        ClinicId:
-          type: string
-    ItemResponse_Clinician:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/Clinician'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    ClinicianAcceptAgreementResponse:
-      type: object
-      properties:
-        AgreementId:
-          type: integer
-          format: int32
-        NameSigned:
-          type: string
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    ClinicianAcceptAgreementRequest:
-      type: object
-      required:
-      - AgreementId
-      - NameSigned
-      properties:
-        AgreementId:
-          type: integer
-          format: int32
-        NameSigned:
-          type: string
-    ListResponse_AgreementInfoResponse:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/AgreementInfoResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    ListResponse_Clinician:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/Clinician'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
-    ClinicianInitializeTfaActivationRequest:
-      type: object
-      required:
-      - TfaTypeId
-      properties:
-        TfaTypeId:
-          type: string
-          enum:
-          - Mobile
-          - Token
-    Clinician:
-      type: object
-      required:
-      - Address1
-      - City
-      - DateOfBirth
-      - FirstName
-      - LastName
-      - PrimaryFax
-      - PrimaryPhone
-      - PrimaryPhoneType
-      - State
-      - ZipCode
-      properties:
-        ClinicianId:
-          type: integer
-          format: int32
-        Prefix:
-          type: string
-          minLength: 0
-          maxLength: 10
-        FirstName:
-          type: string
-        MiddleName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        LastName:
-          type: string
-        Suffix:
-          type: string
-          minLength: 0
-          maxLength: 10
-        DateOfBirth:
-          type: string
-          format: date-time
-        Email:
-          type: string
-        Address1:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Address2:
-          type: string
-          minLength: 0
-          maxLength: 35
-        City:
-          type: string
-        State:
-          type: string
-        ZipCode:
-          type: string
-        PrimaryPhone:
-          type: string
-        PrimaryPhoneType:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PrimaryFax:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditional1:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType1:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional2:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType2:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional3:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType3:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        DEANumbers:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeaNumber'
-        DEANumber:
-          type: string
-        NADEANumbers:
-          type: array
-          items:
-            $ref: '#/components/schemas/NaDeaNumber'
-        MedicalLicenseNumbers:
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicalLicenseNumber'
-        NPINumber:
-          type: string
-        Roles:
-          type: array
-          items:
-            type: string
-            enum:
-            - PrescribingClinician
-            - ReportingClinician
-            - EpcsCoordinator
-            - ClinicianAdmin
-            - PrescribingAgentClinician
-            - ProxyClinician
-        PDMPRoleType:
-          type: string
-          enum:
-          - Physician
-          - Dentist
-          - NursePractioner
-          - PhysiciansAssistant
-          - Resident
-          - Intern
-          - Psychologist
-          - Optometrist
-          - NaturopathicPhysician
-        SpecialtyTypeId:
-          type: integer
-          format: int32
-        Confirmed:
-          type: boolean
-        Active:
-          type: boolean
-        AccountLocked:
-          type: boolean
-        EpcsRequested:
-          type: boolean
-        ClinicInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClinicianClinicErxSummary'
-    NaDeaNumber:
-      type: object
-      required:
-      - NADEANumber
-      properties:
-        NADEANumber:
-          type: string
-          pattern: ^[a-zA-Z0-9]{9}$
-        State:
-          type: string
-        ClinicId:
-          type: string
-    ClinicianMobileTfaInitiationRequest:
-      type: object
-      required:
-      - MobilePhoneNumber
-      properties:
-        MobilePhoneNumber:
-          type: string
     ClinicianClinicErxSummary:
       type: object
       properties:
@@ -2272,25 +2110,30 @@ components:
           type: boolean
         HasEpa:
           type: boolean
-    ClinicianTfaActivationRequest:
-      type: object
-      properties:
-        CredentialID:
-          type: string
-        ReferenceNumber:
-          type: string
-        OneTimePassword:
-          type: string
-        PIN:
-          type: string
-    ClinicianIdentityProofingDisclaimerRequest:
+    ClinicianSetPinRequest:
       type: object
       required:
-      - IdpDisclaimerId
+      - PIN
       properties:
-        IdpDisclaimerId:
-          type: integer
-          format: int32
+        PIN:
+          type: string
+    ClinicianMobileTfaInitiationRequest:
+      type: object
+      required:
+      - MobilePhoneNumber
+      properties:
+        MobilePhoneNumber:
+          type: string
+    ItemResponse_Clinician:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/Clinician'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
     DEANumberResponse:
       type: object
       properties:
@@ -2310,29 +2153,28 @@ components:
           type: string
         Zip:
           type: string
-    IdentifierResponse:
+    AgreementInfoResponse:
       type: object
       properties:
-        Id:
+        AgreementId:
           type: integer
           format: int32
-          description: The entity identifier.
+        AgreementDate:
+          type: string
+          format: date-time
+        AgreementText:
+          type: string
+    ClinicianAcceptAgreementResponse:
+      type: object
+      properties:
+        AgreementId:
+          type: integer
+          format: int32
+        NameSigned:
+          type: string
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    ClinicianIdentityProofingAnswersRequest:
-      type: object
-      required:
-      - Answers
-      - SessionID
-      properties:
-        SessionID:
-          type: string
-        Answers:
-          type: array
-          items:
-            type: string
     DeleteClinicianSupervisorRequest:
       type: object
       required:
@@ -2343,27 +2185,106 @@ components:
           items:
             type: integer
             format: int32
-    PDMPResponse:
+    Response:
       type: object
       properties:
-        StateId:
-          type: integer
-          format: int32
-        ProgramName:
-          type: string
-        URL:
-          type: string
-        Message:
-          type: string
-    ClinicianChangePinRequest:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ClinicianResyncTokenRequest:
       type: object
       required:
-      - CurrentPIN
-      - NewPIN
+      - Code1
+      - Code2
+      - Code3
       properties:
-        CurrentPIN:
+        Code1:
           type: string
-        NewPIN:
+        Code2:
+          type: string
+        Code3:
+          type: string
+    ItemResponse_DEANumberResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/DEANumberResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    IdentifierGuidResponse:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    ListResponse_AgreementInfoResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/AgreementInfoResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    ClinicianTfaActivationRequest:
+      type: object
+      properties:
+        CredentialID:
+          type: string
+        ReferenceNumber:
+          type: string
+        OneTimePassword:
+          type: string
+        PIN:
+          type: string
+    NaDeaNumber:
+      type: object
+      required:
+      - NADEANumber
+      properties:
+        NADEANumber:
+          type: string
+          pattern: ^[a-zA-Z0-9]{9}$
+        State:
+          type: string
+        ClinicId:
+          type: string
+    DeaNumber:
+      type: object
+      required:
+      - DEANumber
+      properties:
+        DEANumber:
+          type: string
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
+        State:
+          type: string
+        ClinicId:
           type: string
     ClinicianTfaDeactivationRequest:
       type: object
@@ -2377,6 +2298,38 @@ components:
           type: string
         PIN:
           type: string
-x-refined-from:
-- dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json
+    ClinicianChangePinRequest:
+      type: object
+      required:
+      - CurrentPIN
+      - NewPIN
+      properties:
+        CurrentPIN:
+          type: string
+        NewPIN:
+          type: string
+    ClinicianAcceptAgreementRequest:
+      type: object
+      required:
+      - AgreementId
+      - NameSigned
+      properties:
+        AgreementId:
+          type: integer
+          format: int32
+        NameSigned:
+          type: string
+    ClinicianIdentityProofingDisclaimerResponse:
+      type: object
+      properties:
+        IdpDisclaimerDate:
+          type: string
+          format: date-time
+        IdpDisclaimerId:
+          type: integer
+          format: int32
+        IdpDisclaimerText:
+          type: string
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'

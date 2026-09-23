@@ -1,11 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Dosespot Self Reported Medications API
-  version: '1.0'
-  description: 'Operations tagged SelfReportedMedications across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Self Reported…'
 servers:
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: SelfReportedMedications
 paths:
@@ -50,8 +48,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ItemResponse_SelfReportedMedicationResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/selfReportedMedications:
     get:
       tags:
@@ -107,8 +103,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/PagedListResponse_SelfReportedMedicationResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/selfReportedMedications/coded/{selfReportedMedicationId}:
     put:
       tags:
@@ -172,8 +166,6 @@ paths:
               $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
         description: Self-reported medication data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/selfReportedMedications/simple/{selfReportedMedicationId}:
     put:
       tags:
@@ -237,8 +229,6 @@ paths:
               $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
         description: Self-reported medication data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/selfReportedMedications/freetext/{selfReportedMedicationId}:
     put:
       tags:
@@ -302,8 +292,6 @@ paths:
               $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
         description: Self-reported medication data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/selfReportedMedications/coded:
     post:
       tags:
@@ -360,8 +348,6 @@ paths:
               $ref: '#/components/schemas/CodedSelfReportedMedicationRequest'
         description: Self-reported medication data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/selfReportedMedications/simple:
     post:
       tags:
@@ -418,8 +404,6 @@ paths:
               $ref: '#/components/schemas/SimpleSelfReportedMedicationRequest'
         description: Self-reported medication data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/selfReportedMedications/freetext:
     post:
       tags:
@@ -476,8 +460,6 @@ paths:
               $ref: '#/components/schemas/FreeTextSelfReportedMedicationRequest'
         description: Self-reported medication data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/patients/{patientId}/selfReportedMedications/{selfReportedMedicationId}/updateStatus:
     post:
       tags:
@@ -541,21 +523,8 @@ paths:
               $ref: '#/components/schemas/UpdateSelfReportedMedicationStatusRequest'
         description: Patient medication status data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
     FreeTextSelfReportedMedicationRequest:
       type: object
       required:
@@ -619,6 +588,44 @@ components:
           type: string
           minLength: 0
           maxLength: 50
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ItemResponse_SelfReportedMedicationResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/SelfReportedMedicationResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
     Result:
       type: object
       required:
@@ -710,57 +717,22 @@ components:
           type: string
         Strength:
           type: string
-    Response:
+    IdentifierResponse:
       type: object
       properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    ItemResponse_SelfReportedMedicationResponse:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/SelfReportedMedicationResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    CodedSelfReportedMedicationRequest:
+      description: Represents a generic response containing an entity identifier.
+    UpdateSelfReportedMedicationStatusRequest:
       type: object
       required:
-      - DispensableDrugId
       - Status
       properties:
-        DispensableDrugId:
-          type: integer
-          format: int32
-        Refills:
-          type: integer
-          format: int32
-        DaysSupply:
-          type: integer
-          format: int32
-        DispenseUnitId:
-          type: integer
-          format: int32
-        Quantity:
-          type: number
-          format: double
-        Directions:
-          type: string
-          minLength: 0
-          maxLength: 500
-        WrittenDate:
-          type: string
-          format: date-time
-        PrescriberUserId:
-          type: integer
-          format: int32
-        PrescribingAgentUserId:
-          type: integer
-          format: int32
         Status:
           type: string
           enum:
@@ -803,39 +775,6 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    UpdateSelfReportedMedicationStatusRequest:
-      type: object
-      required:
-      - Status
-      properties:
-        Status:
-          type: string
-          enum:
-          - Unknown
-          - Active
-          - Inactive
-          - Discontinued
-          - Deleted
-          - Completed
-          - CancelRequested
-          - CancelPending
-          - Cancelled
-          - CancelDenied
-          - Changed
-          - FullFill
-          - PartialFill
-          - NoFill
-        InactiveDate:
-          type: string
-          format: date-time
-        Comment:
-          type: string
-          minLength: 0
-          maxLength: 500
-        Encounter:
-          type: string
-          minLength: 0
-          maxLength: 50
     SimpleSelfReportedMedicationRequest:
       type: object
       required:
@@ -898,27 +837,65 @@ components:
           type: string
           minLength: 0
           maxLength: 50
-    PageResult:
+    CodedSelfReportedMedicationRequest:
       type: object
+      required:
+      - DispensableDrugId
+      - Status
       properties:
-        CurrentPage:
+        DispensableDrugId:
           type: integer
           format: int32
-        TotalPages:
+        Refills:
           type: integer
           format: int32
-        PageSize:
+        DaysSupply:
           type: integer
           format: int32
-        TotalCount:
+        DispenseUnitId:
           type: integer
           format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
-x-refined-from:
-- dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 500
+        WrittenDate:
+          type: string
+          format: date-time
+        PrescriberUserId:
+          type: integer
+          format: int32
+        PrescribingAgentUserId:
+          type: integer
+          format: int32
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50

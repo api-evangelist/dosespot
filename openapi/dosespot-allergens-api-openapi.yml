@@ -1,11 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Dosespot Allergens API
-  version: '1.0'
-  description: 'Operations tagged Allergens across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Allergens API'
 servers:
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Allergens
 paths:
@@ -45,8 +43,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ItemResponse_AllergySearchResultForAPI'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/allergens/searchByRxCUI:
     get:
       tags:
@@ -80,8 +76,6 @@ paths:
             text/xml:
               schema:
                 type: object
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/allergens/search:
     get:
       tags:
@@ -124,8 +118,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/PagedListResponse_AllergySearchResultForAPI'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
     Result:
@@ -140,6 +132,30 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
+    ItemResponse_AllergySearchResultForAPI:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/AllergySearchResultForAPI'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    PagedListResponse_AllergySearchResultForAPI:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/AllergySearchResultForAPI'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
     AllergySearchResultForAPI:
       type: object
       properties:
@@ -180,30 +196,6 @@ components:
           description: Gets or sets the list of RxCUI identifiers.
           items:
             type: string
-    ItemResponse_AllergySearchResultForAPI:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/AllergySearchResultForAPI'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    PagedListResponse_AllergySearchResultForAPI:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/AllergySearchResultForAPI'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     PageResult:
       type: object
       properties:
@@ -225,6 +217,3 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-x-refined-from:
-- dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

@@ -2,14 +2,13 @@ openapi: 3.2.0
 info:
   title: Dosespot Pharmacies API
   version: '1.0'
-  description: 'Operations tagged Pharmacies across 3 of this provider''s published API definitions: dosespot-openapi.yml, dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Pharmacies across 2 of this provider''s published API definitions: dosespot-openapi.yml, dosespot-rest-api-full-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://my.dosespot.com/webapi/v2
   description: Production
 - url: https://my.staging.dosespot.com/webapi/v2
   description: Staging
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Pharmacies
   description: Surescripts pharmacy search and patient pharmacy management.
@@ -426,14 +425,6 @@ paths:
     - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    ResultStatus:
-      type: object
-      properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
     AddPharmacyRequest:
       type: object
       properties:
@@ -441,6 +432,17 @@ components:
           type: integer
         SetAsPrimary:
           type: boolean
+    PharmacySearchResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Pharmacy'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
     Pharmacy:
       type: object
       properties:
@@ -466,22 +468,19 @@ components:
           type: array
           items:
             type: string
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
     ApiResult:
       type: object
       properties:
         Result:
           $ref: '#/components/schemas/ResultStatus'
-    PharmacySearchResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Pharmacy'
-          PageResult:
-            $ref: '#/components/schemas/PageResult'
     PageResult:
       type: object
       properties:
@@ -495,6 +494,34 @@ components:
           type: boolean
         HasNext:
           type: boolean
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    PageResult_2:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
     Result:
       type: object
       required:
@@ -507,6 +534,20 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
+    PagedListResponse_Pharmacy:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Pharmacy_2'
+        PageResult:
+          $ref: '#/components/schemas/PageResult_2'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
     ListResponse_PatientPharmacy:
       type: object
       properties:
@@ -519,121 +560,6 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a list of objects.
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    Pharmacy_2:
-      type: object
-      properties:
-        PharmacyId:
-          type: integer
-          format: int32
-          description: The pharmacy identifier.
-        StoreName:
-          type: string
-          description: The pharmacy store name.
-        Address1:
-          type: string
-          description: The pharmacy address.
-        Address2:
-          type: string
-          description: The pharmacy address.
-        City:
-          type: string
-          description: The pharmacy city.
-        State:
-          type: string
-          description: The pharmacy state.
-        ZipCode:
-          type: string
-          description: The pharmacy zip code.
-        PrimaryPhone:
-          type: string
-          description: The pharmacy primary phone number.
-        PrimaryPhoneType:
-          type: string
-          description: The pharmacy primary phone type.
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PrimaryFax:
-          type: string
-          description: The pharmacy primary fax number.
-        PhoneAdditional1:
-          type: string
-          description: Additional phone number.
-        PhoneAdditionalType1:
-          type: string
-          description: Additional phone type.
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional2:
-          type: string
-          description: Additional phone number.
-        PhoneAdditionalType2:
-          type: string
-          description: Additional phone type.
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional3:
-          type: string
-          description: Additional phone number.
-        PhoneAdditionalType3:
-          type: string
-          description: Additional phone type.
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PharmacySpecialties:
-          type: array
-          description: The pharmacy specialties.
-          items:
-            type: string
-        ServiceLevel:
-          type: integer
-          format: int32
-          description: The pharmacy service level.
-        Latitude:
-          type: number
-          format: double
-          description: The pharmacy Latitude.
-        Longitude:
-          type: number
-          format: double
-          description: The pharmacy Longitude.
-        NCPDPID:
-          type: string
-      description: Represents a pharmacy entity.
     PatientPharmacy:
       type: object
       properties:
@@ -745,14 +671,6 @@ components:
         NCPDPID:
           type: string
       description: Represents a pharmacy entity in relation to a patient.
-    AddEditPatientPharmacyRequest:
-      type: object
-      properties:
-        PharmacyId:
-          type: integer
-          format: int32
-        SetAsPrimary:
-          type: boolean
     ItemResponse_Pharmacy:
       type: object
       properties:
@@ -763,42 +681,7 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a single object.
-    PageResult_2:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
-    PagedListResponse_Pharmacy:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Pharmacy_2'
-        PageResult:
-          $ref: '#/components/schemas/PageResult_2'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    Pharmacy_3:
+    Pharmacy_2:
       type: object
       properties:
         PharmacyId:
@@ -906,51 +789,14 @@ components:
         NCPDPID:
           type: string
       description: Represents a pharmacy entity.
-    ItemResponse_Pharmacy_2:
+    AddEditPatientPharmacyRequest:
       type: object
       properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/Pharmacy_3'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    PageResult_3:
-      type: object
-      properties:
-        CurrentPage:
+        PharmacyId:
           type: integer
           format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
+        SetAsPrimary:
           type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
-    PagedListResponse_Pharmacy_2:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Pharmacy_3'
-        PageResult:
-          $ref: '#/components/schemas/PageResult_3'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
   securitySchemes:
     bearerAuth:
       type: http
@@ -965,4 +811,3 @@ components:
 x-refined-from:
 - dosespot-openapi.yml
 - dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json

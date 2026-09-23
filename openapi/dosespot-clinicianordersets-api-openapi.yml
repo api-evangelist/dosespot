@@ -1,11 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Dosespot Clinician Order Sets API
-  version: '1.0'
-  description: 'Operations tagged ClinicianOrderSets across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Clinician Order…'
 servers:
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: ClinicianOrderSets
 paths:
@@ -42,8 +40,6 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/OrderSetDetailsResponse'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/ordersets:
     get:
       tags:
@@ -145,8 +141,6 @@ paths:
               $ref: '#/components/schemas/OrderSetRequest'
         description: Order Set data
         required: true
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/clinicians/ordersets/{orderSetId}:
     put:
       tags:
@@ -234,21 +228,8 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/Response'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
     OrderSetFavorite:
       type: object
       required:
@@ -307,28 +288,20 @@ components:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
         SecondPrescriptionDiagnosis:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-    Diagnosis:
+    PrescriptionDiagnosis:
       type: object
       properties:
-        DiagnosisId:
-          type: integer
-          format: int32
-        DiagnosisCode:
-          type: string
-        DiagnosisDescription:
-          type: string
-    Result:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    Response:
       type: object
-      required:
-      - ResultCode
       properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
     OrderSetRequest:
       type: object
       required:
@@ -342,6 +315,51 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OrderSetFavorite'
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    OrderSetResponse:
+      type: object
+      properties:
+        OrderSetId:
+          type: integer
+          format: int32
+        Title:
+          type: string
+        Favorites:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
+    Diagnosis:
+      type: object
+      properties:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
     CompoundIngredient:
       type: object
       required:
@@ -359,6 +377,20 @@ components:
           type: string
         IsFreeTextEPCS:
           type: boolean
+    PagedListResponse_OrderSetResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/OrderSetResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
     ClinicianFavoritePrescriptionResponse:
       type: object
       properties:
@@ -447,61 +479,6 @@ components:
         SecondaryDiagnosisId:
           type: integer
           format: int32
-    OrderSetDetailsResponse:
-      type: object
-      properties:
-        OrderSetId:
-          type: integer
-          format: int32
-        Title:
-          type: string
-        Favorites:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    PrescriptionDiagnosis:
-      type: object
-      properties:
-        PrimaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-        SecondaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-    OrderSetResponse:
-      type: object
-      properties:
-        OrderSetId:
-          type: integer
-          format: int32
-        Title:
-          type: string
-        Favorites:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    PagedListResponse_OrderSetResponse:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/OrderSetResponse'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     PageResult:
       type: object
       properties:
@@ -523,6 +500,18 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-x-refined-from:
-- dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json
+    OrderSetDetailsResponse:
+      type: object
+      properties:
+        OrderSetId:
+          type: integer
+          format: int32
+        Title:
+          type: string
+        Favorites:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'

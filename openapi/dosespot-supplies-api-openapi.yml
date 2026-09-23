@@ -1,11 +1,9 @@
 openapi: 3.2.0
 info:
-  title: Dosespot Supplies API
-  version: '1.0'
-  description: 'Operations tagged Supplies across 2 of this provider''s published API definitions: dosespot-rest-api-full-epcs-v2-swagger.json, dosespot-rest-api-jumpstart-epcs-v2-swagger.json. Each path carries the servers of the definition it was published in.'
+  version: Full_EPCSV2
+  title: 'DoseSpot REST API - Plan: Full + EPCS - V2 Supplies API'
 servers:
 - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
-- url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/JumpStart_EPCSV2
 tags:
 - name: Supplies
 paths:
@@ -43,15 +41,11 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/ItemResponse_SupplySearchResultForAPI'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
   /api/supplies/search:
     get:
       tags:
       - Supplies
-      summary: 'Search supplies
-
-        matching the exact NDC xor exact UPC.'
+      summary: Search supplies matching the exact NDC xor exact UPC
       description: Returns a list of supplies matching a supply name of three or more characters xor matching the exact NDC xor exact UPC (or HRI). Can filter active/obsolete supplies.
       operationId: Supplies_SuppliesSearchV2
       parameters:
@@ -105,22 +99,8 @@ paths:
             text/xml:
               schema:
                 $ref: '#/components/schemas/PagedListResponse_SupplySearchResultForAPI'
-    servers:
-    - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
     PagedListResponse_SupplySearchResultForAPI:
       type: object
       properties:
@@ -156,6 +136,18 @@ components:
           description: True if IsRx is true
         IsObsolete:
           type: boolean
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     ItemResponse_SupplySearchResultForAPI:
       type: object
       properties:
@@ -187,6 +179,3 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-x-refined-from:
-- dosespot-rest-api-full-epcs-v2-swagger.json
-- dosespot-rest-api-jumpstart-epcs-v2-swagger.json
