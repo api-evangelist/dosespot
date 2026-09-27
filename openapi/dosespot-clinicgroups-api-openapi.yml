@@ -66,18 +66,18 @@ paths:
         required: true
 components:
   schemas:
-    AddEditClinicGroupRequest:
+    Result:
       type: object
       required:
-      - ClinicIds
+      - ResultCode
       properties:
-        ClinicIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        ClinicGroupName:
+        ResultCode:
           type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     AddEditClinicGroupResponse:
       type: object
       properties:
@@ -99,15 +99,15 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    Result:
+    AddEditClinicGroupRequest:
       type: object
       required:
-      - ResultCode
+      - ClinicIds
       properties:
-        ResultCode:
+        ClinicIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        ClinicGroupName:
           type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.

@@ -525,86 +525,18 @@ paths:
         required: true
 components:
   schemas:
-    FreeTextSelfReportedMedicationRequest:
+    Result:
       type: object
       required:
-      - DisplayName
-      - Status
+      - ResultCode
       properties:
-        DisplayName:
+        ResultCode:
           type: string
-          minLength: 0
-          maxLength: 300
-        Refills:
-          type: integer
-          format: int32
-        DaysSupply:
-          type: integer
-          format: int32
-        DispenseUnitId:
-          type: integer
-          format: int32
-        Quantity:
-          type: number
-          format: double
-        Directions:
+          description: The result code of the operation.
+        ResultDescription:
           type: string
-          minLength: 0
-          maxLength: 500
-        WrittenDate:
-          type: string
-          format: date-time
-        PrescriberUserId:
-          type: integer
-          format: int32
-        PrescribingAgentUserId:
-          type: integer
-          format: int32
-        Status:
-          type: string
-          enum:
-          - Unknown
-          - Active
-          - Inactive
-          - Discontinued
-          - Deleted
-          - Completed
-          - CancelRequested
-          - CancelPending
-          - Cancelled
-          - CancelDenied
-          - Changed
-          - FullFill
-          - PartialFill
-          - NoFill
-        InactiveDate:
-          type: string
-          format: date-time
-        Comment:
-          type: string
-          minLength: 0
-          maxLength: 500
-        Encounter:
-          type: string
-          minLength: 0
-          maxLength: 50
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    ItemResponse_SelfReportedMedicationResponse:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/SelfReportedMedicationResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     PageResult:
       type: object
       properties:
@@ -626,18 +558,6 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
     SelfReportedMedicationResponse:
       type: object
       properties:
@@ -717,22 +637,54 @@ components:
           type: string
         Strength:
           type: string
-    IdentifierResponse:
+    PagedListResponse_SelfReportedMedicationResponse:
       type: object
       properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/SelfReportedMedicationResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    UpdateSelfReportedMedicationStatusRequest:
+    CodedSelfReportedMedicationRequest:
       type: object
       required:
+      - DispensableDrugId
       - Status
       properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Refills:
+          type: integer
+          format: int32
+        DaysSupply:
+          type: integer
+          format: int32
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 500
+        WrittenDate:
+          type: string
+          format: date-time
+        PrescriberUserId:
+          type: integer
+          format: int32
+        PrescribingAgentUserId:
+          type: integer
+          format: int32
         Status:
           type: string
           enum:
@@ -761,20 +713,13 @@ components:
           type: string
           minLength: 0
           maxLength: 50
-    PagedListResponse_SelfReportedMedicationResponse:
+    Response:
       type: object
       properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/SelfReportedMedicationResponse'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
+      description: The result of the operation.
     SimpleSelfReportedMedicationRequest:
       type: object
       required:
@@ -837,15 +782,37 @@ components:
           type: string
           minLength: 0
           maxLength: 50
-    CodedSelfReportedMedicationRequest:
+    IdentifierResponse:
       type: object
-      required:
-      - DispensableDrugId
-      - Status
       properties:
-        DispensableDrugId:
+        Id:
           type: integer
           format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    ItemResponse_SelfReportedMedicationResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/SelfReportedMedicationResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    FreeTextSelfReportedMedicationRequest:
+      type: object
+      required:
+      - DisplayName
+      - Status
+      properties:
+        DisplayName:
+          type: string
+          minLength: 0
+          maxLength: 300
         Refills:
           type: integer
           format: int32
@@ -871,6 +838,39 @@ components:
         PrescribingAgentUserId:
           type: integer
           format: int32
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    UpdateSelfReportedMedicationStatusRequest:
+      type: object
+      required:
+      - Status
+      properties:
         Status:
           type: string
           enum:

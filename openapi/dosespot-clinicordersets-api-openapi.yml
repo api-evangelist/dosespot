@@ -64,27 +64,56 @@ paths:
                 $ref: '#/components/schemas/PagedListResponse_ClinicOrderSetResponse'
 components:
   schemas:
-    PrescriptionDiagnosis:
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    CompoundIngredient:
+      type: object
+      required:
+      - Quantity
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        IsFreeTextEPCS:
+          type: boolean
+    PageResult:
       type: object
       properties:
-        PrimaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-        SecondaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-    PagedListResponse_ClinicOrderSetResponse:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
           readOnly: true
-          items:
-            $ref: '#/components/schemas/ClinicOrderSetResponse'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
+        HasNext:
+          type: boolean
+          readOnly: true
     ClinicOrderSetResponse:
       type: object
       properties:
@@ -100,18 +129,27 @@ components:
           description: Gets or sets the list of favorite prescriptions associated with this order set.
           items:
             $ref: '#/components/schemas/ClinicFavoritePrescriptionResponse'
-    Result:
+    PagedListResponse_ClinicOrderSetResponse:
       type: object
-      required:
-      - ResultCode
       properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ClinicOrderSetResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PrescriptionDiagnosis:
+      type: object
+      properties:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
     ClinicFavoritePrescriptionResponse:
       type: object
       properties:
@@ -188,44 +226,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompoundIngredient'
-    CompoundIngredient:
-      type: object
-      required:
-      - Quantity
-      properties:
-        DispensableDrugId:
-          type: integer
-          format: int32
-        FreeText:
-          type: string
-        DispenseUnitId:
-          type: integer
-          format: int32
-        Quantity:
-          type: string
-        IsFreeTextEPCS:
-          type: boolean
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
     Diagnosis:
       type: object
       properties:

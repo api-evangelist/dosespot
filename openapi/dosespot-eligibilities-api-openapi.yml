@@ -216,12 +216,58 @@ paths:
         required: true
 components:
   schemas:
-    CoverageMessage:
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    ItemResponse_MedicationCoverageResponse:
       type: object
       properties:
-        Message:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/MedicationCoverageResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    GenderLimitRestriction:
+      type: object
+      properties:
+        GenderAbbreviation:
           type: string
-        LongMessage:
+        GenderDescription:
+          type: string
+    PharmacyEligibility:
+      type: object
+      properties:
+        PharmacyType:
+          type: string
+          enum:
+          - Any
+          - FaxPharmacy
+          - EPCS
+          - TwentyFourHourPharmacy
+          - LongTermCarePharmacy
+          - MailOrder
+          - Retail
+          - SpecialtyPharmacy
+        EligibilityStatus:
+          type: string
+          enum:
+          - Covered
+          - NotCovered
+          - OutOfPocket
+          - Unknown
+          - UnableToProcess
+        Name:
           type: string
     PrescriptionBenefitsPharmacy:
       type: object
@@ -357,94 +403,35 @@ components:
           description: The pharmacy Longitude.
         NCPDPID:
           type: string
-    FormularyInfo:
+    CoverageResource:
       type: object
       properties:
-        ProductId:
-          type: integer
-          format: int32
-        Ndc:
+        Url:
           type: string
-        FormularyStatusId:
-          type: integer
-          format: int32
-        FormularyAbbreviation:
-          type: string
-        FormularyStatusMessage:
-          type: string
-        OrderRank:
-          type: integer
-          format: int32
-        IsGeneric:
-          type: boolean
-        IsRx:
-          type: boolean
-    RepresentitiveFormularyCoverage:
-      type: object
-      properties:
-        CopayFactors:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayerCopay'
-        FormularyStatus:
-          type: string
-        FormularyStatusText:
-          type: string
-        RealTimeFormularyCoverageRestrictions:
-          $ref: '#/components/schemas/RealTimeFormularyCoverageRestrictions'
-    AgeLimitRestriction:
-      type: object
-      properties:
-        MinimumAge:
-          type: integer
-          format: int32
-        MinimumAgeUnit:
+        ResourceType:
           type: string
           enum:
-          - Days
-          - Years
-        MaximumAge:
-          type: integer
-          format: int32
-        MaximumAgeUnit:
+          - AgeLimits
+          - ProductCoverageExclusion
+          - GenderLimits
+          - MedicalNecessity
+          - PriorAuthorization
+          - QuantityLimits
+          - StepTherapy
+          - General
+          - Copay
+          - Formulary
+    CustomEligibilityInfo:
+      type: object
+      properties:
+        CustomEligibilityInfoType:
           type: string
           enum:
-          - Days
-          - Years
-    ItemResponse_GetPrescriptionBenefitResponse:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/GetPrescriptionBenefitResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    PayerAddress:
-      type: object
-      properties:
-        AddressLine1:
+          - PCN
+          - CardholderID
+          - GroupID
+        CustomEligibilityInfoValue:
           type: string
-        AddressLine2:
-          type: string
-        City:
-          type: string
-        State:
-          type: string
-        ZipCode:
-          type: string
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
     CoverageRestrictions:
       type: object
       properties:
@@ -490,17 +477,91 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CoverageResource'
-    CustomEligibilityInfo:
+    MedicationCoverageResponse:
       type: object
       properties:
-        CustomEligibilityInfoType:
+        FormularyStatus:
+          type: string
+        Brand:
+          type: boolean
+        Otc:
+          type: boolean
+        Copays:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerCopay'
+        Alternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerAlternativeAPI'
+        TherapeuticAlternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/TherapeuticAlternatives'
+        Restrictions:
+          $ref: '#/components/schemas/CoverageRestrictions'
+        RealTimeFormularyRequestStatus:
+          type: integer
+          format: int32
+    QuantityLimitRestriction:
+      type: object
+      properties:
+        MaximumAmount:
+          type: number
+          format: double
+        AmountUnit:
           type: string
           enum:
-          - PCN
-          - CardholderID
-          - GroupID
-        CustomEligibilityInfoValue:
+          - DollarAmount
+          - DaysSupply
+          - Fills
+          - Quantity
+        TimePeriodUnit:
           type: string
+          enum:
+          - Days
+          - Lifetime
+          - PerDispensing
+          - SpecificDateRange
+          - CalendarYear
+          - CalendarQuarter
+          - CalendarMonth
+        StartDate:
+          type: string
+          format: date-time
+        EndDate:
+          type: string
+          format: date-time
+        MaximumTimePeriodUnits:
+          type: integer
+          format: int32
+    PayerAlternativeAPI:
+      type: object
+      properties:
+        Ndc:
+          type: string
+        DisplayName:
+          type: string
+        RxCUI:
+          type: integer
+          format: int32
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Brand:
+          type: boolean
+        Otc:
+          type: boolean
+        Details:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescriptionBenefitPayerAlternativeDetail'
+        RepresentativeFormularyCoverage:
+          $ref: '#/components/schemas/RepresentitiveFormularyCoverage'
+        PatientSpecificPricingCoverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatientSpecificPricingCoverage'
     StepMedicationRestriction:
       type: object
       properties:
@@ -523,6 +584,51 @@ components:
         DispensableDrugId:
           type: integer
           format: int32
+    PayerCopay:
+      type: object
+      properties:
+        IsDrugSpecific:
+          type: boolean
+        PharmacyType:
+          type: string
+          enum:
+          - Any
+          - FaxPharmacy
+          - EPCS
+          - TwentyFourHourPharmacy
+          - LongTermCarePharmacy
+          - MailOrder
+          - Retail
+          - SpecialtyPharmacy
+        FlatCopayAmount:
+          type: number
+          format: double
+        PercentCopayAmount:
+          type: number
+          format: double
+        FlatCopayAmountFirst:
+          type: boolean
+        MinimumCopayAmount:
+          type: number
+          format: double
+        MaximumCopayAmount:
+          type: number
+          format: double
+        DaysSupply:
+          type: integer
+          format: int32
+        CopayTier:
+          type: integer
+          format: int32
+        MaximumCopayTier:
+          type: integer
+          format: int32
+        OutOfPocketMinimum:
+          type: number
+          format: double
+        OutOfPocketMaximum:
+          type: number
+          format: double
     PayerDemographics:
       type: object
       properties:
@@ -545,6 +651,153 @@ components:
           - Unknown
         Address:
           $ref: '#/components/schemas/PayerAddress'
+    GetPrescriptionBenefitResponse:
+      type: object
+      properties:
+        PatientFormularyId:
+          type: integer
+          format: int32
+        Brand:
+          type: boolean
+        Otc:
+          type: boolean
+        Alternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerAlternativeAPI'
+        RealTimeFormularyRequestStatus:
+          type: integer
+          format: int32
+        PatientSpecificPricingCoverages:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatientSpecificPricingCoverage'
+        OptionalPharmacy:
+          $ref: '#/components/schemas/PrescriptionBenefitsPharmacy'
+    TherapeuticAlternatives:
+      type: object
+      properties:
+        Ndc:
+          type: string
+        FormularyStatus:
+          type: string
+        Copay:
+          $ref: '#/components/schemas/PayerCopay'
+        DisplayName:
+          type: string
+        FormularyInfo:
+          $ref: '#/components/schemas/FormularyInfo'
+        FullDisplayString:
+          type: string
+        DisplayStrength:
+          type: string
+        DefaultDispenseUnitID:
+          type: integer
+          format: int32
+        DispensableDrugId:
+          type: integer
+          format: int32
+        Schedule:
+          type: integer
+          format: int32
+        IsDetox:
+          type: boolean
+        HasGHB:
+          type: boolean
+        RxCUI:
+          type: integer
+          format: int32
+    RepresentitiveFormularyCoverage:
+      type: object
+      properties:
+        CopayFactors:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerCopay'
+        FormularyStatus:
+          type: string
+        FormularyStatusText:
+          type: string
+        RealTimeFormularyCoverageRestrictions:
+          $ref: '#/components/schemas/RealTimeFormularyCoverageRestrictions'
+    PayerAlternativeDetail:
+      type: object
+      properties:
+        Ndc:
+          type: string
+        Coverage:
+          $ref: '#/components/schemas/MedicationCoverage'
+    AgeLimitRestriction:
+      type: object
+      properties:
+        MinimumAge:
+          type: integer
+          format: int32
+        MinimumAgeUnit:
+          type: string
+          enum:
+          - Days
+          - Years
+        MaximumAge:
+          type: integer
+          format: int32
+        MaximumAgeUnit:
+          type: string
+          enum:
+          - Days
+          - Years
+    RealTimeFormularyCoverageRestrictions:
+      type: object
+      properties:
+        HasCoverageRestrictions:
+          type: boolean
+        IsExcluded:
+          type: boolean
+        HasMedicalNecessity:
+          type: boolean
+        HasPriorAuthorization:
+          type: boolean
+        HasStepTherapy:
+          type: boolean
+        AgeLimitRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgeLimitRestriction'
+        GenderLimitRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenderLimitRestriction'
+        QuantityLimitRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuantityLimitRestriction'
+        StepMedicationRestrictions:
+          type: array
+          items:
+            $ref: '#/components/schemas/StepMedicationRestriction'
+        Messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageMessage'
+        DrugResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageResource'
+        SummaryResources:
+          type: array
+          items:
+            $ref: '#/components/schemas/CoverageResource'
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
     PrescriptionBenefitPayerAlternativeDetail:
       type: object
       properties:
@@ -593,51 +846,65 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CustomEligibilityInfo'
-    PayerCopay:
+    MedicationCoverage:
       type: object
       properties:
-        IsDrugSpecific:
-          type: boolean
-        PharmacyType:
+        FormularyStatus:
           type: string
-          enum:
-          - Any
-          - FaxPharmacy
-          - EPCS
-          - TwentyFourHourPharmacy
-          - LongTermCarePharmacy
-          - MailOrder
-          - Retail
-          - SpecialtyPharmacy
-        FlatCopayAmount:
-          type: number
-          format: double
-        PercentCopayAmount:
-          type: number
-          format: double
-        FlatCopayAmountFirst:
+        Copays:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerCopay'
+        Alternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayerAlternative'
+        Restrictions:
+          $ref: '#/components/schemas/CoverageRestrictions'
+    ItemResponse_GetPrescriptionBenefitResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/GetPrescriptionBenefitResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    FormularyInfo:
+      type: object
+      properties:
+        ProductId:
+          type: integer
+          format: int32
+        Ndc:
+          type: string
+        FormularyStatusId:
+          type: integer
+          format: int32
+        FormularyAbbreviation:
+          type: string
+        FormularyStatusMessage:
+          type: string
+        OrderRank:
+          type: integer
+          format: int32
+        IsGeneric:
           type: boolean
-        MinimumCopayAmount:
-          type: number
-          format: double
-        MaximumCopayAmount:
-          type: number
-          format: double
-        DaysSupply:
-          type: integer
-          format: int32
-        CopayTier:
-          type: integer
-          format: int32
-        MaximumCopayTier:
-          type: integer
-          format: int32
-        OutOfPocketMinimum:
-          type: number
-          format: double
-        OutOfPocketMaximum:
-          type: number
-          format: double
+        IsRx:
+          type: boolean
+    ListResponse_PayerInformationResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/PayerInformationResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
     PricingCoverageFactorsCoverageAlerts:
       type: object
       properties:
@@ -663,47 +930,15 @@ components:
           - TextMessage
         ReferenceText:
           type: string
-    RealTimeFormularyCoverageRestrictions:
+    PayerAlternative:
       type: object
       properties:
-        HasCoverageRestrictions:
-          type: boolean
-        IsExcluded:
-          type: boolean
-        HasMedicalNecessity:
-          type: boolean
-        HasPriorAuthorization:
-          type: boolean
-        HasStepTherapy:
-          type: boolean
-        AgeLimitRestrictions:
+        Ndc:
+          type: string
+        Details:
           type: array
           items:
-            $ref: '#/components/schemas/AgeLimitRestriction'
-        GenderLimitRestrictions:
-          type: array
-          items:
-            $ref: '#/components/schemas/GenderLimitRestriction'
-        QuantityLimitRestrictions:
-          type: array
-          items:
-            $ref: '#/components/schemas/QuantityLimitRestriction'
-        StepMedicationRestrictions:
-          type: array
-          items:
-            $ref: '#/components/schemas/StepMedicationRestriction'
-        Messages:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoverageMessage'
-        DrugResources:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoverageResource'
-        SummaryResources:
-          type: array
-          items:
-            $ref: '#/components/schemas/CoverageResource'
+            $ref: '#/components/schemas/PayerAlternativeDetail'
     PricingCoverageFactors:
       type: object
       properties:
@@ -765,182 +1000,35 @@ components:
           description: 'Y- PA required
 
             N - PA Not required'
-    TherapeuticAlternatives:
+    PatientSpecificPricingCoverage:
       type: object
       properties:
-        Ndc:
-          type: string
-        FormularyStatus:
-          type: string
-        Copay:
-          $ref: '#/components/schemas/PayerCopay'
-        DisplayName:
-          type: string
-        FormularyInfo:
-          $ref: '#/components/schemas/FormularyInfo'
-        FullDisplayString:
-          type: string
-        DisplayStrength:
-          type: string
-        DefaultDispenseUnitID:
-          type: integer
-          format: int32
-        DispensableDrugId:
-          type: integer
-          format: int32
-        Schedule:
-          type: integer
-          format: int32
-        IsDetox:
-          type: boolean
-        HasGHB:
-          type: boolean
-        RxCUI:
-          type: integer
-          format: int32
-    MedicationCoverage:
+        Pharmacy:
+          description: Pricing for each pharmacy available
+          $ref: '#/components/schemas/PrescriptionBenefitsPharmacy'
+        PricingCoverage:
+          description: Contains PMBC pricing for original medication requested.
+          $ref: '#/components/schemas/PricingCoverageFactors'
+    CoverageMessage:
       type: object
       properties:
-        FormularyStatus:
+        Message:
           type: string
-        Copays:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayerCopay'
-        Alternatives:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayerAlternative'
-        Restrictions:
-          $ref: '#/components/schemas/CoverageRestrictions'
-    MedicationCoverageResponse:
+        LongMessage:
+          type: string
+    PayerAddress:
       type: object
       properties:
-        FormularyStatus:
+        AddressLine1:
           type: string
-        Brand:
-          type: boolean
-        Otc:
-          type: boolean
-        Copays:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayerCopay'
-        Alternatives:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayerAlternativeAPI'
-        TherapeuticAlternatives:
-          type: array
-          items:
-            $ref: '#/components/schemas/TherapeuticAlternatives'
-        Restrictions:
-          $ref: '#/components/schemas/CoverageRestrictions'
-        RealTimeFormularyRequestStatus:
-          type: integer
-          format: int32
-    PharmacyEligibility:
-      type: object
-      properties:
-        PharmacyType:
+        AddressLine2:
           type: string
-          enum:
-          - Any
-          - FaxPharmacy
-          - EPCS
-          - TwentyFourHourPharmacy
-          - LongTermCarePharmacy
-          - MailOrder
-          - Retail
-          - SpecialtyPharmacy
-        EligibilityStatus:
+        City:
           type: string
-          enum:
-          - Covered
-          - NotCovered
-          - OutOfPocket
-          - Unknown
-          - UnableToProcess
-        Name:
+        State:
           type: string
-    GenderLimitRestriction:
-      type: object
-      properties:
-        GenderAbbreviation:
+        ZipCode:
           type: string
-        GenderDescription:
-          type: string
-    ListResponse_PayerInformationResponse:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/PayerInformationResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
-    QuantityLimitRestriction:
-      type: object
-      properties:
-        MaximumAmount:
-          type: number
-          format: double
-        AmountUnit:
-          type: string
-          enum:
-          - DollarAmount
-          - DaysSupply
-          - Fills
-          - Quantity
-        TimePeriodUnit:
-          type: string
-          enum:
-          - Days
-          - Lifetime
-          - PerDispensing
-          - SpecificDateRange
-          - CalendarYear
-          - CalendarQuarter
-          - CalendarMonth
-        StartDate:
-          type: string
-          format: date-time
-        EndDate:
-          type: string
-          format: date-time
-        MaximumTimePeriodUnits:
-          type: integer
-          format: int32
-    PayerAlternativeAPI:
-      type: object
-      properties:
-        Ndc:
-          type: string
-        DisplayName:
-          type: string
-        RxCUI:
-          type: integer
-          format: int32
-        DispensableDrugId:
-          type: integer
-          format: int32
-        Brand:
-          type: boolean
-        Otc:
-          type: boolean
-        Details:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrescriptionBenefitPayerAlternativeDetail'
-        RepresentativeFormularyCoverage:
-          $ref: '#/components/schemas/RepresentitiveFormularyCoverage'
-        PatientSpecificPricingCoverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/PatientSpecificPricingCoverage'
     PayerInformationResponse:
       type: object
       properties:
@@ -979,91 +1067,3 @@ components:
           type: string
         MemberId:
           type: string
-    GetPrescriptionBenefitResponse:
-      type: object
-      properties:
-        PatientFormularyId:
-          type: integer
-          format: int32
-        Brand:
-          type: boolean
-        Otc:
-          type: boolean
-        Alternatives:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayerAlternativeAPI'
-        RealTimeFormularyRequestStatus:
-          type: integer
-          format: int32
-        PatientSpecificPricingCoverages:
-          type: array
-          items:
-            $ref: '#/components/schemas/PatientSpecificPricingCoverage'
-        OptionalPharmacy:
-          $ref: '#/components/schemas/PrescriptionBenefitsPharmacy'
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
-    PatientSpecificPricingCoverage:
-      type: object
-      properties:
-        Pharmacy:
-          description: Pricing for each pharmacy available
-          $ref: '#/components/schemas/PrescriptionBenefitsPharmacy'
-        PricingCoverage:
-          description: Contains PMBC pricing for original medication requested.
-          $ref: '#/components/schemas/PricingCoverageFactors'
-    CoverageResource:
-      type: object
-      properties:
-        Url:
-          type: string
-        ResourceType:
-          type: string
-          enum:
-          - AgeLimits
-          - ProductCoverageExclusion
-          - GenderLimits
-          - MedicalNecessity
-          - PriorAuthorization
-          - QuantityLimits
-          - StepTherapy
-          - General
-          - Copay
-          - Formulary
-    PayerAlternativeDetail:
-      type: object
-      properties:
-        Ndc:
-          type: string
-        Coverage:
-          $ref: '#/components/schemas/MedicationCoverage'
-    ItemResponse_MedicationCoverageResponse:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/MedicationCoverageResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    PayerAlternative:
-      type: object
-      properties:
-        Ndc:
-          type: string
-        Details:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayerAlternativeDetail'

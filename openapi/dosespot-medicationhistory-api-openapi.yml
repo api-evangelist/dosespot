@@ -109,31 +109,6 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    ItemResponse_DateTime:
-      type: object
-      properties:
-        Item:
-          type: string
-          format: date-time
-          description: The response object.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    PagedListResponse_SureScriptsHistoryMedication:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/SureScriptsHistoryMedication'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     PageResult:
       type: object
       properties:
@@ -155,6 +130,31 @@ components:
         HasNext:
           type: boolean
           readOnly: true
+    PagedListResponse_SureScriptsHistoryMedication:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/SureScriptsHistoryMedication'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ItemResponse_DateTime:
+      type: object
+      properties:
+        Item:
+          type: string
+          format: date-time
+          description: The response object.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
     SureScriptsHistoryMedication:
       type: object
       properties:

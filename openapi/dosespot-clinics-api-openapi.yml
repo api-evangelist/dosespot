@@ -419,19 +419,6 @@ paths:
         required: true
 components:
   schemas:
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    ClinicIdentifier:
-      type: object
-      properties:
-        ClinicId:
-          type: integer
-          format: int32
     Result:
       type: object
       required:
@@ -444,16 +431,30 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    ClinicRemoveMultipleCliniciansRequest:
+    ListResponse_ClinicIdentifier:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/ClinicIdentifier'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    ChangePatientClinicRequest:
       type: object
       required:
-      - ClinicianIds
+      - ClinicIdToAdd
+      - ClinicIdToRemove
       properties:
-        ClinicianIds:
-          type: array
-          items:
-            type: integer
-            format: int32
+        ClinicIdToRemove:
+          type: integer
+          format: int32
+        ClinicIdToAdd:
+          type: integer
+          format: int32
     AddEditClinicRequest:
       type: object
       required:
@@ -552,45 +553,45 @@ components:
       description: 'Represents a request to add or edit a clinic.
 
         This class overrides the identifier property so that it will not be serialized for requests.'
-    ChangePatientClinicRequest:
-      type: object
-      required:
-      - ClinicIdToAdd
-      - ClinicIdToRemove
-      properties:
-        ClinicIdToRemove:
-          type: integer
-          format: int32
-        ClinicIdToAdd:
-          type: integer
-          format: int32
-    ClinicianAddMultipleClinicsRequest:
-      type: object
-      required:
-      - ClinicIds
-      properties:
-        ClinicIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    ListResponse_Clinic:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/Clinic'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
     ClinicDetailResponse:
       type: object
       properties:
         Clinic:
           $ref: '#/components/schemas/Clinic'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ClinicRemoveMultipleCliniciansRequest:
+      type: object
+      required:
+      - ClinicianIds
+      properties:
+        ClinicianIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    ClinicIdentifier:
+      type: object
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+    ClinicKeyResponse:
+      type: object
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+        ClinicKey:
+          type: string
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
@@ -692,26 +693,25 @@ components:
           - Work
           - Night
           - Primary
-    ClinicKeyResponse:
-      type: object
-      properties:
-        ClinicId:
-          type: integer
-          format: int32
-        ClinicKey:
-          type: string
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    ListResponse_ClinicIdentifier:
+    ListResponse_Clinic:
       type: object
       properties:
         Items:
           type: array
           description: The list of elements to return.
           items:
-            $ref: '#/components/schemas/ClinicIdentifier'
+            $ref: '#/components/schemas/Clinic'
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a list of objects.
+    ClinicianAddMultipleClinicsRequest:
+      type: object
+      required:
+      - ClinicIds
+      properties:
+        ClinicIds:
+          type: array
+          items:
+            type: integer
+            format: int32

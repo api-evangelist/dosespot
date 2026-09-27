@@ -118,17 +118,18 @@ paths:
                 $ref: '#/components/schemas/PreCheckInteractionsResponse'
 components:
   schemas:
-    DrugInformation:
+    Result:
       type: object
+      required:
+      - ResultCode
       properties:
-        DispensableDrugId:
-          type: integer
-          format: int32
-        RoutedDoseFormDrugId:
-          type: integer
-          format: int32
-        DrugName:
+        ResultCode:
           type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     PreCheckInteractionsResponse:
       type: object
       properties:
@@ -143,18 +144,6 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
     ListResponse_DrugInteraction:
       type: object
       properties:
@@ -163,23 +152,6 @@ components:
           description: The list of elements to return.
           items:
             $ref: '#/components/schemas/DrugInteraction'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
-    AllergyInteraction:
-      type: object
-      properties:
-        InteractionMessage:
-          type: string
-    ListResponse_AllergyInteraction:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/AllergyInteraction'
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
@@ -202,3 +174,31 @@ components:
             $ref: '#/components/schemas/DrugInformation'
         IsProspective:
           type: boolean
+    ListResponse_AllergyInteraction:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/AllergyInteraction'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    DrugInformation:
+      type: object
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        RoutedDoseFormDrugId:
+          type: integer
+          format: int32
+        DrugName:
+          type: string
+    AllergyInteraction:
+      type: object
+      properties:
+        InteractionMessage:
+          type: string

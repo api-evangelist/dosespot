@@ -132,16 +132,27 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    ItemResponse_AllergySearchResultForAPI:
+    PageResult:
       type: object
       properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/AllergySearchResultForAPI'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
     PagedListResponse_AllergySearchResultForAPI:
       type: object
       properties:
@@ -196,24 +207,13 @@ components:
           description: Gets or sets the list of RxCUI identifiers.
           items:
             type: string
-    PageResult:
+    ItemResponse_AllergySearchResultForAPI:
       type: object
       properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/AllergySearchResultForAPI'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.

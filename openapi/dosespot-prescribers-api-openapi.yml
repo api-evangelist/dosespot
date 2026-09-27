@@ -79,6 +79,50 @@ paths:
                 $ref: '#/components/schemas/ClinicianResult'
 components:
   schemas:
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
+    ClinicianListResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Clinician'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+    ClinicianResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Item:
+            $ref: '#/components/schemas/Clinician'
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
     Clinician:
       type: object
       properties:
@@ -119,50 +163,6 @@ components:
           type: array
           items:
             type: string
-    ClinicianResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Item:
-            $ref: '#/components/schemas/Clinician'
-    ResultStatus:
-      type: object
-      properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
-    ClinicianListResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Clinician'
-          PageResult:
-            $ref: '#/components/schemas/PageResult'
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-        TotalPages:
-          type: integer
-        PageSize:
-          type: integer
-        HasPrevious:
-          type: boolean
-        HasNext:
-          type: boolean
   securitySchemes:
     bearerAuth:
       type: http

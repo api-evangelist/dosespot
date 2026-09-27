@@ -112,11 +112,6 @@ paths:
     - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
     NotificationCountResult:
       allOf:
       - $ref: '#/components/schemas/ApiResult'
@@ -132,6 +127,11 @@ components:
             type: integer
           TotalNotificationCount:
             type: integer
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
     ResultStatus:
       type: object
       properties:
@@ -140,24 +140,6 @@ components:
           description: OK or ERROR.
         ResultDescription:
           type: string
-    PrescriberNotificationCountsResponse:
-      type: object
-      properties:
-        RefillRequestsCount:
-          type: integer
-          format: int32
-        TransactionErrorsCount:
-          type: integer
-          format: int32
-        PendingPrescriptionsCount:
-          type: integer
-          format: int32
-        PendingRxChangeCount:
-          type: integer
-          format: int32
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     Result:
       type: object
       required:
@@ -170,26 +152,6 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    TransmissionErrors:
-      type: object
-      properties:
-        PrescriptionId:
-          type: integer
-          format: int32
-        DateWritten:
-          type: string
-          format: date-time
-        ErrorDateTimeStamp:
-          type: string
-          format: date-time
-        ErrorDetails:
-          type: string
-        PatientId:
-          type: integer
-          format: int32
-        ClinicId:
-          type: integer
-          format: int32
     PagedListResponse_TransmissionErrors:
       type: object
       properties:
@@ -225,6 +187,44 @@ components:
         HasNext:
           type: boolean
           readOnly: true
+    TransmissionErrors:
+      type: object
+      properties:
+        PrescriptionId:
+          type: integer
+          format: int32
+        DateWritten:
+          type: string
+          format: date-time
+        ErrorDateTimeStamp:
+          type: string
+          format: date-time
+        ErrorDetails:
+          type: string
+        PatientId:
+          type: integer
+          format: int32
+        ClinicId:
+          type: integer
+          format: int32
+    PrescriberNotificationCountsResponse:
+      type: object
+      properties:
+        RefillRequestsCount:
+          type: integer
+          format: int32
+        TransactionErrorsCount:
+          type: integer
+          format: int32
+        PendingPrescriptionsCount:
+          type: integer
+          format: int32
+        PendingRxChangeCount:
+          type: integer
+          format: int32
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
   securitySchemes:
     bearerAuth:
       type: http
