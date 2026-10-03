@@ -127,11 +127,6 @@ components:
             type: integer
           TotalNotificationCount:
             type: integer
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
     ResultStatus:
       type: object
       properties:
@@ -140,6 +135,11 @@ components:
           description: OK or ERROR.
         ResultDescription:
           type: string
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
     Result:
       type: object
       required:
@@ -152,41 +152,6 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    PagedListResponse_TransmissionErrors:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/TransmissionErrors'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
     TransmissionErrors:
       type: object
       properties:
@@ -222,6 +187,41 @@ components:
         PendingRxChangeCount:
           type: integer
           format: int32
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    PagedListResponse_TransmissionErrors:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/TransmissionErrors'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'

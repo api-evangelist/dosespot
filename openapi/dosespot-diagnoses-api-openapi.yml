@@ -61,20 +61,6 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    PagedListResponse_DiagnosisSearchResult:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/DiagnosisSearchResult'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     PageResult:
       type: object
       properties:
@@ -106,3 +92,17 @@ components:
           type: string
         DiagnosisName:
           type: string
+    PagedListResponse_DiagnosisSearchResult:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/DiagnosisSearchResult'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'

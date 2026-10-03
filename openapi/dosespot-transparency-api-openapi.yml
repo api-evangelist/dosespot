@@ -49,38 +49,6 @@ paths:
                 $ref: '#/components/schemas/PharmacyAlternativeResponse'
 components:
   schemas:
-    PharmacyOffer:
-      type: object
-      properties:
-        OfferType:
-          type: string
-          enum:
-          - Cash
-          - InsuranceEstimate
-          - Prime
-          - RxPass
-        Price:
-          type: string
-        Quantity:
-          type: string
-        EstimatedDelivery:
-          type: string
-    PharmacyAlternative:
-      type: object
-      properties:
-        IsDrugAvailable:
-          type: boolean
-        Pharmacy:
-          $ref: '#/components/schemas/Pharmacy'
-        NotDispensableReason:
-          type: string
-          enum:
-          - CURRENTLY_UNAVAILABLE
-          - DOES_NOT_DISPENSE
-        PharmacyOffers:
-          type: array
-          items:
-            $ref: '#/components/schemas/PharmacyOffer'
     Pharmacy:
       type: object
       properties:
@@ -196,3 +164,35 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PharmacyAlternative'
+    PharmacyOffer:
+      type: object
+      properties:
+        OfferType:
+          type: string
+          enum:
+          - Cash
+          - InsuranceEstimate
+          - Prime
+          - RxPass
+        Price:
+          type: string
+        Quantity:
+          type: string
+        EstimatedDelivery:
+          type: string
+    PharmacyAlternative:
+      type: object
+      properties:
+        IsDrugAvailable:
+          type: boolean
+        Pharmacy:
+          $ref: '#/components/schemas/Pharmacy'
+        NotDispensableReason:
+          type: string
+          enum:
+          - CURRENTLY_UNAVAILABLE
+          - DOES_NOT_DISPENSE
+        PharmacyOffers:
+          type: array
+          items:
+            $ref: '#/components/schemas/PharmacyOffer'

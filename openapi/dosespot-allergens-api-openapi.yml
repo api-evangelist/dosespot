@@ -120,6 +120,30 @@ paths:
                 $ref: '#/components/schemas/PagedListResponse_AllergySearchResultForAPI'
 components:
   schemas:
+    ItemResponse_AllergySearchResultForAPI:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/AllergySearchResultForAPI'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    PagedListResponse_AllergySearchResultForAPI:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/AllergySearchResultForAPI'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
     Result:
       type: object
       required:
@@ -153,20 +177,6 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-    PagedListResponse_AllergySearchResultForAPI:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/AllergySearchResultForAPI'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     AllergySearchResultForAPI:
       type: object
       properties:
@@ -207,13 +217,3 @@ components:
           description: Gets or sets the list of RxCUI identifiers.
           items:
             type: string
-    ItemResponse_AllergySearchResultForAPI:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/AllergySearchResultForAPI'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.

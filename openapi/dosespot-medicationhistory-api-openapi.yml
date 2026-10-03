@@ -97,6 +97,17 @@ paths:
                 $ref: '#/components/schemas/ItemResponse_DateTime'
 components:
   schemas:
+    ItemResponse_DateTime:
+      type: object
+      properties:
+        Item:
+          type: string
+          format: date-time
+          description: The response object.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
     Result:
       type: object
       required:
@@ -144,17 +155,6 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    ItemResponse_DateTime:
-      type: object
-      properties:
-        Item:
-          type: string
-          format: date-time
-          description: The response object.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
     SureScriptsHistoryMedication:
       type: object
       properties:

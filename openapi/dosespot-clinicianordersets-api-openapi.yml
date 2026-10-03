@@ -242,23 +242,38 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    CompoundIngredient:
+    PrescriptionDiagnosisIds:
       type: object
-      required:
-      - Quantity
       properties:
-        DispensableDrugId:
+        PrimaryDiagnosisId:
           type: integer
           format: int32
-        FreeText:
-          type: string
-        DispenseUnitId:
+        SecondaryDiagnosisId:
           type: integer
           format: int32
-        Quantity:
+    OrderSetResponse:
+      type: object
+      properties:
+        OrderSetId:
+          type: integer
+          format: int32
+        Title:
           type: string
-        IsFreeTextEPCS:
-          type: boolean
+        Favorites:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
     PageResult:
       type: object
       properties:
@@ -359,15 +374,75 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompoundIngredient'
-    PrescriptionDiagnosisIds:
+    OrderSetDetailsResponse:
       type: object
       properties:
-        PrimaryDiagnosisId:
+        OrderSetId:
           type: integer
           format: int32
-        SecondaryDiagnosisId:
+        Title:
+          type: string
+        Favorites:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Diagnosis:
+      type: object
+      properties:
+        DiagnosisId:
           type: integer
           format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string
+    CompoundIngredient:
+      type: object
+      required:
+      - Quantity
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        IsFreeTextEPCS:
+          type: boolean
+    OrderSetRequest:
+      type: object
+      required:
+      - Title
+      properties:
+        Title:
+          type: string
+          minLength: 3
+          maxLength: 500
+        Favorites:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderSetFavorite'
+    PrescriptionDiagnosis:
+      type: object
+      properties:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
     OrderSetFavorite:
       type: object
       required:
@@ -440,78 +515,3 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    OrderSetRequest:
-      type: object
-      required:
-      - Title
-      properties:
-        Title:
-          type: string
-          minLength: 3
-          maxLength: 500
-        Favorites:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderSetFavorite'
-    PrescriptionDiagnosis:
-      type: object
-      properties:
-        PrimaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-        SecondaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    OrderSetDetailsResponse:
-      type: object
-      properties:
-        OrderSetId:
-          type: integer
-          format: int32
-        Title:
-          type: string
-        Favorites:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    OrderSetResponse:
-      type: object
-      properties:
-        OrderSetId:
-          type: integer
-          format: int32
-        Title:
-          type: string
-        Favorites:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
-    Diagnosis:
-      type: object
-      properties:
-        DiagnosisId:
-          type: integer
-          format: int32
-        DiagnosisCode:
-          type: string
-        DiagnosisDescription:
-          type: string

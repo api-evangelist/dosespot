@@ -92,37 +92,6 @@ components:
           type: boolean
         HasNext:
           type: boolean
-    ClinicianListResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Clinician'
-          PageResult:
-            $ref: '#/components/schemas/PageResult'
-    ClinicianResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Item:
-            $ref: '#/components/schemas/Clinician'
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
-    ResultStatus:
-      type: object
-      properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
     Clinician:
       type: object
       properties:
@@ -163,6 +132,37 @@ components:
           type: array
           items:
             type: string
+    ClinicianListResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Clinician'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+    ClinicianResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Item:
+            $ref: '#/components/schemas/Clinician'
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

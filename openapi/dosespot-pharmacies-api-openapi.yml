@@ -450,6 +450,17 @@ components:
       properties:
         Result:
           $ref: '#/components/schemas/ResultStatus'
+    PharmacySearchResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Pharmacy'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
     ResultStatus:
       type: object
       properties:
@@ -483,17 +494,6 @@ components:
           type: array
           items:
             type: string
-    PharmacySearchResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Pharmacy'
-          PageResult:
-            $ref: '#/components/schemas/PageResult'
     Result:
       type: object
       required:
@@ -506,6 +506,14 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
+    AddEditPatientPharmacyRequest:
+      type: object
+      properties:
+        PharmacyId:
+          type: integer
+          format: int32
+        SetAsPrimary:
+          type: boolean
     PageResult_2:
       type: object
       properties:
@@ -527,20 +535,6 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-    PagedListResponse_Pharmacy:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Pharmacy_2'
-        PageResult:
-          $ref: '#/components/schemas/PageResult_2'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     PatientPharmacy:
       type: object
       properties:
@@ -664,13 +658,20 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a list of objects.
-    Response:
+    PagedListResponse_Pharmacy:
       type: object
       properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Pharmacy_2'
+        PageResult:
+          $ref: '#/components/schemas/PageResult_2'
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: The result of the operation.
     ItemResponse_Pharmacy:
       type: object
       properties:
@@ -681,14 +682,13 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a single object.
-    AddEditPatientPharmacyRequest:
+    Response:
       type: object
       properties:
-        PharmacyId:
-          type: integer
-          format: int32
-        SetAsPrimary:
-          type: boolean
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
     Pharmacy_2:
       type: object
       properties:

@@ -1615,6 +1615,17 @@ paths:
     - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
+    PrescriptionListResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Prescription'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
     PageResult:
       type: object
       properties:
@@ -1628,20 +1639,13 @@ components:
           type: boolean
         HasNext:
           type: boolean
-    MedicationHistoryResult:
+    PrescriptionResult:
       allOf:
       - $ref: '#/components/schemas/ApiResult'
       - type: object
         properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Medication'
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
+          Item:
+            $ref: '#/components/schemas/Prescription'
     Prescription:
       type: object
       properties:
@@ -1671,21 +1675,20 @@ components:
           type: boolean
         Medication:
           $ref: '#/components/schemas/Medication'
-    ResultStatus:
+    ApiResult:
       type: object
       properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
-    PrescriptionResult:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    MedicationHistoryResult:
       allOf:
       - $ref: '#/components/schemas/ApiResult'
       - type: object
         properties:
-          Item:
-            $ref: '#/components/schemas/Prescription'
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Medication'
     Medication:
       type: object
       properties:
@@ -1708,41 +1711,14 @@ components:
         Schedule:
           type: string
           description: DEA schedule for controlled substances.
-    PrescriptionListResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Prescription'
-          PageResult:
-            $ref: '#/components/schemas/PageResult'
-    Result:
+    ResultStatus:
       type: object
-      required:
-      - ResultCode
       properties:
         ResultCode:
           type: string
-          description: The result code of the operation.
+          description: OK or ERROR.
         ResultDescription:
           type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
-    PatientSnapshot:
-      type: object
-      properties:
-        FirstName:
-          type: string
-        LastName:
-          type: string
-        DateOfBirth:
-          type: string
-          format: date-time
-        Address:
-          $ref: '#/components/schemas/AddressSnapshot'
     CodedSupplyRequest:
       type: object
       required:
@@ -1844,43 +1820,46 @@ components:
           type: string
           minLength: 0
           maxLength: 50
-    PrescriptionDiagnosisIds:
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    PageResult_2:
       type: object
       properties:
-        PrimaryDiagnosisId:
+        CurrentPage:
           type: integer
           format: int32
-        SecondaryDiagnosisId:
+        TotalPages:
           type: integer
           format: int32
-    CancelPrescriptionRequest:
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    IgnoreAlertRequest:
       type: object
       properties:
         Comment:
           type: string
           minLength: 0
           maxLength: 500
-    EpcsSuggestionsResponse:
-      type: object
-      properties:
-        EpcsSuggestions:
-          $ref: '#/components/schemas/EpcsSuggestions'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    AddressSnapshot:
-      type: object
-      properties:
-        Address1:
-          type: string
-        Address2:
-          type: string
-        City:
-          type: string
-        State:
-          type: string
-        ZipCode:
-          type: string
     PrescriberSnapshot:
       type: object
       properties:
@@ -1894,42 +1873,87 @@ components:
           type: string
         Address:
           $ref: '#/components/schemas/AddressSnapshot'
-    ClinicianReferenceNumberOverrides:
+    PrescriptionWithClinicianReferenceNumberOverrides:
       type: object
       properties:
-        OverrideDeaNumber:
-          type: string
-          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
-        OverrideSupervisorDeaNumber:
-          type: string
-          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
-    PharmacySnapshot:
+        PrescriptionId:
+          type: integer
+          format: int32
+        ClinicianReferenceNumberOverrides:
+          $ref: '#/components/schemas/ClinicianReferenceNumberOverrides'
+    EpcsSuggestions:
       type: object
       properties:
-        StoreName:
+        SuggestedDeaNumber:
+          $ref: '#/components/schemas/DeaNumber'
+        SuggestedSupervisorDeaNumber:
+          $ref: '#/components/schemas/DeaNumber'
+        Schedule:
+          $ref: '#/components/schemas/ScheduleInfo'
+    PrescriptionSnapshotResponse:
+      type: object
+      properties:
+        PrescriptionSnapshot:
+          $ref: '#/components/schemas/PrescriptionSnapshot'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    RTPSCoupon:
+      type: object
+      properties:
+        BIN:
           type: string
-        NCPDPID:
+        PCN:
           type: string
-        NPI:
+        MemberID:
           type: string
-        Address:
-          $ref: '#/components/schemas/AddressSnapshot'
-    CompoundIngredient:
+        GroupID:
+          type: string
+    CancelPrescriptionRequest:
+      type: object
+      properties:
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+    SendPrescriptionsWithAddressRequest:
       type: object
       required:
-      - Quantity
+      - Address1
+      - City
+      - PrescriptionIds
+      - State
+      - ZipCode
       properties:
-        DispensableDrugId:
-          type: integer
-          format: int32
-        FreeText:
+        Address1:
           type: string
-        DispenseUnitId:
-          type: integer
-          format: int32
-        Quantity:
+          minLength: 0
+          maxLength: 35
+        Address2:
           type: string
-        IsFreeTextEPCS:
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+          minLength: 0
+          maxLength: 35
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        Pin:
+          type: string
+          pattern: ^(?:\d{4})?$
+        PrescriptionIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        PharmacyOverride:
           type: boolean
     UpdatePrescriptionMedicationStatusRequest:
       type: object
@@ -1960,23 +1984,15 @@ components:
         InactiveDate:
           type: string
           format: date-time
-    EpcsSuggestions:
+    PrescriptionDiagnosisIds:
       type: object
       properties:
-        SuggestedDeaNumber:
-          $ref: '#/components/schemas/DeaNumber'
-        SuggestedSupervisorDeaNumber:
-          $ref: '#/components/schemas/DeaNumber'
-        Schedule:
-          $ref: '#/components/schemas/ScheduleInfo'
-    PrescriptionResponse:
-      type: object
-      properties:
-        Prescription:
-          $ref: '#/components/schemas/Prescription_2'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
+        PrimaryDiagnosisId:
+          type: integer
+          format: int32
+        SecondaryDiagnosisId:
+          type: integer
+          format: int32
     CodedPrescriptionRequest:
       type: object
       required:
@@ -2079,6 +2095,240 @@ components:
           type: string
           minLength: 0
           maxLength: 50
+    PatientSnapshot:
+      type: object
+      properties:
+        FirstName:
+          type: string
+        LastName:
+          type: string
+        DateOfBirth:
+          type: string
+          format: date-time
+        Address:
+          $ref: '#/components/schemas/AddressSnapshot'
+    AgentSnapshot:
+      type: object
+      properties:
+        FirstName:
+          type: string
+        LastName:
+          type: string
+    ChangePrescriptionPharmacyRequest:
+      type: object
+      required:
+      - PharmacyId
+      properties:
+        PharmacyId:
+          type: integer
+          format: int32
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    EpcsSuggestionsResponse:
+      type: object
+      properties:
+        EpcsSuggestions:
+          $ref: '#/components/schemas/EpcsSuggestions'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ListResponse_PrescriptionLog:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/PrescriptionLog'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    PharmacySnapshot:
+      type: object
+      properties:
+        StoreName:
+          type: string
+        NCPDPID:
+          type: string
+        NPI:
+          type: string
+        Address:
+          $ref: '#/components/schemas/AddressSnapshot'
+    PagedListResponse_Prescription:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Prescription_2'
+        PageResult:
+          $ref: '#/components/schemas/PageResult_2'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    SupervisorSnapshot:
+      type: object
+      properties:
+        FirstName:
+          type: string
+        LastName:
+          type: string
+        DEANumber:
+          type: string
+        NPINumber:
+          type: string
+        Address:
+          $ref: '#/components/schemas/AddressSnapshot'
+    PrescriptionResponse:
+      type: object
+      properties:
+        Prescription:
+          $ref: '#/components/schemas/Prescription_2'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    DeaNumber:
+      type: object
+      required:
+      - DEANumber
+      properties:
+        DEANumber:
+          type: string
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
+        State:
+          type: string
+        ClinicId:
+          type: string
+    FreeTextSupplyPrescriptionRequest:
+      type: object
+      required:
+      - Directions
+      - DispenseUnitId
+      - DisplayName
+      - NotControlled
+      - Quantity
+      - Refills
+      - Status
+      properties:
+        DisplayName:
+          type: string
+          minLength: 3
+          maxLength: 300
+        NotControlled:
+          type: boolean
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+          minLength: 0
+          maxLength: 210
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        RxReferenceNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        EligibilityId:
+          type: integer
+          format: int32
+        NonDoseSpotPrescriptionId:
+          type: string
+          minLength: 0
+          maxLength: 35
+        IsRefillReplace:
+          type: boolean
+        IsUrgent:
+          type: boolean
+        SupervisorId:
+          type: integer
+          format: int32
+        RetailPharmacyToMailToPatient:
+          type: boolean
+        RTPSCoupon:
+          $ref: '#/components/schemas/RTPSCoupon'
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    PrescriptionSnapshot:
+      type: object
+      properties:
+        Prescriber:
+          $ref: '#/components/schemas/PrescriberSnapshot'
+        Patient:
+          $ref: '#/components/schemas/PatientSnapshot'
+        Agent:
+          $ref: '#/components/schemas/AgentSnapshot'
+        Supervisor:
+          $ref: '#/components/schemas/SupervisorSnapshot'
+        Pharmacy:
+          $ref: '#/components/schemas/PharmacySnapshot'
+        Medication:
+          $ref: '#/components/schemas/MedicationSnapshot'
     Prescription_2:
       type: object
       properties:
@@ -2222,81 +2472,132 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompoundIngredient'
-    SupervisorSnapshot:
+    Diagnosis:
       type: object
       properties:
-        FirstName:
-          type: string
-        LastName:
-          type: string
-        DEANumber:
-          type: string
-        NPINumber:
-          type: string
-        Address:
-          $ref: '#/components/schemas/AddressSnapshot'
-    AgentSnapshot:
-      type: object
-      properties:
-        FirstName:
-          type: string
-        LastName:
-          type: string
-    PrescriptionsReadyToSignRequest:
-      type: object
-      required:
-      - Prescriptions
-      properties:
-        Prescriptions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PrescriptionWithClinicianReferenceNumberOverrides'
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
+        DiagnosisId:
           type: integer
           format: int32
-          description: The entity identifier.
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string
+    CompoundIngredient:
+      type: object
+      required:
+      - Quantity
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        IsFreeTextEPCS:
+          type: boolean
+    MedicationSnapshot:
+      type: object
+      properties:
+        DisplayName:
+          type: string
+        Schedule:
+          type: integer
+          format: int32
+        State:
+          type: string
+        Strength:
+          type: string
+        Route:
+          type: string
+        GenericDrugName:
+          type: string
+        IsRx:
+          type: boolean
+        OTC:
+          type: boolean
+        NDC_UPC_HRI:
+          type: string
+        NDC_UPC_HRI_Type:
+          type: integer
+          format: int32
+    PrescriptionDiagnosis:
+      type: object
+      properties:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    Response:
+      type: object
+      properties:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    ListResponse_PrescriptionLog:
+      description: The result of the operation.
+    PrescriptionLog:
       type: object
       properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/PrescriptionLog'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
-    PrescriptionIdListRequest:
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Entered
+          - Printed
+          - Sending
+          - eRxSent
+          - FaxSent
+          - Error
+          - Deleted
+          - Requested
+          - Edited
+          - EpcsError
+          - EpcsSigned
+          - ReadyToSign
+          - PharmacyVerified
+          - PharmacySelect
+        DateTimeStamp:
+          type: string
+          format: date-time
+        AdditionalInfo:
+          type: string
+        Ignored:
+          type: boolean
+        User:
+          type: string
+        WasRefillRequest:
+          type: boolean
+        MedicationStatus:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+    ScheduleInfo:
       type: object
       properties:
-        PrescriptionIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    PrescriptionSnapshot:
-      type: object
-      properties:
-        Prescriber:
-          $ref: '#/components/schemas/PrescriberSnapshot'
-        Patient:
-          $ref: '#/components/schemas/PatientSnapshot'
-        Agent:
-          $ref: '#/components/schemas/AgentSnapshot'
-        Supervisor:
-          $ref: '#/components/schemas/SupervisorSnapshot'
-        Pharmacy:
-          $ref: '#/components/schemas/PharmacySnapshot'
-        Medication:
-          $ref: '#/components/schemas/MedicationSnapshot'
+        Schedule:
+          type: integer
+          format: int32
+        StateName:
+          type: string
+        ClinicId:
+          type: integer
+          format: int32
     CompoundPrescriptionRequest:
       type: object
       required:
@@ -2415,34 +2716,6 @@ components:
             format: int32
         PharmacyOverride:
           type: boolean
-    PrescriptionDiagnosis:
-      type: object
-      properties:
-        PrimaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-        SecondaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-    RTPSCoupon:
-      type: object
-      properties:
-        BIN:
-          type: string
-        PCN:
-          type: string
-        MemberID:
-          type: string
-        GroupID:
-          type: string
-    Diagnosis:
-      type: object
-      properties:
-        DiagnosisId:
-          type: integer
-          format: int32
-        DiagnosisCode:
-          type: string
-        DiagnosisDescription:
-          type: string
     SendEpcsPrescriptionsRequest:
       type: object
       required:
@@ -2465,324 +2738,51 @@ components:
           items:
             type: integer
             format: int32
-    PrescriptionSnapshotResponse:
+    PrescriptionsReadyToSignRequest:
       type: object
+      required:
+      - Prescriptions
       properties:
-        PrescriptionSnapshot:
-          $ref: '#/components/schemas/PrescriptionSnapshot'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    PrescriptionWithClinicianReferenceNumberOverrides:
-      type: object
-      properties:
-        PrescriptionId:
-          type: integer
-          format: int32
-        ClinicianReferenceNumberOverrides:
-          $ref: '#/components/schemas/ClinicianReferenceNumberOverrides'
-    PageResult_2:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
-    ScheduleInfo:
-      type: object
-      properties:
-        Schedule:
-          type: integer
-          format: int32
-        StateName:
-          type: string
-        ClinicId:
-          type: integer
-          format: int32
+        Prescriptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PrescriptionWithClinicianReferenceNumberOverrides'
     CopyPrescriptionRequest:
       type: object
       properties:
         NewEffectiveDate:
           type: string
           format: date-time
-    ChangePrescriptionPharmacyRequest:
+    AddressSnapshot:
       type: object
-      required:
-      - PharmacyId
-      properties:
-        PharmacyId:
-          type: integer
-          format: int32
-    SendPrescriptionsWithAddressRequest:
-      type: object
-      required:
-      - Address1
-      - City
-      - PrescriptionIds
-      - State
-      - ZipCode
       properties:
         Address1:
           type: string
-          minLength: 0
-          maxLength: 35
         Address2:
           type: string
-          minLength: 0
-          maxLength: 35
         City:
           type: string
-          minLength: 0
-          maxLength: 35
         State:
           type: string
-          minLength: 0
-          maxLength: 35
         ZipCode:
           type: string
-          minLength: 0
-          maxLength: 10
-        Pin:
-          type: string
-          pattern: ^(?:\d{4})?$
+    PrescriptionIdListRequest:
+      type: object
+      properties:
         PrescriptionIds:
           type: array
           items:
             type: integer
             format: int32
-        PharmacyOverride:
-          type: boolean
-    PrescriptionLog:
+    ClinicianReferenceNumberOverrides:
       type: object
       properties:
-        Status:
-          type: string
-          enum:
-          - Unknown
-          - Entered
-          - Printed
-          - Sending
-          - eRxSent
-          - FaxSent
-          - Error
-          - Deleted
-          - Requested
-          - Edited
-          - EpcsError
-          - EpcsSigned
-          - ReadyToSign
-          - PharmacyVerified
-          - PharmacySelect
-        DateTimeStamp:
-          type: string
-          format: date-time
-        AdditionalInfo:
-          type: string
-        Ignored:
-          type: boolean
-        User:
-          type: string
-        WasRefillRequest:
-          type: boolean
-        MedicationStatus:
-          type: string
-          enum:
-          - Unknown
-          - Active
-          - Inactive
-          - Discontinued
-          - Deleted
-          - Completed
-          - CancelRequested
-          - CancelPending
-          - Cancelled
-          - CancelDenied
-          - Changed
-          - FullFill
-          - PartialFill
-          - NoFill
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    PagedListResponse_Prescription:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Prescription_2'
-        PageResult:
-          $ref: '#/components/schemas/PageResult_2'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    DeaNumber:
-      type: object
-      required:
-      - DEANumber
-      properties:
-        DEANumber:
+        OverrideDeaNumber:
           type: string
           pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
-        State:
+        OverrideSupervisorDeaNumber:
           type: string
-        ClinicId:
-          type: string
-    MedicationSnapshot:
-      type: object
-      properties:
-        DisplayName:
-          type: string
-        Schedule:
-          type: integer
-          format: int32
-        State:
-          type: string
-        Strength:
-          type: string
-        Route:
-          type: string
-        GenericDrugName:
-          type: string
-        IsRx:
-          type: boolean
-        OTC:
-          type: boolean
-        NDC_UPC_HRI:
-          type: string
-        NDC_UPC_HRI_Type:
-          type: integer
-          format: int32
-    FreeTextSupplyPrescriptionRequest:
-      type: object
-      required:
-      - Directions
-      - DispenseUnitId
-      - DisplayName
-      - NotControlled
-      - Quantity
-      - Refills
-      - Status
-      properties:
-        DisplayName:
-          type: string
-          minLength: 3
-          maxLength: 300
-        NotControlled:
-          type: boolean
-        FirstPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-        SecondPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-        Refills:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 99
-        DaysSupply:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 365
-        DispenseUnitId:
-          type: integer
-          format: int32
-        Quantity:
-          type: number
-          format: double
-        Directions:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        PharmacyId:
-          type: integer
-          format: int32
-        PharmacyNotes:
-          type: string
-          minLength: 0
-          maxLength: 210
-        NoSubstitutions:
-          type: boolean
-        EffectiveDate:
-          type: string
-          format: date-time
-        RxReferenceNumber:
-          type: string
-          minLength: 0
-          maxLength: 35
-        EligibilityId:
-          type: integer
-          format: int32
-        NonDoseSpotPrescriptionId:
-          type: string
-          minLength: 0
-          maxLength: 35
-        IsRefillReplace:
-          type: boolean
-        IsUrgent:
-          type: boolean
-        SupervisorId:
-          type: integer
-          format: int32
-        RetailPharmacyToMailToPatient:
-          type: boolean
-        RTPSCoupon:
-          $ref: '#/components/schemas/RTPSCoupon'
-        Status:
-          type: string
-          enum:
-          - Unknown
-          - Active
-          - Inactive
-          - Discontinued
-          - Deleted
-          - Completed
-          - CancelRequested
-          - CancelPending
-          - Cancelled
-          - CancelDenied
-          - Changed
-          - FullFill
-          - PartialFill
-          - NoFill
-        InactiveDate:
-          type: string
-          format: date-time
-        Comment:
-          type: string
-          minLength: 0
-          maxLength: 500
-        Encounter:
-          type: string
-          minLength: 0
-          maxLength: 50
-    IgnoreAlertRequest:
-      type: object
-      properties:
-        Comment:
-          type: string
-          minLength: 0
-          maxLength: 500
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
   securitySchemes:
     bearerAuth:
       type: http

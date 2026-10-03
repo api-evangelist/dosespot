@@ -1442,504 +1442,6 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    DEANumberResponse:
-      type: object
-      properties:
-        DEANumberId:
-          type: string
-          format: uuid
-          example: 00000000-0000-0000-0000-000000000000
-        DEANumber:
-          type: string
-        AddressLine1:
-          type: string
-        AddressLine2:
-          type: string
-        City:
-          type: string
-        State:
-          type: string
-        Zip:
-          type: string
-    ClinicianChangePinRequest:
-      type: object
-      required:
-      - CurrentPIN
-      - NewPIN
-      properties:
-        CurrentPIN:
-          type: string
-        NewPIN:
-          type: string
-    ListResponse_Clinician:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/Clinician'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
-    ClinicianSetPinRequest:
-      type: object
-      required:
-      - PIN
-      properties:
-        PIN:
-          type: string
-    ClinicianIdentityProofingDisclaimerResponse:
-      type: object
-      properties:
-        IdpDisclaimerDate:
-          type: string
-          format: date-time
-        IdpDisclaimerId:
-          type: integer
-          format: int32
-        IdpDisclaimerText:
-          type: string
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    ClinicianIdentityProofingDisclaimerRequest:
-      type: object
-      required:
-      - IdpDisclaimerId
-      properties:
-        IdpDisclaimerId:
-          type: integer
-          format: int32
-    ClinicianClinicErxSummary:
-      type: object
-      properties:
-        ClinicId:
-          type: integer
-          format: int32
-        HasNewRx:
-          type: boolean
-        HasRefills:
-          type: boolean
-        HasRxChange:
-          type: boolean
-        HasCancel:
-          type: boolean
-        HasRxFill:
-          type: boolean
-        HasEpcs:
-          type: boolean
-        HasEpa:
-          type: boolean
-    ClinicianIdentityProofingRequest:
-      type: object
-      required:
-      - City
-      - CreditCardNumber
-      - DateOfBirth
-      - FirstName
-      - HomeAddress
-      - IsMobileNumber
-      - LastName
-      - PhoneNumber
-      - State
-      - ZipCode
-      properties:
-        FirstName:
-          type: string
-          minLength: 0
-          maxLength: 32
-          pattern: ^[A-Za-z]+(?:[ '\-][A-Za-z]+)*$
-        MiddleName:
-          type: string
-          minLength: 0
-          maxLength: 32
-          pattern: ^$|^[A-Za-z]+$
-        LastName:
-          type: string
-          minLength: 0
-          maxLength: 32
-          pattern: ^(?=.{2,32}$)[A-Za-z]+(?:[ '\-][A-Za-z]+)*$
-        HomeAddress:
-          type: string
-          pattern: ^[A-Za-z0-9\/\.\-\#\ ]+$
-        City:
-          type: string
-          minLength: 0
-          maxLength: 38
-          pattern: ^[A-Za-z]+\.?(?:[ '\-][A-Za-z]+\.?)*$
-        State:
-          type: string
-        ZipCode:
-          type: string
-          minLength: 0
-          maxLength: 10
-          pattern: ^(?:\d{5}|\d{9}|\d{5}\-\d{4})$
-        DateOfBirth:
-          type: string
-          format: date-time
-        SocialSecurityNumber:
-          type: string
-          minLength: 0
-          maxLength: 11
-          pattern: ^(?:\d{9}|\d{3}\-\d{2}\-\d{4}|\d{3} \d{2} \d{4})$
-        CreditCardNumber:
-          type: string
-        DrivingLicenseNumber:
-          type: string
-        DrivingLicenseNumberState:
-          type: string
-        PhoneNumber:
-          type: string
-        IsMobileNumber:
-          type: boolean
-      description: represent a request to clinican identity proof
-    MedicalLicenseNumber:
-      type: object
-      required:
-      - LicenseNumber
-      properties:
-        LicenseNumber:
-          type: string
-          minLength: 0
-          maxLength: 35
-        State:
-          type: string
-        ClinicId:
-          type: string
-    ClinicianAcceptAgreementResponse:
-      type: object
-      properties:
-        AgreementId:
-          type: integer
-          format: int32
-        NameSigned:
-          type: string
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    ClinicianTfaDeactivationRequest:
-      type: object
-      required:
-      - OneTimePassword
-      - PIN
-      properties:
-        CredentialID:
-          type: string
-        OneTimePassword:
-          type: string
-        PIN:
-          type: string
-    ClinicianInitializeTfaActivationRequest:
-      type: object
-      required:
-      - TfaTypeId
-      properties:
-        TfaTypeId:
-          type: string
-          enum:
-          - Mobile
-          - Token
-    ItemResponse_Clinician:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/Clinician'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    IdentifierGuidResponse:
-      type: object
-      properties:
-        Id:
-          type: string
-          format: uuid
-          example: 00000000-0000-0000-0000-000000000000
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    ClinicianAcceptAgreementRequest:
-      type: object
-      required:
-      - AgreementId
-      - NameSigned
-      properties:
-        AgreementId:
-          type: integer
-          format: int32
-        NameSigned:
-          type: string
-    ClinicianMobileTfaInitiationRequest:
-      type: object
-      required:
-      - MobilePhoneNumber
-      properties:
-        MobilePhoneNumber:
-          type: string
-    ClinicianIdentityProofingAnswersRequest:
-      type: object
-      required:
-      - Answers
-      - SessionID
-      properties:
-        SessionID:
-          type: string
-        Answers:
-          type: array
-          items:
-            type: string
-    ClinicianTfaActivationRequest:
-      type: object
-      properties:
-        CredentialID:
-          type: string
-        ReferenceNumber:
-          type: string
-        OneTimePassword:
-          type: string
-        PIN:
-          type: string
-    AgreementInfoResponse:
-      type: object
-      properties:
-        AgreementId:
-          type: integer
-          format: int32
-        AgreementDate:
-          type: string
-          format: date-time
-        AgreementText:
-          type: string
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    NaDeaNumber:
-      type: object
-      required:
-      - NADEANumber
-      properties:
-        NADEANumber:
-          type: string
-          pattern: ^[a-zA-Z0-9]{9}$
-        State:
-          type: string
-        ClinicId:
-          type: string
-    Clinician:
-      type: object
-      required:
-      - Address1
-      - City
-      - DateOfBirth
-      - FirstName
-      - LastName
-      - PrimaryFax
-      - PrimaryPhone
-      - PrimaryPhoneType
-      - State
-      - ZipCode
-      properties:
-        ClinicianId:
-          type: integer
-          format: int32
-        Prefix:
-          type: string
-          minLength: 0
-          maxLength: 10
-        FirstName:
-          type: string
-        MiddleName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        LastName:
-          type: string
-        Suffix:
-          type: string
-          minLength: 0
-          maxLength: 10
-        DateOfBirth:
-          type: string
-          format: date-time
-        Email:
-          type: string
-        Address1:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Address2:
-          type: string
-          minLength: 0
-          maxLength: 35
-        City:
-          type: string
-        State:
-          type: string
-        ZipCode:
-          type: string
-        PrimaryPhone:
-          type: string
-        PrimaryPhoneType:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PrimaryFax:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditional1:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType1:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional2:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType2:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional3:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType3:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        DEANumbers:
-          type: array
-          items:
-            $ref: '#/components/schemas/DeaNumber'
-        DEANumber:
-          type: string
-        NADEANumbers:
-          type: array
-          items:
-            $ref: '#/components/schemas/NaDeaNumber'
-        MedicalLicenseNumbers:
-          type: array
-          items:
-            $ref: '#/components/schemas/MedicalLicenseNumber'
-        NPINumber:
-          type: string
-        Roles:
-          type: array
-          items:
-            type: string
-            enum:
-            - PrescribingClinician
-            - ReportingClinician
-            - EpcsCoordinator
-            - ClinicianAdmin
-            - PrescribingAgentClinician
-            - ProxyClinician
-        PDMPRoleType:
-          type: string
-          enum:
-          - Physician
-          - Dentist
-          - NursePractioner
-          - PhysiciansAssistant
-          - Resident
-          - Intern
-          - Psychologist
-          - Optometrist
-          - NaturopathicPhysician
-        SpecialtyTypeId:
-          type: integer
-          format: int32
-        Confirmed:
-          type: boolean
-        Active:
-          type: boolean
-        AccountLocked:
-          type: boolean
-        EpcsRequested:
-          type: boolean
-        ClinicInfo:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClinicianClinicErxSummary'
-    DEANumberRequest:
-      type: object
-      required:
-      - DEANumber
-      - State
-      properties:
-        DEANumber:
-          type: string
-          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
-        AddressLine1:
-          type: string
-        AddressLine2:
-          type: string
-        City:
-          type: string
-        State:
-          type: string
-          description: State abbreviation like DC, CA or State name like 'District of Columbia', 'California'
-        Zip:
-          type: string
-          description: 5-digits zip code or extended zip+4 with a dash separator (xxxxx-xxxx)
-          pattern: ^\d{5}(-\d{4})?$
-    PDMPResponse:
-      type: object
-      properties:
-        StateId:
-          type: integer
-          format: int32
-        ProgramName:
-          type: string
-        URL:
-          type: string
-        Message:
-          type: string
     ClinicianResyncTokenRequest:
       type: object
       required:
@@ -1953,80 +1455,18 @@ components:
           type: string
         Code3:
           type: string
-    ClinicianIdentityProofingResponse:
-      type: object
-      properties:
-        SessionID:
-          type: string
-        Questions:
-          type: array
-          items:
-            type: string
-        Answers:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-        OtpSent:
-          type: boolean
-        IdpResultSummary:
-          type: string
-        IDCapture:
-          type: boolean
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    ListResponse_AgreementInfoResponse:
+    ListResponse_Clinician:
       type: object
       properties:
         Items:
           type: array
           description: The list of elements to return.
           items:
-            $ref: '#/components/schemas/AgreementInfoResponse'
+            $ref: '#/components/schemas/Clinician'
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a list of objects.
-    PrescriberInfo:
-      type: object
-      properties:
-        Address1:
-          type: string
-        Address2:
-          type: string
-        City:
-          type: string
-        State:
-          type: string
-        ZipCode:
-          type: string
-        PrimaryPhone:
-          type: string
-        PrimaryPhoneType:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        DEANumber:
-          type: string
-        Prefix:
-          type: string
-        FirstName:
-          type: string
-        MiddleName:
-          type: string
-        LastName:
-          type: string
-        Suffix:
-          type: string
     ClinicianIdentityProofingOneTimeCodeRequest:
       type: object
       required:
@@ -2039,72 +1479,13 @@ components:
           type: string
           description: Entered OTP
       description: represent a request to clinican identity proof one time code after success
-    ItemResponse_DEANumberResponse:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/DEANumberResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    PrescriberInfoResponse:
-      type: object
-      properties:
-        Prescriber:
-          $ref: '#/components/schemas/PrescriberInfo'
-        PrescriberAgent:
-          $ref: '#/components/schemas/PrescriberAgentInfo'
-        Supervisor:
-          $ref: '#/components/schemas/PrescriberInfo'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    ItemResponse_eRxRegistrationStatusType:
-      type: object
-      properties:
-        Item:
-          type: string
-          description: The response object.
-          enum:
-          - Pending
-          - RegistrationSuccess
-          - RegistrationError
-          - IDPSuccess
-          - IDPError
-          - TFAActivateInit
-          - TFAActivatedSuccess
-          - TFAActivatedError
-          - TFADeactivateInit
-          - TFADeactivatedSuccess
-          - TFADeactivatedError
-          - IDPInitializeSuccess
-          - NotApplicable
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    DeleteClinicianSupervisorRequest:
+    ClinicianMobileTfaInitiationRequest:
       type: object
       required:
-      - ClinicIds
+      - MobilePhoneNumber
       properties:
-        ClinicIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-    ItemResponse_PDMPResponse:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/PDMPResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
+        MobilePhoneNumber:
+          type: string
     AddEditClinicianRequest:
       type: object
       required:
@@ -2278,6 +1659,103 @@ components:
       description: 'Represents a request to add or edit a clinician.
 
         This class overrides the identifier property so that it will not be serialized for requests.'
+    ListResponse_AgreementInfoResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/AgreementInfoResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    DEANumberRequest:
+      type: object
+      required:
+      - DEANumber
+      - State
+      properties:
+        DEANumber:
+          type: string
+          pattern: ^[A-Z][A-Z9][0-9]{7}(-[A-Z0-9]{1,7})?$
+        AddressLine1:
+          type: string
+        AddressLine2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+          description: State abbreviation like DC, CA or State name like 'District of Columbia', 'California'
+        Zip:
+          type: string
+          description: 5-digits zip code or extended zip+4 with a dash separator (xxxxx-xxxx)
+          pattern: ^\d{5}(-\d{4})?$
+    NaDeaNumber:
+      type: object
+      required:
+      - NADEANumber
+      properties:
+        NADEANumber:
+          type: string
+          pattern: ^[a-zA-Z0-9]{9}$
+        State:
+          type: string
+        ClinicId:
+          type: string
+    DEANumberResponse:
+      type: object
+      properties:
+        DEANumberId:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+        DEANumber:
+          type: string
+        AddressLine1:
+          type: string
+        AddressLine2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        Zip:
+          type: string
+    ClinicianChangePinRequest:
+      type: object
+      required:
+      - CurrentPIN
+      - NewPIN
+      properties:
+        CurrentPIN:
+          type: string
+        NewPIN:
+          type: string
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    ClinicianAcceptAgreementRequest:
+      type: object
+      required:
+      - AgreementId
+      - NameSigned
+      properties:
+        AgreementId:
+          type: integer
+          format: int32
+        NameSigned:
+          type: string
     ListResponse_DEANumberResponse:
       type: object
       properties:
@@ -2290,24 +1768,75 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a list of objects.
-    SupervisorToClinicianRequest:
+    ClinicianIdentityProofingAnswersRequest:
       type: object
       required:
-      - ClinicId
+      - Answers
+      - SessionID
       properties:
-        ClinicId:
-          type: integer
-          format: int32
-        SupervisorId:
-          type: integer
-          format: int32
-    Response:
+        SessionID:
+          type: string
+        Answers:
+          type: array
+          items:
+            type: string
+    ClinicianTfaDeactivationRequest:
+      type: object
+      required:
+      - OneTimePassword
+      - PIN
+      properties:
+        CredentialID:
+          type: string
+        OneTimePassword:
+          type: string
+        PIN:
+          type: string
+    PDMPResponse:
       type: object
       properties:
+        StateId:
+          type: integer
+          format: int32
+        ProgramName:
+          type: string
+        URL:
+          type: string
+        Message:
+          type: string
+    PrescriberInfoResponse:
+      type: object
+      properties:
+        Prescriber:
+          $ref: '#/components/schemas/PrescriberInfo'
+        PrescriberAgent:
+          $ref: '#/components/schemas/PrescriberAgentInfo'
+        Supervisor:
+          $ref: '#/components/schemas/PrescriberInfo'
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: The result of the operation.
+    ClinicianAcceptAgreementResponse:
+      type: object
+      properties:
+        AgreementId:
+          type: integer
+          format: int32
+        NameSigned:
+          type: string
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ItemResponse_PDMPResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/PDMPResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
     DeaNumber:
       type: object
       required:
@@ -2320,6 +1849,232 @@ components:
           type: string
         ClinicId:
           type: string
+    ClinicianInitializeTfaActivationRequest:
+      type: object
+      required:
+      - TfaTypeId
+      properties:
+        TfaTypeId:
+          type: string
+          enum:
+          - Mobile
+          - Token
+    ClinicianTfaActivationRequest:
+      type: object
+      properties:
+        CredentialID:
+          type: string
+        ReferenceNumber:
+          type: string
+        OneTimePassword:
+          type: string
+        PIN:
+          type: string
+    ItemResponse_Clinician:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/Clinician'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    Clinician:
+      type: object
+      required:
+      - Address1
+      - City
+      - DateOfBirth
+      - FirstName
+      - LastName
+      - PrimaryFax
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        ClinicianId:
+          type: integer
+          format: int32
+        Prefix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Email:
+          type: string
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType3:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        DEANumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeaNumber'
+        DEANumber:
+          type: string
+        NADEANumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/NaDeaNumber'
+        MedicalLicenseNumbers:
+          type: array
+          items:
+            $ref: '#/components/schemas/MedicalLicenseNumber'
+        NPINumber:
+          type: string
+        Roles:
+          type: array
+          items:
+            type: string
+            enum:
+            - PrescribingClinician
+            - ReportingClinician
+            - EpcsCoordinator
+            - ClinicianAdmin
+            - PrescribingAgentClinician
+            - ProxyClinician
+        PDMPRoleType:
+          type: string
+          enum:
+          - Physician
+          - Dentist
+          - NursePractioner
+          - PhysiciansAssistant
+          - Resident
+          - Intern
+          - Psychologist
+          - Optometrist
+          - NaturopathicPhysician
+        SpecialtyTypeId:
+          type: integer
+          format: int32
+        Confirmed:
+          type: boolean
+        Active:
+          type: boolean
+        AccountLocked:
+          type: boolean
+        EpcsRequested:
+          type: boolean
+        ClinicInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicianClinicErxSummary'
+    DeleteClinicianSupervisorRequest:
+      type: object
+      required:
+      - ClinicIds
+      properties:
+        ClinicIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    ItemResponse_DEANumberResponse:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/DEANumberResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
     PrescriberAgentInfo:
       type: object
       properties:
@@ -2333,3 +2088,248 @@ components:
           type: string
         Suffix:
           type: string
+    MedicalLicenseNumber:
+      type: object
+      required:
+      - LicenseNumber
+      properties:
+        LicenseNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+        ClinicId:
+          type: string
+    PrescriberInfo:
+      type: object
+      properties:
+        Address1:
+          type: string
+        Address2:
+          type: string
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        DEANumber:
+          type: string
+        Prefix:
+          type: string
+        FirstName:
+          type: string
+        MiddleName:
+          type: string
+        LastName:
+          type: string
+        Suffix:
+          type: string
+    ClinicianIdentityProofingRequest:
+      type: object
+      required:
+      - City
+      - CreditCardNumber
+      - DateOfBirth
+      - FirstName
+      - HomeAddress
+      - IsMobileNumber
+      - LastName
+      - PhoneNumber
+      - State
+      - ZipCode
+      properties:
+        FirstName:
+          type: string
+          minLength: 0
+          maxLength: 32
+          pattern: ^[A-Za-z]+(?:[ '\-][A-Za-z]+)*$
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 32
+          pattern: ^$|^[A-Za-z]+$
+        LastName:
+          type: string
+          minLength: 0
+          maxLength: 32
+          pattern: ^(?=.{2,32}$)[A-Za-z]+(?:[ '\-][A-Za-z]+)*$
+        HomeAddress:
+          type: string
+          pattern: ^[A-Za-z0-9\/\.\-\#\ ]+$
+        City:
+          type: string
+          minLength: 0
+          maxLength: 38
+          pattern: ^[A-Za-z]+\.?(?:[ '\-][A-Za-z]+\.?)*$
+        State:
+          type: string
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+          pattern: ^(?:\d{5}|\d{9}|\d{5}\-\d{4})$
+        DateOfBirth:
+          type: string
+          format: date-time
+        SocialSecurityNumber:
+          type: string
+          minLength: 0
+          maxLength: 11
+          pattern: ^(?:\d{9}|\d{3}\-\d{2}\-\d{4}|\d{3} \d{2} \d{4})$
+        CreditCardNumber:
+          type: string
+        DrivingLicenseNumber:
+          type: string
+        DrivingLicenseNumberState:
+          type: string
+        PhoneNumber:
+          type: string
+        IsMobileNumber:
+          type: boolean
+      description: represent a request to clinican identity proof
+    ClinicianIdentityProofingDisclaimerRequest:
+      type: object
+      required:
+      - IdpDisclaimerId
+      properties:
+        IdpDisclaimerId:
+          type: integer
+          format: int32
+    ClinicianSetPinRequest:
+      type: object
+      required:
+      - PIN
+      properties:
+        PIN:
+          type: string
+    SupervisorToClinicianRequest:
+      type: object
+      required:
+      - ClinicId
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+        SupervisorId:
+          type: integer
+          format: int32
+    ClinicianIdentityProofingDisclaimerResponse:
+      type: object
+      properties:
+        IdpDisclaimerDate:
+          type: string
+          format: date-time
+        IdpDisclaimerId:
+          type: integer
+          format: int32
+        IdpDisclaimerText:
+          type: string
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ItemResponse_eRxRegistrationStatusType:
+      type: object
+      properties:
+        Item:
+          type: string
+          description: The response object.
+          enum:
+          - Pending
+          - RegistrationSuccess
+          - RegistrationError
+          - IDPSuccess
+          - IDPError
+          - TFAActivateInit
+          - TFAActivatedSuccess
+          - TFAActivatedError
+          - TFADeactivateInit
+          - TFADeactivatedSuccess
+          - TFADeactivatedError
+          - IDPInitializeSuccess
+          - NotApplicable
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    IdentifierGuidResponse:
+      type: object
+      properties:
+        Id:
+          type: string
+          format: uuid
+          example: 00000000-0000-0000-0000-000000000000
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    ClinicianIdentityProofingResponse:
+      type: object
+      properties:
+        SessionID:
+          type: string
+        Questions:
+          type: array
+          items:
+            type: string
+        Answers:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+        OtpSent:
+          type: boolean
+        IdpResultSummary:
+          type: string
+        IDCapture:
+          type: boolean
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    AgreementInfoResponse:
+      type: object
+      properties:
+        AgreementId:
+          type: integer
+          format: int32
+        AgreementDate:
+          type: string
+          format: date-time
+        AgreementText:
+          type: string
+    ClinicianClinicErxSummary:
+      type: object
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
+        HasNewRx:
+          type: boolean
+        HasRefills:
+          type: boolean
+        HasRxChange:
+          type: boolean
+        HasCancel:
+          type: boolean
+        HasRxFill:
+          type: boolean
+        HasEpcs:
+          type: boolean
+        HasEpa:
+          type: boolean

@@ -495,19 +495,6 @@ components:
         properties:
           Item:
             $ref: '#/components/schemas/Patient'
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-        TotalPages:
-          type: integer
-        PageSize:
-          type: integer
-        HasPrevious:
-          type: boolean
-        HasNext:
-          type: boolean
     Patient:
       type: object
       properties:
@@ -549,19 +536,19 @@ components:
           type: boolean
         NonDoseSpotMedicalRecordNumber:
           type: string
-    ResultStatus:
+    PageResult:
       type: object
       properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
     PatientListResult:
       allOf:
       - $ref: '#/components/schemas/ApiResult'
@@ -573,6 +560,180 @@ components:
               $ref: '#/components/schemas/Patient'
           PageResult:
             $ref: '#/components/schemas/PageResult'
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+    MergePatientsRequest:
+      type: object
+      required:
+      - FromPatientId
+      - ToPatientId
+      properties:
+        FromPatientId:
+          type: integer
+          format: int32
+          description: The patient identifier to merge from.
+        ToPatientId:
+          type: integer
+          format: int32
+          description: The patient identifier to merge to.
+        MergeAllergies:
+          type: boolean
+          description: 'Indicates whether to merge allergies from the source patient to the target patient.
+
+            Default is false for backwards compatibility.'
+      description: Represents a request to merge two patients.
+    AddEditPatientRequest:
+      type: object
+      required:
+      - Active
+      - Address1
+      - City
+      - DateOfBirth
+      - FirstName
+      - Gender
+      - LastName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        Prefix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        FirstName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Gender:
+          type: string
+          enum:
+          - Male
+          - Female
+          - Unknown
+        Email:
+          type: string
+          minLength: 0
+          maxLength: 80
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+          minLength: 0
+          maxLength: 50
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        Weight:
+          type: number
+          format: float
+        WeightMetric:
+          type: string
+          enum:
+          - lb
+          - kg
+        Height:
+          type: number
+          format: float
+        HeightMetric:
+          type: string
+          enum:
+          - inch
+          - cm
+        NonDoseSpotMedicalRecordNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+        IsHospice:
+          type: boolean
     Result:
       type: object
       required:
@@ -585,27 +746,6 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    PageResult_2:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
     GetPatient:
       type: object
       properties:
@@ -708,14 +848,17 @@ components:
           type: boolean
         HasSSN:
           type: boolean
-    PatientSsnRequestModel:
+    IdentifierResponse:
       type: object
-      required:
-      - PatientSSN
       properties:
-        PatientSSN:
-          type: string
-          pattern: ^(?:\d{9}|\d{3}-\d{2}-\d{4})$
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
     Patient_2:
       type: object
       required:
@@ -860,6 +1003,34 @@ components:
           maxLength: 50
         IsHospice:
           type: boolean
+    PageResult_2:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
     PagedListResponse_Patient:
       type: object
       properties:
@@ -874,44 +1045,14 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    MergePatientsRequest:
+    PatientSsnRequestModel:
       type: object
       required:
-      - FromPatientId
-      - ToPatientId
+      - PatientSSN
       properties:
-        FromPatientId:
-          type: integer
-          format: int32
-          description: The patient identifier to merge from.
-        ToPatientId:
-          type: integer
-          format: int32
-          description: The patient identifier to merge to.
-        MergeAllergies:
-          type: boolean
-          description: 'Indicates whether to merge allergies from the source patient to the target patient.
-
-            Default is false for backwards compatibility.'
-      description: Represents a request to merge two patients.
+        PatientSSN:
+          type: string
+          pattern: ^(?:\d{9}|\d{3}-\d{2}-\d{4})$
     ItemResponse_GetPatient:
       type: object
       properties:
@@ -922,147 +1063,6 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a single object.
-    AddEditPatientRequest:
-      type: object
-      required:
-      - Active
-      - Address1
-      - City
-      - DateOfBirth
-      - FirstName
-      - Gender
-      - LastName
-      - PrimaryPhone
-      - PrimaryPhoneType
-      - State
-      - ZipCode
-      properties:
-        Prefix:
-          type: string
-          minLength: 0
-          maxLength: 10
-        FirstName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        MiddleName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        LastName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Suffix:
-          type: string
-          minLength: 0
-          maxLength: 10
-        DateOfBirth:
-          type: string
-          format: date-time
-        Gender:
-          type: string
-          enum:
-          - Male
-          - Female
-          - Unknown
-        Email:
-          type: string
-          minLength: 0
-          maxLength: 80
-        Address1:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Address2:
-          type: string
-          minLength: 0
-          maxLength: 35
-        City:
-          type: string
-          minLength: 0
-          maxLength: 35
-        State:
-          type: string
-          minLength: 0
-          maxLength: 50
-        ZipCode:
-          type: string
-          minLength: 0
-          maxLength: 10
-        PhoneAdditional1:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditional2:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType1:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditionalType2:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PrimaryPhone:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PrimaryPhoneType:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        Weight:
-          type: number
-          format: float
-        WeightMetric:
-          type: string
-          enum:
-          - lb
-          - kg
-        Height:
-          type: number
-          format: float
-        HeightMetric:
-          type: string
-          enum:
-          - inch
-          - cm
-        NonDoseSpotMedicalRecordNumber:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Active:
-          type: boolean
-        Encounter:
-          type: string
-          minLength: 0
-          maxLength: 50
-        IsHospice:
-          type: boolean
   securitySchemes:
     bearerAuth:
       type: http

@@ -111,6 +111,16 @@ paths:
                 $ref: '#/components/schemas/ItemResponse_String'
 components:
   schemas:
+    ItemResponse_String:
+      type: object
+      properties:
+        Item:
+          type: string
+          description: The response object.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
     Result:
       type: object
       required:
@@ -123,13 +133,6 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    KeyValuePair_String_String:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
     LatestNarxResponse:
       type: object
       properties:
@@ -175,13 +178,10 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    ItemResponse_String:
+    KeyValuePair_String_String:
       type: object
       properties:
-        Item:
+        key:
           type: string
-          description: The response object.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
+        value:
+          type: string

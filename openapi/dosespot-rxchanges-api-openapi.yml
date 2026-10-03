@@ -356,16 +356,28 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    PrescriptionDiagnosisIds:
+    PageResult:
       type: object
       properties:
-        PrimaryDiagnosisId:
+        CurrentPage:
           type: integer
           format: int32
-        SecondaryDiagnosisId:
+        TotalPages:
           type: integer
           format: int32
-    GetRxChangeDetailedResponse:
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
+    GetRxChangeResponse:
       type: object
       properties:
         RxChangeRequestId:
@@ -383,12 +395,14 @@ components:
           $ref: '#/components/schemas/Patient'
         UnmatchedChange:
           type: boolean
-        PrescribedPrescription:
-          $ref: '#/components/schemas/Prescription'
+        PrescribedPrescriptionId:
+          type: integer
+          format: int32
         RequestedMedications:
           type: array
           items:
-            $ref: '#/components/schemas/Prescription'
+            type: integer
+            format: int32
         ClinicianId:
           type: integer
           format: int32
@@ -404,31 +418,26 @@ components:
         RequestExpirationDate:
           type: string
           format: date-time
-        OriginalPrescription:
-          $ref: '#/components/schemas/Prescription'
+        OriginalPrescriptionId:
+          type: integer
+          format: int32
         PayerName:
           type: string
         DrugUseEvaluations:
           type: array
           items:
             $ref: '#/components/schemas/DrugUseEvaluation'
-    CompoundIngredient:
+    RTPSCoupon:
       type: object
-      required:
-      - Quantity
       properties:
-        DispensableDrugId:
-          type: integer
-          format: int32
-        FreeText:
+        BIN:
           type: string
-        DispenseUnitId:
-          type: integer
-          format: int32
-        Quantity:
+        PCN:
           type: string
-        IsFreeTextEPCS:
-          type: boolean
+        MemberID:
+          type: string
+        GroupID:
+          type: string
     ApproveRxChangeRequest:
       type: object
       properties:
@@ -554,6 +563,40 @@ components:
           type: string
           minLength: 0
           maxLength: 50
+    PrescriptionDiagnosisIds:
+      type: object
+      properties:
+        PrimaryDiagnosisId:
+          type: integer
+          format: int32
+        SecondaryDiagnosisId:
+          type: integer
+          format: int32
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    PagedListResponse_GetRxChangeDetailedResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/GetRxChangeDetailedResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
     Patient:
       type: object
       required:
@@ -841,6 +884,68 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompoundIngredient'
+    Diagnosis:
+      type: object
+      properties:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string
+    CompoundIngredient:
+      type: object
+      required:
+      - Quantity
+      properties:
+        DispensableDrugId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        IsFreeTextEPCS:
+          type: boolean
+    PrescriptionDiagnosis:
+      type: object
+      properties:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    ChangeRxChangePatientRequest:
+      type: object
+      required:
+      - PatientId
+      properties:
+        PatientId:
+          type: integer
+          format: int32
+    DrugUseEvaluation:
+      type: object
+      properties:
+        Reason:
+          type: string
+        Service:
+          type: string
+        AckReason:
+          type: string
+        Result:
+          type: string
+        Significance:
+          type: string
     PagedListResponse_GetRxChangeResponse:
       type: object
       properties:
@@ -855,88 +960,53 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    IdentifierResponse:
+    GetRxChangeDetailedResponse:
       type: object
       properties:
-        Id:
+        RxChangeRequestId:
           type: integer
           format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    PrescriptionDiagnosis:
-      type: object
-      properties:
-        PrimaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-        SecondaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-    ChangeRxChangePatientRequest:
-      type: object
-      required:
-      - PatientId
-      properties:
-        PatientId:
-          type: integer
-          format: int32
-    RTPSCoupon:
-      type: object
-      properties:
-        BIN:
+        RxChangeType:
           type: string
-        PCN:
+        RxChangeSubType:
           type: string
-        MemberID:
+        Source:
           type: string
-        GroupID:
-          type: string
-    Diagnosis:
-      type: object
-      properties:
-        DiagnosisId:
-          type: integer
-          format: int32
-        DiagnosisCode:
-          type: string
-        DiagnosisDescription:
-          type: string
-    PagedListResponse_GetRxChangeDetailedResponse:
-      type: object
-      properties:
-        Items:
+        NewPatient:
+          type: boolean
+        Patient:
+          $ref: '#/components/schemas/Patient'
+        UnmatchedChange:
+          type: boolean
+        PrescribedPrescription:
+          $ref: '#/components/schemas/Prescription'
+        RequestedMedications:
           type: array
-          description: The list of elements to return.
-          readOnly: true
           items:
-            $ref: '#/components/schemas/GetRxChangeDetailedResponse'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
+            $ref: '#/components/schemas/Prescription'
+        ClinicianId:
           type: integer
           format: int32
-        TotalPages:
+        ClinicId:
           type: integer
           format: int32
-        PageSize:
+        PharmacyId:
           type: integer
           format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
+        RequestedDate:
+          type: string
+          format: date-time
+        RequestExpirationDate:
+          type: string
+          format: date-time
+        OriginalPrescription:
+          $ref: '#/components/schemas/Prescription'
+        PayerName:
+          type: string
+        DrugUseEvaluations:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrugUseEvaluation'
     ReconcileRxChangeRequest:
       type: object
       required:
@@ -947,13 +1017,6 @@ components:
           format: int32
           minimum: 1
           maximum: 2147483647
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
     DenyRxChangeRequest:
       type: object
       required:
@@ -984,66 +1047,3 @@ components:
           type: string
           minLength: 0
           maxLength: 70
-    GetRxChangeResponse:
-      type: object
-      properties:
-        RxChangeRequestId:
-          type: integer
-          format: int32
-        RxChangeType:
-          type: string
-        RxChangeSubType:
-          type: string
-        Source:
-          type: string
-        NewPatient:
-          type: boolean
-        Patient:
-          $ref: '#/components/schemas/Patient'
-        UnmatchedChange:
-          type: boolean
-        PrescribedPrescriptionId:
-          type: integer
-          format: int32
-        RequestedMedications:
-          type: array
-          items:
-            type: integer
-            format: int32
-        ClinicianId:
-          type: integer
-          format: int32
-        ClinicId:
-          type: integer
-          format: int32
-        PharmacyId:
-          type: integer
-          format: int32
-        RequestedDate:
-          type: string
-          format: date-time
-        RequestExpirationDate:
-          type: string
-          format: date-time
-        OriginalPrescriptionId:
-          type: integer
-          format: int32
-        PayerName:
-          type: string
-        DrugUseEvaluations:
-          type: array
-          items:
-            $ref: '#/components/schemas/DrugUseEvaluation'
-    DrugUseEvaluation:
-      type: object
-      properties:
-        Reason:
-          type: string
-        Service:
-          type: string
-        AckReason:
-          type: string
-        Result:
-          type: string
-        Significance:
-          type: string

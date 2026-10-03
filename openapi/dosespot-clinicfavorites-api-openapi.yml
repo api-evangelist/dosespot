@@ -434,6 +434,79 @@ paths:
         required: true
 components:
   schemas:
+    ClinicPrescriptionFavoriteSupplyRequest:
+      type: object
+      required:
+      - Directions
+      - DispenseUnitTypeId
+      - Quantity
+      - Refills
+      - Title
+      properties:
+        SupplyId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        SpecialtyType:
+          type: integer
+          format: int32
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitTypeId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        Notes:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Title:
+          type: string
+          minLength: 0
+          maxLength: 500
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+    PagedListResponse_ClinicFavoritePrescriptionResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ClinicFavoritePrescriptionResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PrescriptionDiagnosisIds:
+      type: object
+      properties:
+        PrimaryDiagnosisId:
+          type: integer
+          format: int32
+        SecondaryDiagnosisId:
+          type: integer
+          format: int32
     Result:
       type: object
       required:
@@ -446,23 +519,66 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    CompoundIngredient:
+    ClinicPrescriptionFavoriteMedicationRequest:
       type: object
       required:
+      - Directions
+      - DispensableDrugId
+      - DispenseUnitTypeId
       - Quantity
+      - Refills
+      - Title
       properties:
         DispensableDrugId:
           type: integer
           format: int32
-        FreeText:
-          type: string
-        DispenseUnitId:
+        SpecialtyType:
+          type: integer
+          format: int32
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitTypeId:
           type: integer
           format: int32
         Quantity:
           type: string
-        IsFreeTextEPCS:
+        NoSubstitutions:
           type: boolean
+        Notes:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Title:
+          type: string
+          minLength: 0
+          maxLength: 500
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
     PageResult:
       type: object
       properties:
@@ -484,15 +600,6 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-    PrescriptionDiagnosisIds:
-      type: object
-      properties:
-        PrimaryDiagnosisId:
-          type: integer
-          format: int32
-        SecondaryDiagnosisId:
-          type: integer
-          format: int32
     ClinicFavoritePrescriptionResponse:
       type: object
       properties:
@@ -569,70 +676,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompoundIngredient'
-    PagedListResponse_ClinicFavoritePrescriptionResponse:
+    Diagnosis:
       type: object
       properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/ClinicFavoritePrescriptionResponse'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    ClinicPrescriptionFavoriteSupplyRequest:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string
+    CompoundIngredient:
       type: object
       required:
-      - Directions
-      - DispenseUnitTypeId
       - Quantity
-      - Refills
-      - Title
       properties:
-        SupplyId:
+        DispensableDrugId:
           type: integer
           format: int32
         FreeText:
           type: string
-        SpecialtyType:
-          type: integer
-          format: int32
-        Refills:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 99
-        DaysSupply:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 365
-        DispenseUnitTypeId:
+        DispenseUnitId:
           type: integer
           format: int32
         Quantity:
           type: string
-        NoSubstitutions:
+        IsFreeTextEPCS:
           type: boolean
-        Notes:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        Directions:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        Title:
-          type: string
-          minLength: 0
-          maxLength: 500
-        FirstPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-        SecondPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
     PrescriptionDiagnosis:
       type: object
       properties:
@@ -640,6 +710,13 @@ components:
           $ref: '#/components/schemas/Diagnosis'
         SecondaryDiagnosis:
           $ref: '#/components/schemas/Diagnosis'
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
     ClinicPrescriptionFavoriteCompiledCompoundRequest:
       type: object
       required:
@@ -693,80 +770,3 @@ components:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
         SecondPrescriptionDiagnosis:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    ClinicPrescriptionFavoriteMedicationRequest:
-      type: object
-      required:
-      - Directions
-      - DispensableDrugId
-      - DispenseUnitTypeId
-      - Quantity
-      - Refills
-      - Title
-      properties:
-        DispensableDrugId:
-          type: integer
-          format: int32
-        SpecialtyType:
-          type: integer
-          format: int32
-        Refills:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 99
-        DaysSupply:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 365
-        DispenseUnitTypeId:
-          type: integer
-          format: int32
-        Quantity:
-          type: string
-        NoSubstitutions:
-          type: boolean
-        Notes:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        Directions:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        Title:
-          type: string
-          minLength: 0
-          maxLength: 500
-        FirstPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-        SecondPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    Diagnosis:
-      type: object
-      properties:
-        DiagnosisId:
-          type: integer
-          format: int32
-        DiagnosisCode:
-          type: string
-        DiagnosisDescription:
-          type: string

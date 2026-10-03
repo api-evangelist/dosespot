@@ -696,6 +696,14 @@ paths:
                 $ref: '#/components/schemas/PriorAuthorizationStatusLogUIResponse'
 components:
   schemas:
+    PriorAuthorizationChoiceAnswer:
+      type: object
+      properties:
+        PriorAuthorizationQuestionChoiceId:
+          type: integer
+          format: int32
+        PriorAuthorizationQuestionChoiceText:
+          type: string
     Result:
       type: object
       required:
@@ -708,14 +716,265 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    PriorAuthorizationChoiceAnswer:
+    PAAppealDetails:
       type: object
       properties:
-        PriorAuthorizationQuestionChoiceId:
+        AppealCaseId:
+          type: string
+        NotesForAppeal:
+          type: string
+        AppealReason:
+          type: string
+    PriorAuthStatusLogUI:
+      type: object
+      properties:
+        Status:
+          type: string
+        AdditionalInfo:
+          type: string
+        CreatedDateStamp:
+          type: string
+          format: date-time
+        Attachment:
+          $ref: '#/components/schemas/PAAttachment'
+    PriorAuthorizationQuestionResponseChoice:
+      type: object
+      properties:
+        QuestionChoiceId:
           type: integer
           format: int32
-        PriorAuthorizationQuestionChoiceText:
+        QuestionChoiceText:
           type: string
+        AdditionalFreeTextRequired:
+          type: boolean
+        AdditionalFreeTextAllowed:
+          type: boolean
+    PAAttachment:
+      type: object
+      properties:
+        AttachmentId:
+          type: integer
+          format: int32
+        CreatedDateStamp:
+          type: string
+          format: date-time
+        FileName:
+          type: string
+        IsOutbound:
+          type: boolean
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    PriorAuthorizationStatusLogUIResponse:
+      type: object
+      properties:
+        StatusLog:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriorAuthStatusLogUI'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ListResponse_PriorAuthorizationCaseFullDetails:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/PriorAuthorizationCaseFullDetails'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    PriorAuthorizationCaseFullDetails:
+      type: object
+      properties:
+        PriorAuthorizationCaseId:
+          type: integer
+          format: int32
+        PrescriptionId:
+          type: integer
+          format: int32
+        CaseAlias:
+          type: string
+        Note:
+          type: string
+        IsOffline:
+          type: boolean
+        InitializedDate:
+          type: string
+          format: date-time
+        NextResponseDeadline:
+          type: string
+          format: date-time
+        CurrentStatus:
+          type: string
+          enum:
+          - Unknown
+          - Requested
+          - NotRequired
+          - Closed
+          - Deferred
+          - ActionRequired
+          - Pending
+          - Approved
+          - Denied
+          - AppealRequested
+          - CancelRequested
+          - Canceled
+          - CancelDenied
+          - Error
+          - Deleted
+          - PartiallyDenied
+          - InProcess
+        CurrentStatusDate:
+          type: string
+          format: date-time
+        ExpectedResponseDate:
+          type: string
+          format: date-time
+          description: Only available if an InProcess prior authorization case has been recieved
+        AttachmentRequired:
+          type: boolean
+          description: Only available if the prior authorization case is in a state that requires an attachment
+        NextQuestionId:
+          type: integer
+          format: int32
+        IsExpedited:
+          type: boolean
+        FinalStatus:
+          description: Details related to a prior authorization case that is no longer in progress
+          $ref: '#/components/schemas/PAFinalStatus'
+        AppealDetails:
+          description: Details related to an appealed prior authorization case
+          $ref: '#/components/schemas/PAAppealDetails'
+        CancelDetails:
+          description: Details related to a cancelled prior authorization case
+          $ref: '#/components/schemas/PACancelDetails'
+        Attachments:
+          type: array
+          description: A list of the attachments related to the prior authorization case
+          items:
+            $ref: '#/components/schemas/PAAttachment'
+    PriorAuthAnswerSingleQuestionResponse:
+      type: object
+      properties:
+        NextQuestionID:
+          type: integer
+          format: int32
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PACancelDetails:
+      type: object
+      properties:
+        CancelReason:
+          type: string
+    PriorAuthInitiationRequest:
+      type: object
+      properties:
+        PrescriptionId:
+          type: integer
+          format: int32
+        RxChangeId:
+          type: integer
+          format: int32
+        PatientEligibilityId:
+          type: integer
+          format: int32
+        Expedite:
+          type: boolean
+        Offline:
+          type: boolean
+    PriorAuthQuestionResponse:
+      type: object
+      properties:
+        QuestionText:
+          type: string
+        AnswerType:
+          type: string
+          enum:
+          - Select
+          - Multiselect
+          - Date
+          - DateTime
+          - Numeric
+          - FreeText
+        AnswerChoices:
+          type: array
+          items:
+            $ref: '#/components/schemas/PriorAuthorizationQuestionResponseChoice'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PAHistoryQuestionSet:
+      type: object
+      properties:
+        PriorAuthorizationQuestionSetId:
+          type: integer
+          format: int32
+        QuestionSetAlias:
+          type: string
+        Title:
+          type: string
+        AnsweredQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAAnsweredQuestions'
+        Attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAAttachment'
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
+    PriorAuthorizationHistoryResponse:
+      type: object
+      properties:
+        FinalStatus:
+          type: string
+        AuthorizationNumber:
+          type: string
+        EffectiveDate:
+          type: string
+          format: date-time
+        ExpirationDate:
+          type: string
+          format: date-time
+        Note:
+          type: string
+        CanAppeal:
+          type: string
+        IsOffline:
+          type: boolean
+        Attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAAttachment'
+        StatusLogs:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAStatusLog'
+        QuestionSets:
+          type: array
+          items:
+            $ref: '#/components/schemas/PAHistoryQuestionSet'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
     PAFinalStatus:
       type: object
       properties:
@@ -804,173 +1063,6 @@ components:
           type: string
         CanAppeal:
           type: boolean
-    PriorAuthorizationQuestionResponseChoice:
-      type: object
-      properties:
-        QuestionChoiceId:
-          type: integer
-          format: int32
-        QuestionChoiceText:
-          type: string
-        AdditionalFreeTextRequired:
-          type: boolean
-        AdditionalFreeTextAllowed:
-          type: boolean
-    PAAppealDetails:
-      type: object
-      properties:
-        AppealCaseId:
-          type: string
-        NotesForAppeal:
-          type: string
-        AppealReason:
-          type: string
-    PriorAuthApproveOfflineRequest:
-      type: object
-      required:
-      - AuthorizationNumber
-      properties:
-        AuthorizationNumber:
-          type: string
-    PACancelDetails:
-      type: object
-      properties:
-        CancelReason:
-          type: string
-    PAAnswers:
-      type: object
-      properties:
-        Answer:
-          type: string
-        AnswerDateTime:
-          type: string
-          format: date-time
-        AnswerNumeric:
-          type: number
-          format: double
-        AnswerFreeText:
-          type: string
-    PriorAuthorizationAppealRequest:
-      type: object
-      required:
-      - AppealReason
-      properties:
-        AppealReason:
-          type: string
-    PriorAuthorizationHistoryResponse:
-      type: object
-      properties:
-        FinalStatus:
-          type: string
-        AuthorizationNumber:
-          type: string
-        EffectiveDate:
-          type: string
-          format: date-time
-        ExpirationDate:
-          type: string
-          format: date-time
-        Note:
-          type: string
-        CanAppeal:
-          type: string
-        IsOffline:
-          type: boolean
-        Attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PAAttachment'
-        StatusLogs:
-          type: array
-          items:
-            $ref: '#/components/schemas/PAStatusLog'
-        QuestionSets:
-          type: array
-          items:
-            $ref: '#/components/schemas/PAHistoryQuestionSet'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    PriorAuthAnswerSingleQuestionResponse:
-      type: object
-      properties:
-        NextQuestionID:
-          type: integer
-          format: int32
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    PAAnsweredQuestions:
-      type: object
-      properties:
-        Question:
-          type: string
-        Answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/PAAnswers'
-    PAHistoryQuestionSet:
-      type: object
-      properties:
-        PriorAuthorizationQuestionSetId:
-          type: integer
-          format: int32
-        QuestionSetAlias:
-          type: string
-        Title:
-          type: string
-        AnsweredQuestions:
-          type: array
-          items:
-            $ref: '#/components/schemas/PAAnsweredQuestions'
-        Attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/PAAttachment'
-    PriorAuthStatusLogUI:
-      type: object
-      properties:
-        Status:
-          type: string
-        AdditionalInfo:
-          type: string
-        CreatedDateStamp:
-          type: string
-          format: date-time
-        Attachment:
-          $ref: '#/components/schemas/PAAttachment'
-    PriorAuthQuestionResponse:
-      type: object
-      properties:
-        QuestionText:
-          type: string
-        AnswerType:
-          type: string
-          enum:
-          - Select
-          - Multiselect
-          - Date
-          - DateTime
-          - Numeric
-          - FreeText
-        AnswerChoices:
-          type: array
-          items:
-            $ref: '#/components/schemas/PriorAuthorizationQuestionResponseChoice'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     PAStatusLog:
       type: object
       properties:
@@ -984,118 +1076,42 @@ components:
         CreatedDateStamp:
           type: string
           format: date-time
-    ListResponse_PriorAuthorizationCaseFullDetails:
+    PAAnswers:
       type: object
       properties:
-        Items:
+        Answer:
+          type: string
+        AnswerDateTime:
+          type: string
+          format: date-time
+        AnswerNumeric:
+          type: number
+          format: double
+        AnswerFreeText:
+          type: string
+    PAAnsweredQuestions:
+      type: object
+      properties:
+        Question:
+          type: string
+        Answers:
           type: array
-          description: The list of elements to return.
           items:
-            $ref: '#/components/schemas/PriorAuthorizationCaseFullDetails'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
-    PriorAuthorizationStatusLogUIResponse:
+            $ref: '#/components/schemas/PAAnswers'
+    PriorAuthorizationAppealRequest:
       type: object
+      required:
+      - AppealReason
       properties:
-        StatusLog:
-          type: array
-          items:
-            $ref: '#/components/schemas/PriorAuthStatusLogUI'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    Response:
+        AppealReason:
+          type: string
+    PriorAuthApproveOfflineRequest:
       type: object
+      required:
+      - AuthorizationNumber
       properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    PAAttachment:
-      type: object
-      properties:
-        AttachmentId:
-          type: integer
-          format: int32
-        CreatedDateStamp:
+        AuthorizationNumber:
           type: string
-          format: date-time
-        FileName:
-          type: string
-        IsOutbound:
-          type: boolean
-    PriorAuthorizationCaseFullDetails:
-      type: object
-      properties:
-        PriorAuthorizationCaseId:
-          type: integer
-          format: int32
-        PrescriptionId:
-          type: integer
-          format: int32
-        CaseAlias:
-          type: string
-        Note:
-          type: string
-        IsOffline:
-          type: boolean
-        InitializedDate:
-          type: string
-          format: date-time
-        NextResponseDeadline:
-          type: string
-          format: date-time
-        CurrentStatus:
-          type: string
-          enum:
-          - Unknown
-          - Requested
-          - NotRequired
-          - Closed
-          - Deferred
-          - ActionRequired
-          - Pending
-          - Approved
-          - Denied
-          - AppealRequested
-          - CancelRequested
-          - Canceled
-          - CancelDenied
-          - Error
-          - Deleted
-          - PartiallyDenied
-          - InProcess
-        CurrentStatusDate:
-          type: string
-          format: date-time
-        ExpectedResponseDate:
-          type: string
-          format: date-time
-          description: Only available if an InProcess prior authorization case has been recieved
-        AttachmentRequired:
-          type: boolean
-          description: Only available if the prior authorization case is in a state that requires an attachment
-        NextQuestionId:
-          type: integer
-          format: int32
-        IsExpedited:
-          type: boolean
-        FinalStatus:
-          description: Details related to a prior authorization case that is no longer in progress
-          $ref: '#/components/schemas/PAFinalStatus'
-        AppealDetails:
-          description: Details related to an appealed prior authorization case
-          $ref: '#/components/schemas/PAAppealDetails'
-        CancelDetails:
-          description: Details related to a cancelled prior authorization case
-          $ref: '#/components/schemas/PACancelDetails'
-        Attachments:
-          type: array
-          description: A list of the attachments related to the prior authorization case
-          items:
-            $ref: '#/components/schemas/PAAttachment'
     PriorAuthAnswerRequest:
       type: object
       properties:
@@ -1111,19 +1127,3 @@ components:
           format: double
         FreeTextAnswer:
           type: string
-    PriorAuthInitiationRequest:
-      type: object
-      properties:
-        PrescriptionId:
-          type: integer
-          format: int32
-        RxChangeId:
-          type: integer
-          format: int32
-        PatientEligibilityId:
-          type: integer
-          format: int32
-        Expedite:
-          type: boolean
-        Offline:
-          type: boolean

@@ -113,6 +113,16 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
+    ItemResponse_SupplySearchResultForAPI:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/SupplySearchResultForAPI'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
     PageResult:
       type: object
       properties:
@@ -148,16 +158,6 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    ItemResponse_SupplySearchResultForAPI:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/SupplySearchResultForAPI'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
     SupplySearchResultForAPI:
       type: object
       properties:

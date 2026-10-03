@@ -118,6 +118,18 @@ paths:
                 $ref: '#/components/schemas/PreCheckInteractionsResponse'
 components:
   schemas:
+    ListResponse_DrugInteraction:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/DrugInteraction'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
     Result:
       type: object
       required:
@@ -144,36 +156,11 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    ListResponse_DrugInteraction:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/DrugInteraction'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
-    DrugInteraction:
+    AllergyInteraction:
       type: object
       properties:
         InteractionMessage:
           type: string
-        SeverityLevel:
-          type: string
-          enum:
-          - MinorInteraction
-          - ModerateInteraction
-          - MajorInteraction
-          - UnknownInteraction
-        Drugs:
-          type: array
-          items:
-            $ref: '#/components/schemas/DrugInformation'
-        IsProspective:
-          type: boolean
     ListResponse_AllergyInteraction:
       type: object
       properties:
@@ -197,8 +184,21 @@ components:
           format: int32
         DrugName:
           type: string
-    AllergyInteraction:
+    DrugInteraction:
       type: object
       properties:
         InteractionMessage:
           type: string
+        SeverityLevel:
+          type: string
+          enum:
+          - MinorInteraction
+          - ModerateInteraction
+          - MajorInteraction
+          - UnknownInteraction
+        Drugs:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrugInformation'
+        IsProspective:
+          type: boolean
