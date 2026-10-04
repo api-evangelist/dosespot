@@ -335,6 +335,17 @@ paths:
         required: true
 components:
   schemas:
+    RTPSCoupon:
+      type: object
+      properties:
+        BIN:
+          type: string
+        PCN:
+          type: string
+        MemberID:
+          type: string
+        GroupID:
+          type: string
     CodedSupplyRequest:
       type: object
       required:
@@ -436,450 +447,6 @@ components:
           type: string
           minLength: 0
           maxLength: 50
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
-    RTPSCoupon:
-      type: object
-      properties:
-        BIN:
-          type: string
-        PCN:
-          type: string
-        MemberID:
-          type: string
-        GroupID:
-          type: string
-    PrescriptionDiagnosisIds:
-      type: object
-      properties:
-        PrimaryDiagnosisId:
-          type: integer
-          format: int32
-        SecondaryDiagnosisId:
-          type: integer
-          format: int32
-    ApproveRefillRequest:
-      type: object
-      required:
-      - Refills
-      properties:
-        Refills:
-          type: integer
-          format: int32
-          minimum: 1
-          maximum: 99
-        Comment:
-          type: string
-          minLength: 0
-          maxLength: 500
-        EffectiveDate:
-          type: string
-          format: date-time
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    DenyRefillRequest:
-      type: object
-      required:
-      - DenialReason
-      properties:
-        DenialReason:
-          type: string
-          enum:
-          - DeniedPatientUnknown
-          - DeniedPatientNotUnderCare
-          - DeniedPatientNoLongerUnderPatientCare
-          - DeniedTooSoon
-          - DeniedNeverPrescribed
-          - DeniedHavePatientContact
-          - DeniedRefillInappropriate
-          - DeniedAlreadyPickedUp
-          - DeniedAlreadyPickedUpPartialFill
-          - DeniedNotPickedUp
-          - DeniedChangeInappropriate
-          - DeniedNeedAppointment
-          - DeniedPrescriberNotAssociateWithLocation
-          - DeniedNoPriorAuthAttempt
-          - DeniedAlreadyHandled
-          - DeniedAtPatientRequest
-          - DeniedPatientAllergicToRequestMed
-          - DeniedMedicationDiscontinued
-        Note:
-          type: string
-          minLength: 0
-          maxLength: 70
-    CompoundPrescriptionRequestUI:
-      type: object
-      required:
-      - CompoundDescription
-      - CompoundIngredients
-      - Directions
-      - DispenseUnitId
-      - Quantity
-      - Refills
-      - Status
-      properties:
-        CompoundDescription:
-          type: string
-        CompoundIngredients:
-          type: array
-          items:
-            $ref: '#/components/schemas/CompoundIngredient'
-        FirstPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-        SecondPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-        Refills:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 99
-        DaysSupply:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 365
-        DispenseUnitId:
-          type: integer
-          format: int32
-        Quantity:
-          type: number
-          format: double
-        Directions:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        PharmacyId:
-          type: integer
-          format: int32
-        PharmacyNotes:
-          type: string
-          minLength: 0
-          maxLength: 210
-        NoSubstitutions:
-          type: boolean
-        EffectiveDate:
-          type: string
-          format: date-time
-        RxReferenceNumber:
-          type: string
-          minLength: 0
-          maxLength: 35
-        EligibilityId:
-          type: integer
-          format: int32
-        NonDoseSpotPrescriptionId:
-          type: string
-          minLength: 0
-          maxLength: 35
-        IsRefillReplace:
-          type: boolean
-        IsUrgent:
-          type: boolean
-        SupervisorId:
-          type: integer
-          format: int32
-        RetailPharmacyToMailToPatient:
-          type: boolean
-        RTPSCoupon:
-          $ref: '#/components/schemas/RTPSCoupon'
-        Status:
-          type: string
-          enum:
-          - Unknown
-          - Active
-          - Inactive
-          - Discontinued
-          - Deleted
-          - Completed
-          - CancelRequested
-          - CancelPending
-          - Cancelled
-          - CancelDenied
-          - Changed
-          - FullFill
-          - PartialFill
-          - NoFill
-        InactiveDate:
-          type: string
-          format: date-time
-        Comment:
-          type: string
-          minLength: 0
-          maxLength: 500
-        Encounter:
-          type: string
-          minLength: 0
-          maxLength: 50
-    GetRefillResponse:
-      type: object
-      properties:
-        RefillId:
-          type: integer
-          format: int32
-        NewPatient:
-          type: boolean
-        Patient:
-          $ref: '#/components/schemas/Patient'
-        ClinicId:
-          type: integer
-          format: int32
-        ClinicianId:
-          type: integer
-          format: int32
-        RequestedPrescriptionId:
-          type: integer
-          format: int32
-        DispensedPrescriptionId:
-          type: integer
-          format: int32
-        OriginalPrescriptionId:
-          type: integer
-          format: int32
-        PharmacyId:
-          type: integer
-          format: int32
-        RequestedDate:
-          type: string
-          format: date-time
-        RequestExpirationDate:
-          type: string
-          format: date-time
-    GetRefillDetailedResponse:
-      type: object
-      properties:
-        RefillId:
-          type: integer
-          format: int32
-        NewPatient:
-          type: boolean
-        Patient:
-          $ref: '#/components/schemas/Patient'
-        ClinicId:
-          type: integer
-          format: int32
-        ClinicianId:
-          type: integer
-          format: int32
-        RequestedPrescription:
-          $ref: '#/components/schemas/Prescription'
-        DispensedPrescription:
-          $ref: '#/components/schemas/Prescription'
-        OriginalPrescription:
-          $ref: '#/components/schemas/Prescription'
-        PharmacyId:
-          type: integer
-          format: int32
-        RequestedDate:
-          type: string
-          format: date-time
-        RequestExpirationDate:
-          type: string
-          format: date-time
-    ReplaceRefillRequest:
-      type: object
-      required:
-      - PatientID
-      properties:
-        PatientID:
-          type: integer
-          format: int32
-        Pin:
-          type: string
-          pattern: ^(?:\d{4})?$
-        Otp:
-          type: string
-        NewPrescription:
-          $ref: '#/components/schemas/CodedPrescriptionRequestUI'
-        NewSupplyPrescription:
-          $ref: '#/components/schemas/CodedSupplyRequest'
-        NewCompoundPrescription:
-          $ref: '#/components/schemas/CompoundPrescriptionRequestUI'
-        NewFreeTextPrescription:
-          $ref: '#/components/schemas/FreeTextPrescriptionRequest'
-    Patient:
-      type: object
-      required:
-      - Active
-      - Address1
-      - City
-      - DateOfBirth
-      - FirstName
-      - Gender
-      - LastName
-      - PrimaryPhone
-      - PrimaryPhoneType
-      - State
-      - ZipCode
-      properties:
-        PatientId:
-          type: integer
-          format: int32
-        Prefix:
-          type: string
-          minLength: 0
-          maxLength: 10
-        FirstName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        MiddleName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        LastName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Suffix:
-          type: string
-          minLength: 0
-          maxLength: 10
-        DateOfBirth:
-          type: string
-          format: date-time
-        Gender:
-          type: string
-          enum:
-          - Male
-          - Female
-          - Unknown
-        Email:
-          type: string
-          minLength: 0
-          maxLength: 80
-        Address1:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Address2:
-          type: string
-          minLength: 0
-          maxLength: 35
-        City:
-          type: string
-          minLength: 0
-          maxLength: 35
-        State:
-          type: string
-          minLength: 0
-          maxLength: 50
-        ZipCode:
-          type: string
-          minLength: 0
-          maxLength: 10
-        PhoneAdditional1:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditional2:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType1:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditionalType2:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PrimaryPhone:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PrimaryPhoneType:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        Weight:
-          type: number
-          format: float
-        WeightMetric:
-          type: string
-          enum:
-          - lb
-          - kg
-        Height:
-          type: number
-          format: float
-        HeightMetric:
-          type: string
-          enum:
-          - inch
-          - cm
-        NonDoseSpotMedicalRecordNumber:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Active:
-          type: boolean
-        Encounter:
-          type: string
-          minLength: 0
-          maxLength: 50
-        IsHospice:
-          type: boolean
     PagedListResponse_GetRefillResponse:
       type: object
       properties:
@@ -1037,16 +604,75 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompoundIngredient'
-    Diagnosis:
+    DenyRefillRequest:
       type: object
+      required:
+      - DenialReason
       properties:
-        DiagnosisId:
+        DenialReason:
+          type: string
+          enum:
+          - DeniedPatientUnknown
+          - DeniedPatientNotUnderCare
+          - DeniedPatientNoLongerUnderPatientCare
+          - DeniedTooSoon
+          - DeniedNeverPrescribed
+          - DeniedHavePatientContact
+          - DeniedRefillInappropriate
+          - DeniedAlreadyPickedUp
+          - DeniedAlreadyPickedUpPartialFill
+          - DeniedNotPickedUp
+          - DeniedChangeInappropriate
+          - DeniedNeedAppointment
+          - DeniedPrescriberNotAssociateWithLocation
+          - DeniedNoPriorAuthAttempt
+          - DeniedAlreadyHandled
+          - DeniedAtPatientRequest
+          - DeniedPatientAllergicToRequestMed
+          - DeniedMedicationDiscontinued
+        Note:
+          type: string
+          minLength: 0
+          maxLength: 70
+    ChangeRefillPatientRequest:
+      type: object
+      required:
+      - PatientId
+      properties:
+        PatientId:
           type: integer
           format: int32
-        DiagnosisCode:
+    GetRefillDetailedResponse:
+      type: object
+      properties:
+        RefillId:
+          type: integer
+          format: int32
+        NewPatient:
+          type: boolean
+        Patient:
+          $ref: '#/components/schemas/Patient'
+        ClinicId:
+          type: integer
+          format: int32
+        ClinicianId:
+          type: integer
+          format: int32
+        RequestedPrescription:
+          $ref: '#/components/schemas/Prescription'
+        DispensedPrescription:
+          $ref: '#/components/schemas/Prescription'
+        OriginalPrescription:
+          $ref: '#/components/schemas/Prescription'
+        PharmacyId:
+          type: integer
+          format: int32
+        RequestedDate:
           type: string
-        DiagnosisDescription:
+          format: date-time
+        RequestExpirationDate:
           type: string
+          format: date-time
     CompoundIngredient:
       type: object
       required:
@@ -1064,6 +690,36 @@ components:
           type: string
         IsFreeTextEPCS:
           type: boolean
+    PrescriptionDiagnosisIds:
+      type: object
+      properties:
+        PrimaryDiagnosisId:
+          type: integer
+          format: int32
+        SecondaryDiagnosisId:
+          type: integer
+          format: int32
+    ReplaceRefillRequest:
+      type: object
+      required:
+      - PatientID
+      properties:
+        PatientID:
+          type: integer
+          format: int32
+        Pin:
+          type: string
+          pattern: ^(?:\d{4})?$
+        Otp:
+          type: string
+        NewPrescription:
+          $ref: '#/components/schemas/CodedPrescriptionRequestUI'
+        NewSupplyPrescription:
+          $ref: '#/components/schemas/CodedSupplyRequest'
+        NewCompoundPrescription:
+          $ref: '#/components/schemas/CompoundPrescriptionRequestUI'
+        NewFreeTextPrescription:
+          $ref: '#/components/schemas/FreeTextPrescriptionRequest'
     PrescriptionDiagnosis:
       type: object
       properties:
@@ -1092,22 +748,179 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    CodedPrescriptionRequestUI:
+    Result:
       type: object
       required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    Patient:
+      type: object
+      required:
+      - Active
+      - Address1
+      - City
+      - DateOfBirth
+      - FirstName
+      - Gender
+      - LastName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        PatientId:
+          type: integer
+          format: int32
+        Prefix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        FirstName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Gender:
+          type: string
+          enum:
+          - Male
+          - Female
+          - Unknown
+        Email:
+          type: string
+          minLength: 0
+          maxLength: 80
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+          minLength: 0
+          maxLength: 50
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        Weight:
+          type: number
+          format: float
+        WeightMetric:
+          type: string
+          enum:
+          - lb
+          - kg
+        Height:
+          type: number
+          format: float
+        HeightMetric:
+          type: string
+          enum:
+          - inch
+          - cm
+        NonDoseSpotMedicalRecordNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+        IsHospice:
+          type: boolean
+    CompoundPrescriptionRequestUI:
+      type: object
+      required:
+      - CompoundDescription
+      - CompoundIngredients
       - Directions
-      - DispensableDrugId
       - DispenseUnitId
       - Quantity
       - Refills
       - Status
       properties:
-        DispensableDrugId:
-          type: integer
-          format: int32
-        PatientFormularyId:
-          type: integer
-          format: int32
+        CompoundDescription:
+          type: string
+        CompoundIngredients:
+          type: array
+          items:
+            $ref: '#/components/schemas/CompoundIngredient'
         FirstPrescriptionDiagnosis:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
         SecondPrescriptionDiagnosis:
@@ -1194,6 +1007,57 @@ components:
           type: string
           minLength: 0
           maxLength: 50
+    ApproveRefillRequest:
+      type: object
+      required:
+      - Refills
+      properties:
+        Refills:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 99
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        EffectiveDate:
+          type: string
+          format: date-time
+    GetRefillResponse:
+      type: object
+      properties:
+        RefillId:
+          type: integer
+          format: int32
+        NewPatient:
+          type: boolean
+        Patient:
+          $ref: '#/components/schemas/Patient'
+        ClinicId:
+          type: integer
+          format: int32
+        ClinicianId:
+          type: integer
+          format: int32
+        RequestedPrescriptionId:
+          type: integer
+          format: int32
+        DispensedPrescriptionId:
+          type: integer
+          format: int32
+        OriginalPrescriptionId:
+          type: integer
+          format: int32
+        PharmacyId:
+          type: integer
+          format: int32
+        RequestedDate:
+          type: string
+          format: date-time
+        RequestExpirationDate:
+          type: string
+          format: date-time
     FreeTextPrescriptionRequest:
       type: object
       required:
@@ -1304,11 +1168,147 @@ components:
           type: string
           minLength: 0
           maxLength: 50
-    ChangeRefillPatientRequest:
+    CodedPrescriptionRequestUI:
       type: object
       required:
-      - PatientId
+      - Directions
+      - DispensableDrugId
+      - DispenseUnitId
+      - Quantity
+      - Refills
+      - Status
       properties:
-        PatientId:
+        DispensableDrugId:
           type: integer
           format: int32
+        PatientFormularyId:
+          type: integer
+          format: int32
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: number
+          format: double
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        PharmacyId:
+          type: integer
+          format: int32
+        PharmacyNotes:
+          type: string
+          minLength: 0
+          maxLength: 210
+        NoSubstitutions:
+          type: boolean
+        EffectiveDate:
+          type: string
+          format: date-time
+        RxReferenceNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        EligibilityId:
+          type: integer
+          format: int32
+        NonDoseSpotPrescriptionId:
+          type: string
+          minLength: 0
+          maxLength: 35
+        IsRefillReplace:
+          type: boolean
+        IsUrgent:
+          type: boolean
+        SupervisorId:
+          type: integer
+          format: int32
+        RetailPharmacyToMailToPatient:
+          type: boolean
+        RTPSCoupon:
+          $ref: '#/components/schemas/RTPSCoupon'
+        Status:
+          type: string
+          enum:
+          - Unknown
+          - Active
+          - Inactive
+          - Discontinued
+          - Deleted
+          - Completed
+          - CancelRequested
+          - CancelPending
+          - Cancelled
+          - CancelDenied
+          - Changed
+          - FullFill
+          - PartialFill
+          - NoFill
+        InactiveDate:
+          type: string
+          format: date-time
+        Comment:
+          type: string
+          minLength: 0
+          maxLength: 500
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+    Diagnosis:
+      type: object
+      properties:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
+          type: string
+        DiagnosisDescription:
+          type: string
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true

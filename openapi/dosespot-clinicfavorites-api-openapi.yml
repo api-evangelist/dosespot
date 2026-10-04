@@ -434,56 +434,6 @@ paths:
         required: true
 components:
   schemas:
-    ClinicPrescriptionFavoriteSupplyRequest:
-      type: object
-      required:
-      - Directions
-      - DispenseUnitTypeId
-      - Quantity
-      - Refills
-      - Title
-      properties:
-        SupplyId:
-          type: integer
-          format: int32
-        FreeText:
-          type: string
-        SpecialtyType:
-          type: integer
-          format: int32
-        Refills:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 99
-        DaysSupply:
-          type: integer
-          format: int32
-          minimum: 0
-          maximum: 365
-        DispenseUnitTypeId:
-          type: integer
-          format: int32
-        Quantity:
-          type: string
-        NoSubstitutions:
-          type: boolean
-        Notes:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        Directions:
-          type: string
-          minLength: 0
-          maxLength: 1000
-        Title:
-          type: string
-          minLength: 0
-          maxLength: 500
-        FirstPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-        SecondPrescriptionDiagnosis:
-          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
     PagedListResponse_ClinicFavoritePrescriptionResponse:
       type: object
       properties:
@@ -498,27 +448,13 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    PrescriptionDiagnosisIds:
+    PrescriptionDiagnosis:
       type: object
       properties:
-        PrimaryDiagnosisId:
-          type: integer
-          format: int32
-        SecondaryDiagnosisId:
-          type: integer
-          format: int32
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
     ClinicPrescriptionFavoriteMedicationRequest:
       type: object
       required:
@@ -568,38 +504,13 @@ components:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
         SecondPrescriptionDiagnosis:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-    IdentifierResponse:
+    Response:
       type: object
       properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
+      description: The result of the operation.
     ClinicFavoritePrescriptionResponse:
       type: object
       properties:
@@ -686,6 +597,88 @@ components:
           type: string
         DiagnosisDescription:
           type: string
+    PrescriptionDiagnosisIds:
+      type: object
+      properties:
+        PrimaryDiagnosisId:
+          type: integer
+          format: int32
+        SecondaryDiagnosisId:
+          type: integer
+          format: int32
+    ClinicPrescriptionFavoriteSupplyRequest:
+      type: object
+      required:
+      - Directions
+      - DispenseUnitTypeId
+      - Quantity
+      - Refills
+      - Title
+      properties:
+        SupplyId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        SpecialtyType:
+          type: integer
+          format: int32
+        Refills:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 99
+        DaysSupply:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 365
+        DispenseUnitTypeId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        NoSubstitutions:
+          type: boolean
+        Notes:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Directions:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Title:
+          type: string
+          minLength: 0
+          maxLength: 500
+        FirstPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+        SecondPrescriptionDiagnosis:
+          $ref: '#/components/schemas/PrescriptionDiagnosisIds'
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    IdentifierResponse:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing an entity identifier.
     CompoundIngredient:
       type: object
       required:
@@ -703,20 +696,27 @@ components:
           type: string
         IsFreeTextEPCS:
           type: boolean
-    PrescriptionDiagnosis:
+    PageResult:
       type: object
       properties:
-        PrimaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-        SecondaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
     ClinicPrescriptionFavoriteCompiledCompoundRequest:
       type: object
       required:

@@ -49,18 +49,16 @@ paths:
                 $ref: '#/components/schemas/PagedListResponse_DiagnosisSearchResult'
 components:
   schemas:
-    Result:
+    DiagnosisSearchResult:
       type: object
-      required:
-      - ResultCode
       properties:
-        ResultCode:
+        DiagnosisId:
+          type: integer
+          format: int32
+        DiagnosisCode:
           type: string
-          description: The result code of the operation.
-        ResultDescription:
+        DiagnosisName:
           type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
     PageResult:
       type: object
       properties:
@@ -82,16 +80,18 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-    DiagnosisSearchResult:
+    Result:
       type: object
+      required:
+      - ResultCode
       properties:
-        DiagnosisId:
-          type: integer
-          format: int32
-        DiagnosisCode:
+        ResultCode:
           type: string
-        DiagnosisName:
+          description: The result code of the operation.
+        ResultDescription:
           type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     PagedListResponse_DiagnosisSearchResult:
       type: object
       properties:

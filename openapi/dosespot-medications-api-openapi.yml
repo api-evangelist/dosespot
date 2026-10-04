@@ -310,44 +310,6 @@ paths:
     - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    InteractionCheckRequest:
-      type: object
-      properties:
-        PatientId:
-          type: integer
-        MedicationIds:
-          type: array
-          items:
-            type: integer
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-        TotalPages:
-          type: integer
-        PageSize:
-          type: integer
-        HasPrevious:
-          type: boolean
-        HasNext:
-          type: boolean
-    MedicationSearchResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Medication'
-          PageResult:
-            $ref: '#/components/schemas/PageResult'
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
     Medication:
       type: object
       properties:
@@ -370,6 +332,30 @@ components:
         Schedule:
           type: string
           description: DEA schedule for controlled substances.
+    MedicationSearchResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Medication'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
     InteractionCheckResult:
       allOf:
       - $ref: '#/components/schemas/ApiResult'
@@ -384,36 +370,62 @@ components:
                   type: string
                 Description:
                   type: string
-    ResultStatus:
+    InteractionCheckRequest:
       type: object
       properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
-    Result:
+        PatientId:
+          type: integer
+        MedicationIds:
+          type: array
+          items:
+            type: integer
+    PageResult:
       type: object
-      required:
-      - ResultCode
       properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
-    ItemResponse_StandardDispenseUnitType:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
+    ItemResponse_MedicationSelectResult:
       type: object
       properties:
         Item:
           description: The response object.
-          $ref: '#/components/schemas/StandardDispenseUnitType'
+          $ref: '#/components/schemas/MedicationSelectResult'
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a single object.
+    ListResponse_StandardDispenseUnitType:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/StandardDispenseUnitType'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
+    ListResponse_MedicationSelectResult:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          items:
+            $ref: '#/components/schemas/MedicationSelectResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a list of objects.
     PagedListResponse_MedicationSearchResult:
       type: object
       properties:
@@ -428,37 +440,6 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    ItemResponse_MedicationSelectResult:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/MedicationSelectResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    PageResult_2:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
     MedicationSearchResult_2:
       type: object
       properties:
@@ -479,26 +460,16 @@ components:
           type: string
         IsObsolete:
           type: boolean
-    StateSchedule:
+    ItemResponse_StandardDispenseUnitType:
       type: object
       properties:
-        StateName:
-          type: string
-        Schedule:
-          type: integer
-          format: int32
-    ListResponse_StandardDispenseUnitType:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/StandardDispenseUnitType'
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/StandardDispenseUnitType'
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
+      description: Represents a generic response containing a single object.
     StandardDispenseUnitType:
       type: object
       properties:
@@ -519,6 +490,26 @@ components:
           type: string
         IsActive:
           type: boolean
+    StateSchedule:
+      type: object
+      properties:
+        StateName:
+          type: string
+        Schedule:
+          type: integer
+          format: int32
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     MedicationSelectResult:
       type: object
       properties:
@@ -560,18 +551,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StateSchedule'
-    ListResponse_MedicationSelectResult:
+    PageResult_2:
       type: object
       properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          items:
-            $ref: '#/components/schemas/MedicationSelectResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a list of objects.
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
+          readOnly: true
+        HasNext:
+          type: boolean
+          readOnly: true
   securitySchemes:
     bearerAuth:
       type: http

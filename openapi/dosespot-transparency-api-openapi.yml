@@ -157,13 +157,6 @@ components:
         NCPDPID:
           type: string
       description: Represents a pharmacy entity.
-    PharmacyAlternativeResponse:
-      type: object
-      properties:
-        PharmacyAlternatives:
-          type: array
-          items:
-            $ref: '#/components/schemas/PharmacyAlternative'
     PharmacyOffer:
       type: object
       properties:
@@ -196,3 +189,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PharmacyOffer'
+    PharmacyAlternativeResponse:
+      type: object
+      properties:
+        PharmacyAlternatives:
+          type: array
+          items:
+            $ref: '#/components/schemas/PharmacyAlternative'

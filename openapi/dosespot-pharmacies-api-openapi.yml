@@ -425,50 +425,6 @@ paths:
     - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    AddPharmacyRequest:
-      type: object
-      properties:
-        PharmacyId:
-          type: integer
-        SetAsPrimary:
-          type: boolean
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-        TotalPages:
-          type: integer
-        PageSize:
-          type: integer
-        HasPrevious:
-          type: boolean
-        HasNext:
-          type: boolean
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
-    PharmacySearchResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Pharmacy'
-          PageResult:
-            $ref: '#/components/schemas/PageResult'
-    ResultStatus:
-      type: object
-      properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
     Pharmacy:
       type: object
       properties:
@@ -494,26 +450,189 @@ components:
           type: array
           items:
             type: string
-    Result:
+    PharmacySearchResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Pharmacy'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+    ResultStatus:
       type: object
-      required:
-      - ResultCode
       properties:
         ResultCode:
           type: string
-          description: The result code of the operation.
+          description: OK or ERROR.
         ResultDescription:
           type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
-    AddEditPatientPharmacyRequest:
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    AddPharmacyRequest:
+      type: object
+      properties:
+        PharmacyId:
+          type: integer
+        SetAsPrimary:
+          type: boolean
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
+    PagedListResponse_Pharmacy:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/Pharmacy_2'
+        PageResult:
+          $ref: '#/components/schemas/PageResult_2'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Pharmacy_2:
       type: object
       properties:
         PharmacyId:
           type: integer
           format: int32
-        SetAsPrimary:
-          type: boolean
+          description: The pharmacy identifier.
+        StoreName:
+          type: string
+          description: The pharmacy store name.
+        Address1:
+          type: string
+          description: The pharmacy address.
+        Address2:
+          type: string
+          description: The pharmacy address.
+        City:
+          type: string
+          description: The pharmacy city.
+        State:
+          type: string
+          description: The pharmacy state.
+        ZipCode:
+          type: string
+          description: The pharmacy zip code.
+        PrimaryPhone:
+          type: string
+          description: The pharmacy primary phone number.
+        PrimaryPhoneType:
+          type: string
+          description: The pharmacy primary phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          description: The pharmacy primary fax number.
+        PhoneAdditional1:
+          type: string
+          description: Additional phone number.
+        PhoneAdditionalType1:
+          type: string
+          description: Additional phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          description: Additional phone number.
+        PhoneAdditionalType2:
+          type: string
+          description: Additional phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          description: Additional phone number.
+        PhoneAdditionalType3:
+          type: string
+          description: Additional phone type.
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PharmacySpecialties:
+          type: array
+          description: The pharmacy specialties.
+          items:
+            type: string
+        ServiceLevel:
+          type: integer
+          format: int32
+          description: The pharmacy service level.
+        Latitude:
+          type: number
+          format: double
+          description: The pharmacy Latitude.
+        Longitude:
+          type: number
+          format: double
+          description: The pharmacy Longitude.
+        NCPDPID:
+          type: string
+      description: Represents a pharmacy entity.
+    ItemResponse_Pharmacy:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/Pharmacy_2'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
     PageResult_2:
       type: object
       properties:
@@ -535,6 +654,18 @@ components:
         HasNext:
           type: boolean
           readOnly: true
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     PatientPharmacy:
       type: object
       properties:
@@ -658,145 +789,14 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a list of objects.
-    PagedListResponse_Pharmacy:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/Pharmacy_2'
-        PageResult:
-          $ref: '#/components/schemas/PageResult_2'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-    ItemResponse_Pharmacy:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/Pharmacy_2'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    Pharmacy_2:
+    AddEditPatientPharmacyRequest:
       type: object
       properties:
         PharmacyId:
           type: integer
           format: int32
-          description: The pharmacy identifier.
-        StoreName:
-          type: string
-          description: The pharmacy store name.
-        Address1:
-          type: string
-          description: The pharmacy address.
-        Address2:
-          type: string
-          description: The pharmacy address.
-        City:
-          type: string
-          description: The pharmacy city.
-        State:
-          type: string
-          description: The pharmacy state.
-        ZipCode:
-          type: string
-          description: The pharmacy zip code.
-        PrimaryPhone:
-          type: string
-          description: The pharmacy primary phone number.
-        PrimaryPhoneType:
-          type: string
-          description: The pharmacy primary phone type.
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PrimaryFax:
-          type: string
-          description: The pharmacy primary fax number.
-        PhoneAdditional1:
-          type: string
-          description: Additional phone number.
-        PhoneAdditionalType1:
-          type: string
-          description: Additional phone type.
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional2:
-          type: string
-          description: Additional phone number.
-        PhoneAdditionalType2:
-          type: string
-          description: Additional phone type.
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional3:
-          type: string
-          description: Additional phone number.
-        PhoneAdditionalType3:
-          type: string
-          description: Additional phone type.
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PharmacySpecialties:
-          type: array
-          description: The pharmacy specialties.
-          items:
-            type: string
-        ServiceLevel:
-          type: integer
-          format: int32
-          description: The pharmacy service level.
-        Latitude:
-          type: number
-          format: double
-          description: The pharmacy Latitude.
-        Longitude:
-          type: number
-          format: double
-          description: The pharmacy Longitude.
-        NCPDPID:
-          type: string
-      description: Represents a pharmacy entity.
+        SetAsPrimary:
+          type: boolean
   securitySchemes:
     bearerAuth:
       type: http

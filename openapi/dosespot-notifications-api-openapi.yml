@@ -140,18 +140,6 @@ components:
       properties:
         Result:
           $ref: '#/components/schemas/ResultStatus'
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
     TransmissionErrors:
       type: object
       properties:
@@ -172,6 +160,32 @@ components:
         ClinicId:
           type: integer
           format: int32
+    PagedListResponse_TransmissionErrors:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/TransmissionErrors'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     PrescriberNotificationCountsResponse:
       type: object
       properties:
@@ -211,20 +225,6 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-    PagedListResponse_TransmissionErrors:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/TransmissionErrors'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
   securitySchemes:
     bearerAuth:
       type: http

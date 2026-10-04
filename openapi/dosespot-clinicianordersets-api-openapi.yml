@@ -230,27 +230,35 @@ paths:
                 $ref: '#/components/schemas/Response'
 components:
   schemas:
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
-    PrescriptionDiagnosisIds:
+    OrderSetDetailsResponse:
       type: object
       properties:
-        PrimaryDiagnosisId:
+        OrderSetId:
           type: integer
           format: int32
-        SecondaryDiagnosisId:
-          type: integer
-          format: int32
+        Title:
+          type: string
+        Favorites:
+          type: array
+          items:
+            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    PagedListResponse_OrderSetResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/OrderSetResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
     OrderSetResponse:
       type: object
       properties:
@@ -263,38 +271,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
-    IdentifierResponse:
+    PrescriptionDiagnosis:
       type: object
       properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    OrderSetRequest:
+      type: object
+      required:
+      - Title
+      properties:
+        Title:
+          type: string
+          minLength: 3
+          maxLength: 500
+        Favorites:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderSetFavorite'
+    Response:
+      type: object
+      properties:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    PageResult:
-      type: object
-      properties:
-        CurrentPage:
-          type: integer
-          format: int32
-        TotalPages:
-          type: integer
-          format: int32
-        PageSize:
-          type: integer
-          format: int32
-        TotalCount:
-          type: integer
-          format: int32
-        HasPrevious:
-          type: boolean
-          readOnly: true
-        HasNext:
-          type: boolean
-          readOnly: true
+      description: The result of the operation.
     ClinicianFavoritePrescriptionResponse:
       type: object
       properties:
@@ -374,21 +377,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompoundIngredient'
-    OrderSetDetailsResponse:
-      type: object
-      properties:
-        OrderSetId:
-          type: integer
-          format: int32
-        Title:
-          type: string
-        Favorites:
-          type: array
-          items:
-            $ref: '#/components/schemas/ClinicianFavoritePrescriptionResponse'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     Diagnosis:
       type: object
       properties:
@@ -416,33 +404,29 @@ components:
           type: string
         IsFreeTextEPCS:
           type: boolean
-    OrderSetRequest:
+    Result:
       type: object
       required:
-      - Title
+      - ResultCode
       properties:
-        Title:
+        ResultCode:
           type: string
-          minLength: 3
-          maxLength: 500
-        Favorites:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderSetFavorite'
-    PrescriptionDiagnosis:
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    IdentifierResponse:
       type: object
       properties:
-        PrimaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-        SecondaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-    Response:
-      type: object
-      properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: The result of the operation.
+      description: Represents a generic response containing an entity identifier.
     OrderSetFavorite:
       type: object
       required:
@@ -501,17 +485,33 @@ components:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
         SecondPrescriptionDiagnosis:
           $ref: '#/components/schemas/PrescriptionDiagnosisIds'
-    PagedListResponse_OrderSetResponse:
+    PrescriptionDiagnosisIds:
       type: object
       properties:
-        Items:
-          type: array
-          description: The list of elements to return.
+        PrimaryDiagnosisId:
+          type: integer
+          format: int32
+        SecondaryDiagnosisId:
+          type: integer
+          format: int32
+    PageResult:
+      type: object
+      properties:
+        CurrentPage:
+          type: integer
+          format: int32
+        TotalPages:
+          type: integer
+          format: int32
+        PageSize:
+          type: integer
+          format: int32
+        TotalCount:
+          type: integer
+          format: int32
+        HasPrevious:
+          type: boolean
           readOnly: true
-          items:
-            $ref: '#/components/schemas/OrderSetResponse'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
+        HasNext:
+          type: boolean
+          readOnly: true

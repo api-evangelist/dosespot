@@ -79,19 +79,19 @@ paths:
                 $ref: '#/components/schemas/ClinicianResult'
 components:
   schemas:
-    PageResult:
+    ApiResult:
       type: object
       properties:
-        CurrentPage:
-          type: integer
-        TotalPages:
-          type: integer
-        PageSize:
-          type: integer
-        HasPrevious:
-          type: boolean
-        HasNext:
-          type: boolean
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
     Clinician:
       type: object
       properties:
@@ -150,19 +150,19 @@ components:
         properties:
           Item:
             $ref: '#/components/schemas/Clinician'
-    ApiResult:
+    PageResult:
       type: object
       properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
-    ResultStatus:
-      type: object
-      properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
+        CurrentPage:
+          type: integer
+        TotalPages:
+          type: integer
+        PageSize:
+          type: integer
+        HasPrevious:
+          type: boolean
+        HasNext:
+          type: boolean
   securitySchemes:
     bearerAuth:
       type: http
