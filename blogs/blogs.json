@@ -2,15 +2,21 @@
   "repo": "dosespot",
   "feeds": [
     {
+      "source": "https://dosespot.com/blog/",
+      "feed_url": "https://dosespot.com/blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    },
+    {
       "source": "https://dosespot.com/feed/",
       "feed_url": "https://dosespot.com/feed/",
-      "title": "DoseSpot",
+      "title": "",
       "saved": 0,
-      "nature": "undetermined",
-      "nature_basis": null
+      "method": "feed"
     }
   ],
-  "fetched": "2026-10-03T12:15:37Z",
+  "fetched": "2026-10-10T13:15:00Z",
   "post_count": 19,
   "feed_nature": "undetermined",
   "feed_nature_basis": null,
