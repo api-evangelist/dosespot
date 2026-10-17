@@ -488,37 +488,6 @@ paths:
     - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
-    ResultStatus:
-      type: object
-      properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
-    PatientListResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Patient'
-          PageResult:
-            $ref: '#/components/schemas/PageResult'
-    PatientResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Item:
-            $ref: '#/components/schemas/Patient'
     Patient:
       type: object
       properties:
@@ -560,6 +529,26 @@ components:
           type: boolean
         NonDoseSpotMedicalRecordNumber:
           type: string
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    PatientResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Item:
+            $ref: '#/components/schemas/Patient'
     PageResult:
       type: object
       properties:
@@ -573,162 +562,40 @@ components:
           type: boolean
         HasNext:
           type: boolean
-    PatientSsnRequestModel:
-      type: object
-      required:
-      - PatientSSN
-      properties:
-        PatientSSN:
-          type: string
-          pattern: ^(?:\d{9}|\d{3}-\d{2}-\d{4})$
-    AddEditPatientRequest:
-      type: object
-      required:
-      - Active
-      - Address1
-      - City
-      - DateOfBirth
-      - FirstName
-      - Gender
-      - LastName
-      - PrimaryPhone
-      - PrimaryPhoneType
-      - State
-      - ZipCode
-      properties:
-        Prefix:
-          type: string
-          minLength: 0
-          maxLength: 10
-        FirstName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        MiddleName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        LastName:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Suffix:
-          type: string
-          minLength: 0
-          maxLength: 10
-        DateOfBirth:
-          type: string
-          format: date-time
-        Gender:
-          type: string
-          enum:
-          - Male
-          - Female
-          - Unknown
-        Email:
-          type: string
-          minLength: 0
-          maxLength: 80
-        Address1:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Address2:
-          type: string
-          minLength: 0
-          maxLength: 35
-        City:
-          type: string
-          minLength: 0
-          maxLength: 35
-        State:
-          type: string
-          minLength: 0
-          maxLength: 50
-        ZipCode:
-          type: string
-          minLength: 0
-          maxLength: 10
-        PhoneAdditional1:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditional2:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType1:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditionalType2:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PrimaryPhone:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PrimaryPhoneType:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        Weight:
-          type: number
-          format: float
-        WeightMetric:
-          type: string
-          enum:
-          - lb
-          - kg
-        Height:
-          type: number
-          format: float
-        HeightMetric:
-          type: string
-          enum:
-          - inch
-          - cm
-        NonDoseSpotMedicalRecordNumber:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Active:
-          type: boolean
-        Encounter:
-          type: string
-          minLength: 0
-          maxLength: 50
-        IsHospice:
-          type: boolean
-    Response:
+    PatientListResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Patient'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+    IdentifierResponse:
       type: object
       properties:
+        Id:
+          type: integer
+          format: int32
+          description: The entity identifier.
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-      description: The result of the operation.
+      description: Represents a generic response containing an entity identifier.
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     GetPatient:
       type: object
       properties:
@@ -831,29 +698,6 @@ components:
           type: boolean
         HasSSN:
           type: boolean
-    IdentifierResponse:
-      type: object
-      properties:
-        Id:
-          type: integer
-          format: int32
-          description: The entity identifier.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing an entity identifier.
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
     Patient_2:
       type: object
       required:
@@ -998,16 +842,6 @@ components:
           maxLength: 50
         IsHospice:
           type: boolean
-    ItemResponse_GetPatient:
-      type: object
-      properties:
-        Item:
-          description: The response object.
-          $ref: '#/components/schemas/GetPatient'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
     PagedListResponse_Patient:
       type: object
       properties:
@@ -1022,6 +856,23 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
+    ItemResponse_GetPatient:
+      type: object
+      properties:
+        Item:
+          description: The response object.
+          $ref: '#/components/schemas/GetPatient'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
+    Response:
+      type: object
+      properties:
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
     MergePatientsRequest:
       type: object
       required:
@@ -1063,6 +914,155 @@ components:
         HasNext:
           type: boolean
           readOnly: true
+    AddEditPatientRequest:
+      type: object
+      required:
+      - Active
+      - Address1
+      - City
+      - DateOfBirth
+      - FirstName
+      - Gender
+      - LastName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        Prefix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        FirstName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        MiddleName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        LastName:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Suffix:
+          type: string
+          minLength: 0
+          maxLength: 10
+        DateOfBirth:
+          type: string
+          format: date-time
+        Gender:
+          type: string
+          enum:
+          - Male
+          - Female
+          - Unknown
+        Email:
+          type: string
+          minLength: 0
+          maxLength: 80
+        Address1:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        City:
+          type: string
+          minLength: 0
+          maxLength: 35
+        State:
+          type: string
+          minLength: 0
+          maxLength: 50
+        ZipCode:
+          type: string
+          minLength: 0
+          maxLength: 10
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        Weight:
+          type: number
+          format: float
+        WeightMetric:
+          type: string
+          enum:
+          - lb
+          - kg
+        Height:
+          type: number
+          format: float
+        HeightMetric:
+          type: string
+          enum:
+          - inch
+          - cm
+        NonDoseSpotMedicalRecordNumber:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        Encounter:
+          type: string
+          minLength: 0
+          maxLength: 50
+        IsHospice:
+          type: boolean
+    PatientSsnRequestModel:
+      type: object
+      required:
+      - PatientSSN
+      properties:
+        PatientSSN:
+          type: string
+          pattern: ^(?:\d{9}|\d{3}-\d{2}-\d{4})$
   securitySchemes:
     bearerAuth:
       type: http

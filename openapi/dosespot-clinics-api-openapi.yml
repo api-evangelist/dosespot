@@ -419,104 +419,18 @@ paths:
         required: true
 components:
   schemas:
-    Clinic:
+    Result:
       type: object
       required:
-      - Address1
-      - City
-      - ClinicName
-      - PrimaryPhone
-      - PrimaryPhoneType
-      - State
-      - ZipCode
+      - ResultCode
       properties:
-        ClinicId:
-          type: integer
-          format: int32
-        ClinicName:
+        ResultCode:
           type: string
-        ClinicNameLongForm:
+          description: The result code of the operation.
+        ResultDescription:
           type: string
-          minLength: 0
-          maxLength: 250
-        Address1:
-          type: string
-        Address2:
-          type: string
-          minLength: 0
-          maxLength: 35
-        Active:
-          type: boolean
-        City:
-          type: string
-        State:
-          type: string
-        ZipCode:
-          type: string
-        PrimaryPhone:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PrimaryPhoneType:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PrimaryFax:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditional1:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType1:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional2:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType2:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
-        PhoneAdditional3:
-          type: string
-          minLength: 0
-          maxLength: 25
-        PhoneAdditionalType3:
-          type: string
-          enum:
-          - Undefined
-          - Beeper
-          - Cell
-          - Fax
-          - Home
-          - Work
-          - Night
-          - Primary
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     ListResponse_ClinicIdentifier:
       type: object
       properties:
@@ -529,10 +443,16 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a list of objects.
-    ClinicIdentifier:
+    ChangePatientClinicRequest:
       type: object
+      required:
+      - ClinicIdToAdd
+      - ClinicIdToRemove
       properties:
-        ClinicId:
+        ClinicIdToRemove:
+          type: integer
+          format: int32
+        ClinicIdToAdd:
           type: integer
           format: int32
     AddEditClinicRequest:
@@ -633,21 +553,6 @@ components:
       description: 'Represents a request to add or edit a clinic.
 
         This class overrides the identifier property so that it will not be serialized for requests.'
-    Response:
-      type: object
-      properties:
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: The result of the operation.
-    ClinicDetailResponse:
-      type: object
-      properties:
-        Clinic:
-          $ref: '#/components/schemas/Clinic'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     ClinicKeyResponse:
       type: object
       properties:
@@ -659,28 +564,13 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    Result:
+    Response:
       type: object
-      required:
-      - ResultCode
       properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
-    ClinicianAddMultipleClinicsRequest:
-      type: object
-      required:
-      - ClinicIds
-      properties:
-        ClinicIds:
-          type: array
-          items:
-            type: integer
-            format: int32
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: The result of the operation.
     ClinicRemoveMultipleCliniciansRequest:
       type: object
       required:
@@ -691,6 +581,20 @@ components:
           items:
             type: integer
             format: int32
+    ClinicDetailResponse:
+      type: object
+      properties:
+        Clinic:
+          $ref: '#/components/schemas/Clinic'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    ClinicIdentifier:
+      type: object
+      properties:
+        ClinicId:
+          type: integer
+          format: int32
     ListResponse_Clinic:
       type: object
       properties:
@@ -703,15 +607,111 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a list of objects.
-    ChangePatientClinicRequest:
+    ClinicianAddMultipleClinicsRequest:
       type: object
       required:
-      - ClinicIdToAdd
-      - ClinicIdToRemove
+      - ClinicIds
       properties:
-        ClinicIdToRemove:
+        ClinicIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+    Clinic:
+      type: object
+      required:
+      - Address1
+      - City
+      - ClinicName
+      - PrimaryPhone
+      - PrimaryPhoneType
+      - State
+      - ZipCode
+      properties:
+        ClinicId:
           type: integer
           format: int32
-        ClinicIdToAdd:
-          type: integer
-          format: int32
+        ClinicName:
+          type: string
+        ClinicNameLongForm:
+          type: string
+          minLength: 0
+          maxLength: 250
+        Address1:
+          type: string
+        Address2:
+          type: string
+          minLength: 0
+          maxLength: 35
+        Active:
+          type: boolean
+        City:
+          type: string
+        State:
+          type: string
+        ZipCode:
+          type: string
+        PrimaryPhone:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PrimaryPhoneType:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PrimaryFax:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditional1:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType1:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional2:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType2:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary
+        PhoneAdditional3:
+          type: string
+          minLength: 0
+          maxLength: 25
+        PhoneAdditionalType3:
+          type: string
+          enum:
+          - Undefined
+          - Beeper
+          - Cell
+          - Fax
+          - Home
+          - Work
+          - Night
+          - Primary

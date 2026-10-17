@@ -101,41 +101,6 @@ paths:
                 $ref: '#/components/schemas/PagedListResponse_SupplySearchResultForAPI'
 components:
   schemas:
-    SupplySearchResultForAPI:
-      type: object
-      properties:
-        SupplyId:
-          type: integer
-          format: int32
-          description: Primary key in the Supply table
-        NDC:
-          type: string
-          description: National Drug Code
-        UPC:
-          type: string
-          description: Universal Packaging Code
-        Name:
-          type: string
-          description: Supply name
-        OTC:
-          type: boolean
-          description: True if IsRx is true
-        IsObsolete:
-          type: boolean
-    PagedListResponse_SupplySearchResultForAPI:
-      type: object
-      properties:
-        Items:
-          type: array
-          description: The list of elements to return.
-          readOnly: true
-          items:
-            $ref: '#/components/schemas/SupplySearchResultForAPI'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
     Result:
       type: object
       required:
@@ -158,6 +123,27 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a single object.
+    SupplySearchResultForAPI:
+      type: object
+      properties:
+        SupplyId:
+          type: integer
+          format: int32
+          description: Primary key in the Supply table
+        NDC:
+          type: string
+          description: National Drug Code
+        UPC:
+          type: string
+          description: Universal Packaging Code
+        Name:
+          type: string
+          description: Supply name
+        OTC:
+          type: boolean
+          description: True if IsRx is true
+        IsObsolete:
+          type: boolean
     PageResult:
       type: object
       properties:
@@ -179,3 +165,17 @@ components:
         HasNext:
           type: boolean
           readOnly: true
+    PagedListResponse_SupplySearchResultForAPI:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/SupplySearchResultForAPI'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'

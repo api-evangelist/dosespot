@@ -112,6 +112,14 @@ paths:
     - url: https://virtserver.swaggerhub.com/DoseSpot/dosespot-staging-rest-api-v2/Full_EPCSV2
 components:
   schemas:
+    ResultStatus:
+      type: object
+      properties:
+        ResultCode:
+          type: string
+          description: OK or ERROR.
+        ResultDescription:
+          type: string
     NotificationCountResult:
       allOf:
       - $ref: '#/components/schemas/ApiResult'
@@ -127,39 +135,23 @@ components:
             type: integer
           TotalNotificationCount:
             type: integer
-    ResultStatus:
-      type: object
-      properties:
-        ResultCode:
-          type: string
-          description: OK or ERROR.
-        ResultDescription:
-          type: string
     ApiResult:
       type: object
       properties:
         Result:
           $ref: '#/components/schemas/ResultStatus'
-    TransmissionErrors:
+    Result:
       type: object
+      required:
+      - ResultCode
       properties:
-        PrescriptionId:
-          type: integer
-          format: int32
-        DateWritten:
+        ResultCode:
           type: string
-          format: date-time
-        ErrorDateTimeStamp:
+          description: The result code of the operation.
+        ResultDescription:
           type: string
-          format: date-time
-        ErrorDetails:
-          type: string
-        PatientId:
-          type: integer
-          format: int32
-        ClinicId:
-          type: integer
-          format: int32
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     PagedListResponse_TransmissionErrors:
       type: object
       properties:
@@ -174,18 +166,6 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
     PrescriberNotificationCountsResponse:
       type: object
       properties:
@@ -225,6 +205,26 @@ components:
         HasNext:
           type: boolean
           readOnly: true
+    TransmissionErrors:
+      type: object
+      properties:
+        PrescriptionId:
+          type: integer
+          format: int32
+        DateWritten:
+          type: string
+          format: date-time
+        ErrorDateTimeStamp:
+          type: string
+          format: date-time
+        ErrorDetails:
+          type: string
+        PatientId:
+          type: integer
+          format: int32
+        ClinicId:
+          type: integer
+          format: int32
   securitySchemes:
     bearerAuth:
       type: http

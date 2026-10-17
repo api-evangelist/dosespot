@@ -111,52 +111,6 @@ paths:
                 $ref: '#/components/schemas/ItemResponse_String'
 components:
   schemas:
-    LatestNarxResponse:
-      type: object
-      properties:
-        LatestTimestamp:
-          type: string
-          format: date-time
-        PatientId:
-          type: integer
-          format: int32
-        LastPulledByClinicianId:
-          type: integer
-          format: int32
-        LastPulledAtClinicId:
-          type: integer
-          format: int32
-        Encounter:
-          type: string
-    KeyValuePair_String_String:
-      type: object
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    ItemResponse_String:
-      type: object
-      properties:
-        Item:
-          type: string
-          description: The response object.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
     NarxResponse:
       type: object
       properties:
@@ -185,3 +139,49 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
+    LatestNarxResponse:
+      type: object
+      properties:
+        LatestTimestamp:
+          type: string
+          format: date-time
+        PatientId:
+          type: integer
+          format: int32
+        LastPulledByClinicianId:
+          type: integer
+          format: int32
+        LastPulledAtClinicId:
+          type: integer
+          format: int32
+        Encounter:
+          type: string
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
+    KeyValuePair_String_String:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    ItemResponse_String:
+      type: object
+      properties:
+        Item:
+          type: string
+          description: The response object.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.

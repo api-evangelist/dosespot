@@ -97,6 +97,17 @@ paths:
                 $ref: '#/components/schemas/ItemResponse_DateTime'
 components:
   schemas:
+    ItemResponse_DateTime:
+      type: object
+      properties:
+        Item:
+          type: string
+          format: date-time
+          description: The response object.
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+      description: Represents a generic response containing a single object.
     PagedListResponse_SureScriptsHistoryMedication:
       type: object
       properties:
@@ -111,17 +122,18 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    ItemResponse_DateTime:
+    Result:
       type: object
+      required:
+      - ResultCode
       properties:
-        Item:
+        ResultCode:
           type: string
-          format: date-time
-          description: The response object.
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
-      description: Represents a generic response containing a single object.
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     SureScriptsHistoryMedication:
       type: object
       properties:
@@ -190,18 +202,6 @@ components:
         ExpirationDate:
           type: string
           format: date-time
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
     PageResult:
       type: object
       properties:

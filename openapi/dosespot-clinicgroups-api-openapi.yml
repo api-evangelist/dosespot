@@ -66,6 +66,18 @@ paths:
         required: true
 components:
   schemas:
+    AddEditClinicGroupRequest:
+      type: object
+      required:
+      - ClinicIds
+      properties:
+        ClinicIds:
+          type: array
+          items:
+            type: integer
+            format: int32
+        ClinicGroupName:
+          type: string
     Result:
       type: object
       required:
@@ -99,15 +111,3 @@ components:
         Result:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
-    AddEditClinicGroupRequest:
-      type: object
-      required:
-      - ClinicIds
-      properties:
-        ClinicIds:
-          type: array
-          items:
-            type: integer
-            format: int32
-        ClinicGroupName:
-          type: string

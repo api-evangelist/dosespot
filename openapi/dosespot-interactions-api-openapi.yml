@@ -130,29 +130,32 @@ components:
           description: The result of the operation.
           $ref: '#/components/schemas/Result'
       description: Represents a generic response containing a list of objects.
-    AllergyInteraction:
+    PreCheckInteractionsResponse:
       type: object
       properties:
-        InteractionMessage:
-          type: string
-    DrugInteraction:
-      type: object
-      properties:
-        InteractionMessage:
-          type: string
-        SeverityLevel:
-          type: string
-          enum:
-          - MinorInteraction
-          - ModerateInteraction
-          - MajorInteraction
-          - UnknownInteraction
-        Drugs:
+        AllergyInteractions:
           type: array
           items:
-            $ref: '#/components/schemas/DrugInformation'
-        IsProspective:
-          type: boolean
+            $ref: '#/components/schemas/AllergyInteraction'
+        DrugInteractions:
+          type: array
+          items:
+            $ref: '#/components/schemas/DrugInteraction'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
+    Result:
+      type: object
+      required:
+      - ResultCode
+      properties:
+        ResultCode:
+          type: string
+          description: The result code of the operation.
+        ResultDescription:
+          type: string
+          description: A description of the result, if there were errors.
+      description: Represents the result of a service operation.
     ListResponse_DrugInteraction:
       type: object
       properties:
@@ -176,29 +179,26 @@ components:
           format: int32
         DrugName:
           type: string
-    Result:
-      type: object
-      required:
-      - ResultCode
-      properties:
-        ResultCode:
-          type: string
-          description: The result code of the operation.
-        ResultDescription:
-          type: string
-          description: A description of the result, if there were errors.
-      description: Represents the result of a service operation.
-    PreCheckInteractionsResponse:
+    DrugInteraction:
       type: object
       properties:
-        AllergyInteractions:
+        InteractionMessage:
+          type: string
+        SeverityLevel:
+          type: string
+          enum:
+          - MinorInteraction
+          - ModerateInteraction
+          - MajorInteraction
+          - UnknownInteraction
+        Drugs:
           type: array
           items:
-            $ref: '#/components/schemas/AllergyInteraction'
-        DrugInteractions:
-          type: array
-          items:
-            $ref: '#/components/schemas/DrugInteraction'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
+            $ref: '#/components/schemas/DrugInformation'
+        IsProspective:
+          type: boolean
+    AllergyInteraction:
+      type: object
+      properties:
+        InteractionMessage:
+          type: string

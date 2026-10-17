@@ -64,13 +64,23 @@ paths:
                 $ref: '#/components/schemas/PagedListResponse_ClinicOrderSetResponse'
 components:
   schemas:
-    PrescriptionDiagnosis:
+    CompoundIngredient:
       type: object
+      required:
+      - Quantity
       properties:
-        PrimaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
-        SecondaryDiagnosis:
-          $ref: '#/components/schemas/Diagnosis'
+        DispensableDrugId:
+          type: integer
+          format: int32
+        FreeText:
+          type: string
+        DispenseUnitId:
+          type: integer
+          format: int32
+        Quantity:
+          type: string
+        IsFreeTextEPCS:
+          type: boolean
     ClinicFavoritePrescriptionResponse:
       type: object
       properties:
@@ -147,31 +157,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CompoundIngredient'
-    ClinicOrderSetResponse:
-      type: object
-      properties:
-        OrderSetId:
-          type: integer
-          format: int32
-          description: Gets or sets the unique identifier for the order set.
-        Title:
-          type: string
-          description: Gets or sets the title of the order set.
-        Favorites:
-          type: array
-          description: Gets or sets the list of favorite prescriptions associated with this order set.
-          items:
-            $ref: '#/components/schemas/ClinicFavoritePrescriptionResponse'
-    Diagnosis:
-      type: object
-      properties:
-        DiagnosisId:
-          type: integer
-          format: int32
-        DiagnosisCode:
-          type: string
-        DiagnosisDescription:
-          type: string
     Result:
       type: object
       required:
@@ -184,23 +169,37 @@ components:
           type: string
           description: A description of the result, if there were errors.
       description: Represents the result of a service operation.
-    CompoundIngredient:
+    Diagnosis:
       type: object
-      required:
-      - Quantity
       properties:
-        DispensableDrugId:
+        DiagnosisId:
           type: integer
           format: int32
-        FreeText:
+        DiagnosisCode:
           type: string
-        DispenseUnitId:
-          type: integer
-          format: int32
-        Quantity:
+        DiagnosisDescription:
           type: string
-        IsFreeTextEPCS:
-          type: boolean
+    PrescriptionDiagnosis:
+      type: object
+      properties:
+        PrimaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+        SecondaryDiagnosis:
+          $ref: '#/components/schemas/Diagnosis'
+    PagedListResponse_ClinicOrderSetResponse:
+      type: object
+      properties:
+        Items:
+          type: array
+          description: The list of elements to return.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ClinicOrderSetResponse'
+        PageResult:
+          $ref: '#/components/schemas/PageResult'
+        Result:
+          description: The result of the operation.
+          $ref: '#/components/schemas/Result'
     PageResult:
       type: object
       properties:
@@ -222,17 +221,18 @@ components:
         HasNext:
           type: boolean
           readOnly: true
-    PagedListResponse_ClinicOrderSetResponse:
+    ClinicOrderSetResponse:
       type: object
       properties:
-        Items:
+        OrderSetId:
+          type: integer
+          format: int32
+          description: Gets or sets the unique identifier for the order set.
+        Title:
+          type: string
+          description: Gets or sets the title of the order set.
+        Favorites:
           type: array
-          description: The list of elements to return.
-          readOnly: true
+          description: Gets or sets the list of favorite prescriptions associated with this order set.
           items:
-            $ref: '#/components/schemas/ClinicOrderSetResponse'
-        PageResult:
-          $ref: '#/components/schemas/PageResult'
-        Result:
-          description: The result of the operation.
-          $ref: '#/components/schemas/Result'
+            $ref: '#/components/schemas/ClinicFavoritePrescriptionResponse'

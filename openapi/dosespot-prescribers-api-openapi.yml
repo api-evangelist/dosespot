@@ -79,11 +79,6 @@ paths:
                 $ref: '#/components/schemas/ClinicianResult'
 components:
   schemas:
-    ApiResult:
-      type: object
-      properties:
-        Result:
-          $ref: '#/components/schemas/ResultStatus'
     ResultStatus:
       type: object
       properties:
@@ -92,6 +87,29 @@ components:
           description: OK or ERROR.
         ResultDescription:
           type: string
+    ApiResult:
+      type: object
+      properties:
+        Result:
+          $ref: '#/components/schemas/ResultStatus'
+    ClinicianListResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Clinician'
+          PageResult:
+            $ref: '#/components/schemas/PageResult'
+    ClinicianResult:
+      allOf:
+      - $ref: '#/components/schemas/ApiResult'
+      - type: object
+        properties:
+          Item:
+            $ref: '#/components/schemas/Clinician'
     Clinician:
       type: object
       properties:
@@ -132,24 +150,6 @@ components:
           type: array
           items:
             type: string
-    ClinicianListResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Clinician'
-          PageResult:
-            $ref: '#/components/schemas/PageResult'
-    ClinicianResult:
-      allOf:
-      - $ref: '#/components/schemas/ApiResult'
-      - type: object
-        properties:
-          Item:
-            $ref: '#/components/schemas/Clinician'
     PageResult:
       type: object
       properties:
