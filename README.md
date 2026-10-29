@@ -1,4 +1,4 @@
-# DoseSpot (dosespot)
+# DoseSpot
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,156 +64,186 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform. Its REST API (v2) lets healthcare and EHR/EMR software embed the full prescription lifecycle - patient and clinician management, medication and drug search, pharmacy selection, e-prescribing, medication history, eligibility, and push notifications - using OAuth2 Bearer tokens scoped by clinic and clinician keys.
+DoseSpot is a Surescripts- and EPCS-certified electronic prescribing (eRx) platform that EHR, EMR, telehealth and digital-health vendors embed to add the full prescription lifecycle to their own software. The REST API v2 covers patients and demographics, allergies and allergen search, Medi-Span medication and supply search, drug-drug and drug-allergy interaction screening, the Surescripts pharmacy directory, prescription creation, signing and transmission including DEA-regulated EPCS for controlled substances, refill and RxChange queues, medication history, eligibility and real-time prescription benefit, electronic prior authorization, PDMP/Narx reports, and clinician, clinic and DEA-number administration. DoseSpot publishes two Swagger 2.0 contracts from its own SwaggerHub organization - Full + EPCS (171 operations) and JumpStart + EPCS (139 operations) - rendered at docs.dosespot.com, which DoseSpot calls the official source for its technical documentation. Access is sales-gated: credentials are issued by an assigned Integration Specialist. DoseSpot is part of Interra Health, alongside its subsidiary pVerify.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/dosespot/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/dosespot/refs/heads/main/apis.yml)
+**Areas:** e-Prescribing · eRx · Healthcare · Electronic Health Records · Pharmacy · EPCS · Prescriptions · Clinical · Medication · Prior Authorization · Surescripts · Medi-Span
 
-## Tags
+## DoseSpot on APIs.io
 
-- e-Prescribing
-- eRx
-- Healthcare
-- EHR
-- Pharmacy
-- EPCS
+Everything profiled for DoseSpot is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/dosespot/](https://apis.io/providers/dosespot/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (27)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [DoseSpot Medications API](https://apis.io/apis/dosespot/dosespot-medications-api/) — Medi-Span drug search and interaction checks.
+- [DoseSpot Notifications API](https://apis.io/apis/dosespot/dosespot-notifications-api/) — Clinician notification counts and actionable items.
+- [DoseSpot Patients API](https://apis.io/apis/dosespot/dosespot-patients-api/) — Patient demographics, allergies, and self-reported medications.
+- [DoseSpot Pharmacies API](https://apis.io/apis/dosespot/dosespot-pharmacies-api/) — Surescripts pharmacy search and patient pharmacy management.
+- [DoseSpot Prescribers API](https://apis.io/apis/dosespot/dosespot-prescribers-api/) — Clinician (prescriber) and clinic staff management.
+- [DoseSpot Prescriptions API](https://apis.io/apis/dosespot/dosespot-prescriptions-api/) — Prescription creation, transmission, status, and medication history.
+- [DoseSpot Allergens API](https://apis.io/apis/dosespot/dosespot-allergens-api/) — The Allergens API from DoseSpot — 3 operation(s) for allergens.
+- [DoseSpot Allergies API](https://apis.io/apis/dosespot/dosespot-allergies-api/) — The Allergies API from DoseSpot — 5 operation(s) for allergies.
+- [DoseSpot Clinic Favorites API](https://apis.io/apis/dosespot/dosespot-clinicfavorites-api/) — The ClinicFavorites API from DoseSpot — 7 operation(s) for clinicfavorites.
+- [DoseSpot Clinic Groups API](https://apis.io/apis/dosespot/dosespot-clinicgroups-api/) — The ClinicGroups API from DoseSpot — 1 operation(s) for clinicgroups.
+- [DoseSpot Clinician Favorites API](https://apis.io/apis/dosespot/dosespot-clinicianfavorites-api/) — The ClinicianFavorites API from DoseSpot — 8 operation(s) for clinicianfavorites.
+- [DoseSpot Clinician Order Sets API](https://apis.io/apis/dosespot/dosespot-clinicianordersets-api/) — The ClinicianOrderSets API from DoseSpot — 3 operation(s) for clinicianordersets.
+- [DoseSpot Clinicians API](https://apis.io/apis/dosespot/dosespot-clinicians-api/) — The Clinicians API from DoseSpot — 26 operation(s) for clinicians.
+- [DoseSpot Clinic Order Sets API](https://apis.io/apis/dosespot/dosespot-clinicordersets-api/) — The ClinicOrderSets API from DoseSpot — 1 operation(s) for clinicordersets.
+- [DoseSpot Clinics API](https://apis.io/apis/dosespot/dosespot-clinics-api/) — The Clinics API from DoseSpot — 7 operation(s) for clinics.
+- [DoseSpot Diagnoses API](https://apis.io/apis/dosespot/dosespot-diagnoses-api/) — The Diagnoses API from DoseSpot — 1 operation(s) for diagnoses.
+- [DoseSpot Eligibilities API](https://apis.io/apis/dosespot/dosespot-eligibilities-api/) — The Eligibilities API from DoseSpot — 4 operation(s) for eligibilities.
+- [DoseSpot Interactions API](https://apis.io/apis/dosespot/dosespot-interactions-api/) — The Interactions API from DoseSpot — 3 operation(s) for interactions.
+- [DoseSpot Medication History API](https://apis.io/apis/dosespot/dosespot-medicationhistory-api/) — The MedicationHistory API from DoseSpot — 2 operation(s) for medicationhistory.
+- [DoseSpot Narx API](https://apis.io/apis/dosespot/dosespot-narx-api/) — The Narx API from DoseSpot — 3 operation(s) for narx.
+- [DoseSpot Prior Authorizations API](https://apis.io/apis/dosespot/dosespot-priorauthorizations-api/) — The PriorAuthorizations API from DoseSpot — 16 operation(s) for priorauthorizations.
+- [DoseSpot Refills API](https://apis.io/apis/dosespot/dosespot-refills-api/) — The Refills API from DoseSpot — 6 operation(s) for refills.
+- [DoseSpot Rx Changes API](https://apis.io/apis/dosespot/dosespot-rxchanges-api/) — The RxChanges API from DoseSpot — 6 operation(s) for rxchanges.
+- [DoseSpot Self Reported Medications API](https://apis.io/apis/dosespot/dosespot-selfreportedmedications-api/) — The SelfReportedMedications API from DoseSpot — 9 operation(s) for selfreportedmedications.
+- [DoseSpot Supplies API](https://apis.io/apis/dosespot/dosespot-supplies-api/) — The Supplies API from DoseSpot — 2 operation(s) for supplies.
+- [DoseSpot Transparency API](https://apis.io/apis/dosespot/dosespot-transparency-api/) — The Transparency API from DoseSpot — 1 operation(s) for transparency.
+- [DoseSpot Health Check API](https://apis.io/apis/dosespot/dosespot-health-check-api/) — The Health Check API from DoseSpot — 1 operation(s) for health check.
 
-## APIs
+### Published properties
 
-### DoseSpot Patients API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Create, retrieve, update, and search patients, including demographics, self-reported allergies, and self-reported medications used as the subject of a prescription.
+#### AsyncAPI (1)
 
-- **Human URL:** [https://dosespot.com/full-integration/](https://dosespot.com/full-integration/)
-- **Base URL:** `https://my.dosespot.com/webapi/v2`
+Event-driven and webhook contracts.
 
-#### Tags
+- [Dosespot Webhooks](https://apis.io/asyncapis/dosespot/dosespot-webhooks/)
 
-- Patients
-- Demographics
-- Healthcare
+#### MCP servers (1)
 
-#### Properties
+Model Context Protocol servers that expose the API to agents.
 
-- [Documentation](https://dosespot.com/full-integration/)
-- [OpenAPI](openapi/dosespot-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dosespot.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dosespot.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [dosespot](https://apis.io/servers/dosespot/dosespot/)
 
-### DoseSpot Prescriptions API
+#### Agentic access (1)
 
-Create, send, and track prescriptions for a patient across the prescription lifecycle, retrieve prescription status, and access aggregated medication history and pending renewal/refill requests.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Human URL:** [https://dosespot.com/full-integration/](https://dosespot.com/full-integration/)
-- **Base URL:** `https://my.dosespot.com/webapi/v2`
+- [Dosespot Agentic Access](https://apis.io/agentic-access/dosespot/dosespot-agentic-access/)
 
-#### Tags
+#### Vocabulary (1)
 
-- Prescriptions
-- eRx
-- EPCS
+The provider's domain terms, defined.
 
-#### Properties
+- [DoseSpot API v2 Enumerations Vocabulary](https://apis.io/vocabularies/dosespot/dosespot-vocabulary/)
 
-- [Documentation](https://dosespot.com/full-integration/)
-- [OpenAPI](openapi/dosespot-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dosespot.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dosespot.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Collections (7)
 
-### DoseSpot Medications API
+Postman and Open Collection request collections.
 
-Search the Medi-Span drug database for medications and supplies, retrieve drug details and strengths, and run drug-drug and drug-allergy interaction checks.
+- [DoseSpot API](https://apis.io/collections/dosespot/open-dosespot/)
+- [DoseSpot Medications API](https://apis.io/collections/dosespot/open-dosespot-medications-api/)
+- [DoseSpot Medications Notifications API](https://apis.io/collections/dosespot/open-dosespot-notifications-api/)
+- [DoseSpot Medications Patients API](https://apis.io/collections/dosespot/open-dosespot-patients-api/)
+- [DoseSpot Medications Pharmacies API](https://apis.io/collections/dosespot/open-dosespot-pharmacies-api/)
+- [DoseSpot Medications Prescribers API](https://apis.io/collections/dosespot/open-dosespot-prescribers-api/)
+- [DoseSpot Medications Prescriptions API](https://apis.io/collections/dosespot/open-dosespot-prescriptions-api/)
 
-- **Human URL:** [https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/](https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/)
-- **Base URL:** `https://my.dosespot.com/webapi/v2`
+#### Overlays (2)
 
-#### Tags
+OpenAPI overlays, including conversational phrasing for each operation.
 
-- Medications
-- Drug Search
-- Allergies
+- [Dosespot Full Epcs V2 Overlay](https://apis.io/overlays/dosespot/dosespot-full-epcs-v2-overlay/)
+- [Dosespot Jumpstart Epcs V2 Overlay](https://apis.io/overlays/dosespot/dosespot-jumpstart-epcs-v2-overlay/)
 
-#### Properties
+#### Security (4)
 
-- [Documentation](https://dosespot.com/transitioning-to-api-v2-and-the-medi-span-drug-database/)
-- [OpenAPI](openapi/dosespot-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dosespot.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dosespot.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Authentication, trust centre, and vulnerability disclosure.
 
-### DoseSpot Pharmacies API
+- [Dosespot Authentication](https://apis.io/security/dosespot/dosespot-authentication/)
+- [Dosespot Domain Security](https://apis.io/security/dosespot/dosespot-domain-security/)
+- [Dosespot Trust Center](https://apis.io/security/dosespot/dosespot-trust-center/)
+- [Dosespot Vulnerability Disclosure](https://apis.io/security/dosespot/dosespot-vulnerability-disclosure/)
 
-Search the Surescripts pharmacy directory by name, location, and specialty, and manage a patient's preferred pharmacies for prescription routing.
+#### Plans and pricing (1)
 
-- **Human URL:** [https://dosespot.com/full-integration/](https://dosespot.com/full-integration/)
-- **Base URL:** `https://my.dosespot.com/webapi/v2`
+Published plans, tiers and prices.
 
-#### Tags
+- [Dosespot Plans Pricing](https://apis.io/plans/dosespot/dosespot-plans-pricing/)
 
-- Pharmacies
-- Surescripts
-- Routing
+#### Rate limits (1)
 
-#### Properties
+Published request limits.
 
-- [Documentation](https://dosespot.com/full-integration/)
-- [OpenAPI](openapi/dosespot-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dosespot.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dosespot.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Dosespot Rate Limits](https://apis.io/rate-limits/dosespot/dosespot-rate-limits/)
 
-### DoseSpot Prescribers API
+#### FinOps (1)
 
-Create and manage clinicians (prescribers) and supporting staff within a clinic, retrieve clinician records, and configure the prescribing identities used to send eRx and EPCS transactions.
+What the API costs to run, by operation.
 
-- **Human URL:** [https://dosespot.com/full-integration/](https://dosespot.com/full-integration/)
-- **Base URL:** `https://my.dosespot.com/webapi/v2`
+- [Dosespot Finops](https://apis.io/finops/dosespot/dosespot-finops/)
 
-#### Tags
+## Where to find this API
 
-- Prescribers
-- Clinicians
-- Providers
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Properties
-
-- [Documentation](https://dosespot.com/full-integration/)
-- [OpenAPI](openapi/dosespot-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dosespot.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dosespot.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### DoseSpot Notifications API
-
-Retrieve clinician notification counts and actionable items (transmission errors, refill requests, pharmacy responses), and subscribe to push notifications to avoid polling the API for new events.
-
-- **Human URL:** [https://dosespot.com/full-integration/](https://dosespot.com/full-integration/)
-- **Base URL:** `https://my.dosespot.com/webapi/v2`
-
-#### Tags
-
-- Notifications
-- Webhooks
-- Push
-
-#### Properties
-
-- [Documentation](https://dosespot.com/full-integration/)
-- [OpenAPI](openapi/dosespot-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/dosespot.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dosespot.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/dosespot)
 - [Website](https://www.dosespot.com)
 - [Documentation](https://dosespot.com/full-integration/)
-- [Plans](plans/dosespot-plans-pricing.yml)
-- [Rate Limits](rate-limits/dosespot-rate-limits.yml)
-- [Fin Ops](finops/dosespot-finops.yml)
+- [Getting started](https://docs.dosespot.com/staging/docs/getting-started)
+- [API reference](https://docs.dosespot.com/staging/docs/dosespot-rest-api-full-epcs-v2-v-full_epcsv2)
+- [Sign up](https://dosespot.com/request-a-demo/)
+- [Support](https://dosespot.com/request-support/)
+- [Blog](https://dosespot.com/blog/)
+- [Compliance](https://dosespot.com/security/)
+- [Terms of service](https://dosespot.com/dosespot-legal-documentation/)
+- [Privacy policy](https://dosespot.com/privacy-policy/)
+- [GitHub](https://github.com/DoseSpot)
+- [Status](https://status.dosespot.com/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 58.3** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 51.0 |
+| Contract governance | 33.3 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 67.3 |
+| Access clarity | 71.1 |
+
+**Agent readiness 30.7** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 27.3** — Health
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/dosespot/](https://apis.io/providers/dosespot/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for DoseSpot: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/dosespot/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
